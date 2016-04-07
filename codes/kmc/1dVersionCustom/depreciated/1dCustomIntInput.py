@@ -1,6 +1,8 @@
 import sys
 import os
 
+# Don't use this script, it kinda sucks!
+
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print "WARNING! $RESULTS not set! Attempt to write results will fail!\n"
@@ -11,12 +13,16 @@ from KMCLib import *
 from KMCLib.Backend import Backend
 import numpy
 
-avConc = float(sys.argv[1])
-concDiff = float(sys.argv[2])
-rateConstFull = float(sys.argv[3])
+avConcInt = int(sys.argv[1])
+concDiffInt = int(sys.argv[2])
+rateConstFullInt = int(sys.argv[3])
 sysSize = int(sys.argv[4])
 numSteps = int(sys.argv[5])
-transTime = float(sys.argv[6])
+transTimeInt = int(sys.argv[6])
+avConc = 0.001*avConcInt
+concDiff = 0.001*concDiffInt
+rateConstFull = 0.001*rateConstFullInt
+transTime = 0.001*transTimeInt
 fileInfo = sys.argv[7]
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
@@ -60,7 +66,7 @@ types[1] = "Bo"
 types[-2] = "To"
 types[-1] = "To"
 for i in range(int(zRep*avConc)):
-    # find a site which is not yet occupied by a "O" type.
+    # find a site which is not yet occupied by a "D" type.
     pos = int(numpy.random.rand()*zRep+2.0)
     while (types[pos] != "V"):
         pos = int(numpy.random.rand()*zRep+2.0)
@@ -223,8 +229,8 @@ processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=100000.0, s
 processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=100000.0, spatially_resolved=False, transientTime=transTime)
 
 # Define the parameters; not entirely sure if these are sensible or not...
-control_parameters = KMCControlParameters(number_of_steps=numSteps, analysis_interval=numSteps/1000,
-                                          dump_interval=numSteps/1000)
+control_parameters = KMCControlParameters(number_of_steps=numSteps, analysis_interval=1000,
+                                          dump_interval=1000000)
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 

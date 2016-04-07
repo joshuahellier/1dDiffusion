@@ -40,8 +40,8 @@ lattice = KMCLattice(
 # -----------------------------------------------------------------------------
 # Configuration
 
-types = ['Bo','Bo','V','V','V','V','V','V','V','V','V','V',
-         'V','V','V','V','V','V','V','V','V','V','To','To']
+types = ['Bo','Bo','O','O','O','V','O','O','V','O','V','O',
+         'V','O','V','V','O','V','V','V','O','V','To','To']
 
 possible_types = ['To','Bo','O','V']
 

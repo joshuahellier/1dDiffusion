@@ -5,18 +5,76 @@ resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print "WARNING! $RESULTS not set! Attempt to write results will fail!\n"
 
-# Expecting input avConc, concDiff, rateConstFull, fileCode
+# Expecting input avConc, concDiff, rateConstFull, sysSize, numSteps, transTime,  fileCode
 
 from KMCLib import *
 from KMCLib.Backend import Backend
-# Load the configuration and interactions.
-configuration = KMCConfigurationFromScript("config.py")
-
+import numpy
 
 avConc = float(sys.argv[1])
 concDiff = float(sys.argv[2])
 rateConstFull = float(sys.argv[3])
-fileInfo = sys.argv[4]
+sysSize = int(sys.argv[4])
+numSteps = int(sys.argv[5])
+transTime = float(sys.argv[6])
+fileInfo = sys.argv[7]
+
+resultsPlace = resultDir+"/"+fileInfo+"/"
+
+if not os.path.exists(resultsPlace):
+    os.makedirs(resultsPlace)
+
+with open(resultsPlace+'/settings', 'w') as f:
+    f.write('AverageConcentration=' + str(avConc) +'\n')
+    f.write('ConcDifference=' + str(concDiff) +'\n')
+    f.write('FullRate=' + str(rateConstFull) +'\n')
+    f.write('SysSize=' + str(sysSize) +'\n')
+    f.write('TransientTime=' + str(transTime) +'\n')
+
+"""I've put this in the file to make command line input easier"""
+# Load the configuration and interactions.
+# We're in 1d, so everything's a bit trivial
+cell_vectors = [[1.0,0.0,0.0],
+                [0.0,1.0,0.0],
+                [0.0,0.0,1.0]]
+
+# Only bothering with one set
+basis_points = [[0.0, 0.0, 0.0]]
+
+unit_cell = KMCUnitCell(cell_vectors=cell_vectors,
+                        basis_points=basis_points)
+
+# Define the lattice.
+xRep = 1
+yRep = 1
+zRep = sysSize
+numPoints = xRep*(zRep+4)*yRep
+lattice = KMCLattice(unit_cell=unit_cell,
+                     repetitions=(xRep,yRep,zRep+4),
+                     periodic=(False, False, True))
+
+# Generate the initial types. There's double-layered
+types = ["V"]*numPoints
+types[0] = "Bo"
+types[1] = "Bo"
+types[-2] = "To"
+types[-1] = "To"
+for i in range(int(zRep*avConc)):
+    # find a site which is not yet occupied by a "D" type.
+    pos = int(numpy.random.rand()*zRep+2.0)
+    while (types[pos] != "V"):
+        pos = int(numpy.random.rand()*zRep+2.0)
+    # Set the type.
+    types[pos] = "O"
+
+# Setup the configuration.
+configuration = KMCConfiguration(lattice=lattice,
+                                 types=types,
+                                 possible_types=["O","V","To","Bo"])
+
+
+
+
 
 # Rates.
 rateConstEmpty        	= 1.0
@@ -158,30 +216,25 @@ model = KMCLatticeModel(configuration, interactions)
                            track_type="O")"""
 
 # Trying to find out information about distribution of time steps
-timeStepDistn = TimeStepDistribution(0.1)
-processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=1000.0, spatially_resolved=False)
-processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=1000.0, spatially_resolved=False)
-processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=1000.0, spatially_resolved=False)
-processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=1000.0, spatially_resolved=False)
+#timeStepDistn = TimeStepDistribution(0.1)
+processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=100000.0, spatially_resolved=False, transientTime=transTime)
+processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=100000.0, spatially_resolved=False, transientTime=transTime)
+processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=100000.0, spatially_resolved=False, transientTime=transTime)
+processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=100000.0, spatially_resolved=False, transientTime=transTime)
 
 # Define the parameters; not entirely sure if these are sensible or not...
-control_parameters = KMCControlParameters(number_of_steps=100000000, analysis_interval=1000,
-                                          dump_interval=10000)
+control_parameters = KMCControlParameters(number_of_steps=numSteps, analysis_interval=numSteps/1000,
+                                          dump_interval=numSteps/1000)
 
-# Run the simulation - save trajectory to the thing below
+# Run the simulation - save trajectory to resultsPlace, which should by now exist
 
-resultsPlace = resultDir+"/"+fileInfo+"/"
-
-if not os.path.exists(resultsPlace):
-    os.makedirs(resultsPlace)
-
-model.run(control_parameters, trajectory_filename=(resultsPlace+"traj.tr"), analysis=[timeStepDistn, processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
+model.run(control_parameters, trajectory_filename=(resultsPlace+"traj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
 
 """with open('msdData.data', 'w') as f:
     msd_analysis.printResults(f)"""
 
-with open(resultsPlace+"/times.dat", 'w') as f:
-    timeStepDistn.printResults(f)
+"""with open(resultsPlace+"/times.dat", 'w') as f:
+    timeStepDistn.printResults(f)"""
 
 with open(resultsPlace+"/procOxInBot.dat", 'w') as f:
     processStatsOxInBot.printResults(f)
@@ -195,9 +248,4 @@ with open(resultsPlace+"/procOxInTop.dat", 'w') as f:
 with open(resultsPlace+"/procOxOutTop.dat", 'w') as f:
     processStatsOxOutTop.printResults(f)
 
-
-
-print(topConc)
-print(bottConc)
-print(rateConstFull)
-print(rateConstEmpty)
+print("Process would appear to have succesfully terminated! How very suspicious...")

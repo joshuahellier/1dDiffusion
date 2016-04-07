@@ -27,6 +27,13 @@ types[0] = "Bo"
 types[1] = "Bo"
 types[-2] = "To"
 types[-1] = "To"
+for i in range(zRep/2):
+    # find a site which is not yet occupied by a "D" type.
+    pos = int(numpy.random.rand()*zRep+2.0)
+    while (types[pos] != "V"):
+        pos = int(numpy.random.rand()*zRep+2.0)
+    # Set the type.
+    types[pos] = "O"
 
 # Setup the configuration.
 configuration = KMCConfiguration(lattice=lattice,
