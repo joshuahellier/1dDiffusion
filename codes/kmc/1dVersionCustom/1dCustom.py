@@ -25,11 +25,11 @@ if not os.path.exists(resultsPlace):
     os.makedirs(resultsPlace)
 
 with open(resultsPlace+'/settings', 'w') as f:
-    f.write('AverageConcentration=' + str(avConc) +'\n')
-    f.write('ConcDifference=' + str(concDiff) +'\n')
-    f.write('FullRate=' + str(rateConstFull) +'\n')
-    f.write('SysSize=' + str(sysSize) +'\n')
-    f.write('TransientTime=' + str(transTime) +'\n')
+    f.write('AverageConcentration = ' + str(avConc) +'\n')
+    f.write('ConcDifference = ' + str(concDiff) +'\n')
+    f.write('FullRate = ' + str(rateConstFull) +'\n')
+    f.write('SysSize = ' + str(sysSize) +'\n')
+    f.write('TransientTime = ' + str(transTime) +'\n')
 
 """I've put this in the file to make command line input easier"""
 # Load the configuration and interactions.
@@ -119,7 +119,7 @@ processes.append( KMCProcess(coordinates=coordinates,
 # Will customise
 
 
-# Now for empty Oxygen annihilation at the top boundary
+# Now for Oxygen annihilation at the top boundary
 #2
 elements_before = ["O", "To"]
 elements_after  = ["V", "To"]
@@ -128,7 +128,7 @@ processes.append( KMCProcess(coordinates=coordinates,
                              elements_before=elements_before,
                              elements_after=elements_after,
                              basis_sites=basis_sites,
-                             rate_constant=1.0))
+                             rate_constant=(1.0-topConc)))
 # Will customise the rate constant
 
 
@@ -141,7 +141,7 @@ processes.append( KMCProcess(coordinates=coordinates,
                              elements_before=elements_before,
                              elements_after=elements_after,
                              basis_sites=basis_sites,
-                             rate_constant=(topConc*rateConstFull+(1.0-topConc)*rateConstEmpty)))
+                             rate_constant=topConc*(topConc*rateConstFull+(1.0-topConc)*rateConstEmpty)))
 
 # Now for Oxygen annihilation at the bottom boundary
 # Bottom
@@ -153,7 +153,7 @@ processes.append( KMCProcess(coordinates=coordinates,
                              elements_before=elements_before,
                              elements_after=elements_after,
                              basis_sites=basis_sites,
-                             rate_constant=1.0))
+                             rate_constant=(1.0-bottConc)))
 # Obviously the rate constant will be customised
 
 
@@ -167,7 +167,7 @@ processes.append( KMCProcess(coordinates=coordinates,
                              elements_before=elements_before,
                              elements_after=elements_after,
                              basis_sites=basis_sites,
-                             rate_constant=(rateConstFull*bottConc+(1.0-bottConc)*rateConstEmpty)))
+                             rate_constant=bottConc*(rateConstFull*bottConc+(1.0-bottConc)*rateConstEmpty)))
 
 # Create the interactions object.
 interactions = KMCInteractions(processes, implicit_wildcards=True)
@@ -180,16 +180,27 @@ class lolModelRates(KMCRateCalculatorPlugin):
         if process_number in [0, 1]:
             if len([e for e in elements_before if e == "O"]) == 2:
                 return rateConstFull
+            else:
+                return rateConstEmpty
 
         if process_number == 2:
             if len([e for e in elements_before if e == "O"]) == 2:
-                return rateConstFull
+                return rateConstFull*(1.0-topConc)
+            else:
+                return rateConstEmpty*(1.0-topConc)
 
         if process_number == 4:
             if len([e for e in elements_before if e == "O"]) == 2:
-                return rateConstFull
+                return rateConstFull*(1.0-bottConc)
+            else:
+                return rateConstEmpty*(1.0-bottConc)
 
-        return 1.0
+        if process_number == 3:
+            return topConc*(topConc*rateConstFull+(1.0-topConc)*rateConstEmpty)
+
+        if process_number == 5:
+            return bottConc*(rateConstFull*bottConc+(1.0-bottConc)*rateConstEmpty)
+
 
     def cutoff(self):
         """ Overloaded base class API function """
@@ -217,13 +228,13 @@ model = KMCLatticeModel(configuration, interactions)
 
 # Trying to find out information about distribution of time steps
 #timeStepDistn = TimeStepDistribution(0.1)
-processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=100000.0, spatially_resolved=False, transientTime=transTime)
-processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=100000.0, spatially_resolved=False, transientTime=transTime)
-processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=100000.0, spatially_resolved=False, transientTime=transTime)
-processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=100000.0, spatially_resolved=False, transientTime=transTime)
+processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=500000.0, spatially_resolved=False, transientTime=transTime)
+processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=500000.0, spatially_resolved=False, transientTime=transTime)
+processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=500000.0, spatially_resolved=False, transientTime=transTime)
+processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=500000.0, spatially_resolved=False, transientTime=transTime)
 
 # Define the parameters; not entirely sure if these are sensible or not...
-control_parameters = KMCControlParameters(number_of_steps=numSteps, analysis_interval=numSteps/1000,
+control_parameters = KMCControlParameters(number_of_steps=numSteps, analysis_interval=100,
                                           dump_interval=numSteps/1000)
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist

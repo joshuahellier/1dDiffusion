@@ -3,18 +3,18 @@ import subprocess
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
 
-numCores = 7
-totalRuns = 21
+numCores = 6
+totalRuns = 12
 avConc = 0.5
 maxConcDiff = 1.0
 minConcDiff = -1.0
-numSteps = 100000000
-transTime = 300000.0
+numSteps = 200000000
+transTime = 5000000.0
 fullRate = 1.0
-sysSize = 20
-dataLocation = "tests/pythonManagerTest4/"
+sysSize = 8
+dataLocation = "tests/pythonManagerTest11/"
 
-concStepSize = (maxConcDiff-minConcDiff)/float(totalRuns)
+concStepSize = (maxConcDiff-minConcDiff)/float(totalRuns-1)
 jobsStarted = 0
 coresUsed = 0
 

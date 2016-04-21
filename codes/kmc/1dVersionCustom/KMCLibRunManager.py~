@@ -4,15 +4,15 @@ import subprocess
 # in the name of time efficiency
 
 numCores = 6
-totalRuns = 24
+totalRuns = 12
 avConc = 0.5
 maxConcDiff = 1.0
 minConcDiff = -1.0
-numSteps = 10000000
-transTime = 100000.0
+numSteps = 200000000
+transTime = 5000000.0
 fullRate = 1.0
-sysSize = 20
-dataLocation = "tests/pythonManagerTest3/"
+sysSize = 8
+dataLocation = "tests/pythonManagerTest11/"
 
 concStepSize = (maxConcDiff-minConcDiff)/float(totalRuns)
 jobsStarted = 0

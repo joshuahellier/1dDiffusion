@@ -103,7 +103,7 @@ class ProcessStatistics(KMCAnalysisPlugin):
         """
         # Only master writes.
         if MPICommons.isMaster():
-            stream.write("%15s %15s %15s %12s %12s\n"%("  time (t)", " count (n)", "(dn/dt)   ", "stdErr", "relErr"))
+            stream.write("%15s %15s %15s %12s\n"%("  time (t)", " count (n)", "(dn/dt)   ", "stdErr"))
             n_tot  = 0
 	    actualTot = 0
             t = 0.0
@@ -120,14 +120,12 @@ class ProcessStatistics(KMCAnalysisPlugin):
                 rateEst = dn/dt
                 stdErr = math.sqrt(dn)/dt
                 # Only for times != zero.
-                if (i > 0) and (rateEst!=0.0):
-                    stream.write("%15.5f %15i %15.5f %15.5f %15.5f\n"%(t, n_tot, rateEst, stdErr, 100.0*(stdErr/rateEst)))
-                else:
-                    stream.write("%15.5f %15i %15.5f %15.5f"%(t, n_tot, rateEst, stdErr)+" N/A\n")
+                if (i > 0):
+                    stream.write("%15.5f %15i"%(t, n_tot) +"        "+ "{:.6E}".format(rateEst) +"        "+"{:.3E}".format(stdErr) +"\n")
             eqTime = t - self.__transientTime
             eqRate = actualTot/eqTime
             eqStdErr = math.sqrt(actualTot)/eqTime
-            stream.write("\nThere were " + "%15i"%(actualTot) + " counts after equilibration. Therefore, the equilibrium rate estimate is " + "%15.5f"%(actualTot/eqTime) + "+/-" + "%15.5f"%(eqStdErr) + ".")
+            stream.write("\nThere were " + "%6i"%(actualTot) + " counts after equilibration. Therefore, the equilibrium rate estimate is " + "{:.6E}".format(eqRate) + "+/-" + "{:.3E}".format(eqStdErr) + ".")
 
     def spatialData(self):
         """
