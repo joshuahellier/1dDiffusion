@@ -5,7 +5,7 @@ resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print "WARNING! $RESULTS not set! Attempt to write results will fail!\n"
 
-# Expecting input avConc, concDiff, rateConstFull, sysSize, numSteps, transTime,  fileCode
+# Expecting input avConc, concDiff, rateConstFull, sysSize, analInterval, numSteps, timeInterval, transTime,  fileCode
 
 from KMCLib import *
 from KMCLib.Backend import Backend
@@ -15,9 +15,11 @@ avConc = float(sys.argv[1])
 concDiff = float(sys.argv[2])
 rateConstFull = float(sys.argv[3])
 sysSize = int(sys.argv[4])
-numSteps = int(sys.argv[5])
-transTime = float(sys.argv[6])
-fileInfo = sys.argv[7]
+analInterval = int(sys.argv[5])
+numSteps = int(sys.argv[6])
+timeInterval = float(sys.argv[7])
+transTime = float(sys.argv[8])
+fileInfo = sys.argv[9]
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
 
@@ -29,7 +31,10 @@ with open(resultsPlace+'/settings', 'w') as f:
     f.write('ConcDifference = ' + str(concDiff) +'\n')
     f.write('FullRate = ' + str(rateConstFull) +'\n')
     f.write('SysSize = ' + str(sysSize) +'\n')
+    f.write('TimeInterval = ' + str(timeInterval) +'\n')
     f.write('TransientTime = ' + str(transTime) +'\n')
+    f.write('AnalInterval = ' +str(analInterval) + '\n')
+    f.write('NumSteps = '+str(numSteps) +'\n')
 
 """I've put this in the file to make command line input easier"""
 # Load the configuration and interactions.
@@ -228,13 +233,13 @@ model = KMCLatticeModel(configuration, interactions)
 
 # Trying to find out information about distribution of time steps
 #timeStepDistn = TimeStepDistribution(0.1)
-processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=500000.0, spatially_resolved=False, transientTime=transTime)
-processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=500000.0, spatially_resolved=False, transientTime=transTime)
-processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=500000.0, spatially_resolved=False, transientTime=transTime)
-processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=500000.0, spatially_resolved=False, transientTime=transTime)
+processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterval, spatially_resolved=False, transientTime=transTime, anal_Interval = analInterval)
+processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=timeInterval, spatially_resolved=False, transientTime=transTime, anal_Interval = analInterval)
+processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, transientTime=transTime, anal_Interval = analInterval)
+processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, transientTime=transTime, anal_Interval = analInterval)
 
 # Define the parameters; not entirely sure if these are sensible or not...
-control_parameters = KMCControlParameters(number_of_steps=numSteps, analysis_interval=100,
+control_parameters = KMCControlParameters(number_of_steps=numSteps, analysis_interval=analInterval,
                                           dump_interval=numSteps/1000)
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist

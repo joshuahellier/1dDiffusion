@@ -16,6 +16,7 @@ import math
 from KMCLib.PluginInterfaces.KMCAnalysisPlugin import KMCAnalysisPlugin
 from KMCLib.Utilities.CheckUtilities import checkSequenceOfPositiveIntegers
 from KMCLib.Utilities.CheckUtilities import checkPositiveFloat
+from KMCLib.Utilities.CheckUtilities import checkPositiveInteger
 from KMCLib.Exceptions.Error import Error
 from KMCLib.Backend.Backend import MPICommons
 
@@ -27,7 +28,8 @@ class ProcessStatistics(KMCAnalysisPlugin):
                  processes=None,
                  time_interval=None,
                  spatially_resolved=None,
-                 transientTime=None):
+                 transientTime=None,
+                 anal_Interval=None):
         """
         Constructor for the process statistics analysis.
 
@@ -45,6 +47,8 @@ class ProcessStatistics(KMCAnalysisPlugin):
         self.__processes = checkSequenceOfPositiveIntegers(processes, msg)
         self.__time_interval = checkPositiveFloat(time_interval, 1.0, 'time_interval')
 	self.__transientTime = checkPositiveFloat(transientTime, 1.0, 'transientTime')
+        self.__analInterval = checkPositiveInteger(anal_Interval, 1, 'anal_Interval')
+        self.__floatAnalInterval = float(self.__analInterval)
         if (spatially_resolved is None):
             spatially_resolved = False
         elif not isinstance(spatially_resolved, bool):
@@ -117,15 +121,15 @@ class ProcessStatistics(KMCAnalysisPlugin):
                 dt = self.__time_interval
                 n_tot += n
                 dn     = n
-                rateEst = dn/dt
-                stdErr = math.sqrt(dn)/dt
+                rateEst = self.__floatAnalInterval*dn/dt
+                stdErr = self.__floatAnalInterval*math.sqrt(dn)/dt
                 # Only for times != zero.
                 if (i > 0):
                     stream.write("%15.5f %15i"%(t, n_tot) +"        "+ "{:.6E}".format(rateEst) +"        "+"{:.3E}".format(stdErr) +"\n")
             eqTime = t - self.__transientTime
-            eqRate = actualTot/eqTime
-            eqStdErr = math.sqrt(actualTot)/eqTime
-            stream.write("\nThere were " + "%6i"%(actualTot) + " counts after equilibration. Therefore, the equilibrium rate estimate is " + "{:.6E}".format(eqRate) + "+/-" + "{:.3E}".format(eqStdErr) + ".")
+            eqRate = self.__floatAnalInterval*actualTot/eqTime
+            eqStdErr = self.__floatAnalInterval*math.sqrt(actualTot)/eqTime
+            stream.write("\nThere were " + "%6i"%(actualTot) + " counts after equilibration. Therefore, the equilibrium rate estimate is " + "{:.6E}".format(eqRate) + "+/-" + "{:.3E}".format(eqStdErr))
 
     def spatialData(self):
         """
