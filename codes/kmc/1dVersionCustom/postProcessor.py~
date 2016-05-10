@@ -79,7 +79,7 @@ for i in directoryList:
     timeChunkIndex = 0
     mainIndex = 0
     """Just for now!"""
-    timeInterval = 1000000.0
+    timeInterval = 100000.0
     for j in times:
         print(j)
         if float(j) < float(timeChunkIndex+1)*timeInterval:
@@ -91,8 +91,39 @@ for i in directoryList:
             timeChunkIndex = timeChunkIndex+1
         mainIndex = mainIndex + 1
 
+    timeChunkIndex = 0
+    mainIndex = 0
+    listIndex = 0
+    weights = []
     for j in chunklets:
-        print(j)
+        currentWeights = []
+        chunkIndex = 0
+        currentWeight = 0.0
+        currentWeight = 0.5*((times[j[0]]-timeChunkIndex*timeInterval)**2)/(times[j[0]]-times[mainIndex-1])
+        currentWeights.append([j[0]-1, currentWeight])
+        for k in j:
+            currentWeight = 0.0
+            if chunkIndex == 0:
+                currentWeight += 0.5*(times[k]-timeChunkIndex*timeInterval)
+            else:
+                currentWeight += 0.5*(times[k]-times[k-1])
+            if chunkIndex == len(j)-1:
+                currentWeight += 0.5*((timeChunkIndex+1)*timeInterval-times[k])
+            else:
+                currentWeight += 0.5*(times[k+1]-times[k])
+            currentWeights.append([k, currentWeight])
+            mainIndex = mainIndex + 1
+            chunkIndex = chunkIndex + 1
+        currentWeight = 0.5*(((timeChunkIndex+1)*timeInterval-times[j[-1]])**2)/(times[mainIndex+1]-times[j[-1]])
+        currentWeights.append([j[-1]+1, currentWeight])
+        timeChunkIndex = timeChunkIndex + 1
+    weights.append(currentWeights)
+    
+    print("Now let's see what these weights are!\n")
+
+    for j in weights:
+        for k in j:
+            print(str(k)+"\n")
 
     print("Done testing!\n")
             
@@ -138,53 +169,4 @@ ols_fit = sm.ols('x ~ y', data=ws).fit()
 with open(resultsPlace+"regressionData.dat", 'a') as f:
     f.writelines([str(wls_fit.summary())+"\n", str(wls_fit.params[0])+" "+str(wls_fit.bse[0])+"\n", str(wls_fit.params[1])+" "+str(wls_fit.bse[1])+"\n"])
     
-
-
-"""
-# let's plot our data
-plt.clf()
-fig = plt.figure()
-ax = fig.add_subplot(111, axisbg='w')
-ws.plot(
-    kind='scatter',
-    x='x',
-    y='y',
-    style='o',
-    alpha=1.,
-    ax=ax,
-    title='Flow as a function of gradient',
-    edgecolor='#ff8300',
-    s=40
-)
-
-# weighted prediction
-wp, = ax.plot(
-    wls_fit.predict(),
-    ws['y'],
-    color='#e55ea2',
-    lw=1.,
-    alpha=1.0,
-)
-
-# unweighted prediction
-op, = ax.plot(  
-    ols_fit.predict(),
-    ws['y'],
-    color='k',
-    ls='solid',
-    lw=1,
-    alpha=1.0,
-)
-leg = plt.legend(
-    (op, wp),
-    ('Ordinary Least Squares', 'Weighted Least Squares'),
-    loc='upper left',
-    fontsize=8)
-
-plt.tight_layout()
-fig.set_size_inches(6.40, 5.12)
-plt.savefig(resultsPlace+"so.png", dpi=100, alpha=True)
-plt.show()
-"""
-
 

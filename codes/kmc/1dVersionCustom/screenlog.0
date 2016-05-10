@@ -1,0 +1,11 @@
+ls
+1dCustomIntInput.py~   grandPostProcessor.py~      ProcessStatistics.py
+1dCustom.py            KMCLibRunManager.py         [0m[01;32mrunManager.sh~[0m
+1dCustom.py~           KMCLibRunManager.py~        scanner.py
+data.txt               postProcessor.py            scanner.py~
+data.txt~              postProcessor.py~           screenlog.0
+[01;34mdepreciated[0m            postProcessorUtilities.py   [01;35mso.png[0m
+generateConfig.py~     postProcessorUtilities.py~  veryingLambdaData.ods
+grandPostProcessor.py  processedData.ods
+jhell@darthPicard:~/research/PhDStuff/codes/kmc/1dVersionCustom$ 
+jhell@darthPicard:~/research/PhDStuff/codes/kmc/1dVersionCustom$ 

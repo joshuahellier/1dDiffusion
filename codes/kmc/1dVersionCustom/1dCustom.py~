@@ -31,7 +31,7 @@ with open(resultsPlace+'/settings', 'w') as f:
     f.write('ConcDifference = ' + str(concDiff) +'\n')
     f.write('FullRate = ' + str(rateConstFull) +'\n')
     f.write('SysSize = ' + str(sysSize) +'\n')
-    f.write('TimeInterval + ' + str(timeInterval) +'\n')
+    f.write('TimeInterval = ' + str(timeInterval) +'\n')
     f.write('TransientTime = ' + str(transTime) +'\n')
     f.write('AnalInterval = ' +str(analInterval) + '\n')
     f.write('NumSteps = '+str(numSteps) +'\n')
@@ -240,7 +240,7 @@ processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterv
 
 # Define the parameters; not entirely sure if these are sensible or not...
 control_parameters = KMCControlParameters(number_of_steps=numSteps, analysis_interval=analInterval,
-                                          dump_interval=numSteps/1000)
+                                          dump_interval=numSteps/100000)
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 

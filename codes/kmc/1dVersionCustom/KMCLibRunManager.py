@@ -6,17 +6,17 @@ import os
 # in the name of time efficiency
 
 numCores = 6
-totalRuns = 18
+totalRuns = 12
 avConc = 0.5
 maxConcDiff = 1.0
 minConcDiff = -1.0
-numSteps = 20000000
-transTime = 50000.0
+numSteps = 40000000
+transTime = 200000.0
 fullRate = sys.argv[1]
-sysSize = 32
+sysSize = 64
 analInterval = 10
-timeInterval = 5000.0
-dataLocation = "tests/promising/nonLinearDiffusion/sysSize32/"+str(fullRate)+"/"
+timeInterval = 50000.0
+dataLocation = "tests/promising/nonLinearDiffusion/sysSize64/"+str(fullRate)+"/"
 
 concStepSize = (maxConcDiff-minConcDiff)/float(totalRuns-1)
 jobsStarted = 0

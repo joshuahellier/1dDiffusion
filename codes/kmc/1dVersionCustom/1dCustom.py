@@ -240,7 +240,7 @@ processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterv
 
 # Define the parameters; not entirely sure if these are sensible or not...
 control_parameters = KMCControlParameters(number_of_steps=numSteps, analysis_interval=analInterval,
-                                          dump_interval=numSteps/1000)
+                                          dump_interval=numSteps/100000)
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 
