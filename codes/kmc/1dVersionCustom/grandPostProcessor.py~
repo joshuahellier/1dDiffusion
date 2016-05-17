@@ -6,6 +6,8 @@ resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print "WARNING! $RESULTS not set! Attempt to write results will fail!\n"
 
+timeInterval = 60000.0
+
 fileInfo = sys.argv[1]
 resultsPlace = resultDir+"/"+fileInfo+"/"
 if not os.path.exists(resultsPlace):
@@ -14,7 +16,7 @@ if not os.path.exists(resultsPlace):
 directoryList = os.listdir(resultsPlace)
 
 for i in directoryList:
-    jobInput = "python postProcessor.py "+fileInfo+"/"+i
+    jobInput = "python postProcessor.py "+fileInfo+"/"+i+" "+str(timeInterval)
     p = subprocess.Popen(jobInput, shell=True)
     exitCodes = p.wait()
 
@@ -31,4 +33,4 @@ for i in directoryList:
 
 with open(resultsPlace+"flowResponse.dat", 'w') as f:
     for i in resultsTable:
-        f.write(str(resultsTable[0])+" "+str(resultsTable[1])+" "+str(resultsTable[2])+"\n")
+        f.write(str(i[0])+" "+str(i[1])+" "+str(i[2])+"\n")

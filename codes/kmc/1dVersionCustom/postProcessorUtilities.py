@@ -18,8 +18,6 @@ def weightingsFinder(times, timeInterval):
             currentChunklet = []
             timeChunkIndex = timeChunkIndex+1
     
-    print(chunklets)
-    print("\n")
     #This next bit takes the time chunks and works out the weightings of the relevant time indices for specific time chunks
     
     mainIndex = 0
@@ -33,7 +31,7 @@ def weightingsFinder(times, timeInterval):
     
         if len(j) == 0:
             #In this case, we work out the contributions from the current and next mainIndexed points
-            weight = 0.5*(timeInterval**2)/(times[mainIndex+1]-times[mainIndex])
+            weight = 0.5*timeInterval
             temporaryWeightings.append([mainIndex, weight])
             temporaryWeightings.append([mainIndex+1, weight]) 
     
@@ -62,7 +60,7 @@ def weightingsFinder(times, timeInterval):
                     b = times[0]
                     c = timeInterval
                     d = times[1]
-                    weight = c +0.5*((d-b)**2-(c-b)**2)/(d-b)
+                    weight = 0.5*((d-b)**2-(d-c)**2)/(d-b)
                     temporaryWeightings.append([0, weight])
                     weight = 0.5*(c-b)**2/(d-b)
                     temporaryWeightings.append([1, weight])
