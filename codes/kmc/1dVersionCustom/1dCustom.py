@@ -113,9 +113,9 @@ processes.append( KMCProcess(coordinates=coordinates,
 
 # Down, empty.
 #1
-elements_before = ["V", "O"]
-elements_after  = ["O", "V"]
-coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
+elements_before = ["O", "V"]
+elements_after  = ["V", "O"]
+coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, -1.0]]
 processes.append( KMCProcess(coordinates=coordinates,
                              elements_before=elements_before,
                              elements_after=elements_after,
@@ -151,9 +151,9 @@ processes.append( KMCProcess(coordinates=coordinates,
 # Now for Oxygen annihilation at the bottom boundary
 # Bottom
 #4
-elements_before = ["Bo", "O"]
-elements_after  = ["Bo", "V"]
-coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
+elements_before = ["O", "Bo"]
+elements_after  = ["V", "Bo"]
+coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, -1.0]]
 processes.append( KMCProcess(coordinates=coordinates,
                              elements_before=elements_before,
                              elements_after=elements_after,
@@ -165,9 +165,9 @@ processes.append( KMCProcess(coordinates=coordinates,
 # Oxygen creation at the bottom boundary
 # Bottom
 #5
-elements_before = ["Bo", "V"]
-elements_after  = ["Bo", "O"]
-coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
+elements_before = ["V", "Bo"]
+elements_after  = ["O", "Bo"]
+coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, -1.0]]
 processes.append( KMCProcess(coordinates=coordinates,
                              elements_before=elements_before,
                              elements_after=elements_after,
