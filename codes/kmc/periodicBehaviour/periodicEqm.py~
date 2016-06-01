@@ -7,7 +7,7 @@ resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print "WARNING! $RESULTS not set! Attempt to write results will fail!\n"
 
-# Expecting input avConc, rateConstFull, sysSize, numSteps, fileCode
+# Expecting input avConc, rateConstFull, sysSize, numSteps, equilSteps, fileCode
 
 from KMCLib import *
 from KMCLib.Backend import Backend
@@ -17,7 +17,8 @@ avConc = float(sys.argv[1])
 rateConstFull = float(sys.argv[2])
 sysSize = int(sys.argv[3])
 numSteps = int(sys.argv[4])
-fileInfo = sys.argv[5]
+equilSteps = itn(sys.argv[5])
+fileInfo = sys.argv[6]
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
 
@@ -29,6 +30,7 @@ with open(resultsPlace+'/settings', 'w') as f:
     f.write('FullRate = ' + str(rateConstFull) +'\n')
     f.write('SysSize = ' + str(sysSize) +'\n')
     f.write('NumSteps = '+str(numSteps) +'\n')
+    f.write('EquilSteps = '+str(equilSteps) +"\n")
 
 """I've put this in the file to make command line input easier"""
 # Load the configuration and interactions.
@@ -154,7 +156,14 @@ model = KMCLatticeModel(configuration, interactions)
 
 
 # Define the parameters; not entirely sure if these are sensible or not...
-control_parameters = KMCControlParameters(number_of_steps=numSteps, dump_interval=numSteps/10000)
+control_parameters = KMCControlParameters(number_of_steps=numSteps, dump_interval=numSteps)
+
+# Run the simulation - save trajectory to resultsPlace, which should by now exist
+
+model.run(control_parameters, trajectory_filename=(resultsPlace+"Inittraj1.tr"))
+
+# Define the parameters; not entirely sure if these are sensible or not...
+control_parameters = KMCControlParameters(number_of_steps=equilSteps, dump_interval=1)
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 
