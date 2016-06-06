@@ -7,13 +7,13 @@ import os
 
 numCores = 6
 totalRuns = 18
-maxAvConc = 0.18
-minAvConc = 0.01
-numSteps = 10000000
-equilSteps = 10000
+maxAvConc = 0.4
+minAvConc = 0.05
+numSteps = 1000000
+equilSteps = 100000
 fullRate = sys.argv[1]
 sysSize = 1024
-dataLocation = "1DTiO/1dEqm/runManagerTest/2"+str(sysSize)+"/"+str(fullRate)+"/"
+dataLocation = "1DTiO/1dEqm/runManagerTest3/"+str(sysSize)+"/"+str(fullRate)+"/"
 
 concStepSize = (maxAvConc-minAvConc)/float(totalRuns-1)
 jobsStarted = 0

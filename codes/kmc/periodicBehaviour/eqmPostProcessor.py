@@ -108,10 +108,9 @@ for files in directoryList:
     with open(currentDir+"/numBonds.dat", "w") as bondFile:
         for chunkWeights in weightings:
             tempTotal = 0.0
-            print(chunkWeights)
             for weight in chunkWeights[1]:
                 tempTotal += float(numBonds[weight[0]])*weight[1]
-            bondFile.write(str(chunkWeights[0]*timeChunkSize+times[0])+" "+str(tempTotal/(timeChunkSize*avConc*numTypes)-avConc*avConc)+"\n")
+            bondFile.write(str(chunkWeights[0]*timeChunkSize+times[0])+" "+str(tempTotal/(timeChunkSize*avConc*numTypes))+"\n")
 
             
     weightings = pPU.weightingsFinder(times, (times[-1]-times[0])/3.0)
@@ -122,7 +121,7 @@ for files in directoryList:
     avBonds = tempTotal*3.0/((times[-1]-times[0])*avConc*numTypes)
 
     with open(currentDir+"/extraInfo.dat", "w") as infoFile:
-        infoFile.write(str(avConc)+" "+str(fullRate)+" "+str(avBonds - avConc*avConc))"""
+        infoFile.write(str(avConc)+" "+str(fullRate)+" "+str(avBonds))
 
     #print(str(diffConc)+" "+topInRate+" "+topInErr+" "+topOutRate+" "+topOutErr+" "+botInRate+" "+botInErr+" "+botOutRate+" "+botOutErr)
 #pickle.dump(resultsTable, open(resultsPlace+"mainResults.p", "wb"))

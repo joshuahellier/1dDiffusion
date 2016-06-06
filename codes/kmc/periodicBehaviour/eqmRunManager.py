@@ -6,19 +6,18 @@ import os
 # in the name of time efficiency
 
 numCores = 6
-totalRuns = 18
-maxAvConc = 0.18
-minAvConc = 0.01
-numSteps = 10000000
-equilSteps = 10000
+totalRuns = 36
+maxAvConc = 0.01
+minAvConc = 0.25
+numSteps = 1000000
+equilSteps = 100000
 fullRate = sys.argv[1]
 sysSize = 1024
-dataLocation = "1DTiO/1dEqm/runManagerTest2/"+str(sysSize)+"/"+str(fullRate)+"/"
+dataLocation = "1DTiO/1dEqm/runManagerTest3/"+str(sysSize)+"/"+str(fullRate)+"/"
 
 concStepSize = (maxAvConc-minAvConc)/float(totalRuns-1)
 jobsStarted = 0
 coresUsed = 0
-totalRuns = 18
 
 runningJobs = []
 
