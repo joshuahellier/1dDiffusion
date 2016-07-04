@@ -1,0 +1,86 @@
+@article{tegner2015high,
+  title={High temperature oxidation resistance in titanium--niobium alloys},
+  author={Tegner, BE and Zhu, L and Siemers, C and Saksl, K and Ackland, GJ},
+  journal={Journal of Alloys and Compounds},
+  volume={643},
+  pages={100--105},
+  year={2015},
+  publisher={Elsevier}
+}
+
+@article{zhu2012atomic,
+  title={Atomic-scale modeling of the dynamics of titanium oxidation},
+  author={Zhu, Linggang and Hu, Qing-Miao and Yang, Rui and Ackland, Graeme J},
+  journal={The Journal of Physical Chemistry C},
+  volume={116},
+  number={45},
+  pages={24201--24205},
+  year={2012},
+  publisher={ACS Publications}
+}
+
+@book{ChaikinLubenskyPrinciples,
+  title={Principles of Condensed Matter Physics},
+  author={Chaikin, Paul M and Lubensky, Tom C},
+  year={1995},
+  publisher={Cambridge University Press}
+}
+
+@book{batchelor2000introduction,
+  title={An introduction to fluid dynamics},
+  author={Batchelor, George Keith},
+  year={2000},
+  publisher={Cambridge University Press}
+}
+
+@article{DealGrove1965,
+  title={General relationship for the thermal oxidation of silicon},
+  author={Deal, Bruce E and Grove, AS},
+  journal={Journal of Applied Physics},
+  volume={36},
+  number={12},
+  pages={3770--3778},
+  year={1965},
+  publisher={AIP Publishing}
+}
+
+@article{sugden2007dynamically,
+  title={A dynamically extending exclusion process},
+  author={Sugden, KEP and Evans, MR},
+  journal={Journal of Statistical Mechanics: Theory and Experiment},
+  volume={2007},
+  number={11},
+  pages={P11013},
+  year={2007},
+  publisher={IOP Publishing}
+}
+
+@article{MottCabrera1949,
+  title={Theory of the oxidation of metals},
+  author={Cabrera, N and Mott, NF},
+  journal={Reports on progress in physics},
+  volume={12},
+  number={1},
+  pages={163},
+  year={1949},
+  publisher={IOP Publishing}
+}
+
+@book{ChapmanCowling1970,
+  title={The mathematical theory of non-uniform gases: an account of the kinetic theory of viscosity, thermal conduction and diffusion in gases},
+  author={Chapman, Sydney and Cowling, Thomas George},
+  year={1970},
+  publisher={Cambridge University Press}
+}
+
+@article{leetmaa2014kmclib,
+  title={KMCLib: A general framework for lattice kinetic Monte Carlo (KMC) simulations},
+  author={Leetmaa, Mikael and Skorodumova, Natalia V},
+  journal={Computer Physics Communications},
+  volume={185},
+  number={9},
+  pages={2340--2349},
+  year={2014},
+  publisher={Elsevier}
+}
+

@@ -1,0 +1,9 @@
+\begin{thebibliography}{1}
+
+\bibitem{leetmaa2014kmclib}
+Mikael Leetmaa and Natalia~V Skorodumova.
+\newblock \texttt{KMCLib}: A general framework for lattice kinetic monte carlo
+  (kmc) simulations.
+\newblock {\em Computer Physics Communications}, 185(9):2340--2349, 2014.
+
+\end{thebibliography}
