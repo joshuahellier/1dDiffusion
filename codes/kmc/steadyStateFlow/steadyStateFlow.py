@@ -5,7 +5,7 @@ resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print "WARNING! $RESULTS not set! Attempt to write results will fail!\n"
 
-# Expecting input botConc, topConc, rateConstFull, sysSize, analInterval, numSteps, timeInterval, transTime,  fileCode
+# Expecting input botConc, topConc, rateConstFull, sysSize, analInterval, numStepsEquilib, numStepsAnal, timeInterval, transTime,  fileCode
 
 from KMCLib import *
 from KMCLib.Backend import Backend
@@ -16,17 +16,18 @@ topConc = float(sys.argv[2])
 rateConstFull = float(sys.argv[3])
 sysSize = int(sys.argv[4])
 analInterval = int(sys.argv[5])
-numSteps = int(sys.argv[6])
-timeInterval = float(sys.argv[7])
-transTime = float(sys.argv[8])
-fileInfo = sys.argv[9]
+numStepsEquilib = int(sys.argv[6])
+numStepsAnal = int(sys.argv[7])
+timeInterval = float(sys.argv[8])
+transTime = float(sys.argv[9])
+fileInfo = sys.argv[10]
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
 
 if not os.path.exists(resultsPlace):
     os.makedirs(resultsPlace)
 
-with open(resultsPlace+'/settings', 'w') as f:
+with open(resultsPlace+'settings', 'w') as f:
     f.write('BotConcentration = ' + str(botConc) +'\n')
     f.write('TopConcentration = ' + str(topConc) +'\n')
     f.write('FullRate = ' + str(rateConstFull) +'\n')
@@ -34,7 +35,8 @@ with open(resultsPlace+'/settings', 'w') as f:
     f.write('TimeInterval = ' + str(timeInterval) +'\n')
     f.write('TransientTime = ' + str(transTime) +'\n')
     f.write('AnalInterval = ' +str(analInterval) + '\n')
-    f.write('NumSteps = '+str(numSteps) +'\n')
+    f.write('NumStepsEquilib = '+str(numStepsEquilib) +'\n')
+    f.write('NumStepsAnal = '+str(numStepsAnal) +'\n')
 
 """I've put this in the file to make command line input easier"""
 # Load the configuration and interactions.
@@ -65,7 +67,7 @@ types[0] = "Bo"
 types[1] = "Bo"
 types[-2] = "To"
 types[-1] = "To"
-"""for i in range(int(zRep*avConc)):
+for i in range(int(zRep*avConc)):
     # find a site which is not yet occupied by a "O" type.
     pos = int(numpy.random.rand()*zRep+2.0)
     while (types[pos] != "V"):
@@ -78,7 +80,7 @@ for i in range(2, numPoints-2):
         types[i] = "O"
     else:
         types[i] = "V"
-
+"""
 # Setup the configuration.
 configuration = KMCConfiguration(lattice=lattice,
                                  types=types,
@@ -247,12 +249,17 @@ processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterva
 processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, transientTime=transTime, anal_Interval = analInterval)
 
 # Define the parameters; not entirely sure if these are sensible or not...
-control_parameters = KMCControlParameters(number_of_steps=numSteps, analysis_interval=analInterval,
-                                          dump_interval=numSteps/100)
+control_parameters_equilib = KMCControlParameters(number_of_steps=numStepsEquilib, analysis_interval=numStepsEquilib/100,
+                                          dump_interval=numStepsEquilib/100)
+
+control_parameters_anal = KMCControlParameters(number_of_steps=numStepsAnal, analysis_interval=1,
+                                          dump_interval=numStepsEquilib/100)
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 
-model.run(control_parameters, trajectory_filename=(resultsPlace+"traj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
+model.run(control_parameters_equilib, trajectory_filename=(resultsPlace+"equilibTraj.tr"))
+
+model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"analTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
 
 """with open('msdData.data', 'w') as f:
     msd_analysis.printResults(f)"""

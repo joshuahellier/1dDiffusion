@@ -52,7 +52,7 @@ for i in directoryList:
     currentDir = resultsPlace+i
     print("Considering file "+currentDir+"\n")
 
-    execfile(currentDir+"/traj.tr")
+    #execfile(currentDir+"/traj.tr")
 
     with open(currentDir + "/settings", 'r') as f:
         lines = f.readlines()
@@ -98,7 +98,8 @@ for i in directoryList:
     resultsTable.append([(botConc, topConc), (float(topInRate), float(topInErr)), (float(topOutRate), float(topOutErr)), (float(botInRate), float(botInErr)), (float(botOutRate), float(botOutErr)), fullRate])
     
     typeHistory = []
-    finalTime = 0.0;
+    finalTime = 0.0
+    initialTime = 0.0
     typeFile = open(currentDir+"/typeStats.dat", "w")
     typeChangeTable = []
     for index in range(0, sysSize):
@@ -109,8 +110,13 @@ for i in directoryList:
             typeChangeTable[int(words[2])].append((0.5*(float(words[0])+float(words[1])), words[3]))
             finalTime = float(words[1])
     print("Finished reading from file.\n")
+    with open(currentDir + "/trajRecord.tr", 'r') as f:
+        line = f.readline()
+        words = line.split()
+        initialTime = float(words[0])
+
     numTimeChunks = sysSize
-    timeChunkSize = 10.0*finalTime/float(sysSize)
+    timeChunkSize = finalTime/float(sysSize)
     for siteIndex in range(2, sysSize-2):
         changes = typeChangeTable[siteIndex]
         chunkStart = 0
@@ -118,9 +124,9 @@ for i in directoryList:
         currentLength = len(changes)
         print("Number of changes is "+str(currentLength))
         for timeChunkIndex in range (1, numTimeChunks-1):
-            while chunkStart+1<currentLength and changes[chunkStart+1][0] < timeChunkIndex*timeChunkSize:
+            while chunkStart+1<currentLength and changes[chunkStart+1][0] < timeChunkIndex*timeChunkSize+initialTime:
                 chunkStart += 1
-            while chunkEnd+1<currentLength and changes[chunkEnd+1][0] < (timeChunkIndex+1)*timeChunkSize:
+            while chunkEnd+1<currentLength and changes[chunkEnd+1][0] < (timeChunkIndex+1)*timeChunkSize+initialTime:
                 chunkEnd += 1
             #print("chunkStart = "+str(chunkStart)+"; chunkEnd = "+str(chunkEnd)+"\n")
             tempTotal = 0.0
@@ -131,8 +137,8 @@ for i in directoryList:
                 overallTotal += timeChunkSize
             else:
                 if changes[chunkStart][1] == "O":
-                    tempTotal += changes[chunkStart+1][0] - timeChunkIndex*timeChunkSize
-                overallTotal += changes[chunkStart+1][0] - timeChunkIndex*timeChunkSize
+                    tempTotal += changes[chunkStart+1][0] - (timeChunkIndex*timeChunkSize+initialTime)
+                overallTotal += changes[chunkStart+1][0] - (timeChunkIndex*timeChunkSize+initialTime)
                 for timeIndex in range(chunkStart+1, chunkEnd):
                     if changes[timeIndex][1] == "O":
                         tempTotal += changes[timeIndex+1][0] - changes[timeIndex][0]
@@ -144,8 +150,8 @@ for i in directoryList:
                     #else:
                         #print("V")
                 if changes[chunkEnd][1] == "O":
-                    tempTotal += (timeChunkIndex+1)*timeChunkSize - changes[chunkEnd][0]
-                overallTotal += (timeChunkIndex+1)*timeChunkSize - changes[chunkEnd][0]
+                    tempTotal += (timeChunkIndex+1)*timeChunkSize+initialTime - changes[chunkEnd][0]
+                overallTotal += (timeChunkIndex+1)*timeChunkSize+initialTime - changes[chunkEnd][0]
             typeFile.write(str(tempTotal/overallTotal)+" ")
         typeFile.write("\n")
         print("Site "+str(siteIndex)+" complete.\n")
