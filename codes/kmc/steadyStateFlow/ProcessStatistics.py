@@ -76,6 +76,7 @@ class ProcessStatistics(KMCAnalysisPlugin):
         """
         # Set the initial time.
         self.__last_time = time
+        self.__initialTime = time
 
         # Allocate space for the spatially resolved information.
         typeList = configuration.types()
@@ -119,6 +120,7 @@ class ProcessStatistics(KMCAnalysisPlugin):
         """
         Recieves the finalize call after the MC loop.
         """
+        self.__finalTime = self.__last_time
         if (self.__resultsPlace is not None):
             self.__trajRecord.close()
         if self.__spatially_resolved:
@@ -152,10 +154,13 @@ class ProcessStatistics(KMCAnalysisPlugin):
                 # Only for times != zero.
                 if (i > 0):
                     stream.write("%15.5f %15i"%(t, n_tot) +"        "+ "{:.6E}".format(rateEst) +"        "+"{:.3E}".format(stdErr) +"\n")
-            eqTime = t - self.__transientTime
-            eqRate = self.__floatAnalInterval*actualTot/eqTime
-            eqStdErr = self.__floatAnalInterval*math.sqrt(actualTot)/eqTime
-            stream.write("\nThere were " + "%6i"%(actualTot) + " counts after equilibration. Therefore, the equilibrium rate estimate is " + "{:.6E}".format(eqRate) + "+/-" + "{:.3E}".format(eqStdErr))
+            eqTime = self.__finalTime - self.__initialTime
+            if eqTime > 0:
+                eqRate = self.__floatAnalInterval*actualTot/eqTime
+                eqStdErr = self.__floatAnalInterval*math.sqrt(actualTot)/eqTime
+                stream.write("\nThere were " + "%6i"%(actualTot) + " counts after equilibration. Therefore, the equilibrium rate estimate is " + "{:.6E}".format(eqRate) + "+/-" + "{:.3E}".format(eqStdErr))
+            else:
+                stream.write("\nThere were " + "%6i"%(actualTot) + " counts after equilibration. Therefore, the equilibrium rate estimate is " + "{:.6E}".format(float(nan)) + "+/-" + "{:.3E}".format(float(nan)))
 
     def spatialData(self):
         """
