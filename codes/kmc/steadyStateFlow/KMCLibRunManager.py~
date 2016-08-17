@@ -5,10 +5,10 @@ import os
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
 
-numCores = 4
-numConcDiff = 16
-numConcs = 20
-numLambda = 20
+numCores = 6
+numConcDiff = 6
+numConcs = 2
+numLambda = 2
 numStepsEquilib = 100000000
 numStepsAnal = 100000
 transTime = 0.0
