@@ -122,7 +122,7 @@ for i in directoryList:
         chunkStart = 0
         chunkEnd = 0
         currentLength = len(changes)
-        print("Number of changes is "+str(currentLength))
+        #print("Number of changes is "+str(currentLength))
         for timeChunkIndex in range (1, numTimeChunks-1):
             while chunkStart+1<currentLength and changes[chunkStart+1][0] < timeChunkIndex*timeChunkSize+initialTime:
                 chunkStart += 1
@@ -154,7 +154,7 @@ for i in directoryList:
                 overallTotal += (timeChunkIndex+1)*timeChunkSize+initialTime - changes[chunkEnd][0]
             typeFile.write(str(tempTotal/overallTotal)+" ")
         typeFile.write("\n")
-        print("Site "+str(siteIndex)+" complete.\n")
+        #print("Site "+str(siteIndex)+" complete.\n")
     typeFile.close()
 
 
@@ -165,7 +165,7 @@ for i in directoryList:
 g.write("\n")
 g.close()
 pickle.dump(resultsTable, open(resultsPlace+"mainResults.p", "wb"))
-"""
+
 flow = []
 flowErr = []
 gradient = []
@@ -173,7 +173,7 @@ gradient = []
 for i in resultsTable:
     flow.append(i[1][0]+i[4][0]-i[2][0]-i[3][0])
     flowErr.append(numpy.sqrt(i[1][1]**2+i[4][1]**2+i[2][1]**2+i[3][1]**2))
-    gradient.append(i[0]/float(sysSize))
+    gradient.append(i[0][1]-i[0][0])
     #print(str(gradient[-1])+" "+str(flow[-1])+" "+str(flowErr[-1]))
 
 import pandas as pd
@@ -201,7 +201,7 @@ ols_fit = sm.ols('x ~ y', data=ws).fit()
 
 with open(resultsPlace+"regressionData.dat", 'a') as f:
     f.writelines([str(wls_fit.summary())+"\n", str(wls_fit.params[0])+" "+str(wls_fit.bse[0])+"\n", str(wls_fit.params[1])+" "+str(wls_fit.bse[1])+"\n"])
-    """
+
 """
 # This stuff works, but is far too slow =(
     for siteIndex in range(2, sysSize-2):

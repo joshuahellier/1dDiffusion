@@ -25,6 +25,7 @@ except OSError:
 
 topDirectoryList = os.listdir(resultsPlace)
 
+
 for topLevel in topDirectoryList:
     midDirectoryList = os.listdir(resultsPlace+topLevel)
     for midLevel in midDirectoryList:
@@ -33,3 +34,14 @@ for topLevel in topDirectoryList:
         jobInput = "python postProcessor.py "+location+" "+str(0.0)
         p = subprocess.Popen(jobInput, shell=True)
         exitCodes = p.wait()
+        with open(resultsPlace+topLevel+"/"+midLevel+"/regressionData.dat", 'r') as f:
+            lines = f.readlines()
+        words = (lines[-1]).split()
+        rate = float(words[0])
+        error = float(words[1])
+        resultsTable.append(topLevel+" "+midLevel+" "+str(rate)+" "+str(error)+"\n")
+        
+
+with open(resultsPlace+"resultSummary.dat", 'w') as g:
+    for result in resultsTable:
+        g.write(result)
