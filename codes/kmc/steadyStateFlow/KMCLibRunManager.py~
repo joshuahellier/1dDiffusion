@@ -7,15 +7,17 @@ import os
 
 numCores = 6
 numConcDiff = 6
-numConcs = 2
-numLambda = 2
-numStepsEquilib = 100000000
+numConcs = 8
+numLambda = 3
+numStepsEquilib = 10000000
 numStepsAnal = 100000
-transTime = 0.0
+numStepsSnapshot = 100000
+numStepsReq = 500000
 sysSize = 60
 analInterval = 1
+numPasses = 8
 timeInterval = 1.0
-dataLocation = "steadyStateFlow/tests/firstDecentAttempt/"
+dataLocation = "steadyStateFlow/newTests/attempt1/"
 lambdaMin = 0.01
 lambdaMax = 1.5
 concDiffMin = -0.2
@@ -43,7 +45,7 @@ for rateIndex in range(0, numLambda):
                 currentConcDiff = diffStepSize*jobsStarted + concDiffMin
                 botConc = currentConc - 0.5*currentConcDiff
                 topConc = currentConc + 0.5*currentConcDiff
-                jobInput = "python steadyStateFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsAnal)+" "+str(timeInterval)+" "+str(transTime)+" "+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(jobsStarted)+" >/dev/null"
+                jobInput = "python steadyStateFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+str(transTime)+" "+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(jobsStarted)+" >/dev/null"
                 p = subprocess.Popen(jobInput, shell=True)
                 runningJobs.append(p)
                 print "Starting job "+str(jobsStarted+1)+" on core "+str(coresUsed+1)

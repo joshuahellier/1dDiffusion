@@ -1,0 +1,180 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.4' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      6890,        170]
+NotebookOptionsPosition[      6581,        154]
+NotebookOutlinePosition[      6917,        169]
+CellTagsIndexPosition[      6874,        166]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<ErrorBarPlots`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data", " ", "=", " ", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\</home/jhell/research/results/steadyStateFlow/newTests/attempt1/1/\
+overallData.dat\>\"", ",", " ", "\"\<Data\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ErrorListPlot", "[", 
+  RowBox[{"data", ",", " ", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", " ", "1"}], "}"}], ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", " ", "1"}], "}"}]}], "}"}]}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.6813901318222647`*^9, 3.681390137110417*^9}, {
+  3.681390446727193*^9, 3.681390470046978*^9}, {3.681390518065426*^9, 
+  3.681390572615168*^9}, {3.681390641780171*^9, 3.681390690581366*^9}, {
+  3.6813907317508163`*^9, 3.6813907828906116`*^9}, {3.681390940168028*^9, 
+  3.681390950957158*^9}, {3.681391030635442*^9, 3.68139105122473*^9}, {
+  3.6813911632439613`*^9, 3.6813911632797527`*^9}, {3.681391230444936*^9, 
+  3.681391249542121*^9}, {3.681391367076746*^9, 3.681391367424717*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{}, 
+    {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`],
+      AbsoluteThickness[1.6], 
+     PointBox[{{0.785714285714, 0.741805125905}, {0.328571428571, 
+      0.525602672944}, {0.9, 0.819252861966}, {0.214285714286, 
+      0.555340201392}, {0.557142857143, 0.566131654974}, {0.671428571429, 
+      0.728658788851}, {0.442857142857, 0.519864813797}, {0.1, 
+      0.503642090398}}], {{
+       LineBox[{{0.785714285714, 0.8346893349212}, {0.785714285714, 
+        0.6489209168888}}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.785714285714, 0.8346893349212}], 
+         Offset[{-1.5, 0}, {0.785714285714, 0.8346893349212}]}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.785714285714, 0.6489209168888}], 
+         Offset[{-1.5, 0}, {0.785714285714, 0.6489209168888}]}]}, {
+       LineBox[{{0.328571428571, 0.5601942541561}, {0.328571428571, 
+        0.4910110917319}}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.328571428571, 0.5601942541561}], 
+         Offset[{-1.5, 0}, {0.328571428571, 0.5601942541561}]}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.328571428571, 0.4910110917319}], 
+         Offset[{-1.5, 0}, {0.328571428571, 0.4910110917319}]}]}, {
+       LineBox[{{0.9, 0.8380141037824}, {0.9, 0.8004916201496}}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.9, 0.8380141037824}], 
+         Offset[{-1.5, 0}, {0.9, 0.8380141037824}]}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.9, 0.8004916201496}], 
+         Offset[{-1.5, 0}, {0.9, 0.8004916201496}]}]}, {
+       LineBox[{{0.214285714286, 0.6043375688825}, {0.214285714286, 
+        0.5063428339015}}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.214285714286, 0.6043375688825}], 
+         Offset[{-1.5, 0}, {0.214285714286, 0.6043375688825}]}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.214285714286, 0.5063428339015}], 
+         Offset[{-1.5, 0}, {0.214285714286, 0.5063428339015}]}]}, {
+       LineBox[{{0.557142857143, 0.5989975271332}, {0.557142857143, 
+        0.5332657828148}}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.557142857143, 0.5989975271332}], 
+         Offset[{-1.5, 0}, {0.557142857143, 0.5989975271332}]}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.557142857143, 0.5332657828148}], 
+         Offset[{-1.5, 0}, {0.557142857143, 0.5332657828148}]}]}, {
+       LineBox[{{0.671428571429, 0.7873800482025}, {0.671428571429, 
+        0.6699375294995}}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.671428571429, 0.7873800482025}], 
+         Offset[{-1.5, 0}, {0.671428571429, 0.7873800482025}]}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.671428571429, 0.6699375294995}], 
+         Offset[{-1.5, 0}, {0.671428571429, 0.6699375294995}]}]}, {
+       LineBox[{{0.442857142857, 0.6142368696919001}, {0.442857142857, 
+        0.4254927579021}}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.442857142857, 0.6142368696919001}], 
+         Offset[{-1.5, 0}, {0.442857142857, 0.6142368696919001}]}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.442857142857, 0.4254927579021}], 
+         Offset[{-1.5, 0}, {0.442857142857, 0.4254927579021}]}]}, {
+       LineBox[{{0.1, 0.5162899017207}, {0.1, 0.4909942790753}}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.1, 0.5162899017207}], 
+         Offset[{-1.5, 0}, {0.1, 0.5162899017207}]}], 
+       LineBox[{
+        Offset[{1.5, 0}, {0.1, 0.4909942790753}], 
+         Offset[{-1.5, 0}, {0.1, 0.4909942790753}]}]}}}, {}}, {}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{0, 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& )}},
+  PlotRange->{{0, 1}, {0, 1}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{0, 0}, {0, 0}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{
+  3.681390153908655*^9, {3.6813905434704657`*^9, 3.681390573112259*^9}, 
+   3.681390648111946*^9, 3.681390690985093*^9, {3.681390732877063*^9, 
+   3.6813907734231577`*^9}, 3.681390951845397*^9, {3.681391032411461*^9, 
+   3.68139105190623*^9}, 3.681391163977613*^9, 3.681391250450923*^9, 
+   3.681391374523519*^9}]
+}, Open  ]]
+},
+WindowSize->{808, 911},
+WindowMargins->{{Automatic, 488}, {15, Automatic}},
+FrontEndVersion->"10.4 for Linux x86 (64-bit) (April 11, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 1174, 26, 143, "Input"],
+Cell[1757, 50, 4808, 101, 245, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

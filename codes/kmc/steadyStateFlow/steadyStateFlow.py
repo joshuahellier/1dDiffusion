@@ -5,7 +5,7 @@ resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print "WARNING! $RESULTS not set! Attempt to write results will fail!\n"
 
-# Expecting input botConc, topConc, rateConstFull, sysSize, analInterval, numStepsEquilib, numStepsAnal, timeInterval, transTime,  fileCode
+# Expecting input botConc, topConc, rateConstFull, sysSize, analInterval, numStepsEquilib, numStepsSnapshot, numStepsAnal, numStepsReq, numPasses, timeInterval,  fileCode
 
 from KMCLib import *
 from KMCLib.Backend import Backend
@@ -17,10 +17,12 @@ rateConstFull = float(sys.argv[3])
 sysSize = int(sys.argv[4])
 analInterval = int(sys.argv[5])
 numStepsEquilib = int(sys.argv[6])
-numStepsAnal = int(sys.argv[7])
-timeInterval = float(sys.argv[8])
-transTime = float(sys.argv[9])
-fileInfo = sys.argv[10]
+numStepsSnapshot = int(sys.argv[7])
+numStepsAnal = int(sys.argv[8])
+numStepsReq = int(sys.argv[9])
+numPasses = int(sys.argv[10])
+timeInterval = float(sys.argv[11])
+fileInfo = sys.argv[12]
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
 
@@ -33,9 +35,9 @@ with open(resultsPlace+'settings', 'w') as f:
     f.write('FullRate = ' + str(rateConstFull) +'\n')
     f.write('SysSize = ' + str(sysSize) +'\n')
     f.write('TimeInterval = ' + str(timeInterval) +'\n')
-    f.write('TransientTime = ' + str(transTime) +'\n')
     f.write('AnalInterval = ' +str(analInterval) + '\n')
     f.write('NumStepsEquilib = '+str(numStepsEquilib) +'\n')
+    f.write('NumStepsSnapshot = '+str(numStepsSnapshot))
     f.write('NumStepsAnal = '+str(numStepsAnal) +'\n')
 
 """I've put this in the file to make command line input easier"""
@@ -243,40 +245,67 @@ model = KMCLatticeModel(configuration, interactions)
 
 # Trying to find out information about distribution of time steps
 #timeStepDistn = TimeStepDistribution(0.1)
-processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterval, spatially_resolved=False, transientTime=transTime, anal_Interval = analInterval, resultsPlace=resultsPlace, processesObject=processes)
-processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=timeInterval, spatially_resolved=False, transientTime=transTime, anal_Interval = analInterval)
-processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, transientTime=transTime, anal_Interval = analInterval)
-processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, transientTime=transTime, anal_Interval = analInterval)
+processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval, resultsPlace=resultsPlace, processesObject=processes)
+processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
 
 # Define the parameters; not entirely sure if these are sensible or not...
 control_parameters_equilib = KMCControlParameters(number_of_steps=numStepsEquilib, analysis_interval=numStepsEquilib/100,
                                           dump_interval=numStepsEquilib/100)
 
+control_parameters_req = KMCControlParameters(number_of_steps=numStepsReq, analysis_interval=numStepsReq/100,
+                                          dump_interval=numStepsReq/100)
+
+control_parameters_snapshot = KMCControlParameters(number_of_steps=numStepsSnapshot, analysis_interval=1,
+                                          dump_interval=numStepsSnapshot/100)
+
 control_parameters_anal = KMCControlParameters(number_of_steps=numStepsAnal, analysis_interval=1,
-                                          dump_interval=numStepsEquilib/100)
+                                          dump_interval=numStepsAnal/100)
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 
 model.run(control_parameters_equilib, trajectory_filename=(resultsPlace+"equilibTraj.tr"))
 
-model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"analTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
+model.run(control_parameters_snapshot, trajectory_filename=(resultsPlace+"snapTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
 
-"""with open('msdData.data', 'w') as f:
-    msd_analysis.printResults(f)"""
-
-"""with open(resultsPlace+"/times.dat", 'w') as f:
-    timeStepDistn.printResults(f)"""
-
-with open(resultsPlace+"/procOxInBot.dat", 'w') as f:
+with open(resultsPlace+"procOxInBotSnap.dat", 'w') as f:
     processStatsOxInBot.printResults(f)
 
-with open(resultsPlace+"/procOxOutBot.dat", 'w') as f:
+with open(resultsPlace+"procOxOutBotSnap.dat", 'w') as f:
     processStatsOxOutBot.printResults(f)
 
-with open(resultsPlace+"/procOxInTop.dat", 'w') as f:
+with open(resultsPlace+"procOxInTopSnap.dat", 'w') as f:
     processStatsOxInTop.printResults(f)
 
-with open(resultsPlace+"/procOxOutTop.dat", 'w') as f:
+with open(resultsPlace+"procOxOutTopSnap.dat", 'w') as f:
     processStatsOxOutTop.printResults(f)
+
+for passNum in range(0, numPasses):
+    processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    model.run(control_parameters_req, trajectory_filename=(resultsPlace+"mainTraj.tr"))
+    model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
+
+    if not os.path.exists(resultsPlace+"inBot"):
+        os.makedirs(resultsPlace+"inBot")
+    if not os.path.exists(resultsPlace+"outBot"):
+        os.makedirs(resultsPlace+"outBot")
+    if not os.path.exists(resultsPlace+"inTop"):
+        os.makedirs(resultsPlace+"inTop")
+    if not os.path.exists(resultsPlace+"outTop"):
+        os.makedirs(resultsPlace+"outTop")
+
+    with open(resultsPlace+"inBot/inBot"+str(passNum)+".dat", 'w') as f:
+        processStatsOxInBot.printResults(f)
+    with open(resultsPlace+"outBot/outBot"+str(passNum)+".dat", 'w') as f:
+        processStatsOxOutBot.printResults(f)
+    with open(resultsPlace+"inTop/inTop"+str(passNum)+".dat", 'w') as f:
+        processStatsOxInTop.printResults(f)
+    with open(resultsPlace+"outTop/outTop"+str(passNum)+".dat", 'w') as f:
+        processStatsOxOutTop.printResults(f)
+
 
 print("Process would appear to have succesfully terminated! How very suspicious...")

@@ -4,7 +4,7 @@ import numpy
 import cPickle as pickle
 import postProcessorUtilities as pPU
 
-timeChunkSize = float(sys.argv[2])
+timeChunkSize = 0.0
 
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
@@ -67,35 +67,107 @@ for i in directoryList:
     words = (lines[4]).split()
     timeInterval = float(words[2])
 
-    with open(currentDir + "/procOxInTop.dat", 'r') as f:
-        lines = f.readlines()
-    words = (lines[-1]).split()
-    rateAndErr = (words[12]).split('+/-')
-    topInRate = rateAndErr[0]
-    topInErr = rateAndErr[1]
+    currentList = os.listdir(currentDir+"/inTop")
+    totalTime = 0.0
+    totalCounts = 0
+    totalSquareSum = 0.0
+    totalRateSum = 0.0
+    for passNum in range(0, len(currentList)):
+        with open(currentDir +"/inTop/"+currentList[passNum], 'r') as f:
+            lines = f.readlines()
+            words = (lines[-1]).split()
+            totalTime += float(words[-1])
+            totalCounts += float(words[-2])
+            if float(words[-1]) != 0.0:
+                rate = float(words[-2])/float(words[-1])
+            else:
+                rate = 0.0
+            totalSquareSum += rate*rate
+            totalRateSum += rate
+    if totalTime != 0.0:
+        topInRate = totalCounts / totalTime
+        topInErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/len(currentList))
+    else:
+        topInRate = 0.0
+        topInErr = 0.0
+    print(str(topInRate)+" "+str(topInErr))
 
-    with open(currentDir + "/procOxOutTop.dat", 'r') as f:
-        lines = f.readlines()
-    words = (lines[-1]).split()
-    rateAndErr = (words[12]).split('+/-')
-    topOutRate = rateAndErr[0]
-    topOutErr = rateAndErr[1]
+    currentList = os.listdir(currentDir+"/outTop")
+    totalTime = 0.0
+    totalCounts = 0
+    totalSquareSum = 0.0
+    totalRateSum = 0.0
+    for passNum in range(0, len(currentList)):
+        with open(currentDir +"/outTop/"+currentList[passNum], 'r') as f:
+            lines = f.readlines()
+            words = (lines[-1]).split()
+            totalTime += float(words[-1])
+            totalCounts += float(words[-2])
+            if float(words[-1]) != 0.0:
+                rate = float(words[-2])/float(words[-1])
+            else:
+                rate = 0.0
+            totalSquareSum += rate*rate
+            totalRateSum += rate
+    if totalTime != 0.0:
+        topOutRate = totalCounts / totalTime
+        topOutErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/len(currentList))
+    else:
+        topOutRate = 0.0
+        topOutErr = 0.0
+    print(str(topOutRate)+" "+str(topOutErr))
 
-    with open(currentDir + "/procOxInBot.dat", 'r') as f:
-        lines = f.readlines()
-    words = (lines[-1]).split()
-    rateAndErr = (words[12]).split('+/-')
-    botInRate = rateAndErr[0]
-    botInErr = rateAndErr[1]
+    currentList = os.listdir(currentDir+"/inBot")
+    totalTime = 0.0
+    totalCounts = 0
+    totalSquareSum = 0.0
+    totalRateSum = 0.0
+    for passNum in range(0, len(currentList)):
+        with open(currentDir +"/inBot/"+currentList[passNum], 'r') as f:
+            lines = f.readlines()
+            words = (lines[-1]).split()
+            totalTime += float(words[-1])
+            totalCounts += float(words[-2])
+            if float(words[-1]) != 0.0:
+                rate = float(words[-2])/float(words[-1])
+            else:
+                rate = 0.0
+            totalSquareSum += rate*rate
+            totalRateSum += rate
+    if totalTime != 0.0:
+        botInRate = totalCounts / totalTime
+        botInErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/len(currentList))
+    else:
+        botInRate = 0.0
+        botInErr = 0.0
+    print(str(botInRate)+" "+str(botInErr))
 
-    with open(currentDir + "/procOxOutBot.dat", 'r') as f:
-        lines = f.readlines()
-    words = (lines[-1]).split()
-    rateAndErr = (words[12]).split('+/-')
-    botOutRate = rateAndErr[0]
-    botOutErr = rateAndErr[1]
+    currentList = os.listdir(currentDir+"/outBot")
+    totalTime = 0.0
+    totalCounts = 0
+    totalSquareSum = 0.0
+    totalRateSum = 0.0
+    for passNum in range(0, len(currentList)):
+        with open(currentDir +"/outBot/"+currentList[passNum], 'r') as f:
+            lines = f.readlines()
+            words = (lines[-1]).split()
+            totalTime += float(words[-1])
+            totalCounts += float(words[-2])
+            if float(words[-1]) != 0.0:
+                rate = float(words[-2])/float(words[-1])
+            else:
+                rate = 0.0
+            totalSquareSum += rate*rate
+            totalRateSum += rate
+    if totalTime != 0.0:
+        botOutRate = totalCounts / totalTime
+        botOutErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/len(currentList))
+    else:
+        botOutRate = 0.0
+        botOutErr = 0.0
+    print(str(botOutRate)+" "+str(botOutErr))
 
-    resultsTable.append([(botConc, topConc), (float(topInRate), float(topInErr)), (float(topOutRate), float(topOutErr)), (float(botInRate), float(botInErr)), (float(botOutRate), float(botOutErr)), fullRate])
+    resultsTable.append([(botConc, topConc), (topInRate, topInErr), (topOutRate, topOutErr), (botInRate, botInErr), (botOutRate, botOutErr), fullRate])
     
     typeHistory = []
     finalTime = 0.0
@@ -161,11 +233,12 @@ for i in directoryList:
 
 
     #print(str(diffConc)+" "+topInRate+" "+topInErr+" "+topOutRate+" "+topOutErr+" "+botInRate+" "+botInErr+" "+botOutRate+" "+botOutErr)
-    g.write(str(botConc)+" "+str(topConc)+" "+topInRate+" "+topInErr+" "+topOutRate+" "+topOutErr+" "+botInRate+" "+botInErr+" "+botOutRate+" "+botOutErr+"\n")
+    g.write(str(botConc)+" "+str(topConc)+" "+str(topInRate)+" "+str(topInErr)+" "+str(topOutRate)+" "+str(topOutErr)+" "+str(botInRate)+" "+str(botInErr)+" "+str(botOutRate)+" "+str(botOutErr)+"\n")
 g.write("\n")
 g.close()
 pickle.dump(resultsTable, open(resultsPlace+"mainResults.p", "wb"))
-"""
+
+
 flow = []
 flowErr = []
 gradient = []
@@ -173,7 +246,7 @@ gradient = []
 for i in resultsTable:
     flow.append(i[1][0]+i[4][0]-i[2][0]-i[3][0])
     flowErr.append(numpy.sqrt(i[1][1]**2+i[4][1]**2+i[2][1]**2+i[3][1]**2))
-    gradient.append(i[0]/float(sysSize))
+    gradient.append((i[0][1]-i[0][0])/float(sysSize))
     #print(str(gradient[-1])+" "+str(flow[-1])+" "+str(flowErr[-1]))
 
 import pandas as pd
@@ -201,7 +274,8 @@ ols_fit = sm.ols('x ~ y', data=ws).fit()
 
 with open(resultsPlace+"regressionData.dat", 'a') as f:
     f.writelines([str(wls_fit.summary())+"\n", str(wls_fit.params[0])+" "+str(wls_fit.bse[0])+"\n", str(wls_fit.params[1])+" "+str(wls_fit.bse[1])+"\n"])
-    """
+
+
 """
 # This stuff works, but is far too slow =(
     for siteIndex in range(2, sysSize-2):
