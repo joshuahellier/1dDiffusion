@@ -115,7 +115,6 @@ for i in directoryList:
     else:
         topOutRate = 0.0
         topOutErr = 0.0
-    print(str(topOutRate)+" "+str(topOutErr))
 
     currentList = os.listdir(currentDir+"/inBot")
     totalTime = 0.0
@@ -140,7 +139,6 @@ for i in directoryList:
     else:
         botInRate = 0.0
         botInErr = 0.0
-    print(str(botInRate)+" "+str(botInErr))
 
     currentList = os.listdir(currentDir+"/outBot")
     totalTime = 0.0
@@ -165,7 +163,6 @@ for i in directoryList:
     else:
         botOutRate = 0.0
         botOutErr = 0.0
-    print(str(botOutRate)+" "+str(botOutErr))
 
     resultsTable.append([(botConc, topConc), (topInRate, topInErr), (topOutRate, topOutErr), (botInRate, botInErr), (botOutRate, botOutErr), fullRate])
     
@@ -194,7 +191,6 @@ for i in directoryList:
         chunkStart = 0
         chunkEnd = 0
         currentLength = len(changes)
-        print("Number of changes is "+str(currentLength))
         for timeChunkIndex in range (1, numTimeChunks-1):
             while chunkStart+1<currentLength and changes[chunkStart+1][0] < timeChunkIndex*timeChunkSize+initialTime:
                 chunkStart += 1
@@ -226,7 +222,6 @@ for i in directoryList:
                 overallTotal += (timeChunkIndex+1)*timeChunkSize+initialTime - changes[chunkEnd][0]
             typeFile.write(str(tempTotal/overallTotal)+" ")
         typeFile.write("\n")
-        print("Site "+str(siteIndex)+" complete.\n")
     typeFile.close()
 
 
@@ -244,8 +239,8 @@ flowErr = []
 gradient = []
 
 for i in resultsTable:
-    flow.append(i[1][0]+i[4][0]-i[2][0]-i[3][0])
-    flowErr.append(numpy.sqrt(i[1][1]**2+i[4][1]**2+i[2][1]**2+i[3][1]**2))
+    flow.append(0.5*(i[1][0]+i[4][0]-i[2][0]-i[3][0]))
+    flowErr.append(0.5*numpy.sqrt(i[1][1]**2+i[4][1]**2+i[2][1]**2+i[3][1]**2))
     gradient.append((i[0][1]-i[0][0])/float(sysSize))
     #print(str(gradient[-1])+" "+str(flow[-1])+" "+str(flowErr[-1]))
 
