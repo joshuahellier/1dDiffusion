@@ -5,19 +5,21 @@ import os
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
 
-numCores = 6
-numConcDiff = 6
-numConcs = 2
-numLambda = 2
-numStepsEquilib = 100000000
-numStepsAnal = 100000
-transTime = 0.0
-sysSize = 60
+numCores = 8
+numConcDiff = 16
+numConcs = 8
+numLambda = 8
+numStepsEquilib = 10000000
+numStepsAnal = 500000
+numStepsSnapshot = 10000
+numStepsReq = 2000000
+sysSize = 508
 analInterval = 1
-timeInterval = 1.0
-dataLocation = "steadyStateFlow/tests/firstDecentAttempt/"
-lambdaMin = 0.01
-lambdaMax = 1.5
+numPasses = 10
+timeInterval = 10.0
+dataLocation = "steadyStateFlow/ballRuns/attempt1/"
+lambdaMin = 1.0
+lambdaMax = 0.3
 concDiffMin = -0.2
 concDiffMax = 0.2
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
@@ -43,7 +45,7 @@ for rateIndex in range(0, numLambda):
                 currentConcDiff = diffStepSize*jobsStarted + concDiffMin
                 botConc = currentConc - 0.5*currentConcDiff
                 topConc = currentConc + 0.5*currentConcDiff
-                jobInput = "python steadyStateFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsAnal)+" "+str(timeInterval)+" "+str(transTime)+" "+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(jobsStarted)+" >/dev/null"
+                jobInput = "python steadyStateFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(jobsStarted)+" >/dev/null"
                 p = subprocess.Popen(jobInput, shell=True)
                 runningJobs.append(p)
                 print "Starting job "+str(jobsStarted+1)+" on core "+str(coresUsed+1)
