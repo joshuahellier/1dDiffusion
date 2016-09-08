@@ -67,104 +67,47 @@ for i in directoryList:
     words = (lines[4]).split()
     timeInterval = float(words[2])
 
-    currentList = os.listdir(currentDir+"/inTop")
-    totalTime = 0.0
-    totalCounts = 0
-    totalSquareSum = 0.0
-    totalRateSum = 0.0
-    for passNum in range(0, len(currentList)):
-        with open(currentDir +"/inTop/"+currentList[passNum], 'r') as f:
-            lines = f.readlines()
-            words = (lines[-1]).split()
-            totalTime += float(words[-1])
-            totalCounts += float(words[-2])
-            if float(words[-1]) != 0.0:
-                rate = float(words[-2])/float(words[-1])
-            else:
-                rate = 0.0
-            totalSquareSum += rate*rate
-            totalRateSum += rate
-    if totalTime != 0.0:
-        topInRate = totalCounts / totalTime
-        topInErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/len(currentList))
-    else:
-        topInRate = 0.0
-        topInErr = 0.0
-    print(str(topInRate)+" "+str(topInErr))
-
     currentList = os.listdir(currentDir+"/outTop")
     totalTime = 0.0
     totalCounts = 0
     totalSquareSum = 0.0
     totalRateSum = 0.0
     for passNum in range(0, len(currentList)):
-        with open(currentDir +"/outTop/"+currentList[passNum], 'r') as f:
+
+        with open(currentDir +"/outTop/outTop"+str(passNum)+".dat", 'r') as f:
             lines = f.readlines()
             words = (lines[-1]).split()
-            totalTime += float(words[-1])
-            totalCounts += float(words[-2])
-            if float(words[-1]) != 0.0:
-                rate = float(words[-2])/float(words[-1])
-            else:
-                rate = 0.0
-            totalSquareSum += rate*rate
-            totalRateSum += rate
-    if totalTime != 0.0:
-        topOutRate = totalCounts / totalTime
-        topOutErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/len(currentList))
-    else:
-        topOutRate = 0.0
-        topOutErr = 0.0
+            timeStep = float(words[-1])
+            totalTime += timeStep
+            outTop = int(words[-2])
 
-    currentList = os.listdir(currentDir+"/inBot")
-    totalTime = 0.0
-    totalCounts = 0
-    totalSquareSum = 0.0
-    totalRateSum = 0.0
-    for passNum in range(0, len(currentList)):
-        with open(currentDir +"/inBot/"+currentList[passNum], 'r') as f:
+        with open(currentDir +"/inTop/inTop"+str(passNum)+".dat", 'r') as f:
             lines = f.readlines()
             words = (lines[-1]).split()
-            totalTime += float(words[-1])
-            totalCounts += float(words[-2])
-            if float(words[-1]) != 0.0:
-                rate = float(words[-2])/float(words[-1])
-            else:
-                rate = 0.0
-            totalSquareSum += rate*rate
-            totalRateSum += rate
-    if totalTime != 0.0:
-        botInRate = totalCounts / totalTime
-        botInErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/len(currentList))
-    else:
-        botInRate = 0.0
-        botInErr = 0.0
+            inTop = int(words[-2])
 
-    currentList = os.listdir(currentDir+"/outBot")
-    totalTime = 0.0
-    totalCounts = 0
-    totalSquareSum = 0.0
-    totalRateSum = 0.0
-    for passNum in range(0, len(currentList)):
-        with open(currentDir +"/outBot/"+currentList[passNum], 'r') as f:
+        with open(currentDir +"/outBot/outBot"+str(passNum)+".dat", 'r') as f:
             lines = f.readlines()
             words = (lines[-1]).split()
-            totalTime += float(words[-1])
-            totalCounts += float(words[-2])
-            if float(words[-1]) != 0.0:
-                rate = float(words[-2])/float(words[-1])
-            else:
-                rate = 0.0
-            totalSquareSum += rate*rate
-            totalRateSum += rate
-    if totalTime != 0.0:
-        botOutRate = totalCounts / totalTime
-        botOutErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/len(currentList))
-    else:
-        botOutRate = 0.0
-        botOutErr = 0.0
+            outBot = int(words[-2])
 
-    resultsTable.append([(botConc, topConc), (topInRate, topInErr), (topOutRate, topOutErr), (botInRate, botInErr), (botOutRate, botOutErr), fullRate])
+        with open(currentDir +"/inBot/inBot"+str(passNum)+".dat", 'r') as f:
+            lines = f.readlines()
+            words = (lines[-1]).split()
+            inBot = int(words[-2])
+
+        if timeStep != 0.0:
+            rate = float(inBot + outTop - inTop - outBot)/(2.0*timeStep)
+        else:
+            rate = 0.0
+
+        totalRateSum += rate
+        totalSquareSum += rate*rate
+
+    flowMean = totalRateSum/len(currentList)
+    flowErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/(len(currentList)-1))
+
+    resultsTable.append([(botConc, topConc), (flowMean, flowErr), fullRate])
     
     typeHistory = []
     finalTime = 0.0
@@ -228,7 +171,7 @@ for i in directoryList:
 
 
     #print(str(diffConc)+" "+topInRate+" "+topInErr+" "+topOutRate+" "+topOutErr+" "+botInRate+" "+botInErr+" "+botOutRate+" "+botOutErr)
-    g.write(str(botConc)+" "+str(topConc)+" "+str(topInRate)+" "+str(topInErr)+" "+str(topOutRate)+" "+str(topOutErr)+" "+str(botInRate)+" "+str(botInErr)+" "+str(botOutRate)+" "+str(botOutErr)+"\n")
+    g.write(str(botConc)+" "+str(topConc)+" "+str(flowMean)+" "+str(flowErr)+"\n")
 g.write("\n")
 g.close()
 pickle.dump(resultsTable, open(resultsPlace+"mainResults.p", "wb"))
@@ -239,9 +182,9 @@ flowErr = []
 gradient = []
 
 for i in resultsTable:
-    flow.append(0.5*(i[1][0]+i[4][0]-i[2][0]-i[3][0]))
-    flowErr.append(0.5*numpy.sqrt(i[1][1]**2+i[4][1]**2+i[2][1]**2+i[3][1]**2))
-    gradient.append((i[0][1]-i[0][0])/float(sysSize))
+    flow.append(i[1][0])
+    flowErr.append(i[1][1])
+    gradient.append((i[0][0]-i[0][1])/float(sysSize))
     #print(str(gradient[-1])+" "+str(flow[-1])+" "+str(flowErr[-1]))
 
 import pandas as pd
