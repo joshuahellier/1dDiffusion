@@ -190,9 +190,9 @@ flow = []
 flowErr = []
 gradient = []
 
-with open(resultsPlace+"mathFormatData.dat", 'a') as f:
+with open(resultsPlace+"mathFormatData.dat", 'w') as f:
     for i in resultsTable:
-        f.write(str((i[0][0]-i[0][1])/float(sysSize))+" "+str(i[1][0])+" "+str(i[1][1]))
+        f.write(str((i[0][0]-i[0][1])/float(sysSize))+" "+str(i[1][0])+" "+str(i[1][1])+"\n")
 
 for i in resultsTable:
     flow.append(i[1][0])
