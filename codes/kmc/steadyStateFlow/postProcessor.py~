@@ -39,6 +39,12 @@ try:
 except OSError:
     pass
 
+fileName = resultsPlace+"mathFormatData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
 directoryList = os.listdir(resultsPlace)
 
 g = open(resultsPlace+"regressionData.dat", 'w')
@@ -64,7 +70,7 @@ for i in directoryList:
     words = (lines[2]).split()
     fullRate = float(words[2])
     words = (lines[3]).split()
-    sysSize = int(words[2])+4
+    sysSize = int(words[2])
     words = (lines[4]).split()
     timeInterval = float(words[2])
 
@@ -184,6 +190,10 @@ flow = []
 flowErr = []
 gradient = []
 
+with open(resultsPlace+"mathFormatData.dat", 'a') as f:
+    for i in resultsTable:
+        f.write(str((i[0][0]-i[0][1])/float(sysSize))+" "+str(i[1][0])+" "+str(i[1][1]))
+
 for i in resultsTable:
     flow.append(i[1][0])
     flowErr.append(i[1][1])
@@ -192,7 +202,6 @@ for i in resultsTable:
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import statsmodels.formula.api as sm
 
 x_list = gradient

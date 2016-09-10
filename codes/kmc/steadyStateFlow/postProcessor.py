@@ -39,6 +39,12 @@ try:
 except OSError:
     pass
 
+fileName = resultsPlace+"mathFormatData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
 directoryList = os.listdir(resultsPlace)
 
 g = open(resultsPlace+"regressionData.dat", 'w')
@@ -183,6 +189,10 @@ pickle.dump(resultsTable, open(resultsPlace+"mainResults.p", "wb"))
 flow = []
 flowErr = []
 gradient = []
+
+with open(resultsPlace+"mathFormatData.dat", 'a') as f:
+    for i in resultsTable:
+        f.write(str((i[0][0]-i[0][1])/float(sysSize))+" "+str(i[1][0])+" "+str(i[1][1]))
 
 for i in resultsTable:
     flow.append(i[1][0])
