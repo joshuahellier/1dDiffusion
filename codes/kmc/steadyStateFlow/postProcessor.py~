@@ -184,7 +184,7 @@ gradient = []
 for i in resultsTable:
     flow.append(i[1][0])
     flowErr.append(i[1][1])
-    gradient.append((i[0][1]-i[0][0])/float(sysSize))
+    gradient.append((i[0][0]-i[0][1])/float(sysSize))
     #print(str(gradient[-1])+" "+str(flow[-1])+" "+str(flowErr[-1]))
 
 import pandas as pd

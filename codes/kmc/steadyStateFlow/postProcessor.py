@@ -3,6 +3,7 @@ import os
 import numpy
 import cPickle as pickle
 import postProcessorUtilities as pPU
+import math
 
 timeChunkSize = 0.0
 
@@ -107,7 +108,8 @@ for i in directoryList:
     flowMean = totalRateSum/len(currentList)
     flowErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/(len(currentList)-1))
 
-    resultsTable.append([(botConc, topConc), (flowMean, flowErr), fullRate])
+    if not (math.isnan(flowMean) or math.isnan(flowMean))
+        resultsTable.append([(botConc, topConc), (flowMean, flowErr), fullRate])
     
     typeHistory = []
     finalTime = 0.0
@@ -171,7 +173,8 @@ for i in directoryList:
 
 
     #print(str(diffConc)+" "+topInRate+" "+topInErr+" "+topOutRate+" "+topOutErr+" "+botInRate+" "+botInErr+" "+botOutRate+" "+botOutErr)
-    g.write(str(botConc)+" "+str(topConc)+" "+str(flowMean)+" "+str(flowErr)+"\n")
+    if not (math.isnan(flowMean) or math.isnan(flowMean))
+        g.write(str(botConc)+" "+str(topConc)+" "+str(flowMean)+" "+str(flowErr)+"\n")
 g.write("\n")
 g.close()
 pickle.dump(resultsTable, open(resultsPlace+"mainResults.p", "wb"))
