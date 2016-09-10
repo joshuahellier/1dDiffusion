@@ -108,7 +108,7 @@ for i in directoryList:
     flowMean = totalRateSum/len(currentList)
     flowErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/(len(currentList)-1))
 
-    if not (math.isnan(flowMean) or math.isnan(flowMean))
+    if not (math.isnan(flowMean) or math.isnan(flowMean)):
         resultsTable.append([(botConc, topConc), (flowMean, flowErr), fullRate])
     
     typeHistory = []
@@ -173,7 +173,7 @@ for i in directoryList:
 
 
     #print(str(diffConc)+" "+topInRate+" "+topInErr+" "+topOutRate+" "+topOutErr+" "+botInRate+" "+botInErr+" "+botOutRate+" "+botOutErr)
-    if not (math.isnan(flowMean) or math.isnan(flowMean))
+    if not (math.isnan(flowMean) or math.isnan(flowMean)):
         g.write(str(botConc)+" "+str(topConc)+" "+str(flowMean)+" "+str(flowErr)+"\n")
 g.write("\n")
 g.close()
