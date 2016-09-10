@@ -37,7 +37,7 @@ with open(resultsPlace+'settings', 'w') as f:
     f.write('TimeInterval = ' + str(timeInterval) +'\n')
     f.write('AnalInterval = ' +str(analInterval) + '\n')
     f.write('NumStepsEquilib = '+str(numStepsEquilib) +'\n')
-    f.write('NumStepsSnapshot = '+str(numStepsSnapshot))
+    f.write('NumStepsSnapshot = '+str(numStepsSnapshot)+'\n')
     f.write('NumStepsAnal = '+str(numStepsAnal) +'\n')
 
 """I've put this in the file to make command line input easier"""
@@ -431,10 +431,10 @@ with open(resultsPlace+"procOxOutTopSnap.dat", 'w') as f:
     processStatsOxOutTop.printResults(f)
 
 for passNum in range(0, numPasses):
-    processStatsOxInBot = ProcessStatistics(processes=[9], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
-    processStatsOxOutBot = ProcessStatistics(processes=[7, 8], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
-    processStatsOxInTop = ProcessStatistics(processes=[6], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
-    processStatsOxOutTop = ProcessStatistics(processes=[4, 5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
     model.run(control_parameters_req, trajectory_filename=(resultsPlace+"mainTraj.tr"))
     model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
 

@@ -394,10 +394,10 @@ model = KMCLatticeModel(configuration, interactions)
 
 # Trying to find out information about distribution of time steps
 #timeStepDistn = TimeStepDistribution(0.1)
-processStatsOxInBot = ProcessStatistics(processes=[9], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval, resultsPlace=resultsPlace, processesObject=processes)
-processStatsOxOutBot = ProcessStatistics(processes=[7, 8], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
-processStatsOxInTop = ProcessStatistics(processes=[6], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
-processStatsOxOutTop = ProcessStatistics(processes=[4, 5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval, resultsPlace=resultsPlace, processesObject=processes)
+processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
 
 # Define the parameters; not entirely sure if these are sensible or not...
 control_parameters_equilib = KMCControlParameters(number_of_steps=numStepsEquilib, analysis_interval=numStepsEquilib/100,
@@ -431,10 +431,10 @@ with open(resultsPlace+"procOxOutTopSnap.dat", 'w') as f:
     processStatsOxOutTop.printResults(f)
 
 for passNum in range(0, numPasses):
-    processStatsOxInBot = ProcessStatistics(processes=[9], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
-    processStatsOxOutBot = ProcessStatistics(processes=[7, 8], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
-    processStatsOxInTop = ProcessStatistics(processes=[6], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
-    processStatsOxOutTop = ProcessStatistics(processes=[4, 5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
     model.run(control_parameters_req, trajectory_filename=(resultsPlace+"mainTraj.tr"))
     model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
 
