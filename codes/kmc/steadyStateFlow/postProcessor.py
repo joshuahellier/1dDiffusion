@@ -21,6 +21,12 @@ if not os.path.exists(resultsPlace):
 
 
 resultsTable = []
+inTopResults = []
+outTopResults = []
+inBotResults = []
+outBotResults = []
+topFlowResults = []
+botFlowResults = []
 lines = []
 words = []
 
@@ -40,6 +46,42 @@ except OSError:
     pass
 
 fileName = resultsPlace+"mathFormatData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
+fileName = resultsPlace+"topFlowData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
+fileName = resultsPlace+"botFlowData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
+fileName = resultsPlace+"inTopData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
+fileName = resultsPlace+"outBotData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
+fileName = resultsPlace+"inBotData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
+fileName = resultsPlace+"outTopData.dat"
 try:
     os.remove(fileName)
 except OSError:
@@ -79,6 +121,20 @@ for i in directoryList:
     totalCounts = 0
     totalSquareSum = 0.0
     totalRateSum = 0.0
+    totalRateSum = 0.0
+    totalSquareSum = 0.0
+    totalRateTopSum = 0.0
+    totalTopSquareSum = 0.0
+    totalRateBotSum = 0.0
+    totalBotSquareSum = 0.0
+    totalRateInTopSum = 0.0
+    totalRateOutTopSum = 0.0
+    totalRateInBotSum = 0.0
+    totalRateOutBotSum = 0.0
+    totalInTopSquareSum = 0.0
+    totalOutTopSquareSum = 0.0
+    totalInBotSquareSum = 0.0
+    totalOutBotSquareSum = 0.0
     for passNum in range(0, len(currentList)):
 
         with open(currentDir +"/outTop/outTop"+str(passNum)+".dat", 'r') as f:
@@ -105,17 +161,72 @@ for i in directoryList:
 
         if timeStep != 0.0:
             rate = float(inBot + outTop - inTop - outBot)/(2.0*timeStep)
+            rateTop = float(outTop-inTop)/timeStep
+            rateBot = float(inBot-outBot)/timeStep
+            rateInTop = float(inTop)/timeStep
+            rateOutTop = float(outTop)/timeStep
+            rateInBot = float(inBot)/timeStep
+            rateOutBot = float(outBot)/timeStep
         else:
             rate = 0.0
+            rateTop = 0.0
+            rateBot = 0.0
 
         totalRateSum += rate
         totalSquareSum += rate*rate
+        totalRateTopSum += rateTop
+        totalTopSquareSum += rateTop*rateTop
+        totalRateBotSum += rateBot
+        totalBotSquareSum += rateBot*rateBot
+        totalRateInTopSum += rateInTop
+        totalRateOutTopSum += rateOutTop
+        totalRateInBotSum += rateInBot
+        totalRateOutBotSum += rateOutBot
+        totalInTopSquareSum += rateInTop*rateInTop
+        totalOutTopSquareSum += rateOutTop*rateOutTop
+        totalInBotSquareSum += rateInBot*rateInBot
+        totalOutBotSquareSum += rateOutBot*rateOutBot
+        
 
     flowMean = totalRateSum/len(currentList)
     flowErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/(len(currentList)-1))
+    flowTopMean = totalRateTopSum/len(currentList)
+    flowTopErr = numpy.sqrt((totalTopSquareSum - totalRateTopSum*totalRateTopSum/len(currentList))/(len(currentList)-1))
+    flowBotMean = totalRateBotSum/len(currentList)
+    flowBotErr = numpy.sqrt((totalBotSquareSum - totalRateBotSum*totalRateBotSum/len(currentList))/(len(currentList)-1))
+    flowInBotMean = totalRateInBotSum/len(currentList)
+    flowInBotErr = numpy.sqrt((totalInBotSquareSum - totalRateInBotSum*totalRateInBotSum/len(currentList))/(len(currentList)-1))
+    flowOutBotMean = totalRateOutBotSum/len(currentList)
+    flowOutBotErr = numpy.sqrt((totalOutBotSquareSum - totalRateOutBotSum*totalRateOutBotSum/len(currentList))/(len(currentList)-1))
+    flowInTopMean = totalRateInTopSum/len(currentList)
+    flowInTopErr = numpy.sqrt((totalInTopSquareSum - totalRateInTopSum*totalRateInTopSum/len(currentList))/(len(currentList)-1))
+    flowOutTopMean = totalRateOutTopSum/len(currentList)
+    flowOutTopErr = numpy.sqrt((totalOutTopSquareSum - totalRateOutTopSum*totalRateOutTopSum/len(currentList))/(len(currentList)-1))
 
-    if not (math.isnan(flowMean) or math.isnan(flowMean)):
+
+
+    
+
+    if not (math.isnan(flowMean) or math.isnan(flowErr)):
         resultsTable.append([(botConc, topConc), (flowMean, flowErr), fullRate])
+
+    if not(math.isnan(flowInTopMean) or math.isnan(flowInTopErr)):
+        inTopResults.append(str((botConc-topConc)/float(sysSize-4))+" "+str(flowInTopMean)+" "+str(flowInTopErr)+"\n")
+
+    if not(math.isnan(flowInBotMean) or math.isnan(flowInBotErr)):
+        inBotResults.append(str((botConc-topConc)/float(sysSize-4))+" "+str(flowInBotMean)+" "+str(flowInBotErr)+"\n")
+
+    if not(math.isnan(flowOutTopMean) or math.isnan(flowOutTopErr)):
+        outTopResults.append(str((botConc-topConc)/float(sysSize-4))+" "+str(flowOutTopMean)+" "+str(flowOutTopErr)+"\n")
+
+    if not(math.isnan(flowOutBotMean) or math.isnan(flowOutBotErr)):
+        outBotResults.append(str((botConc-topConc)/float(sysSize-4))+" "+str(flowOutBotMean)+" "+str(flowOutBotErr)+"\n")
+
+    if not(math.isnan(flowTopMean) or math.isnan(flowTopErr)):
+        topFlowResults.append(str((botConc-topConc)/float(sysSize-4))+" "+str(flowTopMean)+" "+str(flowTopErr)+"\n")
+
+    if not(math.isnan(flowBotMean) or math.isnan(flowBotErr)):
+        botFlowResults.append(str((botConc-topConc)/float(sysSize-4))+" "+str(flowBotMean)+" "+str(flowBotErr)+"\n")
     
     typeHistory = []
     finalTime = 0.0
@@ -194,18 +305,42 @@ with open(resultsPlace+"mathFormatData.dat", 'w') as f:
     for i in resultsTable:
         f.write(str((i[0][0]-i[0][1])/float(sysSize))+" "+str(i[1][0])+" "+str(i[1][1])+"\n")
 
+with open(resultsPlace+"topFlowData.dat", 'w') as f:
+    for i in topFlowResults:
+        f.write(i)
+
+with open(resultsPlace+"botFlowData.dat", 'w') as f:
+    for i in botFlowResults:
+        f.write(i)
+
+with open(resultsPlace+"inTopData.dat", 'w') as f:
+    for i in inTopResults:
+        f.write(i)
+
+with open(resultsPlace+"outTopData.dat", 'w') as f:
+    for i in outTopResults:
+        f.write(i)
+
+with open(resultsPlace+"inBotData.dat", 'w') as f:
+    for i in inBotResults:
+        f.write(i)
+
+with open(resultsPlace+"outBotData.dat", 'w') as f:
+    for i in outBotResults:
+        f.write(i)
+
 for i in resultsTable:
     flow.append(i[1][0])
     flowErr.append(i[1][1])
-    gradient.append((i[0][0]-i[0][1])/float(sysSize))
+    gradient.append((i[0][0]-i[0][1])/float(sysSize-4))
     #print(str(gradient[-1])+" "+str(flow[-1])+" "+str(flowErr[-1]))
 
 import pandas as pd
 import numpy as np
 import statsmodels.formula.api as sm
 
-x_list = gradient
-y_list = flow
+y_list = gradient
+x_list = flow
 y_err = flowErr
 
 # put x and y into a pandas DataFrame, and the weights into a Series
