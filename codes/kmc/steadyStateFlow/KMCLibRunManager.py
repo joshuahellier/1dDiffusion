@@ -5,21 +5,21 @@ import os
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
 
-numCores = 12
-numConcDiff = 12
+numCores = 16
+numConcDiff = 16
 numConcs = 8
 numLambda = 2
 numStepsEquilib = 10000000
 numStepsAnal = 2000000
 numStepsSnapshot = 10000
 numStepsReq = 2000000
-sysSize = 124
+sysSize = 60
 analInterval = 1
 numPasses = 10
 timeInterval = 100.0
-dataLocation = "steadyStateFlow/ballRuns/attempt7/"
-lambdaMin = 0.3
-lambdaMax = 0.4
+dataLocation = "steadyStateFlow/ballRuns/attempt8/"
+lambdaMin = 0.1
+lambdaMax = 0.2
 concDiffMin = -0.2
 concDiffMax = 0.2
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
