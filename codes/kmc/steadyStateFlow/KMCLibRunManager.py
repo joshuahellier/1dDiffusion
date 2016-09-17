@@ -4,7 +4,6 @@ import os
 
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
-
 numCores = 16
 numConcDiff = 16
 numConcs = 8
