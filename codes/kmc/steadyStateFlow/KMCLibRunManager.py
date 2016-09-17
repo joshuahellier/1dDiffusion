@@ -6,20 +6,20 @@ import os
 # in the name of time efficiency
 
 numCores = 8
-numConcDiff = 16
+numConcDiff = 8
 numConcs = 4
-numLambda = 2
-numStepsEquilib = 1000000
-numStepsAnal = 10000000
-numStepsSnapshot = 10000
-numStepsReq = 1000000
-sysSize = 60
+numLambda = 6
+numStepsEquilib = 0
+numStepsAnal = 0
+numStepsSnapshot = 1000000
+numStepsReq = 0
+sysSize = 252
 analInterval = 1
-numPasses = 10
-timeInterval = 100.0
-dataLocation = "steadyStateFlow/newTests/attempt8/"
+numPasses = 1
+timeInterval = 1.0
+dataLocation = "steadyStateFlow/imagingRuns/initImage"
 lambdaMin = 0.4
-lambdaMax = 0.6
+lambdaMax = 1.0
 concDiffMin = -0.2
 concDiffMax = 0.2
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
