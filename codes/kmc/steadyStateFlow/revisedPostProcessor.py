@@ -40,10 +40,9 @@ for topLevel in topDirectoryList:
             words = lines[2].split()
             fullRate = float(words[-1])
         print location
-        jobInput = "python postProcessorImager.py "+location
+        jobInput = "python postProcessor.py "+location
         p = subprocess.Popen(jobInput, shell=True)
         exitCodes = p.wait()
-"""
         with open(resultDir+"/"+location+"/regressionData.dat") as f:
             lines = f.readlines()
             words = lines[-1].split()
@@ -51,4 +50,4 @@ for topLevel in topDirectoryList:
     with open(resultsPlace+topLevel+"/"+"overallData.dat", 'w') as f:
         for res in resultsTable:
             f.write(res+"\n")
-"""
+
