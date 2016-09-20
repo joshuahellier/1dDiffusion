@@ -1,5 +1,7 @@
 % BUSSTEPPPresentation.tex
 
+\newcommand{\partDeriv}[2]{\frac{\partial #1}{\partial #2}}
+
 \documentclass{beamer}
 
 \usepackage{etex}
@@ -37,7 +39,7 @@
 \logo{%
     \includegraphics[width=1cm,height=1cm,keepaspectratio]{images/EdinburghUniLogo}%
 }
-\date{nn September 2016}
+\date{21 September 2016}
 
 \usetheme{Edinburgh} % Deal with the theme later
 
@@ -85,40 +87,90 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Contents}
+\frametitle{Model Motivation}
+\framesubtitle{Interactions Between Particles in a Periodic Potential}
+\begin{tabular}{c c}
+\includegraphics[width=0.45\linewidth]{images/fPlot} & \includegraphics[width=0.45\linewidth]{images/gPlot} \\
+\end{tabular}
+\begin{center}
+ \includegraphics[width=0.65\linewidth]{images/fgSumPlot}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model Motivation}
+\framesubtitle{My 1D Sticky Lattice Model}
+ \begin{center}
+  \begin{tabular}{c c c c}
+  $\cdots VOV\cdots$ & $\longrightarrow$ & $\cdots VVO \cdots$ & with rate $1$ \\
+  $\cdots VOV\cdots$ & $\longrightarrow$ & $\cdots OVV \cdots$ & with rate $1$ \\
+  $\cdots OOV\cdots$ & $\longrightarrow$ & $\cdots OVO \cdots$ & with rate $\lambda$ \\
+  $\cdots VOO\cdots$ & $\longrightarrow$ & $\cdots OVO \cdots$ & with rate $\lambda$ \\
+ \end{tabular}
+ \end{center}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Model Phenomenology}
+\framesubtitle{MFT Master Equations}
 \begin{itemize}
-\item{}
+\item Let $\zeta = 1-\lambda$, and $\rho_i$ be the ensemble-averaged occupation probability of the $i^\mathrm{th}$ site in the mean-field approximation.
+\item Then
+\begin{align*}
+ \partDeriv{\rho_i}{t} = &\left( 1-\rho_i \right) \left[ \left(1-\zeta\rho_{i-2} \right) \rho_{i-1} + \left(1-\zeta\rho_{i+2} \right) \rho_{i+1} \right] \\
+ - &\rho_i \left[ 2 \zeta \rho_{i-1} \rho_{i+1}  - (3-\zeta)\left(\rho_{i-1} + \rho_{i+1}\right) + 2 \right].
+\end{align*}
+\item Just set the LHS to zero for the steady state.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Contents}
+\frametitle{Model Phenomenology}
+\framesubtitle{Continuum-Limit MFT}
 \begin{itemize}
-\item{}
+\item Let the lattice spacing be $a$, and let us take the long-wavelength limit of our MFT, with $x$ as our spatial coordinate, promoting $\rho_i(t)$ to the field $\rho(x, t)$.
+\item Then we find that
+\begin{equation*}
+\partDeriv{\rho}{t} = \frac{1}{2} a^2 \left[ \left( 2 - 2 \zeta \rho (4-3\rho) \right) \partDeriv{^2 \rho}{x^2} - \zeta \left(2-3\rho\right) \left(\partDeriv{\rho}{x}\right)^2 \right] + \mathcal{O}(a^4).
+\label{eq: longRangePDE}
+\end{equation*}
+\item We can rewrite this as the continuity equation $\partDeriv{\rho}{t} + \partDeriv{J}{x} = 0$, where
+\begin{equation*}
+ J = -a^2 \left[ 1 - \zeta (4-3\rho)\rho \right] \partDeriv{\rho}{x}
+\end{equation*}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Contents}
+\frametitle{Model Phenomenology}
+\framesubtitle{Continuum-Limit MFT Current Flows}
 \begin{itemize}
-\item{}
+ \item So we can write the current as
+ \begin{equation*}
+  J = -a^2 f(\rho) \partDeriv{\rho}{x},
+ \end{equation*}
+where $f$ varies with $\zeta$.
+\item Varying with respect to $\zeta$ yields the following:
+\includegraphics[width=0.75\linewidth]{images/currentFlows}
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+ \frametitle{Model Phenomenology}
+ \framesubtitle{Steady State PDE Solutions}
+ \begin{itemize}
+  \item We can actually solve the steady state MFT PDE analytically in the bulk, by recalling that the current flow must be constant and absorbing $a$:
+  \begin{align*}
+   J_0 &= \left[ 1 - \zeta (4-3\rho)\rho \right] \partDeriv{\rho}{x} \\
+   \int \! \! \mathrm{d}x \, J_0 &=  \int \! \! \mathrm{d}\rho \left[ 1 - \zeta (4-3\rho)\rho \right] \\
+   J_0 (x-x_0) &= \rho (2\zeta \rho - \zeta \rho^2 -1  ),
+  \end{align*}
+\item All we have to do now is solve that cubic for $\rho$!
+ \end{itemize}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+\end{frame}
 
 
 
