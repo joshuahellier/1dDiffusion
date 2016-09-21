@@ -159,15 +159,45 @@ where $f$ varies with $\zeta$.
 
 \begin{frame}
  \frametitle{Model Phenomenology}
- \framesubtitle{Steady State PDE Solutions}
+ \framesubtitle{Steady State ODE Solutions}
  \begin{itemize}
-  \item We can actually solve the steady state MFT PDE analytically in the bulk, by recalling that the current flow must be constant and absorbing $a$:
+  \item We can actually solve the steady state MFT ODE analytically in the bulk, by recalling that the current flow must be constant and absorbing $a$:
   \begin{align*}
    J_0 &= \left[ 1 - \zeta (4-3\rho)\rho \right] \partDeriv{\rho}{x} \\
    \int \! \! \mathrm{d}x \, J_0 &=  \int \! \! \mathrm{d}\rho \left[ 1 - \zeta (4-3\rho)\rho \right] \\
    J_0 (x-x_0) &= \rho (2\zeta \rho - \zeta \rho^2 -1  ),
   \end{align*}
 \item All we have to do now is solve that cubic for $\rho$!
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model Phenomenology}
+\framesubtitle{Posing a Problem with our ODE}
+ \begin{itemize}
+  \item I won't go into the full nature of the solution.
+  \item Our ODE is second order, hence we need to supply two pieces of information to have a well-posed problem.
+  \item We can solve it uniquely on the domain $(0, L)$ where we prescribe the values of $\rho$ on the left and right boundaries to be $\rho_L, \, \rho_R \, \in (0, 1)$.
+  \item Such a solution is linearly stable so long as $\zeta < \frac{3}{4}$
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numerical Modelling of our Model}
+ \framesubtitle{Kinetic Monte Carlo}
+ \begin{itemize}
+  \item Recall how we specified our model in the bulk:
+  \\
+  \begin{center}
+    \begin{tabular}{c c c c}
+  $\cdots VOV\cdots$ & $\longrightarrow$ & $\cdots VVO \cdots$ & with rate $1$ \\
+  $\cdots VOV\cdots$ & $\longrightarrow$ & $\cdots OVV \cdots$ & with rate $1$ \\
+  $\cdots OOV\cdots$ & $\longrightarrow$ & $\cdots OVO \cdots$ & with rate $\lambda$ \\
+  $\cdots VOO\cdots$ & $\longrightarrow$ & $\cdots OVO \cdots$ & with rate $\lambda$ \\
+ \end{tabular}
+  \end{center}
+  \item We can simulate it using Kinetic Monte Carlo methods, which are essentially the same as the Gillespie algorithm
+  \item These methods are efficiently implemented in KMCLib (a python-wrapped \texttt{C++} code) by Mikael Leetmaa.
  \end{itemize}
 
 \end{frame}
