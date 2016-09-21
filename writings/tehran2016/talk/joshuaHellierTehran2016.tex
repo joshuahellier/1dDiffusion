@@ -183,7 +183,7 @@ where $f$ varies with $\zeta$.
 \end{frame}
 
 \begin{frame}
- \frametitle{Numerical Modelling of our Model}
+ \frametitle{Numerical Simulation of our Model}
  \framesubtitle{Kinetic Monte Carlo}
  \begin{itemize}
   \item Recall how we specified our model in the bulk:
@@ -199,9 +199,101 @@ where $f$ varies with $\zeta$.
   \item We can simulate it using Kinetic Monte Carlo methods, which are essentially the same as the Gillespie algorithm
   \item These methods are efficiently implemented in KMCLib (a python-wrapped \texttt{C++} code) by Mikael Leetmaa.
  \end{itemize}
-
 \end{frame}
 
+\begin{frame}
+ \frametitle{Numerical Simulation of our Model}
+ \framesubtitle{Kinetic Monte Carlo}
+ \begin{itemize}
+  \item We would like to test our MFT predictions about flow rates.
+  \item If we are careful with our boundary conditions, we can setup a situation numerically which should mimic our solution on $(0, L)$ with prescribed boundary values $\rho_L$ and $\rho_R$.
+  \item The rate of change of the flow through the cell with respect to the concentration gradient across it\footnote{The diffusion coefficient of regular diffusion.} should be
+  \begin{equation*}
+   L \left( \partDeriv{J}{\delta} \right)_{\delta = 0} = 1 - \zeta (4-3\rho)\rho,
+  \end{equation*}
+  where $\delta$ is the concentration difference between the two ends.
+ \item This is something we should be able to directly test using our numerics.
+ \end{itemize}
+\end{frame}
 
+\begin{frame}
+ \frametitle{Numerical Results}
+ \framesubtitle{$\lambda = 1$}
+ \begin{center}
+  \includegraphics[width=0.9\linewidth]{images/lambda1p0}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numerical Results}
+ \framesubtitle{$\lambda = 0.9$}
+ \begin{center}
+  \includegraphics[width=0.9\linewidth]{images/lambda0p9}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numerical Results}
+ \framesubtitle{$\lambda = 0.8$}
+ \begin{center}
+  \includegraphics[width=0.9\linewidth]{images/lambda0p8}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numerical Results}
+ \framesubtitle{$\lambda = 0.7$}
+ \begin{center}
+  \includegraphics[width=0.9\linewidth]{images/lambda0p7}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numerical Results}
+ \framesubtitle{$\lambda = 0.6$}
+ \begin{center}
+  \includegraphics[width=0.9\linewidth]{images/lambda0p6}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numerical Results}
+ \framesubtitle{$\lambda = 0.5$}
+ \begin{center}
+  \includegraphics[width=0.9\linewidth]{images/lambda0p5}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numerical Results}
+ \framesubtitle{$\lambda = 0.4$}
+ \begin{center}
+  \includegraphics[width=0.9\linewidth]{images/lambda0p4}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numerical Results}
+ \framesubtitle{$\lambda = 0.3$}
+ \begin{center}
+  \includegraphics[width=0.9\linewidth]{images/lambda0p3}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numerical Results}
+ \framesubtitle{$\lambda = 0.275$}
+ \begin{center}
+  \includegraphics[width=0.9\linewidth]{images/lambda0p275}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numerical Results}
+ \framesubtitle{$\lambda = 0.225$}
+ \begin{center}
+  \includegraphics[width=0.9\linewidth]{images/lambda0p225}
+ \end{center}
+\end{frame}
 
 \end{document}
