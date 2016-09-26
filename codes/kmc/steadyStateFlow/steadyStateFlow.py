@@ -1,5 +1,6 @@
 import sys
 import os
+import math
 
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
@@ -65,10 +66,10 @@ lattice = KMCLattice(unit_cell=unit_cell,
 # Generate the initial types. There's double-layered section of "To" at the top and "Bo" at the bottom
 avConc = 0.5*(botConc+topConc)
 types = ["V"]*numPoints
-types[0] = "Bo"
-types[1] = "Bo"
-types[-2] = "To"
-types[-1] = "To"
+types[0] = "BoV"
+types[1] = "BoV"
+types[-2] = "ToV"
+types[-1] = "ToV"
 for i in range(int(zRep*avConc)):
     # find a site which is not yet occupied by a "O" type.
     pos = int(numpy.random.rand()*zRep+2.0)
@@ -86,11 +87,15 @@ for i in range(2, numPoints-2):
 # Setup the configuration.
 configuration = KMCConfiguration(lattice=lattice,
                                  types=types,
-                                 possible_types=["O","V","To","Bo"])
+                                 possible_types=["O","V","ToV","BoV", "ToO", "BoO"])
 
 
 # Rates.
 rateConstEmpty        	= 1.0
+topSpawn = math.sqrt(topConc/(1.0-topConc))
+botSpawn = math.sqrt(botConc/(1.0-botConc))
+topDespawn = 1.0/topSpawn
+botDespawn = 1.0/botSpawn
 
 #
 ##
@@ -132,8 +137,8 @@ processes.append( KMCProcess(coordinates=coordinates,
 
 # Now for Oxygen annihilation at the top boundary
 #2
-elements_before = ["O", "To"]
-elements_after  = ["V", "To"]
+elements_before = ["O", "ToV"]
+elements_after  = ["V", "ToV"]
 coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
 processes.append( KMCProcess(coordinates=coordinates,
                              elements_before=elements_before,
@@ -145,9 +150,9 @@ processes.append( KMCProcess(coordinates=coordinates,
 
 # Oxygen creation at the top boundary
 #3
-elements_before = ["V", "To"]
-elements_after  = ["O", "To"]
-coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
+elements_before = ["ToO", "V"]
+elements_after  = ["ToO", "O"]
+coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, -1.0]]
 processes.append( KMCProcess(coordinates=coordinates,
                              elements_before=elements_before,
                              elements_after=elements_after,
@@ -155,10 +160,9 @@ processes.append( KMCProcess(coordinates=coordinates,
                              rate_constant=1.0))
 
 # Now for Oxygen annihilation at the bottom boundary
-# Bottom
 #4
-elements_before = ["O", "Bo"]
-elements_after  = ["V", "Bo"]
+elements_before = ["O", "BoV"]
+elements_after  = ["V", "BoV"]
 coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, -1.0]]
 processes.append( KMCProcess(coordinates=coordinates,
                              elements_before=elements_before,
@@ -169,11 +173,54 @@ processes.append( KMCProcess(coordinates=coordinates,
 
 
 # Oxygen creation at the bottom boundary
-# Bottom
 #5
-elements_before = ["V", "Bo"]
-elements_after  = ["O", "Bo"]
-coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, -1.0]]
+elements_before = ["BoO", "V"]
+elements_after  = ["BoO", "O"]
+coordinates = [[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
+processes.append( KMCProcess(coordinates=coordinates,
+                             elements_before=elements_before,
+                             elements_after=elements_after,
+                             basis_sites=basis_sites,
+                             rate_constant=1.0))
+
+# Boundary Oxygen creation at the bottom boundary
+#6
+elements_before = ["BoV"]
+elements_after  = ["BoO"]
+coordinates = [[0.0, 0.0, 0.0]]
+processes.append( KMCProcess(coordinates=coordinates,
+                             elements_before=elements_before,
+                             elements_after=elements_after,
+                             basis_sites=basis_sites,
+                             rate_constant=1.0))
+
+# Boundary Oxygen annihilation at the bottom boundary
+#7
+elements_before = ["BoO"]
+elements_after  = ["BoV"]
+coordinates = [[0.0, 0.0, 0.0]]
+processes.append( KMCProcess(coordinates=coordinates,
+                             elements_before=elements_before,
+                             elements_after=elements_after,
+                             basis_sites=basis_sites,
+                             rate_constant=1.0))
+
+# Boundary Oxygen creation at the top boundary
+#8
+elements_before = ["ToV"]
+elements_after  = ["ToO"]
+coordinates = [[0.0, 0.0, 0.0]]
+processes.append( KMCProcess(coordinates=coordinates,
+                             elements_before=elements_before,
+                             elements_after=elements_after,
+                             basis_sites=basis_sites,
+                             rate_constant=1.0))
+
+# Boundary Oxygen annihilation at the bottom boundary
+#9
+elements_before = ["ToO"]
+elements_after  = ["ToV"]
+coordinates = [[0.0, 0.0, 0.0]]
 processes.append( KMCProcess(coordinates=coordinates,
                              elements_before=elements_before,
                              elements_after=elements_after,
@@ -336,36 +383,53 @@ class lolModelRates(KMCRateCalculatorPlugin):
     # Class for defining the custom rates function for the KMCLib paper. 
     def rate(self, geometry, elements_before, elements_after, rate_constant, process_number, global_coordinate):
         if process_number == 0:
-            if len([e for e in elements_before if e == "O"]) == 2:
+            if len([e for e in elements_before if e == "O"]) + len([e for e in elements_before if e == "ToO"]) + len([e for e in elements_before if e == "BoO"]) == 2:
                 return rateConstFull
             else:
                 return rateConstEmpty
 
         if process_number == 1:
-            if len([e for e in elements_before if e == "O"]) == 2:
+            if len([e for e in elements_before if e == "O"]) + len([e for e in elements_before if e == "ToO"]) + len([e for e in elements_before if e == "BoO"]) == 2:
                 
                 return rateConstFull
             else:
                 return rateConstEmpty
 
         if process_number == 2:
-            if len([e for e in elements_before if e == "O"]) == 2:
-                return rateConstFull*(1.0-topConc)
+            if len([e for e in elements_before if e == "O"]) + len([e for e in elements_before if e == "ToO"]) + len([e for e in elements_before if e == "BoO"]) == 2:
+                return rateConstFull
             else:
-                return rateConstEmpty*(1.0-topConc)
+                return rateConstEmpty
 
         if process_number == 4:
-            if len([e for e in elements_before if e == "O"]) == 2:
-                return rateConstFull*(1.0-botConc)
+            if len([e for e in elements_before if e == "O"]) + len([e for e in elements_before if e == "ToO"]) + len([e for e in elements_before if e == "BoO"]) == 2:
+                return rateConstFull
             else:
-                return rateConstEmpty*(1.0-botConc)
+                return rateConstEmpty
 
         if process_number == 3:
-            return topConc*(topConc*rateConstFull+(1.0-topConc)*rateConstEmpty)
+            if len([e for e in elements_before if e == "O"]) + len([e for e in elements_before if e == "ToO"]) + len([e for e in elements_before if e == "BoO"]) == 2:
+                return rateConstFull
+            else:
+                return rateConstEmpty
 
         if process_number == 5:
-            return botConc*(rateConstFull*botConc+(1.0-botConc)*rateConstEmpty)
+            if len([e for e in elements_before if e == "O"]) + len([e for e in elements_before if e == "ToO"]) + len([e for e in elements_before if e == "BoO"]) == 2:
+                return rateConstFull
+            else:
+                return rateConstEmpty
 
+        if process_number == 6:
+            return botSpawn
+
+        if process_number == 7:
+            return botDespawn
+
+        if process_number == 8:
+            return topSpawn
+
+        if process_number == 9:
+            return topDespawn
 
 
     def cutoff(self):
@@ -398,6 +462,7 @@ processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterva
 processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
 processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
 processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+compositionTracker = Composition(time_interval=timeInterval)
 
 # Define the parameters; not entirely sure if these are sensible or not...
 control_parameters_equilib = KMCControlParameters(number_of_steps=numStepsEquilib, analysis_interval=numStepsEquilib/100,
@@ -436,7 +501,7 @@ for passNum in range(0, numPasses):
     processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
     processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
     model.run(control_parameters_req, trajectory_filename=(resultsPlace+"mainTraj.tr"))
-    model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
+    model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, compositionTracker])
 
     if not os.path.exists(resultsPlace+"inBot"):
         os.makedirs(resultsPlace+"inBot")
@@ -446,6 +511,8 @@ for passNum in range(0, numPasses):
         os.makedirs(resultsPlace+"inTop")
     if not os.path.exists(resultsPlace+"outTop"):
         os.makedirs(resultsPlace+"outTop")
+    if not os.path.exists(resultsPlace+"composition"):
+        os.makedirs(resultsPlace+"composition")
 
     with open(resultsPlace+"inBot/inBot"+str(passNum)+".dat", 'w') as f:
         processStatsOxInBot.printResults(f)
@@ -455,6 +522,8 @@ for passNum in range(0, numPasses):
         processStatsOxInTop.printResults(f)
     with open(resultsPlace+"outTop/outTop"+str(passNum)+".dat", 'w') as f:
         processStatsOxOutTop.printResults(f)
+    with open(resultsPlace+"composition/composition"+str(passNum)+".dat", 'w') as f:
+        compositionTracker.printResults(f)
 
 
 print("Process would appear to have succesfully terminated! How very suspicious...")

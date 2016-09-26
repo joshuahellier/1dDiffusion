@@ -45,6 +45,42 @@ try:
 except OSError:
     pass
 
+fileName = resultsPlace+"topFlowData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
+fileName = resultsPlace+"botFlowData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
+fileName = resultsPlace+"inTopData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
+fileName = resultsPlace+"outBotData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
+fileName = resultsPlace+"inBotData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
+fileName = resultsPlace+"outTopData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
 directoryList = os.listdir(resultsPlace)
 
 #g = open(resultsPlace+"regressionData.dat", 'w')
@@ -137,7 +173,7 @@ for i in directoryList:
 
     numTimeChunks = sysSize
     timeChunkSize = (finalTime-initialTime)/float(sysSize)
-    for siteIndex in range(2, sysSize-2):
+    for siteIndex in range(0, sysSize):
         changes = typeChangeTable[siteIndex]
         chunkStart = 0
         chunkEnd = 0
@@ -151,15 +187,15 @@ for i in directoryList:
             tempTotal = 0.0
             overallTotal = 0.0
             if chunkStart == chunkEnd:
-                if changes[chunkStart][1] == "O":
+                if changes[chunkStart][1] == "O" or changes[chunkStart][1] == "ToO" or changes[chunkStart][1] == "BoO":
                     tempTotal += timeChunkSize
                 overallTotal += timeChunkSize
             else:
-                if changes[chunkStart][1] == "O":
+                if changes[chunkStart][1] == "O" or changes[chunkStart][1] == "ToO" or changes[chunkStart][1] == "BoO":
                     tempTotal += changes[chunkStart+1][0] - (timeChunkIndex*timeChunkSize+initialTime)
                 overallTotal += changes[chunkStart+1][0] - (timeChunkIndex*timeChunkSize+initialTime)
                 for timeIndex in range(chunkStart+1, chunkEnd):
-                    if changes[timeIndex][1] == "O":
+                    if changes[timeIndex][1] == "O" or changes[timeIndex][1] == "ToO" or changes[timeIndex][1] == "BoO":
                         tempTotal += changes[timeIndex+1][0] - changes[timeIndex][0]
                         #print("O "+str(changes[timeIndex+1][0] - changes[timeIndex][0]))
                     #else:
@@ -168,7 +204,7 @@ for i in directoryList:
                         #print("O")
                     #else:
                         #print("V")
-                if changes[chunkEnd][1] == "O":
+                if changes[chunkEnd][1] == "O" or changes[chunkEnd][1] == "ToO" or changes[chunkEnd][1] == "BoO":
                     tempTotal += (timeChunkIndex+1)*timeChunkSize+initialTime - changes[chunkEnd][0]
                 overallTotal += (timeChunkIndex+1)*timeChunkSize+initialTime - changes[chunkEnd][0]
             typeFile.write(str(tempTotal/overallTotal)+" ")
