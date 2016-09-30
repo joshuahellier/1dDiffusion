@@ -4,9 +4,7 @@
 #
 #$ -cwd -V
 #$ -l h_rt=00:20:00
-#$ -R y
-
-
-#!/bin/sh
-mkdir -p $RESULTS/steadyStateFlow/blinkTest3/0
-qsub -cwd -l h_rt=0:20:0 -V -e $RESULTS"/"$12"/errors/runErrors.out" /usr/bin/python steadyStateFlow.py 1.0 0.0 0.5 60 1 1000000 1.0 0.0 $RESULTS/steadyStateFlow/blinkTest3/0
+RESPLACE="/steadyStateFlow/blinkMethod/test3/"
+mkdir -p $RESULTS$RESPLACE"1/errors"
+#$ -e $RESULTS$RESPLACE"1/errors"
+/usr/bin/python steadyStateFlow.py 0.9 0.1 0.5 60 1 1000000 100000 1000000 1000000 8 1.0 $RESPLACE"1"
