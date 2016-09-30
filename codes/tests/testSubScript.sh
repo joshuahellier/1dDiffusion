@@ -2,7 +2,4 @@
 #
 # Made with a little help from Pat
 #
-#$ -cwd -V
-#$ -l h_rt=00:1:00
-#$ 
-qsub -t 1-2 testJob.array.sh data
+qsub -t 1-2 -cwd -l h_rt=00:00:10 testJob.array.sh testData

@@ -1,2 +1,3 @@
 #!/bin/sh
-testRunScript.sh $1.$SGE_TASK_ID
+cd ~/research/PhDStuff/codes/tests
+./testRunScript.sh $1.$SGE_TASK_ID
