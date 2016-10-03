@@ -481,7 +481,7 @@ control_parameters_anal = KMCControlParameters(number_of_steps=numStepsAnal, ana
 
 model.run(control_parameters_equilib, trajectory_filename=(resultsPlace+"equilibTraj.tr"))
 
-model.run(control_parameters_snapshot, trajectory_filename=(resultsPlace+"snapTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
+model.run(control_parameters_snapshot, trajectory_filename=(resultsPlace+"snapTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, compositionTracker])
 
 with open(resultsPlace+"procOxInBotSnap.dat", 'w') as f:
     processStatsOxInBot.printResults(f)
@@ -495,13 +495,16 @@ with open(resultsPlace+"procOxInTopSnap.dat", 'w') as f:
 with open(resultsPlace+"procOxOutTopSnap.dat", 'w') as f:
     processStatsOxOutTop.printResults(f)
 
+with open(resultsPlace+"composition/composition"+str(passNum)+".dat", 'w') as f:
+    compositionTracker.printResults(f)
+
 for passNum in range(0, numPasses):
     processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
     processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
     processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
     processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
     model.run(control_parameters_req, trajectory_filename=(resultsPlace+"mainTraj.tr"))
-    model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, compositionTracker])
+    model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
 
     if not os.path.exists(resultsPlace+"inBot"):
         os.makedirs(resultsPlace+"inBot")
@@ -522,8 +525,5 @@ for passNum in range(0, numPasses):
         processStatsOxInTop.printResults(f)
     with open(resultsPlace+"outTop/outTop"+str(passNum)+".dat", 'w') as f:
         processStatsOxOutTop.printResults(f)
-    with open(resultsPlace+"composition/composition"+str(passNum)+".dat", 'w') as f:
-        compositionTracker.printResults(f)
-
 
 print("Process would appear to have succesfully terminated! How very suspicious...")
