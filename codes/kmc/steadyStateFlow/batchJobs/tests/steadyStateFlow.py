@@ -495,7 +495,7 @@ with open(resultsPlace+"procOxInTopSnap.dat", 'w') as f:
 with open(resultsPlace+"procOxOutTopSnap.dat", 'w') as f:
     processStatsOxOutTop.printResults(f)
 
-with open(resultsPlace+"composition/composition"+str(passNum)+".dat", 'w') as f:
+with open(resultsPlace+"composition.dat", 'w') as f:
     compositionTracker.printResults(f)
 
 for passNum in range(0, numPasses):
@@ -514,8 +514,6 @@ for passNum in range(0, numPasses):
         os.makedirs(resultsPlace+"inTop")
     if not os.path.exists(resultsPlace+"outTop"):
         os.makedirs(resultsPlace+"outTop")
-    if not os.path.exists(resultsPlace+"composition"):
-        os.makedirs(resultsPlace+"composition")
 
     with open(resultsPlace+"inBot/inBot"+str(passNum)+".dat", 'w') as f:
         processStatsOxInBot.printResults(f)
