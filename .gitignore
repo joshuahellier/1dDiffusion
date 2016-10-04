@@ -29,6 +29,7 @@
 *.sqlite
 *~
 *#
+*.*.*
 
 # OS generated files #
 ######################
