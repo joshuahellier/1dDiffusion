@@ -1,21 +1,19 @@
 import sys
 import os
 import numpy
-import cPickle as pickle
-import postProcessorUtilities as pPU
 import math
 
 timeChunkSize = 0.0
 
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
-    print "WARNING! $RESULTS not set! Attempt to write results will fail!\n"
+    print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
 
 fileInfo = sys.argv[1]
 resultsPlace = resultDir+"/"+fileInfo+"/"
 
 if not os.path.exists(resultsPlace):
-    print "WARNING! The results directory requested does not exist! Perhaps there is some typo...\n"
+    print ("WARNING! The results directory requested does not exist! Perhaps there is some typo...\n")
     exit()
 
 
@@ -294,7 +292,7 @@ for i in directoryList:
         g.write(str(botConc)+" "+str(topConc)+" "+str(flowMean)+" "+str(flowErr)+"\n")
 g.write("\n")
 g.close()
-pickle.dump(resultsTable, open(resultsPlace+"mainResults.p", "wb"))
+#pickle.dump(resultsTable, open(resultsPlace+"mainResults.p", "wb"))
 
 
 flow = []
@@ -334,6 +332,7 @@ for i in resultsTable:
     flowErr.append(i[1][1])
     gradient.append((i[0][0]-i[0][1])/float(sysSize-4))
     #print(str(gradient[-1])+" "+str(flow[-1])+" "+str(flowErr[-1]))
+
 
 import pandas as pd
 import numpy as np
