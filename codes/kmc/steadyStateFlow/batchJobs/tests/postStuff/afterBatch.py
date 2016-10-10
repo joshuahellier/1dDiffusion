@@ -5,13 +5,13 @@ import subprocess
 
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
-    print "WARNING! $RESULTS not set! Attempt to write results will fail!\n"
+    print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
 
 fileInfo = sys.argv[1]
 resultsPlace = resultDir+"/"+fileInfo+"/"
 
 if not os.path.exists(resultsPlace):
-    print "WARNING! The results directory requested does not exist! Perhaps there is some typo...\n"
+    print ("WARNING! The results directory requested does not exist! Perhaps there is some typo...\n")
     exit()
 
 #Firstly, get rid of any files which could cause trouble and crash things
@@ -39,10 +39,6 @@ for topLevel in topDirectoryList:
             avConc = 0.5*(topConc+botConc)
             words = lines[2].split()
             fullRate = float(words[-1])
-        print location
-        jobInput = "python postProcessor.py "+location
-        p = subprocess.Popen(jobInput, shell=True)
-        exitCodes = p.wait()
         with open(resultDir+"/"+location+"/regressionData.dat") as f:
             lines = f.readlines()
             words = lines[-1].split()
