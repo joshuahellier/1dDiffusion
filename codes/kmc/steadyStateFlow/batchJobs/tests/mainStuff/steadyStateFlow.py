@@ -4,7 +4,7 @@ import math
 
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
-    print "WARNING! $RESULTS not set! Attempt to write results will fail!\n"
+    print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
 
 # Expecting input botConc, topConc, rateConstFull, sysSize, analInterval, numStepsEquilib, numStepsSnapshot, numStepsAnal, numStepsReq, numPasses, timeInterval,  fileCode
 

@@ -113,7 +113,7 @@ for i in directoryList:
     sysSize = int(words[2])+4
     words = (lines[4]).split()
     timeInterval = float(words[2])
-"""
+    """
     currentList = os.listdir(currentDir+"/outTop")
     totalTime = 0.0
     totalCounts = 0

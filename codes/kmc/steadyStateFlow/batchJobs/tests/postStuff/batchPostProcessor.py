@@ -35,7 +35,7 @@ for topLevel in topDirectoryList:
     midDirectoryList = os.listdir(resultsPlace+topLevel)
     for midLevel in midDirectoryList:
         location = fileInfo+"/"+topLevel+"/"+midLevel
-        jobInput = "postProcessor.py "+location+"\n"
+        jobInput = "postProcIm.py "+location+"\n"
         with open("postProcInputs/postProcInput."+str(jobIndex), 'w') as f:
             f.write(jobInput)
         jobIndex += 1
