@@ -4,18 +4,18 @@ import os
 
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
-numConcDiff = 8
+numConcDiff = 16
 numConcs = 12
-numLambda = 24
+numLambda = 12
 numStepsEquilib = 5000000
 numStepsAnal = 1000000
 numStepsSnapshot = 1000
 numStepsReq = 1000000
-sysSize = 252
+sysSize = 124
 analInterval = 1
 numPasses = 10
 timeInterval = 10.0
-dataLocation = "batchJobs/mainRuns/attempt1"
+dataLocation = "batchJobs/mainRuns/attempt2"
 lambdaMin = 0.01
 lambdaMax = 1.5
 concDiffMin = -0.1
