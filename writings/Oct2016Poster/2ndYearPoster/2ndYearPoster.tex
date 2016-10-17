@@ -1,0 +1,183 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% baposter Landscape Poster
+% LaTeX Template
+% Version 1.0 (11/06/13)
+%
+% baposter Class Created by:
+% Brian Amberg (baposter@brian-amberg.de)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[landscape,a0paper,fontscale=0.285]{baposter} % Adjust the font scale/size here
+
+\usepackage{graphicx} % Required for including images
+\graphicspath{{figures/}} % Directory in which figures are stored
+
+\usepackage{amsmath} % For typesetting math
+\usepackage{amssymb} % Adds new symbols to be used in math mode
+
+\usepackage{booktabs} % Top and bottom rules for tables
+\usepackage{enumitem} % Used to reduce itemize/enumerate spacing
+\usepackage{palatino} % Use the Palatino font
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+
+\usepackage{multicol} % Required for multiple columns
+\setlength{\columnsep}{1.5em} % Slightly increase the space between columns
+\setlength{\columnseprule}{0mm} % No horizontal rule between columns
+
+\usepackage{tikz} % Required for flow chart
+\usetikzlibrary{shapes,arrows} % Tikz libraries required for the flow chart in the template
+
+\newcommand{\compresslist}{ % Define a command to reduce spacing within itemize/enumerate environments, this is used right after \begin{itemize} or \begin{enumerate}
+\setlength{\itemsep}{1pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+}
+
+\definecolor{edBlue}{cmyk}{1.0,0.6, 0.0, 0.56} % Defines the color used for content box headers
+\definecolor{edRed}{cmyk}{0.0,1.0, 0.65, 0.0} % Defines the color used for content box headers
+\definecolor{edDarkBlue}{cmyk}{1.0,0.6, 0.0, 0.72}
+\definecolor{edLightBlue}{cmyk}{1.0,0.6, 0.0, 0.40}
+
+\begin{document}
+
+\begin{poster}
+{
+headerborder=closed, % Adds a border around the header of content boxes
+colspacing=1em, % Column spacing
+bgColorOne=white, % Background color for the gradient on the left side of the poster
+bgColorTwo=white, % Background color for the gradient on the right side of the poster
+borderColor=edRed, % Border color
+headerColorOne=edDarkBlue, % Background color for the header in the content boxes (left side)
+headerColorTwo=edBlue, % Background color for the header in the content boxes (right side)
+headerFontColor=white, % Text color for the header text in the content boxes
+boxColorOne=white, % Background color of the content boxes
+textborder=rounded, % Format of the border around content boxes, can be: none, bars, coils, triangles, rectangle, rounded, roundedsmall, roundedright or faded
+eyecatcher=true, % Set to false for ignoring the left logo in the title and move the title left
+headerheight=0.1\textheight, % Height of the header
+headershape=rounded, % Specify the rounded corner in the content box headers, can be: rectangle, small-rounded, roundedright, roundedleft or rounded
+headerfont=\Large\bf\textsc, % Large, bold and sans serif font in the headers of content boxes
+%textfont={\setlength{\parindent}{1.5em}}, % Uncomment for paragraph indentation
+linewidth=2pt % Width of the border lines around content boxes
+}
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION 
+%----------------------------------------------------------------------------------------
+%
+{\includegraphics[height=6em]{longUoELogo}} % First university/lab logo on the left
+{\bf\textsc{The Diffusion of Sticky Particles in 1D}\vspace{0.5em}} % Poster title
+{\textsc{By \textbf{Joshua Hellier} with Supervisor \textbf{Graeme Ackland} \\ School of Physics and Astronomy, University of Edinburgh}} % Author names and institution
+{\includegraphics[height=6em]{sponsorFullResCrop}} % Second university/lab logo on the right
+
+%----------------------------------------------------------------------------------------
+%	IntDef
+%----------------------------------------------------------------------------------------
+
+\headerbox{Introduction and Model Definition}{name=intDef, column=0, span=2, row=0}{
+
+Donec non nisl a \textbf{arcu consequat} varius. Sed suscipit cursus luctus. Nulla sit amet elit augue. Curabitur scelerisque mollis dolor, quis blandit lorem condimentum at. Pellentesque sed nibh vel \textbf{dolor} sagittis semper. 
+
+\begin{enumerate}\compresslist
+\item Feugiat vitae elit
+\item bibendum ante sed lacinia eros in
+\item Curabitur scelerisque arcu consequat varius
+\item Dapibus nulla id purus consectetur
+\item Fringilla integer 
+\end{enumerate}
+
+\vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
+}
+
+
+%----------------------------------------------------------------------------------------
+%	RESULTS
+%----------------------------------------------------------------------------------------
+
+\headerbox{Numerical Results}{name=results,column=2,span=2,row=0}{
+\begin{center}
+\begin{tabular}{ c@{\hspace{1.5em}}c  }
+    $\alpha_Z > \alpha_H$ & $\alpha_Z = \alpha_H$ \\
+    \includegraphics[width=0.45\linewidth]{figures/placeholder} & \includegraphics[width=0.45\linewidth]{figures/placeholder} \\
+    \includegraphics[width=0.45\linewidth]{figures/placeholder} & \includegraphics[width=0.45\linewidth]{figures/placeholder} \\
+    $\alpha_H > \alpha_Z$ & Visualization of $\alpha_H > \alpha_Z$
+    \end{tabular}
+\end{center}
+%------------------------------------------------
+
+\begin{multicols}{2}
+\vspace{1em}
+Sed fringilla tempus hendrerit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam ut elit sit amet metus lobortis consequat sit amet in libero. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel sem magna. Nunc at convallis urna. isus ante. Pellentesque condimentum dui. Etiam sagittis purus non tellus tempor volutpat. Donec et dui non massa tristique adipiscing. Quisque vestibulum eros eu.
+
+\begin{center}
+\includegraphics[width=0.8\linewidth]{placeholder}
+\captionof{figure}{Figure caption}
+\end{center}
+
+\end{multicols}
+}
+
+%----------------------------------------------------------------------------------------
+%	REFERENCES
+%----------------------------------------------------------------------------------------
+
+\headerbox{Acknowledgements and References}{name=ackRef,column=2, span=2, above=bottom}{
+
+\renewcommand{\section}[2]{\vskip 0.05em} % Get rid of the default "References" section title
+\nocite{*} % Insert publications even if they are not cited in the poster
+\small{ % Reduce the font size in this block
+\bibliographystyle{unsrt}
+\bibliography{myBib} % Use myBib.bib as the bibliography file
+}}
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSIONS
+%----------------------------------------------------------------------------------------
+
+\headerbox{Conclusions and Future Research}{name=conFut,column=2, span=2, below=results, above=ackRef}{ % This block is as tall as the references block
+Stuff about the future.
+}
+
+%----------------------------------------------------------------------------------------
+%	PHENO
+%----------------------------------------------------------------------------------------
+
+\headerbox{Model Phenomenology}{name=pheno,column=0, span=2, below=intDef, above=bottom}{ % This block's bottom aligns with the bottom of the conclusion block
+
+The following materials were required to complete the research:
+
+\begin{itemize}\compresslist
+\item Curabitur pellentesque dignissim
+\item Eu facilisis est tempus quis
+\item Duis porta consequat lorem
+\item Eu facilisis est tempus quis
+\end{itemize}
+
+The following equations were used for statistical analysis:
+
+\begin{equation}
+\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
+\label{eq:refname}
+\end{equation}\
+
+\begin{equation}
+E = mc^{2}
+\label{eqn:Einstein}
+\end{equation}
+
+Phasellus imperdiet, tortor vitae congue bibendum, felis enim sagittis lorem, et volutpat ante orci sagittis mi. Morbi rutrum laoreet semper. Morbi accumsan enim nec tortor consectetur non commodo nisi sollicitudin. Proin sollicitudin. Pellentesque eget orci eros. Fusce ultricies, tellus et pellentesque fringilla, ante massa luctus libero, quis tristique purus urna nec nibh.
+}
+
+
+\end{poster}
+
+\end{document}
