@@ -1,13 +1,10 @@
 \begin{thebibliography}{1}
 
-\bibitem{Smith:2012qr}
-J.~M. Smith and A.~B. Jones.
-\newblock {\em {B}ook {T}itle}.
-\newblock Publisher, 7th edition, 2012.
-
-\bibitem{Smith:2013jd}
-A.~B. Jones and J.~M. Smith.
-\newblock {A}rticle {T}itle.
-\newblock {\em Journal title}, 13(52):123--456, March 2013.
+\bibitem{kmclib}
+M.~{Leetmaa} and N.~V. {Skorodumova}.
+\newblock {KMCLib: A general framework for lattice kinetic Monte Carlo (KMC)
+  simulations}.
+\newblock {\em Computer Physics Communications}, 185:2340--2349, September
+  2014.
 
 \end{thebibliography}

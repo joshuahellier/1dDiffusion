@@ -25,6 +25,9 @@
 
 \usepackage{amsmath} % For typesetting math
 \usepackage{amssymb} % Adds new symbols to be used in math mode
+\usepackage{wrapfig}
+
+\usepackage{capt-of}
 
 \usepackage{booktabs} % Top and bottom rules for tables
 \usepackage{enumitem} % Used to reduce itemize/enumerate spacing
@@ -76,26 +79,59 @@ linewidth=2pt % Width of the border lines around content boxes
 %
 {\includegraphics[height=6em]{longUoELogo}} % First university/lab logo on the left
 {\bf\textsc{The Diffusion of Sticky Particles in 1D}\vspace{0.5em}} % Poster title
-{\textsc{By \textbf{Joshua Hellier} with Supervisor \textbf{Graeme Ackland} \\ School of Physics and Astronomy, University of Edinburgh}} % Author names and institution
+{\textsc{By \textbf{Joshua Hellier} with supervisor \textbf{Graeme Ackland} \\ School of Physics and Astronomy, University of Edinburgh}} % Author names and institution
 {\includegraphics[height=6em]{sponsorFullResCrop}} % Second university/lab logo on the right
 
 %----------------------------------------------------------------------------------------
 %	IntDef
 %----------------------------------------------------------------------------------------
 
-\headerbox{Introduction and Model Definition}{name=intDef, column=0, span=2, row=0}{
+\headerbox{Model Definition and Motivation}{name=intDef, column=0, span=2, row=0}{
+%\begin{multicols}{2}
+%\begin{itemize}
+%\item Imagine particles undergoing Brownian motion in a periodic potential with periodicity $a$. Perhaps this potential might look like the one portrayed in figure~\ref{fig:fPlot}
+%\item Then if we placed a particle at the origin, the potential felt by another particle would probably be like figure~\ref{fig:gPlot}
+%\item Therefore the total potential experienced by a particle, the lattice potential plus the particle-particle interaction, would be like figure~\ref{fig:fgSumPlot}
+%\end{itemize}
+% \includegraphics[width=0.3\linewidth]{figures/fPlot}
+% \label{fig:fPlot}
+% \includegraphics[width=0.3\linewidth]{figures/gPlot}
+% \label{fig:gPlot} 
+% \includegraphics[width=0.3\linewidth]{figures/fgSumPlot}\label{fig:fgSumPlot}
+%\end{multicols}
+\begin{itemize} \compresslist
+ \item Imagine a bunch of identical particles undergoing Brownian motion in a periodic potential with periodicity $a$. Perhaps this potential might look like the one portrayed by $f(x)$ as shown below.
+ \item Let's now introduce interactions between these particles, consisting hard-core short range repulsion and slightly longer-ranged attraction, acting over a distance of $\mathcal{O}(a)$.
+ Then if we were to place a particle at the origin, the potential felt by another particle would be like $g(x)$.
+ \item Therefore the total potential experienced by a particle, the lattice potential plus the particle-particle interaction, would be $f(x)+g(x)$.
+\end{itemize}
+\vspace{-2.5em}
+\begin{center}
+\begin{tabular}{c@{\hspace{0.5em}}c@{\hspace{0.5em}}c}
+    $f(x)$ & $g(x)$ & $f(x)+g(x)$ \\
+    \includegraphics[width=0.32\linewidth]{figures/fPlot} & \includegraphics[width=0.32\linewidth]{figures/gPlot} & \includegraphics[width=0.32\linewidth]{figures/fgSumPlot} \\
+    \end{tabular}
+\end{center}
+\vspace{-2em}
+\begin{itemize} \compresslist
+ \item The important thing to note here is that the main difference between the interacting ($f+g$) and noninteracting (only $f$) situations is that a particle wishing to escape the influence
+ of an adjacent particle must escape over a taller potential barrier than it usually would. Observe also that only one particle may occupy a potential well at a time, due to the hard-core repulsion.
+ \item This motivates us to define a model for particles hopping around on a 1D lattice, defined by the following allowed processes with their associated transition rates:
+\end{itemize}
+\vspace{-2.5em}
+\begin{center}
+\begin{tabular}{c@{\hspace{0.5em}}c@{\hspace{0.5em}}c@{\hspace{0.5em}}c}
+    \includegraphics[width=0.24\linewidth]{figures/placeholder} & \includegraphics[width=0.24\linewidth]{figures/placeholder} & \includegraphics[width=0.24\linewidth]{figures/placeholder} & \includegraphics[width=0.24\linewidth]{figures/placeholder} \\
+    \end{tabular}
+\end{center}
+\vspace{-2em}
+\begin{itemize} \compresslist
+\item More intuitively, particles hop into adjacent empty sites with rate $1$ unless they have a particle already behind them, in which case they hop with rate $\lambda$; the particles are ``sticky'' if $\lambda<1$.
+ \item The model I have described sounds pretty generic, and with good reason: this type of ``sticky diffusion'' behaviour happens in numerous situations. I originally made this model in order to investigate the growth of oxide layers
+ on the surface of titanium, but it should be quite applicable whenever interacting entities attempt to diffuse through a lattice.
+\end{itemize}
 
-Donec non nisl a \textbf{arcu consequat} varius. Sed suscipit cursus luctus. Nulla sit amet elit augue. Curabitur scelerisque mollis dolor, quis blandit lorem condimentum at. Pellentesque sed nibh vel \textbf{dolor} sagittis semper. 
-
-\begin{enumerate}\compresslist
-\item Feugiat vitae elit
-\item bibendum ante sed lacinia eros in
-\item Curabitur scelerisque arcu consequat varius
-\item Dapibus nulla id purus consectetur
-\item Fringilla integer 
-\end{enumerate}
-
-\vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
+%\vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
 }
 
 
@@ -104,47 +140,50 @@ Donec non nisl a \textbf{arcu consequat} varius. Sed suscipit cursus luctus. Nul
 %----------------------------------------------------------------------------------------
 
 \headerbox{Numerical Results}{name=results,column=2,span=2,row=0}{
+\begin{itemize}
+ \item Our continuum-limit mean-field theory has made some rather wild predictions about backwards diffusion; it would be nice if we had a way to test them.
+ \item As luck would have it, the Kinetic Monte Carlo algorithm is ideal for simulating the kind of model we have described. It is implemented via \texttt{Python}-wrapped \texttt{C++}
+ in the \texttt{KMCLib} software package\cite{kmclib}.
+ \item As of the time of writing, I have not yet confirmed or refuted the MFT current flow predictions. However, I have come across a variety of interesting behaviours exhibited by the model,
+ and have included some images of them in the table below.
+\end{itemize}
 \begin{center}
-\begin{tabular}{ c@{\hspace{1.5em}}c  }
-    $\alpha_Z > \alpha_H$ & $\alpha_Z = \alpha_H$ \\
-    \includegraphics[width=0.45\linewidth]{figures/placeholder} & \includegraphics[width=0.45\linewidth]{figures/placeholder} \\
-    \includegraphics[width=0.45\linewidth]{figures/placeholder} & \includegraphics[width=0.45\linewidth]{figures/placeholder} \\
-    $\alpha_H > \alpha_Z$ & Visualization of $\alpha_H > \alpha_Z$
-    \end{tabular}
+\begin{tabular}{c p{0.2\linewidth}}
+\begin{tabular}{c|c@{\hspace{0.5em}}c@{\hspace{0.5em}}c  }
+  &  $\lambda=0.01$ & $\lambda=0.14$ & $\lambda=0.54$ \\ 
+  \hline
+   $\rho_0=0.11$ & \includegraphics[width=0.2\linewidth]{figures/r_11l_01} & \includegraphics[width=0.2\linewidth]{figures/r_11l_14} & \includegraphics[width=0.2\linewidth]{figures/r_11l_54} \\
+   $\rho_0=0.37$ & \includegraphics[width=0.2\linewidth]{figures/r_37l_01} & \includegraphics[width=0.2\linewidth]{figures/r_37l_14} & \includegraphics[width=0.2\linewidth]{figures/r_37l_54} \\
+   $\rho_0=0.89$ & \includegraphics[width=0.2\linewidth]{figures/r_89l_01} & \includegraphics[width=0.2\linewidth]{figures/r_89l_14} & \includegraphics[width=0.2\linewidth]{figures/r_89l_54} \\
+\end{tabular}
+&
+This is where the text would go lol \\
+\end{tabular}
 \end{center}
 %------------------------------------------------
-
-\begin{multicols}{2}
-\vspace{1em}
-Sed fringilla tempus hendrerit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam ut elit sit amet metus lobortis consequat sit amet in libero. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel sem magna. Nunc at convallis urna. isus ante. Pellentesque condimentum dui. Etiam sagittis purus non tellus tempor volutpat. Donec et dui non massa tristique adipiscing. Quisque vestibulum eros eu.
-
-\begin{center}
-\includegraphics[width=0.8\linewidth]{placeholder}
-\captionof{figure}{Figure caption}
-\end{center}
-
-\end{multicols}
 }
 
 %----------------------------------------------------------------------------------------
 %	REFERENCES
 %----------------------------------------------------------------------------------------
 
-\headerbox{Acknowledgements and References}{name=ackRef,column=2, span=2, above=bottom}{
-
-\renewcommand{\section}[2]{\vskip 0.05em} % Get rid of the default "References" section title
-\nocite{*} % Insert publications even if they are not cited in the poster
-\small{ % Reduce the font size in this block
-\bibliographystyle{unsrt}
-\bibliography{myBib} % Use myBib.bib as the bibliography file
-}}
+%\headerbox{Acknowledgements and References}{name=ackRef,column=2, span=2, above=bottom}{
+%
+%\renewcommand{\section}[2]{\vskip 0.05em} % Get rid of the default "References" section title
+%\nocite{*} % Insert publications even if they are not cited in the poster
+%\small{ % Reduce the font size in this block
+%\bibliographystyle{unsrt}
+%\bibliography{myBib} % Use myBib.bib as the bibliography file
+%}}
 
 %----------------------------------------------------------------------------------------
 %	CONCLUSIONS
 %----------------------------------------------------------------------------------------
 
-\headerbox{Conclusions and Future Research}{name=conFut,column=2, span=2, below=results, above=ackRef}{ % This block is as tall as the references block
+\headerbox{Closing Remarks}{name=closRem,column=2, span=2, below=results, above=bottom}{ % This block is as tall as the references block
 Stuff about the future.
+\bibliographystyle{unsrt}
+\bibliography{myBib} % Use myBib.bib as the bibliography file
 }
 
 %----------------------------------------------------------------------------------------
@@ -152,29 +191,16 @@ Stuff about the future.
 %----------------------------------------------------------------------------------------
 
 \headerbox{Model Phenomenology}{name=pheno,column=0, span=2, below=intDef, above=bottom}{ % This block's bottom aligns with the bottom of the conclusion block
-
-The following materials were required to complete the research:
-
-\begin{itemize}\compresslist
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\item Eu facilisis est tempus quis
+\begin{itemize} \compresslist
+ \item The model described above obeys the detailed balance condition, and after a little relabelling can be shown to be equivalent to the Ising model in equilibrium.
+ \item If we move our attention to the large-scale ($a\rightarrow0$) limit and use mean-field theory, we may derive hydrodynamical equations that describe the current, $J$, of the particle density, $\rho$, like a fluid.
+ \item In our model, the number of particles is conserved, so we have a continuity equation, $\partial_t \rho + \partial_x J = 0$.
+ \item After a little mathematical effort, one may show that $J = -a \left[ 1-(1-\lambda) \left( 4-3\rho \right)\rho \right] \partial_x \rho$ ; current flows down the concentration gradient, in proportion to a coefficient ($\left[ \cdots \right]$)
+ which depends upon $\rho$.
+ \item When $\lambda<\frac{1}{4}$, it becomes physically possible for that coefficient to be negative; thus, we have a prediction that sometimes particles might flow \textbf{towards} regions of higher concentration!
+ \item This runs contrary to our usual intuition about how diffusive systems work\dots
 \end{itemize}
 
-The following equations were used for statistical analysis:
-
-\begin{equation}
-\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
-\label{eq:refname}
-\end{equation}\
-
-\begin{equation}
-E = mc^{2}
-\label{eqn:Einstein}
-\end{equation}
-
-Phasellus imperdiet, tortor vitae congue bibendum, felis enim sagittis lorem, et volutpat ante orci sagittis mi. Morbi rutrum laoreet semper. Morbi accumsan enim nec tortor consectetur non commodo nisi sollicitudin. Proin sollicitudin. Pellentesque eget orci eros. Fusce ultricies, tellus et pellentesque fringilla, ante massa luctus libero, quis tristique purus urna nec nibh.
 }
 
 
