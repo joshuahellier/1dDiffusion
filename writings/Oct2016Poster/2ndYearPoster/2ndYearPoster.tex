@@ -100,7 +100,7 @@ linewidth=2pt % Width of the border lines around content boxes
 % \includegraphics[width=0.3\linewidth]{figures/fgSumPlot}\label{fig:fgSumPlot}
 %\end{multicols}
 \begin{itemize} \compresslist
- \item Imagine a bunch of identical particles undergoing Brownian motion in a periodic potential with periodicity $a$. Perhaps this potential might look like the one portrayed by $f(x)$ as shown below.
+ \item Imagine many identical particles undergoing Brownian motion in a periodic potential with periodicity $a$. Perhaps this potential might look like the one portrayed by $f(x)$ as shown below.
  \item Let's now introduce interactions between these particles, consisting hard-core short range repulsion and slightly longer-ranged attraction, acting over a distance of $\mathcal{O}(a)$.
  Then if we were to place a particle at the origin, the potential felt by another particle would be like $g(x)$.
  \item Therefore the total potential experienced by a particle, the lattice potential plus the particle-particle interaction, would be $f(x)+g(x)$.
@@ -115,16 +115,16 @@ linewidth=2pt % Width of the border lines around content boxes
 \vspace{-2em}
 \begin{itemize} \compresslist
  \item The important thing to note here is that the main difference between the interacting ($f+g$) and noninteracting (only $f$) situations is that a particle wishing to escape the influence
- of an adjacent particle must escape over a taller potential barrier than it usually would. Observe also that only one particle may occupy a potential well at a time, due to the hard-core repulsion.
- \item This motivates us to define a model for particles hopping around on a 1D lattice, defined by the following allowed processes with their associated transition rates:
+ of an adjacent particle must jump over a taller potential barrier than it usually would. Observe also that only one particle may occupy a potential well at a time, due to the hard-core repulsion.
+ \item This motivates us to define a model for particles hopping around on a 1D lattice, defined by the following allowed processes with their associated transition rates; black indicating occupation:
 \end{itemize}
-\vspace{-2.5em}
+\vspace{-1.7em}
 \begin{center}
-\begin{tabular}{c@{\hspace{0.5em}}c@{\hspace{0.5em}}c@{\hspace{0.5em}}c}
-    \includegraphics[width=0.24\linewidth]{figures/placeholder} & \includegraphics[width=0.24\linewidth]{figures/placeholder} & \includegraphics[width=0.24\linewidth]{figures/placeholder} & \includegraphics[width=0.24\linewidth]{figures/placeholder} \\
+\begin{tabular}{c@{\hspace{1.5em}}c@{\hspace{1.5em}}c@{\hspace{1.5em}}c}
+    \includegraphics[width=0.22\linewidth]{figures/rates4} & \includegraphics[width=0.22\linewidth]{figures/rates1} & \includegraphics[width=0.22\linewidth]{figures/rates2} & \includegraphics[width=0.22\linewidth]{figures/rates3} \\
     \end{tabular}
 \end{center}
-\vspace{-2em}
+\vspace{-1.5em}
 \begin{itemize} \compresslist
 \item More intuitively, particles hop into adjacent empty sites with rate $1$ unless they have a particle already behind them, in which case they hop with rate $\lambda$; the particles are ``sticky'' if $\lambda<1$.
  \item The model I have described sounds pretty generic, and with good reason: this type of ``sticky diffusion'' behaviour happens in numerous situations. I originally made this model in order to investigate the growth of oxide layers
@@ -140,24 +140,27 @@ linewidth=2pt % Width of the border lines around content boxes
 %----------------------------------------------------------------------------------------
 
 \headerbox{Numerical Results}{name=results,column=2,span=2,row=0}{
-\begin{itemize}
+\begin{itemize} \compresslist
  \item Our continuum-limit mean-field theory has made some rather wild predictions about backwards diffusion; it would be nice if we had a way to test them.
- \item As luck would have it, the Kinetic Monte Carlo algorithm is ideal for simulating the kind of model we have described. It is implemented via \texttt{Python}-wrapped \texttt{C++}
- in the \texttt{KMCLib} software package\cite{kmclib}.
+ \item As luck would have it, the Kinetic Monte Carlo algorithm is ideal for simulating the kind of model we have described. It is implemented via Python-wrapped \texttt{C++}
+ in KMCLib[1].
  \item As of the time of writing, I have not yet confirmed or refuted the MFT current flow predictions. However, I have come across a variety of interesting behaviours exhibited by the model,
  and have included some images of them in the table below.
+ \vspace{-1.5em}
 \end{itemize}
 \begin{center}
-\begin{tabular}{c p{0.2\linewidth}}
+\begin{tabular}{c p{0.175\linewidth}}
 \begin{tabular}{c|c@{\hspace{0.5em}}c@{\hspace{0.5em}}c  }
   &  $\lambda=0.01$ & $\lambda=0.14$ & $\lambda=0.54$ \\ 
   \hline
-   $\rho_0=0.11$ & \includegraphics[width=0.2\linewidth]{figures/r_11l_01} & \includegraphics[width=0.2\linewidth]{figures/r_11l_14} & \includegraphics[width=0.2\linewidth]{figures/r_11l_54} \\
-   $\rho_0=0.37$ & \includegraphics[width=0.2\linewidth]{figures/r_37l_01} & \includegraphics[width=0.2\linewidth]{figures/r_37l_14} & \includegraphics[width=0.2\linewidth]{figures/r_37l_54} \\
-   $\rho_0=0.89$ & \includegraphics[width=0.2\linewidth]{figures/r_89l_01} & \includegraphics[width=0.2\linewidth]{figures/r_89l_14} & \includegraphics[width=0.2\linewidth]{figures/r_89l_54} \\
+   \begin{tabular}{c} \vspace{-8em} \\ \hspace{-1em}$\rho_0=0.11$\hspace{-1em} \\  \\ \end{tabular} & \includegraphics[width=0.22\linewidth]{figures/r_11l_01} & \includegraphics[width=0.22\linewidth]{figures/r_11l_14} & \includegraphics[width=0.22\linewidth]{figures/r_11l_54} \\
+   \begin{tabular}{c} \vspace{-8em} \\ \hspace{-1em}$\rho_0=0.37$\hspace{-1em} \\  \\ \end{tabular} & \includegraphics[width=0.22\linewidth]{figures/r_37l_01} & \includegraphics[width=0.22\linewidth]{figures/r_37l_14} & \includegraphics[width=0.22\linewidth]{figures/r_37l_54} \\
+   \begin{tabular}{c} \vspace{-8em} \\ \hspace{-1em}$\rho_0=0.89$\hspace{-1em} \\  \\ \end{tabular} & \includegraphics[width=0.22\linewidth]{figures/r_89l_01} & \includegraphics[width=0.22\linewidth]{figures/r_89l_14} & \includegraphics[width=0.22\linewidth]{figures/r_89l_54} \\
 \end{tabular}
+\hspace{-1em}
 &
-This is where the text would go lol \\
+\vspace{-13.5em} \captionof{table}{The plots in this table display the particle density as a function of time and space, represented by the horizontal and vertical axes respectively; darker shades indicate lower density, lighter tones higher.
+In the simulation setup, the top boundary is maintained with $\rho = \rho_0+0.1$ and the bottom with $\rho=\rho_0-0.1$; hence under normal conditions, particles should on average flow from top to bottom.} \\
 \end{tabular}
 \end{center}
 %------------------------------------------------
@@ -181,9 +184,14 @@ This is where the text would go lol \\
 %----------------------------------------------------------------------------------------
 
 \headerbox{Closing Remarks}{name=closRem,column=2, span=2, below=results, above=bottom}{ % This block is as tall as the references block
-Stuff about the future.
-\bibliographystyle{unsrt}
-\bibliography{myBib} % Use myBib.bib as the bibliography file
+\begin{itemize} \compresslist
+ \item I have recently started performing KMCLib calculations on the university cluster, Eddie. This should allow me to gather sufficient evidence about flow rates to be able to test our predicitions.
+ \item Once this 1D single-species model is properly understood, we can then think about generalising it to 3D or having multiple species.
+ \item I would like to thank Graeme Ackland, Richard Blythe and Martin Evans for their help and guidance during this project, as well as my collaborator Mikael Leetmaa, the author of KMCLib.
+ \item This research was funded by EPSRC with studentship grant number 1527137.
+\end{itemize}
+\vspace{-0.5em}
+[1] M. Leetmaa and N. V. Skorodumova. Computer Physics Communications, 185:2340-2349.
 }
 
 %----------------------------------------------------------------------------------------
