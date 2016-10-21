@@ -85,6 +85,12 @@ try:
 except OSError:
     pass
 
+fileName = resultsPlace+"concData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
 directoryList = os.listdir(resultsPlace)
 
 g = open(resultsPlace+"regressionData.dat", 'w')
@@ -133,6 +139,8 @@ for i in directoryList:
     totalOutTopSquareSum = 0.0
     totalInBotSquareSum = 0.0
     totalOutBotSquareSum = 0.0
+    totalDensity = 0.0
+    totalSquareDensity = 0.0
     for passNum in range(0, len(currentList)):
 
         with open(currentDir +"/outTop/outTop"+str(passNum)+".dat", 'r') as f:
@@ -170,6 +178,7 @@ for i in directoryList:
             rateTop = 0.0
             rateBot = 0.0
 
+
         totalRateSum += rate
         totalSquareSum += rate*rate
         totalRateTopSum += rateTop
@@ -184,7 +193,17 @@ for i in directoryList:
         totalOutTopSquareSum += rateOutTop*rateOutTop
         totalInBotSquareSum += rateInBot*rateInBot
         totalOutBotSquareSum += rateOutBot*rateOutBot
-        
+
+        oxConc = 0.0
+        with open(currentDir+"/composition/composition"+str(passNum)+".dat", 'r') as f:
+            lines = f.readlines()
+            for lineIndex in range(1, len(lines)):
+                words = lines[lineIndex].split()
+                oxyTot = float(words[1])
+                vacTot = float(words[2])
+                oxConc = oxyTot/(oxyTot+vacTot)
+        totalDensity += oxConc
+        totalSquareDensity += oxConc*oxConc
 
     flowMean = totalRateSum/len(currentList)
     flowErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/len(currentList))/(len(currentList)-1))
@@ -201,12 +220,13 @@ for i in directoryList:
     flowOutTopMean = totalRateOutTopSum/len(currentList)
     flowOutTopErr = numpy.sqrt((totalOutTopSquareSum - totalRateOutTopSum*totalRateOutTopSum/len(currentList))/(len(currentList)-1))
 
-
+    densityMean = totalDensity/len(currentList)
+    densityErr = numpy.sqrt((totalSquareDensity-totalDensity*totalDensity/len(currentList))/len(currentList-1))
 
     
 
     if not (math.isnan(flowMean) or math.isnan(flowErr)):
-        resultsTable.append([(botConc, topConc), (flowMean, flowErr), fullRate])
+        resultsTable.append([(botConc, topConc), (flowMean, flowErr), (densityMean, densityErr), fullRate])
 
     if not(math.isnan(flowInTopMean) or math.isnan(flowInTopErr)):
         inTopResults.append(str((botConc-topConc)/float(sysSize-4))+" "+str(flowInTopMean)+" "+str(flowInTopErr)+"\n")
@@ -285,11 +305,9 @@ for i in directoryList:
     typeFile.close()
 
 
-
-
     #print(str(diffConc)+" "+topInRate+" "+topInErr+" "+topOutRate+" "+topOutErr+" "+botInRate+" "+botInErr+" "+botOutRate+" "+botOutErr)
     if not (math.isnan(flowMean) or math.isnan(flowMean)):
-        g.write(str(botConc)+" "+str(topConc)+" "+str(flowMean)+" "+str(flowErr)+"\n")
+        g.write(str(botConc)+" "+str(topConc)+" "+str(densityMean)+" "+str(densityErr)+" "+str(flowMean)+" "+str(flowErr)+"\n")
 g.write("\n")
 g.close()
 #pickle.dump(resultsTable, open(resultsPlace+"mainResults.p", "wb"))
@@ -302,6 +320,10 @@ gradient = []
 with open(resultsPlace+"mathFormatData.dat", 'w') as f:
     for i in resultsTable:
         f.write(str((i[0][0]-i[0][1])/float(sysSize))+" "+str(i[1][0])+" "+str(i[1][1])+"\n")
+
+with open(resultsPlace+"concData.dat", 'w') as f:
+    for i in resultsTable:
+        f.write(str((i[0][0]+i[0][1])/2.0)+" "+str(i[2][0])+" "+str(i[2][1])+"\n")
 
 with open(resultsPlace+"topFlowData.dat", 'w') as f:
     for i in topFlowResults:
