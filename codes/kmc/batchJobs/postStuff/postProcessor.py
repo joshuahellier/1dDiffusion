@@ -221,7 +221,7 @@ for i in directoryList:
     flowOutTopErr = numpy.sqrt((totalOutTopSquareSum - totalRateOutTopSum*totalRateOutTopSum/len(currentList))/(len(currentList)-1))
 
     densityMean = totalDensity/len(currentList)
-    densityErr = numpy.sqrt((totalSquareDensity-totalDensity*totalDensity/len(currentList))/len(currentList-1))
+    densityErr = numpy.sqrt((totalSquareDensity-totalDensity*totalDensity/len(currentList))/(len(currentList)-1))
 
     
 
