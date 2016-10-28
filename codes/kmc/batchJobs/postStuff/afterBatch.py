@@ -31,7 +31,6 @@ for topLevel in topDirectoryList:
     concTable = []
     for midLevel in midDirectoryList:
         location = fileInfo+"/"+topLevel+"/"+midLevel
-
         with open(resultDir+"/"+location+"/0/settings") as f:
             lines = f.readlines()
             words = lines[0].split()
@@ -50,24 +49,6 @@ for topLevel in topDirectoryList:
         except OSError:
              tableEntry = ""
         resultsTable.append(tableEntry)
-
-        try:
-            with open(resultDir+"/"+location+"/concData.dat") as f:
-                lines = f.readlines()
-                concTotal = 0.0
-                concVarTot = 0.0
-                avConc = 0.0
-                for line in lines:
-                    words = line.split()
-                    concTotal += float(words[1])
-                    concVarTot += float(words[2])*float(words[2])
-                    avConc = float(words[0])
-                measConc = concTotal/len(lines[0])
-                measErr = numpy.sqrt(concVarTot)/len(lines[0])
-                tableEntry = str(avConc)+" "+str(measConc)+" "+str(measErr)
-        except OSError:
-            tableEntry = ""
-        concTable.append(tableEntry)
     with open(resultsPlace+topLevel+"/"+"overallData.dat", 'w') as f:
         for res in resultsTable:
             f.write(res+"\n")

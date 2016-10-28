@@ -91,6 +91,12 @@ try:
 except OSError:
     pass
 
+fileName = resultsPlace+"redConcData.dat"
+try:
+    os.remove(fileName)
+except OSError:
+    pass
+
 directoryList = os.listdir(resultsPlace)
 
 g = open(resultsPlace+"regressionData.dat", 'w')
@@ -324,6 +330,19 @@ with open(resultsPlace+"mathFormatData.dat", 'w') as f:
 with open(resultsPlace+"concData.dat", 'w') as f:
     for i in resultsTable:
         f.write(str((i[0][0]+i[0][1])/2.0)+" "+str(i[2][0])+" "+str(i[2][1])+"\n")
+
+with open(resultsPlace+"redConcData.dat", 'w') as f:
+    concTotal = 0.0
+    concVarTot = 0.0
+    avConc = 0.0
+    for i in resultsTable:
+        concTotal += i[2][0]
+        concVarTot += i[2][1]*i[2][1]
+        avConc = i[0]
+    measConc = concTotal/len(lines[0])
+    measErr = numpy.sqrt(concVarTot)/len(lines[0])
+    tableEntry = str(avConc)+" "+str(measConc)+" "+str(measErr)
+    f.write(tableEntry)
 
 with open(resultsPlace+"topFlowData.dat", 'w') as f:
     for i in topFlowResults:
