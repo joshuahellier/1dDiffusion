@@ -338,9 +338,9 @@ with open(resultsPlace+"redConcData.dat", 'w') as f:
     for i in resultsTable:
         concTotal += i[2][0]
         concVarTot += i[2][1]*i[2][1]
-        avConc = i[0]
-    measConc = concTotal/len(lines[0])
-    measErr = numpy.sqrt(concVarTot)/len(lines[0])
+        avConc = 0.5*(i[0][0]+i[0][1])
+    measConc = concTotal/len(resultsTable)
+    measErr = numpy.sqrt(concVarTot)/len(resultsTable)
     tableEntry = str(avConc)+" "+str(measConc)+" "+str(measErr)
     f.write(tableEntry)
 
