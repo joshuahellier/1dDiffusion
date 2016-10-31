@@ -32,6 +32,11 @@ for topLevel in topDirectoryList:
         os.remove(fileName)
     except OSError:
         pass
+    fileName = resultsPlace+topLevel+"/grandConcData.dat"
+    try:
+        os.remove(fileName)
+    except OSError:
+        pass
     midDirectoryList = os.listdir(resultsPlace+topLevel)
     for midLevel in midDirectoryList:
         location = fileInfo+"/"+topLevel+"/"+midLevel

@@ -26,6 +26,11 @@ for topLevel in topDirectoryList:
         os.remove(fileName)
     except OSError:
         pass
+    fileName = resultsPlace+topLevel+"/grandConcData.dat"
+    try:
+        os.remove(fileName)
+    except OSError:
+        pass
     midDirectoryList = os.listdir(resultsPlace+topLevel)
     resultsTable = []
     concTable = []
@@ -49,7 +54,17 @@ for topLevel in topDirectoryList:
         except OSError:
              tableEntry = ""
         resultsTable.append(tableEntry)
+        tableEntry = ""
+        try:
+            with open(resultDir+"/"+location+"/redConcData.dat") as f:
+                lines = f.readlines()
+                tableEntry = lines(0)
+        except OSError:
+             tableEntry = ""
+        concTable.append(tableEntry)
     with open(resultsPlace+topLevel+"/"+"overallData.dat", 'w') as f:
         for res in resultsTable:
             f.write(res+"\n")
-
+    with open(resultsPlace+topLevel+"/"+"grandConcData.dat", 'w') as f:
+        for res in concTable:
+            f.write(res+"\n")
