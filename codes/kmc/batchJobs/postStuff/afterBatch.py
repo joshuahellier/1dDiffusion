@@ -51,15 +51,15 @@ for topLevel in topDirectoryList:
                 lines = f.readlines()
                 words = lines[-1].split()
                 tableEntry = str(avConc)+" "+str(words[0])+" "+str(words[1])
-        except OSError:
+        except (OSError, IndexError, IOError) as e:
              tableEntry = ""
         resultsTable.append(tableEntry)
         tableEntry = ""
         try:
             with open(resultDir+"/"+location+"/redConcData.dat") as f:
                 lines = f.readlines()
-                tableEntry = lines(0)
-        except OSError:
+                tableEntry = lines[0]
+        except (OSError, IndexError, IOError) as e:
              tableEntry = ""
         concTable.append(tableEntry)
     with open(resultsPlace+topLevel+"/"+"overallData.dat", 'w') as f:
