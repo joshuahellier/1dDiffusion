@@ -458,10 +458,12 @@ model = KMCLatticeModel(configuration, interactions)
 
 # Trying to find out information about distribution of time steps
 #timeStepDistn = TimeStepDistribution(0.1)
+"""
 processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval, resultsPlace=resultsPlace, processesObject=processes)
 processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
 processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
 processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+"""
 compositionTracker = Composition(time_interval=timeInterval)
 
 # Define the parameters; not entirely sure if these are sensible or not...
@@ -481,6 +483,7 @@ control_parameters_anal = KMCControlParameters(number_of_steps=numStepsAnal, ana
 
 model.run(control_parameters_equilib, trajectory_filename=(resultsPlace+"equilibTraj.tr"))
 
+"""
 model.run(control_parameters_snapshot, trajectory_filename=(resultsPlace+"snapTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
 
 with open(resultsPlace+"procOxInBotSnap.dat", 'w') as f:
@@ -494,12 +497,14 @@ with open(resultsPlace+"procOxInTopSnap.dat", 'w') as f:
 
 with open(resultsPlace+"procOxOutTopSnap.dat", 'w') as f:
     processStatsOxOutTop.printResults(f)
+"""
 
 for passNum in range(0, numPasses):
     processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
     processStatsOxOutBot = ProcessStatistics(processes=[4], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
     processStatsOxInTop = ProcessStatistics(processes=[3], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
     processStatsOxOutTop = ProcessStatistics(processes=[2], time_interval=timeInterval, spatially_resolved=False, anal_Interval = analInterval)
+    compositionTracker = Composition(time_interval=timeInterval)
     model.run(control_parameters_req, trajectory_filename=(resultsPlace+"mainTraj.tr"))
     model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, compositionTracker])
 

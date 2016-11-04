@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     10670,        327]
-NotebookOptionsPosition[     10097,        302]
-NotebookOutlinePosition[     10432,        317]
-CellTagsIndexPosition[     10389,        314]
+NotebookDataLength[     14022,        443]
+NotebookOptionsPosition[     13220,        410]
+NotebookOutlinePosition[     13555,        425]
+CellTagsIndexPosition[     13512,        422]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -279,8 +279,8 @@ Cell[BoxData[
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
         Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
          Typeset`skipInitDone$$}, "Body" :> 
-      Plot[3 $CellContext`\[Zeta]$$ $CellContext`\[Rho]^2 - 
-        4 $CellContext`\[Zeta]$$ $CellContext`\[Rho] + 
+      Plot[(3 $CellContext`\[Zeta]$$) $CellContext`\[Rho]^2 - (
+         4 $CellContext`\[Zeta]$$) $CellContext`\[Rho] + 
         1, {$CellContext`\[Rho], 0, 1}, PlotRange -> {0, 2.5}], 
       "Specifications" :> {{$CellContext`\[Zeta]$$, -1, 1}}, "Options" :> {}, 
       "DefaultOptions" :> {}],
@@ -298,10 +298,118 @@ Cell[BoxData[
  CellChangeTimes->{{3.6749183603600397`*^9, 3.674918365314459*^9}, {
   3.67491897346924*^9, 3.674918975755973*^9}, {3.674919067507728*^9, 
   3.6749190749239063`*^9}, {3.6749191104834023`*^9, 3.6749191384509487`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[Lambda]", " ", "=", " ", 
+   RowBox[{"1", "-", "\[Zeta]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   SubscriptBox["\[Rho]", "L"], " ", "=", " ", 
+   RowBox[{"\[Rho]", "+", 
+    FractionBox["\[Delta]", "2"]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   SubscriptBox["\[Rho]", "R"], " ", "=", " ", 
+   RowBox[{"\[Rho]", "-", 
+    FractionBox["\[Delta]", "2"]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Simplify", "[", 
+  RowBox[{
+   RowBox[{"\[Lambda]", 
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      SubscriptBox["\[Rho]", "R"]}], ")"}]}], "-", 
+   RowBox[{
+    SubscriptBox["\[Rho]", "R"], 
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      RowBox[{"\[Zeta]", " ", 
+       SubscriptBox["\[Rho]", "R"]}]}], ")"}]}], "-", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"\[Lambda]", 
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        SubscriptBox["\[Rho]", "L"]}], ")"}]}], "-", 
+     RowBox[{
+      SubscriptBox["\[Rho]", "L"], 
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        RowBox[{"\[Zeta]", " ", 
+         SubscriptBox["\[Rho]", "L"]}]}], ")"}]}]}], ")"}]}], "]"}]}], "Input",\
+
+ CellChangeTimes->{{3.685175830823835*^9, 3.685175904258572*^9}, {
+  3.685175965649858*^9, 3.685176011944654*^9}, {3.685176064081362*^9, 
+  3.685176072976886*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", "\[Delta]"}], " ", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"-", "2"}], "+", "\[Zeta]", "+", 
+    RowBox[{"2", " ", "\[Zeta]", " ", "\[Rho]"}]}], ")"}]}]], "Output",
+ CellChangeTimes->{3.685175858745077*^9, 3.685175907553864*^9, 
+  3.68517601399717*^9, 3.685176073261714*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Simplify", "[", 
+   RowBox[{
+    RowBox[{"-", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"\[Lambda]", 
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          SubscriptBox["\[Rho]", "L"]}], ")"}]}], "-", 
+       RowBox[{
+        SubscriptBox["\[Rho]", "L"], 
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          RowBox[{"\[Zeta]", " ", 
+           SubscriptBox["\[Rho]", "L"]}]}], ")"}]}]}], ")"}]}], "-", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"\[Lambda]", 
+       RowBox[{"(", 
+        RowBox[{"1", "-", 
+         SubscriptBox["\[Rho]", "R"]}], ")"}]}], "-", 
+      RowBox[{
+       SubscriptBox["\[Rho]", "R"], 
+       RowBox[{"(", 
+        RowBox[{"1", "-", 
+         RowBox[{"\[Zeta]", " ", 
+          SubscriptBox["\[Rho]", "R"]}]}], ")"}]}]}], ")"}]}], "]"}], 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{
+  3.685182497864758*^9, {3.685182532632791*^9, 3.68518255984697*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", "2"}], "+", 
+  RowBox[{"4", " ", "\[Rho]"}], "-", 
+  RowBox[{
+   FractionBox["1", "2"], " ", "\[Zeta]", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     SuperscriptBox["\[Delta]", "2"], "+", 
+     RowBox[{"4", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", "1"}], "+", "\[Rho]", "+", 
+        SuperscriptBox["\[Rho]", "2"]}], ")"}]}]}], ")"}]}]}]], "Output",
+ CellChangeTimes->{3.685182560356031*^9}]
 }, Open  ]]
 },
 WindowSize->{828, 962},
-WindowMargins->{{Automatic, 396}, {Automatic, -8}},
+WindowMargins->{{Automatic, 386}, {Automatic, -8}},
 FrontEndVersion->"10.2 for Linux x86 (64-bit) (July 29, 2015)",
 StyleDefinitions->"Default.nb"
 ]
@@ -327,11 +435,18 @@ Cell[6264, 205, 967, 28, 32, "Output"]
 Cell[7246, 236, 86, 1, 55, "Input"],
 Cell[CellGroupData[{
 Cell[7357, 241, 775, 19, 65, "Input"],
-Cell[8135, 262, 1946, 37, 346, "Output"]
+Cell[8135, 262, 1951, 37, 346, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10123, 304, 1323, 41, 170, "Input"],
+Cell[11449, 347, 314, 8, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11800, 360, 954, 31, 55, "Input"],
+Cell[12757, 393, 447, 14, 47, "Output"]
 }, Open  ]]
 }
 ]
 *)
 
 (* End of internal cache information *)
-
