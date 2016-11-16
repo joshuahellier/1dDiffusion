@@ -1,0 +1,499 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     17181,        490]
+NotebookOptionsPosition[     16245,        455]
+NotebookOutlinePosition[     16578,        470]
+CellTagsIndexPosition[     16535,        467]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"A", "[", "u", "]"}], " ", "=", " ", 
+     RowBox[{"a", " ", 
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        RowBox[{"\[Zeta]", " ", "u", " ", 
+         RowBox[{"(", 
+          RowBox[{"4", "-", 
+           RowBox[{"3", "u"}]}], ")"}]}]}], ")"}]}]}], ";"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"\[Omega]", " ", "=", " ", 
+     RowBox[{"x", " ", "-", " ", 
+      RowBox[{"\[Epsilon]", " ", "t"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"u", " ", "=", " ", 
+     RowBox[{"\[Phi]", "[", "\[Omega]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"LHS", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"D", "[", 
+      RowBox[{"u", ",", " ", "t"}], "]"}], " ", "-", " ", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"A", "[", "u", "]"}], " ", 
+        RowBox[{"D", "[", 
+         RowBox[{"u", ",", " ", "x"}], "]"}]}], ",", " ", "x"}], "]"}]}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"FullSimplify", "[", "LHS", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.687860947799086*^9, 3.6878609569846478`*^9}, {
+  3.68786120430986*^9, 3.687861232925209*^9}, {3.68786126991759*^9, 
+  3.6878612997252607`*^9}, {3.687861350299499*^9, 3.687861428474949*^9}, {
+  3.687861465684051*^9, 3.687861482980188*^9}, {3.6878615230506163`*^9, 
+  3.687861525393632*^9}, {3.6878618646951313`*^9, 3.6878618718308*^9}, {
+  3.6878619634811907`*^9, 3.6878619636615257`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"-", "\[Epsilon]"}], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]", "\[Prime]",
+     MultilineFunction->None], "[", 
+    RowBox[{"x", "-", 
+     RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}]}], "-", 
+  RowBox[{
+   RowBox[{
+    SuperscriptBox["A", "\[Prime]",
+     MultilineFunction->None], "[", 
+    RowBox[{"\[Phi]", "[", 
+     RowBox[{"x", "-", 
+      RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}], "]"}], " ", 
+   SuperscriptBox[
+    RowBox[{
+     SuperscriptBox["\[Phi]", "\[Prime]",
+      MultilineFunction->None], "[", 
+     RowBox[{"x", "-", 
+      RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}], "2"]}], "-", 
+  RowBox[{
+   RowBox[{"A", "[", 
+    RowBox[{"\[Phi]", "[", 
+     RowBox[{"x", "-", 
+      RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}], "]"}], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]", "\[Prime]\[Prime]",
+     MultilineFunction->None], "[", 
+    RowBox[{"x", "-", 
+     RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.68786122228749*^9, 3.687861430729329*^9, {3.687861470334845*^9, 
+   3.687861502218195*^9}, 3.6878615386957703`*^9, 3.687861872135209*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"-", 
+    RowBox[{
+     SuperscriptBox["\[Phi]", "\[Prime]",
+      MultilineFunction->None], "[", 
+     RowBox[{"x", "-", 
+      RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}]}], " ", 
+   RowBox[{"(", 
+    RowBox[{"\[Epsilon]", "+", 
+     RowBox[{
+      RowBox[{
+       SuperscriptBox["A", "\[Prime]",
+        MultilineFunction->None], "[", 
+       RowBox[{"\[Phi]", "[", 
+        RowBox[{"x", "-", 
+         RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}], "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[Phi]", "\[Prime]",
+        MultilineFunction->None], "[", 
+       RowBox[{"x", "-", 
+        RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}]}]}], ")"}]}], "-", 
+  RowBox[{
+   RowBox[{"A", "[", 
+    RowBox[{"\[Phi]", "[", 
+     RowBox[{"x", "-", 
+      RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}], "]"}], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]", "\[Prime]\[Prime]",
+     MultilineFunction->None], "[", 
+    RowBox[{"x", "-", 
+     RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.68786122228749*^9, 3.687861430729329*^9, {3.687861470334845*^9, 
+   3.687861502218195*^9}, 3.6878615386957703`*^9, 3.687861872136077*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"DSolve", "::", "argmu"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(DSolve\\)\[NoBreak] called with 1 \
+argument; \[NoBreak]\\!\\(3\\)\[NoBreak] or more arguments are expected. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/General/argmu\\\", \
+ButtonNote -> \\\"DSolve::argmu\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.687861872262904*^9}],
+
+Cell[BoxData[
+ RowBox[{"DSolve", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", "\[Epsilon]"}], " ", 
+     RowBox[{
+      SuperscriptBox["\[Phi]", "\[Prime]",
+       MultilineFunction->None], "[", 
+      RowBox[{"x", "-", 
+       RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}]}], "-", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox["A", "\[Prime]",
+       MultilineFunction->None], "[", 
+      RowBox[{"\[Phi]", "[", 
+       RowBox[{"x", "-", 
+        RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}], "]"}], " ", 
+     SuperscriptBox[
+      RowBox[{
+       SuperscriptBox["\[Phi]", "\[Prime]",
+        MultilineFunction->None], "[", 
+       RowBox[{"x", "-", 
+        RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}], "2"]}], "-", 
+    RowBox[{
+     RowBox[{"A", "[", 
+      RowBox[{"\[Phi]", "[", 
+       RowBox[{"x", "-", 
+        RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}], "]"}], " ", 
+     RowBox[{
+      SuperscriptBox["\[Phi]", "\[Prime]\[Prime]",
+       MultilineFunction->None], "[", 
+      RowBox[{"x", "-", 
+       RowBox[{"t", " ", "\[Epsilon]"}]}], "]"}]}]}], "\[Equal]", "0"}], 
+  "]"}]], "Output",
+ CellChangeTimes->{
+  3.68786122228749*^9, 3.687861430729329*^9, {3.687861470334845*^9, 
+   3.687861502218195*^9}, 3.6878615386957703`*^9, 3.687861872284493*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"A", "[", "\[Phi]", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"\[Phi]", "[", "\[Omega]", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"FullSimplify", "[", 
+  RowBox[{"DSolve", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "\[Epsilon]"}], " ", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"\[Phi]", "[", "\[Omega]", "]"}], ",", " ", "\[Omega]"}], 
+       "]"}]}], " ", "==", " ", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"A", "[", 
+         RowBox[{"\[Phi]", "[", "\[Omega]", "]"}], "]"}], 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"\[Phi]", "[", "\[Omega]", "]"}], ",", " ", "\[Omega]"}], 
+         "]"}]}], ",", " ", "\[Omega]"}], "]"}]}], ",", " ", "\[Phi]", ",", 
+    "\[Omega]"}], "]"}], " ", "]"}]}], "Input",
+ CellChangeTimes->{{3.687861907876436*^9, 3.6878620053403673`*^9}, {
+  3.6878621150291233`*^9, 3.687862248849505*^9}, {3.6878623141944847`*^9, 
+  3.687862325960157*^9}, {3.687862373145274*^9, 3.6878623790725107`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"A", "[", "\[Phi]", "]"}]], "Output",
+ CellChangeTimes->{{3.6878619998037148`*^9, 3.687862005827558*^9}, {
+   3.6878621340097237`*^9, 3.6878621586411467`*^9}, {3.6878622299800043`*^9, 
+   3.687862258145082*^9}, {3.687862316078239*^9, 3.6878623269907837`*^9}, 
+   3.687862379331264*^9}],
+
+Cell[BoxData[
+ RowBox[{"\[Phi]", "[", "\[Omega]", "]"}]], "Output",
+ CellChangeTimes->{{3.6878619998037148`*^9, 3.687862005827558*^9}, {
+   3.6878621340097237`*^9, 3.6878621586411467`*^9}, {3.6878622299800043`*^9, 
+   3.687862258145082*^9}, {3.687862316078239*^9, 3.6878623269907837`*^9}, 
+   3.687862379332004*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{"\[Phi]", "\[Rule]", 
+    RowBox[{"Function", "[", 
+     RowBox[{
+      RowBox[{"{", "\[Omega]", "}"}], ",", 
+      RowBox[{
+       RowBox[{"InverseFunction", "[", 
+        RowBox[{
+         RowBox[{
+          SubsuperscriptBox["\[Integral]", "1", "#1"], 
+          RowBox[{
+           FractionBox["1", 
+            RowBox[{
+             FractionBox[
+              RowBox[{"C", "[", "1", "]"}], 
+              RowBox[{"A", "[", 
+               RowBox[{"K", "[", "1", "]"}], "]"}]], "-", 
+             FractionBox[
+              RowBox[{"\[Epsilon]", " ", 
+               RowBox[{"K", "[", "1", "]"}]}], 
+              RowBox[{"A", "[", 
+               RowBox[{"K", "[", "1", "]"}], "]"}]]}]], 
+           RowBox[{"\[DifferentialD]", 
+            RowBox[{"K", "[", "1", "]"}]}]}]}], "&"}], "]"}], "[", 
+       RowBox[{"\[Omega]", "+", 
+        RowBox[{"C", "[", "2", "]"}]}], "]"}]}], "]"}]}], "}"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.6878619998037148`*^9, 3.687862005827558*^9}, {
+   3.6878621340097237`*^9, 3.6878621586411467`*^9}, {3.6878622299800043`*^9, 
+   3.687862258145082*^9}, {3.687862316078239*^9, 3.6878623269907837`*^9}, 
+   3.687862379506652*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"-", "\[Epsilon]"}], " ", 
+    RowBox[{"D", "[", 
+     RowBox[{"\[Phi]", ",", " ", "\[Omega]"}], "]"}]}], " ", "-", " ", 
+   RowBox[{"D", "[", 
+    RowBox[{
+     RowBox[{"A", "[", "\[Phi]", "]"}], 
+     RowBox[{"D", "[", 
+      RowBox[{"\[Phi]", ",", " ", "\[Omega]"}], "]"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.68786229037191*^9, 3.687862297329658*^9}}],
+
+Cell[BoxData["0"], "Output",
+ CellChangeTimes->{3.687862297669918*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"A", "[", "u", "]"}], " ", "=", " ", 
+   RowBox[{"a", " ", 
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      RowBox[{"\[Zeta]", " ", "u", " ", 
+       RowBox[{"(", 
+        RowBox[{"4", "-", 
+         RowBox[{"3", "u"}]}], ")"}]}]}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"temp", " ", "=", " ", 
+   RowBox[{"Apart", "[", 
+    FractionBox[
+     RowBox[{"a", " ", 
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        RowBox[{"\[Zeta]", " ", "\[Xi]", " ", 
+         RowBox[{"(", 
+          RowBox[{"4", "-", 
+           RowBox[{"3", "\[Xi]"}]}], ")"}]}]}], ")"}]}], 
+     RowBox[{"\[Mu]", "-", 
+      RowBox[{"\[Epsilon]", " ", "\[Xi]"}]}]], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"new", " ", "=", " ", 
+  RowBox[{"Integrate", "[", 
+   RowBox[{"temp", ",", " ", "\[Xi]"}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.687869597129158*^9, 3.687869611337068*^9}, {
+  3.6878697083274107`*^9, 3.687869784615181*^9}, {3.687869824830366*^9, 
+  3.687869826199317*^9}, {3.6878699904851427`*^9, 3.687869999660419*^9}, {
+  3.687870604157752*^9, 3.6878706571094313`*^9}, {3.68787108182329*^9, 
+  3.68787113337471*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"a", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"\[Epsilon]", " ", "\[Zeta]", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"-", "6"}], " ", "\[Mu]"}], "+", 
+        RowBox[{"\[Epsilon]", " ", 
+         RowBox[{"(", 
+          RowBox[{"8", "-", 
+           RowBox[{"3", " ", "\[Xi]"}]}], ")"}]}]}], ")"}], " ", "\[Xi]"}], 
+     "-", 
+     RowBox[{"2", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        SuperscriptBox["\[Epsilon]", "2"], "-", 
+        RowBox[{"4", " ", "\[Epsilon]", " ", "\[Zeta]", " ", "\[Mu]"}], "+", 
+        RowBox[{"3", " ", "\[Zeta]", " ", 
+         SuperscriptBox["\[Mu]", "2"]}]}], ")"}], " ", 
+      RowBox[{"Log", "[", 
+       RowBox[{"\[Mu]", "-", 
+        RowBox[{"\[Epsilon]", " ", "\[Xi]"}]}], "]"}]}]}], ")"}]}], 
+  RowBox[{"2", " ", 
+   SuperscriptBox["\[Epsilon]", "3"]}]]], "Output",
+ CellChangeTimes->{3.687871096032892*^9, 3.6878711336546*^9}]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Omega]", "[", 
+    RowBox[{
+    "\[Phi]_", ",", " ", "\[Zeta]_", ",", " ", "\[Mu]_", ",", " ", 
+     "\[Epsilon]_"}], "]"}], " ", ":=", 
+   FractionBox[
+    RowBox[{" ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"\[Epsilon]", " ", "\[Zeta]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "6"}], " ", "\[Mu]"}], "+", 
+          RowBox[{"\[Epsilon]", " ", 
+           RowBox[{"(", 
+            RowBox[{"8", "-", 
+             RowBox[{"3", " ", "\[Phi]"}]}], ")"}]}]}], ")"}], " ", 
+        "\[Phi]"}], "-", 
+       RowBox[{"2", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          SuperscriptBox["\[Epsilon]", "2"], "-", 
+          RowBox[{"4", " ", "\[Epsilon]", " ", "\[Zeta]", " ", "\[Mu]"}], "+", 
+          RowBox[{"3", " ", "\[Zeta]", " ", 
+           SuperscriptBox["\[Mu]", "2"]}]}], ")"}], " ", 
+        RowBox[{"Log", "[", 
+         RowBox[{"\[Mu]", "-", 
+          RowBox[{"\[Epsilon]", " ", "\[Phi]"}]}], "]"}]}]}], ")"}]}], 
+    RowBox[{"2", " ", 
+     SuperscriptBox["\[Epsilon]", "3"]}]]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"\[Omega]", "[", 
+      RowBox[{
+      "\[Phi]", ",", " ", "\[Zeta]", ",", " ", "\[Mu]", ",", " ", 
+       "\[Epsilon]"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"\[Phi]", ",", " ", "0", ",", " ", "1"}], "}"}], ",", " ", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"\[Zeta]", ",", " ", 
+     RowBox[{"-", "1"}], ",", " ", "1"}], "}"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"\[Mu]", ",", " ", 
+     RowBox[{"-", "1"}], ",", " ", "1"}], "}"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"\[Epsilon]", ",", " ", 
+     RowBox[{"-", "1"}], ",", " ", "1"}], "}"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.687871142838501*^9, 3.687871178814307*^9}, {
+  3.687871243773381*^9, 3.687871382675837*^9}, {3.687872082115378*^9, 
+  3.6878720855952682`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`\[Epsilon]$$ = -0.9299999999999999, \
+$CellContext`\[Zeta]$$ = 0.8600000000000001, $CellContext`\[Mu]$$ = -0.85, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`\[Zeta]$$], -1, 1}, {
+      Hold[$CellContext`\[Mu]$$], -1, 1}, {
+      Hold[$CellContext`\[Epsilon]$$], -1, 1}}, Typeset`size$$ = {
+    360., {111., 116.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`\[Zeta]$21313$$ = 
+    0, $CellContext`\[Mu]$21314$$ = 0, $CellContext`\[Epsilon]$21315$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`\[Epsilon]$$ = -1, $CellContext`\[Zeta]$$ = \
+-1, $CellContext`\[Mu]$$ = -1}, "ControllerVariables" :> {
+        Hold[$CellContext`\[Zeta]$$, $CellContext`\[Zeta]$21313$$, 0], 
+        Hold[$CellContext`\[Mu]$$, $CellContext`\[Mu]$21314$$, 0], 
+        Hold[$CellContext`\[Epsilon]$$, $CellContext`\[Epsilon]$21315$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[
+        $CellContext`\[Omega][$CellContext`\[Phi], $CellContext`\[Zeta]$$, \
+$CellContext`\[Mu]$$, $CellContext`\[Epsilon]$$], {$CellContext`\[Phi], 0, 1},
+         PlotRange -> All], 
+      "Specifications" :> {{$CellContext`\[Zeta]$$, -1, 
+         1}, {$CellContext`\[Mu]$$, -1, 1}, {$CellContext`\[Epsilon]$$, -1, 
+         1}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{407., {210., 217.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Input",
+ CellChangeTimes->{3.687872101947034*^9}]
+},
+WindowSize->{1920, 985},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.2 for Linux x86 (64-bit) (July 29, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 1506, 39, 121, "Input"],
+Cell[2089, 63, 1143, 34, 32, "Output"],
+Cell[3235, 99, 1193, 35, 32, "Output"],
+Cell[4431, 136, 505, 10, 23, "Message"],
+Cell[4939, 148, 1270, 37, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6246, 190, 1033, 25, 77, "Input"],
+Cell[7282, 217, 308, 5, 32, "Output"],
+Cell[7593, 224, 315, 5, 32, "Output"],
+Cell[7911, 231, 1224, 32, 66, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9172, 268, 446, 12, 55, "Input"],
+Cell[9621, 282, 70, 1, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9728, 288, 1189, 33, 115, "Input"],
+Cell[10920, 323, 954, 27, 49, "Output"]
+}, Open  ]],
+Cell[11889, 353, 2038, 55, 93, "Input"],
+Cell[13930, 410, 2311, 43, 444, InheritFromParent]
+}
+]
+*)
+
+(* End of internal cache information *)
