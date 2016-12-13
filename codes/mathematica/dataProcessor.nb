@@ -1,0 +1,399 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16458,        391]
+NotebookOptionsPosition[     16029,        371]
+NotebookOutlinePosition[     16367,        386]
+CellTagsIndexPosition[     16324,        383]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<ErrorBarPlots`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "location", " ", "=", " ", 
+   "\"\</home/jhell/research/results/batchJobs/mainRuns/attempt6/\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"flowData", " ", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Import", "[", 
+      RowBox[{
+       RowBox[{"location", "<>", "\"\<overallData/overallData\>\"", "<>", 
+        RowBox[{"ToString", "[", "index", "]"}], "<>", "\"\<.dat\>\""}], ",", 
+       " ", "\"\<Data\>\""}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"index", ",", "0", ",", " ", "11"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"concData", " ", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Import", "[", 
+      RowBox[{
+       RowBox[{
+       "location", "<>", "\"\<grandConcData/grandConcData\>\"", "<>", 
+        RowBox[{"ToString", "[", "index", "]"}], "<>", "\"\<.dat\>\""}], ",", 
+       " ", "\"\<Data\>\""}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"index", ",", "0", ",", " ", "11"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"lambdaTable", "  ", "=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       FractionBox[
+        RowBox[{"1.2", "-", "0.05"}], "11"], "index"}], "+", "0.05"}], ",", 
+     " ", 
+     RowBox[{"{", 
+      RowBox[{"index", ",", " ", "0", ",", " ", "11"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"finalData", " ", "=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"concData", "[", 
+           RowBox[{"[", "index", "]"}], "]"}], "\[Transpose]"}], "[", 
+         RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"flowData", "[", 
+           RowBox[{"[", "index", "]"}], "]"}], "\[Transpose]"}], "[", 
+         RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"flowData", "[", 
+           RowBox[{"[", "index", "]"}], "]"}], "\[Transpose]"}], "[", 
+         RowBox[{"[", "3", "]"}], "]"}]}], "}"}], "\[Transpose]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"index", ",", " ", "1", ",", " ", "12"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Grid", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Show", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"ErrorListPlot", "[", 
+          RowBox[{
+           RowBox[{"flowData", "[", 
+            RowBox[{"[", "index", "]"}], "]"}], ",", 
+           RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", " ", 
+           RowBox[{"PlotStyle", "\[Rule]", 
+            RowBox[{"AbsolutePointSize", "[", "1", "]"}]}], ",", " ", 
+           RowBox[{"PlotRange", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"0", ",", "1"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"0", ",", "1.4"}], "}"}]}], "}"}]}], ",", " ", 
+           RowBox[{"PlotLegends", "\[Rule]", 
+            RowBox[{"\"\<\[Lambda] = \>\"", "<>", 
+             RowBox[{"ToString", "[", 
+              RowBox[{"lambdaTable", "[", 
+               RowBox[{"[", "index", "]"}], "]"}], "]"}]}]}]}], "]"}], ",", 
+         " ", 
+         RowBox[{"Plot", "[", 
+          RowBox[{
+           RowBox[{"1", "+", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"1", "-", 
+               RowBox[{"lambdaTable", "[", 
+                RowBox[{"[", "index", "]"}], "]"}]}], ")"}], " ", "\[Rho]", 
+             " ", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"-", "4"}], "+", 
+               RowBox[{"3", " ", "\[Rho]"}]}], ")"}]}]}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"\[Rho]", ",", " ", "0", ",", " ", "1"}], "}"}], ",", " ", 
+           RowBox[{"PlotRange", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"0", ",", "1"}], "}"}], ",", " ", 
+              RowBox[{"{", 
+               RowBox[{"0", ",", " ", "1.4"}], "}"}]}], "}"}]}], ",", " ", 
+           RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}], "}"}], "]"}],
+       ",", " ", 
+      RowBox[{"ErrorListPlot", "[", 
+       RowBox[{
+        RowBox[{"concData", "[", 
+         RowBox[{"[", "index", "]"}], "]"}], ",", " ", 
+        RowBox[{"PlotRange", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "1"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", " ", 
+        RowBox[{"ImageSize", "->", "Medium"}]}], "]"}]}], "}"}], "]"}], ",", 
+   " ", 
+   RowBox[{"{", 
+    RowBox[{"index", ",", " ", "1", ",", " ", "12", ",", " ", "1"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.6871750821510363`*^9, 3.687175100417424*^9}, {
+   3.687175549508565*^9, 3.687175598292088*^9}, {3.687175641341497*^9, 
+   3.687175772522358*^9}, {3.687176537930786*^9, 3.687176538329938*^9}, {
+   3.687176735760301*^9, 3.687176845630905*^9}, {3.6871768873900757`*^9, 
+   3.6871770647324944`*^9}, {3.687177147453227*^9, 3.687177257387586*^9}, {
+   3.687177329148079*^9, 3.687177340137888*^9}, {3.6872522002569733`*^9, 
+   3.687252234982326*^9}, {3.687252356965938*^9, 3.6872523977970533`*^9}, {
+   3.687252470300211*^9, 3.687252523394556*^9}, {3.687252622004086*^9, 
+   3.6872527382641687`*^9}, {3.68725296726471*^9, 3.687252995181884*^9}, {
+   3.6872530352485723`*^9, 3.687253035846118*^9}, {3.6872531303326473`*^9, 
+   3.6872531422214613`*^9}, {3.687253440391163*^9, 3.687253492598282*^9}, {
+   3.687257649355241*^9, 3.687257744001432*^9}, {3.687257810745566*^9, 
+   3.6872578166563597`*^9}, {3.687257881958961*^9, 3.6872579091093063`*^9}, {
+   3.687258318571847*^9, 3.687258445447713*^9}, {3.6872584773361387`*^9, 
+   3.687258483255629*^9}, {3.687258516745262*^9, 3.687258529839408*^9}, {
+   3.6872585645570507`*^9, 3.687258571981214*^9}, {3.687258642092042*^9, 
+   3.687258692995842*^9}, {3.687258742382347*^9, 3.6872587433230467`*^9}, 
+   3.6872587779012537`*^9, {3.6872589429764023`*^9, 3.687259024802227*^9}, {
+   3.6885229451370687`*^9, 3.688522973932929*^9}, {3.688523061405452*^9, 
+   3.6885230682825413`*^9}, 3.688523102842535*^9, {3.688523176048221*^9, 
+   3.688523187061792*^9}, {3.68917530864631*^9, 3.689175310598576*^9}, {
+   3.689175425820592*^9, 3.689175441412393*^9}, {3.689176567901656*^9, 
+   3.68917657017874*^9}, {3.690591929561894*^9, 3.690592010496934*^9}, {
+   3.690592139334941*^9, 3.690592139422236*^9}, {3.6905921743680067`*^9, 
+   3.690592193053501*^9}, {3.690592224356042*^9, 3.69059223862348*^9}, {
+   3.690592384483461*^9, 3.6905924079688787`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`index$$ = 2, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`index$$], 1, 12, 1}}, Typeset`size$$ = {
+    1147., {179., 184.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`index$32050$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`index$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`index$$, $CellContext`index$32050$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Grid[{
+         Show[{
+           ErrorBarPlots`ErrorListPlot[
+            Part[$CellContext`flowData, $CellContext`index$$], ImageSize -> 
+            Large, PlotStyle -> AbsolutePointSize[1], 
+            PlotRange -> {{0, 1}, {0, 1.4}}, PlotLegends -> 
+            StringJoin["\[Lambda] = ", 
+              ToString[
+               Part[$CellContext`lambdaTable, $CellContext`index$$]]]], 
+           Plot[
+           1 + (1 - 
+              Part[$CellContext`lambdaTable, $CellContext`index$$]) \
+$CellContext`\[Rho] (-4 + 3 $CellContext`\[Rho]), {$CellContext`\[Rho], 0, 1},
+             PlotRange -> {{0, 1}, {0, 1.4}}, ImageSize -> Large]}], 
+         ErrorBarPlots`ErrorListPlot[
+          Part[$CellContext`concData, $CellContext`index$$], 
+          PlotRange -> {{0, 1}, {0, 1}}, ImageSize -> Medium]}], 
+      "Specifications" :> {{$CellContext`index$$, 1, 12, 1}}, "Options" :> {},
+       "DefaultOptions" :> {}],
+     ImageSizeCache->{1194., {223., 230.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.687175599781583*^9, {3.6871756387789993`*^9, 3.687175782653414*^9}, 
+   3.687176539142075*^9, {3.687176738887065*^9, 3.6871767989046593`*^9}, 
+   3.687176901040097*^9, {3.687177154530038*^9, 3.687177159525099*^9}, {
+   3.687177220138506*^9, 3.68717725874086*^9}, {3.687177334125389*^9, 
+   3.6871773413464403`*^9}, 3.68725212941153*^9, 3.6872524019277573`*^9, 
+   3.687252526311201*^9, {3.687252625873451*^9, 3.6872526399883327`*^9}, 
+   3.687252746970086*^9, {3.6872529793497143`*^9, 3.6872529977739553`*^9}, 
+   3.687253039815477*^9, {3.68725348488914*^9, 3.687253495936326*^9}, 
+   3.687253613913365*^9, 3.687257641390472*^9, 3.687257746104512*^9, {
+   3.6872578846198397`*^9, 3.6872579116678467`*^9}, 3.687258324064432*^9, 
+   3.687258697689602*^9, 3.68725874518174*^9, 3.687258784253956*^9, 
+   3.687259027173072*^9, 3.687259323840889*^9, 3.687259400407851*^9, {
+   3.6885230769412117`*^9, 3.6885231036381483`*^9}, 3.688523190472765*^9, 
+   3.689175335057045*^9, {3.6891754296852417`*^9, 3.689175443355316*^9}, 
+   3.68917573868708*^9, 3.6891765735071917`*^9, 3.689181883791391*^9, {
+   3.6905921347010937`*^9, 3.690592140897376*^9}, 3.6905921997923822`*^9, 
+   3.690592240661409*^9, {3.690592375107987*^9, 3.690592408947638*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Show", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"ErrorListPlot", "[", 
+       RowBox[{
+        RowBox[{"finalData", "[", 
+         RowBox[{"[", "index", "]"}], "]"}], ",", 
+        RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", " ", 
+        RowBox[{"PlotStyle", "\[Rule]", 
+         RowBox[{"AbsolutePointSize", "[", "1", "]"}]}], ",", " ", 
+        RowBox[{"PlotRange", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "1"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "1.4"}], "}"}]}], "}"}]}], ",", " ", 
+        RowBox[{"PlotLegends", "\[Rule]", 
+         RowBox[{"\"\<\[Lambda] = \>\"", "<>", 
+          RowBox[{"ToString", "[", 
+           RowBox[{"lambdaTable", "[", 
+            RowBox[{"[", "index", "]"}], "]"}], "]"}]}]}]}], "]"}], ",", " ", 
+      
+      RowBox[{"Plot", "[", 
+       RowBox[{
+        RowBox[{"1", "+", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "-", 
+            RowBox[{"lambdaTable", "[", 
+             RowBox[{"[", "index", "]"}], "]"}]}], ")"}], " ", "\[Rho]", " ", 
+          
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"-", "4"}], "+", 
+            RowBox[{"3", " ", "\[Rho]"}]}], ")"}]}]}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"\[Rho]", ",", " ", "0", ",", " ", "1"}], "}"}], ",", " ", 
+        RowBox[{"PlotRange", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "1"}], "}"}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", " ", "1.4"}], "}"}]}], "}"}]}], ",", " ", 
+        RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}], "}"}], "]"}], 
+   ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"index", ",", " ", "1", ",", " ", "12", ",", " ", "1"}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{
+  3.6872585477998533`*^9, {3.687258610685643*^9, 3.68725861134778*^9}, {
+   3.687258790187125*^9, 3.687258806609817*^9}, {3.6872588648409033`*^9, 
+   3.687258912160549*^9}, 3.687258997167837*^9, 3.6885232683463697`*^9, {
+   3.6891771630678883`*^9, 3.689177176923297*^9}, {3.690592310054254*^9, 
+   3.690592310269162*^9}, {3.690592366914843*^9, 3.6905923691050367`*^9}, {
+   3.690592462195653*^9, 3.6905924761985073`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`index$$ = 3, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`index$$], 1, 12, 1}}, Typeset`size$$ = {
+    695., {179., 184.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`index$40072$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`index$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`index$$, $CellContext`index$40072$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Show[{
+         ErrorBarPlots`ErrorListPlot[
+          Part[$CellContext`finalData, $CellContext`index$$], ImageSize -> 
+          Large, PlotStyle -> AbsolutePointSize[1], 
+          PlotRange -> {{0, 1}, {0, 1.4}}, PlotLegends -> 
+          StringJoin["\[Lambda] = ", 
+            ToString[
+             Part[$CellContext`lambdaTable, $CellContext`index$$]]]], 
+         Plot[
+         1 + (1 - 
+            Part[$CellContext`lambdaTable, $CellContext`index$$]) \
+$CellContext`\[Rho] (-4 + 3 $CellContext`\[Rho]), {$CellContext`\[Rho], 0, 1},
+           PlotRange -> {{0, 1}, {0, 1.4}}, ImageSize -> Large]}], 
+      "Specifications" :> {{$CellContext`index$$, 1, 12, 1}}, "Options" :> {},
+       "DefaultOptions" :> {}],
+     ImageSizeCache->{742., {223., 230.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.687258537633342*^9, 3.6872585483218307`*^9}, 
+   3.6872586118974543`*^9, {3.687258794186529*^9, 3.687258807295642*^9}, {
+   3.6872588653701344`*^9, 3.6872589127997932`*^9}, 3.687258998721396*^9, 
+   3.687259030788842*^9, 3.687259328851204*^9, 3.687259402797171*^9, 
+   3.688523272251769*^9, 3.689175469145775*^9, 3.6891771799009323`*^9, 
+   3.689181886883573*^9, 3.690592489596119*^9}]
+}, Open  ]]
+},
+WindowSize->{1855, 985},
+WindowMargins->{{-10, Automatic}, {Automatic, -10}},
+FrontEndVersion->"10.4 for Linux x86 (64-bit) (April 11, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 6901, 164, 301, "Input"],
+Cell[7484, 188, 3596, 65, 470, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11117, 258, 2354, 59, 55, "Input"],
+Cell[13474, 319, 2539, 49, 470, "Output"]
+}, Open  ]]
+}
+]
+*)
+

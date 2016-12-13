@@ -1,0 +1,905 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.4' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     34770,        897]
+NotebookOptionsPosition[     33916,        863]
+NotebookOutlinePosition[     34251,        878]
+CellTagsIndexPosition[     34208,        875]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[Phi]", " ", "=", " ", 
+   RowBox[{"b0", " ", "+", " ", 
+    RowBox[{"b1", " ", "\[Omega]"}], " ", "+", " ", 
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"2", "!"}]], "b2", " ", 
+     SuperscriptBox["\[Omega]", "2"]}], "+", 
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"3", "!"}]], "b3", " ", 
+     SuperscriptBox["\[Omega]", "3"]}], "+", " ", 
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"4", "!"}]], "b4", " ", 
+     SuperscriptBox["\[Omega]", "4"]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"A", " ", "=", " ", 
+   RowBox[{"1", "-", 
+    RowBox[{"\[Zeta]", " ", "\[Phi]", 
+     RowBox[{"(", 
+      RowBox[{"4", "-", 
+       RowBox[{"3", "\[Phi]"}]}], ")"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Collect", "[", 
+  RowBox[{
+   RowBox[{"FullSimplify", "[", 
+    RowBox[{
+     RowBox[{"\[Omega]", " ", 
+      RowBox[{"D", "[", 
+       RowBox[{"\[Phi]", ",", " ", "\[Omega]"}], "]"}]}], " ", "+", " ", 
+     RowBox[{"2", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"A", " ", 
+         RowBox[{"D", "[", 
+          RowBox[{"\[Phi]", ",", " ", "\[Omega]"}], "]"}]}], ",", " ", 
+        "\[Omega]"}], "]"}]}]}], "]"}], ",", " ", "\[Omega]"}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.6894613399072523`*^9, 3.689461436990283*^9}, {
+  3.689461485667862*^9, 3.689461633211109*^9}, {3.689462242445796*^9, 
+  3.689462243701926*^9}, {3.689519326284482*^9, 3.689519383703998*^9}, {
+  3.689519596623763*^9, 3.6895196092911253`*^9}, {3.689519688146986*^9, 
+  3.689519689120163*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"2", " ", "b2"}], "-", 
+  RowBox[{"8", " ", 
+   SuperscriptBox["b1", "2"], " ", "\[Zeta]"}], "+", 
+  RowBox[{"12", " ", "b0", " ", 
+   SuperscriptBox["b1", "2"], " ", "\[Zeta]"}], "-", 
+  RowBox[{"8", " ", "b0", " ", "b2", " ", "\[Zeta]"}], "+", 
+  RowBox[{"6", " ", 
+   SuperscriptBox["b0", "2"], " ", "b2", " ", "\[Zeta]"}], "+", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"b1", "+", 
+     RowBox[{"2", " ", "b3"}], "+", 
+     RowBox[{"12", " ", 
+      SuperscriptBox["b1", "3"], " ", "\[Zeta]"}], "-", 
+     RowBox[{"24", " ", "b1", " ", "b2", " ", "\[Zeta]"}], "+", 
+     RowBox[{"36", " ", "b0", " ", "b1", " ", "b2", " ", "\[Zeta]"}], "-", 
+     RowBox[{"8", " ", "b0", " ", "b3", " ", "\[Zeta]"}], "+", 
+     RowBox[{"6", " ", 
+      SuperscriptBox["b0", "2"], " ", "b3", " ", "\[Zeta]"}]}], ")"}], " ", 
+   "\[Omega]"}], "+", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"b2", "+", "b4", "+", 
+     RowBox[{"36", " ", 
+      SuperscriptBox["b1", "2"], " ", "b2", " ", "\[Zeta]"}], "-", 
+     RowBox[{"12", " ", 
+      SuperscriptBox["b2", "2"], " ", "\[Zeta]"}], "+", 
+     RowBox[{"18", " ", "b0", " ", 
+      SuperscriptBox["b2", "2"], " ", "\[Zeta]"}], "-", 
+     RowBox[{"16", " ", "b1", " ", "b3", " ", "\[Zeta]"}], "+", 
+     RowBox[{"24", " ", "b0", " ", "b1", " ", "b3", " ", "\[Zeta]"}], "-", 
+     RowBox[{"4", " ", "b0", " ", "b4", " ", "\[Zeta]"}], "+", 
+     RowBox[{"3", " ", 
+      SuperscriptBox["b0", "2"], " ", "b4", " ", "\[Zeta]"}]}], ")"}], " ", 
+   SuperscriptBox["\[Omega]", "2"]}], "+", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     FractionBox["b3", "2"], "+", 
+     RowBox[{"30", " ", "b1", " ", 
+      SuperscriptBox["b2", "2"], " ", "\[Zeta]"}], "+", 
+     RowBox[{"20", " ", 
+      SuperscriptBox["b1", "2"], " ", "b3", " ", "\[Zeta]"}], "-", 
+     FractionBox[
+      RowBox[{"40", " ", "b2", " ", "b3", " ", "\[Zeta]"}], "3"], "+", 
+     RowBox[{"20", " ", "b0", " ", "b2", " ", "b3", " ", "\[Zeta]"}], "-", 
+     FractionBox[
+      RowBox[{"20", " ", "b1", " ", "b4", " ", "\[Zeta]"}], "3"], "+", 
+     RowBox[{"10", " ", "b0", " ", "b1", " ", "b4", " ", "\[Zeta]"}]}], ")"}],
+    " ", 
+   SuperscriptBox["\[Omega]", "3"]}], "+", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     FractionBox["b4", "6"], "+", 
+     FractionBox[
+      RowBox[{"15", " ", 
+       SuperscriptBox["b2", "3"], " ", "\[Zeta]"}], "2"], "+", 
+     RowBox[{"30", " ", "b1", " ", "b2", " ", "b3", " ", "\[Zeta]"}], "-", 
+     FractionBox[
+      RowBox[{"10", " ", 
+       SuperscriptBox["b3", "2"], " ", "\[Zeta]"}], "3"], "+", 
+     RowBox[{"5", " ", "b0", " ", 
+      SuperscriptBox["b3", "2"], " ", "\[Zeta]"}], "+", 
+     RowBox[{
+      FractionBox["15", "2"], " ", 
+      SuperscriptBox["b1", "2"], " ", "b4", " ", "\[Zeta]"}], "-", 
+     RowBox[{"5", " ", "b2", " ", "b4", " ", "\[Zeta]"}], "+", 
+     RowBox[{
+      FractionBox["15", "2"], " ", "b0", " ", "b2", " ", "b4", " ", 
+      "\[Zeta]"}]}], ")"}], " ", 
+   SuperscriptBox["\[Omega]", "4"]}], "+", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      FractionBox["21", "2"], " ", 
+      SuperscriptBox["b2", "2"], " ", "b3", " ", "\[Zeta]"}], "+", 
+     RowBox[{"7", " ", "b1", " ", 
+      SuperscriptBox["b3", "2"], " ", "\[Zeta]"}], "+", 
+     RowBox[{
+      FractionBox["21", "2"], " ", "b1", " ", "b2", " ", "b4", " ", 
+      "\[Zeta]"}], "-", 
+     FractionBox[
+      RowBox[{"7", " ", "b3", " ", "b4", " ", "\[Zeta]"}], "3"], "+", 
+     RowBox[{
+      FractionBox["7", "2"], " ", "b0", " ", "b3", " ", "b4", " ", 
+      "\[Zeta]"}]}], ")"}], " ", 
+   SuperscriptBox["\[Omega]", "5"]}], "+", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      FractionBox["14", "3"], " ", "b2", " ", 
+      SuperscriptBox["b3", "2"], " ", "\[Zeta]"}], "+", 
+     RowBox[{
+      FractionBox["7", "2"], " ", 
+      SuperscriptBox["b2", "2"], " ", "b4", " ", "\[Zeta]"}], "+", 
+     RowBox[{
+      FractionBox["14", "3"], " ", "b1", " ", "b3", " ", "b4", " ", 
+      "\[Zeta]"}], "-", 
+     FractionBox[
+      RowBox[{"7", " ", 
+       SuperscriptBox["b4", "2"], " ", "\[Zeta]"}], "18"], "+", 
+     RowBox[{
+      FractionBox["7", "12"], " ", "b0", " ", 
+      SuperscriptBox["b4", "2"], " ", "\[Zeta]"}]}], ")"}], " ", 
+   SuperscriptBox["\[Omega]", "6"]}], "+", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"2", " ", 
+       SuperscriptBox["b3", "3"], " ", "\[Zeta]"}], "3"], "+", 
+     RowBox[{"3", " ", "b2", " ", "b3", " ", "b4", " ", "\[Zeta]"}], "+", 
+     RowBox[{
+      FractionBox["3", "4"], " ", "b1", " ", 
+      SuperscriptBox["b4", "2"], " ", "\[Zeta]"}]}], ")"}], " ", 
+   SuperscriptBox["\[Omega]", "7"]}], "+", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      FractionBox["5", "8"], " ", 
+      SuperscriptBox["b3", "2"], " ", "b4", " ", "\[Zeta]"}], "+", 
+     RowBox[{
+      FractionBox["15", "32"], " ", "b2", " ", 
+      SuperscriptBox["b4", "2"], " ", "\[Zeta]"}]}], ")"}], " ", 
+   SuperscriptBox["\[Omega]", "8"]}], "+", 
+  RowBox[{
+   FractionBox["55", "288"], " ", "b3", " ", 
+   SuperscriptBox["b4", "2"], " ", "\[Zeta]", " ", 
+   SuperscriptBox["\[Omega]", "9"]}], "+", 
+  RowBox[{
+   FractionBox["11", "576"], " ", 
+   SuperscriptBox["b4", "3"], " ", "\[Zeta]", " ", 
+   SuperscriptBox["\[Omega]", "10"]}]}]], "Output",
+ CellChangeTimes->{{3.6894613836111393`*^9, 3.689461406146532*^9}, 
+   3.689461536218514*^9, {3.689461605218512*^9, 3.6894616392353783`*^9}, 
+   3.689462245537746*^9, 3.689519386709792*^9, 3.689519611113656*^9, 
+   3.689519693200642*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"Manipulate", "[", 
+   RowBox[{
+    RowBox[{"StreamPlot", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"p", ",", " ", 
+        FractionBox[
+         RowBox[{"p", 
+          RowBox[{"(", 
+           RowBox[{"\[Omega]", "-", 
+            RowBox[{"4", "\[Zeta]", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"3", "q"}], "-", "2"}], ")"}], "p"}]}], ")"}]}], 
+         RowBox[{"2", 
+          RowBox[{"(", 
+           RowBox[{"1", "-", 
+            RowBox[{"\[Zeta]", " ", 
+             RowBox[{"(", 
+              RowBox[{"4", "-", 
+               RowBox[{"3", "q"}]}], ")"}], "q"}]}], ")"}]}]]}], "}"}], ",", 
+      " ", 
+      RowBox[{"{", 
+       RowBox[{"q", ",", " ", "0", ",", " ", "2"}], "}"}], ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"p", ",", " ", 
+        RowBox[{"-", "1"}], ",", " ", "1"}], "}"}], ",", " ", 
+      RowBox[{"StreamPoints", "\[Rule]", "300"}], ",", " ", 
+      RowBox[{"StreamScale", "\[Rule]", "Fine"}]}], "]"}], ",", " ", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\[Zeta]", ",", " ", "0"}], "}"}], ",", " ", 
+      RowBox[{"-", "1"}], ",", " ", "1"}], "}"}], ",", " ", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\[Omega]", ",", " ", "0"}], "}"}], ",", " ", 
+      RowBox[{"-", "10"}], ",", " ", "10"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.689462539365494*^9, 3.689462623028405*^9}, {
+  3.68946266817772*^9, 3.6894627796007843`*^9}, {3.689462835950369*^9, 
+  3.689462842060882*^9}, {3.689462894524352*^9, 3.689462900085475*^9}, {
+  3.689462940533558*^9, 3.689462947016687*^9}, {3.689462998285828*^9, 
+  3.689463013400463*^9}, {3.689463092121964*^9, 3.689463130963464*^9}, {
+  3.689463171054661*^9, 3.6894632081389027`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`\[Zeta]$$ = 
+    0.96, $CellContext`\[Omega]$$ = -0.6500000000000004, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`\[Zeta]$$], 0}, -1, 1}, {{
+       Hold[$CellContext`\[Omega]$$], 0}, -10, 10}}, Typeset`size$$ = {
+    360., {171., 177.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`\[Zeta]$123206$$ = 
+    0, $CellContext`\[Omega]$123207$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`\[Zeta]$$ = 0, $CellContext`\[Omega]$$ = 
+        0}, "ControllerVariables" :> {
+        Hold[$CellContext`\[Zeta]$$, $CellContext`\[Zeta]$123206$$, 0], 
+        Hold[$CellContext`\[Omega]$$, $CellContext`\[Omega]$123207$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      StreamPlot[{$CellContext`p, $CellContext`p (($CellContext`\[Omega]$$ - \
+((4 $CellContext`\[Zeta]$$) (3 $CellContext`q - 2)) $CellContext`p)/(
+          2 (1 - ($CellContext`\[Zeta]$$ (4 - 
+             3 $CellContext`q)) $CellContext`q)))}, {$CellContext`q, 0, 
+         2}, {$CellContext`p, -1, 1}, StreamPoints -> 300, StreamScale -> 
+        Fine], "Specifications" :> {{{$CellContext`\[Zeta]$$, 0}, -1, 
+         1}, {{$CellContext`\[Omega]$$, 0}, -10, 10}}, "Options" :> {}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{407., {228., 235.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.6894627814521303`*^9, 3.6894628426085978`*^9, 3.68946290082727*^9, 
+   3.689462947789297*^9, {3.689463099302788*^9, 3.689463131206064*^9}, {
+   3.689463173539414*^9, 3.689463209145534*^9}}]
+}, Open  ]],
+
+Cell[BoxData["\[IndentingNewLine]"], "Input",
+ CellChangeTimes->{3.690148887783968*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Outer", " ", "soln"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"\[CapitalPhi]", "[", "\[Omega]", "]"}], " ", "=", " ", 
+     RowBox[{
+      RowBox[{"\[CapitalPhi]0", "[", "\[Omega]", "]"}], "+", 
+      RowBox[{
+       SuperscriptBox["\[Omega]0", "2"], " ", 
+       RowBox[{"\[CapitalPhi]1", "[", "\[Omega]", "]"}]}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"A", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        RowBox[{"\[Zeta]", " ", 
+         RowBox[{"\[CapitalPhi]", "[", "\[Omega]", "]"}], 
+         RowBox[{"(", 
+          RowBox[{"4", "-", 
+           RowBox[{"3", 
+            RowBox[{"\[CapitalPhi]", "[", "\[Omega]", "]"}]}]}], ")"}]}]}], 
+       ")"}], 
+      SuperscriptBox["\[Omega]0", "2"]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"outLHS", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"\[Omega]", " ", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"\[CapitalPhi]", "[", "\[Omega]", "]"}], ",", " ", 
+         "\[Omega]"}], "]"}]}], " ", "+", 
+      RowBox[{"2", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"A", " ", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"\[CapitalPhi]", "[", "\[Omega]", "]"}], ",", " ", 
+            "\[Omega]"}], "]"}]}], ",", " ", "\[Omega]"}], "]"}]}]}]}], ";"}],
+    "\[IndentingNewLine]", 
+   RowBox[{"Collect", "[", 
+    RowBox[{
+     RowBox[{"FullSimplify", "[", "outLHS", "]"}], ",", " ", "\[Omega]0"}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.690148918457354*^9, 3.690148918947536*^9}, {
+  3.690148958012603*^9, 3.6901489946128073`*^9}, {3.690154324998557*^9, 
+  3.690154392698928*^9}, {3.690154533247974*^9, 3.6901545916419477`*^9}, {
+  3.690154629383197*^9, 3.690154681839836*^9}, {3.690154823197774*^9, 
+  3.6901548234012547`*^9}, {3.690154908585717*^9, 3.690154913448078*^9}, {
+  3.690154992508915*^9, 3.690155002548443*^9}, {3.690155404104455*^9, 
+  3.6901554139740334`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[Omega]", " ", 
+   RowBox[{
+    SuperscriptBox["\[CapitalPhi]0", "\[Prime]",
+     MultilineFunction->None], "[", "\[Omega]", "]"}]}], "+", 
+  RowBox[{
+   SuperscriptBox["\[Omega]0", "2"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "8"}], " ", "\[Zeta]", " ", 
+      SuperscriptBox[
+       RowBox[{
+        SuperscriptBox["\[CapitalPhi]0", "\[Prime]",
+         MultilineFunction->None], "[", "\[Omega]", "]"}], "2"]}], "+", 
+     RowBox[{"12", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]0", "[", "\[Omega]", "]"}], " ", 
+      SuperscriptBox[
+       RowBox[{
+        SuperscriptBox["\[CapitalPhi]0", "\[Prime]",
+         MultilineFunction->None], "[", "\[Omega]", "]"}], "2"]}], "+", 
+     RowBox[{"\[Omega]", " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]1", "\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "+", 
+     RowBox[{"2", " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]0", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "-", 
+     RowBox[{"8", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]0", "[", "\[Omega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]0", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "+", 
+     RowBox[{"6", " ", "\[Zeta]", " ", 
+      SuperscriptBox[
+       RowBox[{"\[CapitalPhi]0", "[", "\[Omega]", "]"}], "2"], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]0", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}]}], ")"}]}], "+", 
+  RowBox[{
+   SuperscriptBox["\[Omega]0", "4"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"12", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]1", "[", "\[Omega]", "]"}], " ", 
+      SuperscriptBox[
+       RowBox[{
+        SuperscriptBox["\[CapitalPhi]0", "\[Prime]",
+         MultilineFunction->None], "[", "\[Omega]", "]"}], "2"]}], "-", 
+     RowBox[{"16", " ", "\[Zeta]", " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]0", "\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]1", "\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "+", 
+     RowBox[{"24", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]0", "[", "\[Omega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]0", "\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]1", "\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "-", 
+     RowBox[{"8", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]1", "[", "\[Omega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]0", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "+", 
+     RowBox[{"12", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]0", "[", "\[Omega]", "]"}], " ", 
+      RowBox[{"\[CapitalPhi]1", "[", "\[Omega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]0", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "+", 
+     RowBox[{"2", " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]1", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "-", 
+     RowBox[{"8", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]0", "[", "\[Omega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]1", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "+", 
+     RowBox[{"6", " ", "\[Zeta]", " ", 
+      SuperscriptBox[
+       RowBox[{"\[CapitalPhi]0", "[", "\[Omega]", "]"}], "2"], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]1", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}]}], ")"}]}], "+", 
+  RowBox[{
+   SuperscriptBox["\[Omega]0", "6"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"24", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]1", "[", "\[Omega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]0", "\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]1", "\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "-", 
+     RowBox[{"8", " ", "\[Zeta]", " ", 
+      SuperscriptBox[
+       RowBox[{
+        SuperscriptBox["\[CapitalPhi]1", "\[Prime]",
+         MultilineFunction->None], "[", "\[Omega]", "]"}], "2"]}], "+", 
+     RowBox[{"12", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]0", "[", "\[Omega]", "]"}], " ", 
+      SuperscriptBox[
+       RowBox[{
+        SuperscriptBox["\[CapitalPhi]1", "\[Prime]",
+         MultilineFunction->None], "[", "\[Omega]", "]"}], "2"]}], "+", 
+     RowBox[{"6", " ", "\[Zeta]", " ", 
+      SuperscriptBox[
+       RowBox[{"\[CapitalPhi]1", "[", "\[Omega]", "]"}], "2"], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]0", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "-", 
+     RowBox[{"8", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]1", "[", "\[Omega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]1", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}], "+", 
+     RowBox[{"12", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]0", "[", "\[Omega]", "]"}], " ", 
+      RowBox[{"\[CapitalPhi]1", "[", "\[Omega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]1", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}]}], ")"}]}], "+", 
+  RowBox[{
+   SuperscriptBox["\[Omega]0", "8"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"12", " ", "\[Zeta]", " ", 
+      RowBox[{"\[CapitalPhi]1", "[", "\[Omega]", "]"}], " ", 
+      SuperscriptBox[
+       RowBox[{
+        SuperscriptBox["\[CapitalPhi]1", "\[Prime]",
+         MultilineFunction->None], "[", "\[Omega]", "]"}], "2"]}], "+", 
+     RowBox[{"6", " ", "\[Zeta]", " ", 
+      SuperscriptBox[
+       RowBox[{"\[CapitalPhi]1", "[", "\[Omega]", "]"}], "2"], " ", 
+      RowBox[{
+       SuperscriptBox["\[CapitalPhi]1", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[Omega]", "]"}]}]}], 
+    ")"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.690154592138825*^9, {3.690154630520713*^9, 3.690154649526431*^9}, 
+   3.690154682850938*^9, 3.690154824238162*^9, 3.69015491405434*^9, 
+   3.690157804418775*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Inner", " ", "soln"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"\[Phi]", "[", "\[CapitalOmega]", "]"}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], "+", 
+     RowBox[{
+      SuperscriptBox["\[Omega]0", "2"], " ", 
+      RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}]}]}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"B", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        RowBox[{"\[Zeta]", " ", 
+         RowBox[{"\[Phi]", "[", "\[CapitalOmega]", "]"}], 
+         RowBox[{"(", 
+          RowBox[{"4", "-", 
+           RowBox[{"3", 
+            RowBox[{"\[Phi]", "[", "\[CapitalOmega]", "]"}]}]}], ")"}]}]}], 
+       ")"}], 
+      SuperscriptBox["\[Omega]0", "2"]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"inLHS", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"\[CapitalOmega]", " ", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"\[Phi]", "[", "\[CapitalOmega]", "]"}], ",", " ", 
+         "\[CapitalOmega]"}], "]"}]}], " ", "+", 
+      RowBox[{"2", 
+       SuperscriptBox["\[Omega]0", 
+        RowBox[{"-", "4"}]], 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"B", " ", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"\[Phi]", "[", "\[CapitalOmega]", "]"}], ",", " ", 
+            "\[CapitalOmega]"}], "]"}]}], ",", " ", "\[CapitalOmega]"}], 
+        "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"Collect", "[", 
+    RowBox[{
+     RowBox[{"FullSimplify", "[", "inLHS", "]"}], ",", " ", "\[Omega]0"}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.6901551581807623`*^9, 3.690155213167014*^9}, {
+   3.690155275954088*^9, 3.6901552895630074`*^9}, {3.690155346251938*^9, 
+   3.690155419564088*^9}, {3.690155478616823*^9, 3.690155485825695*^9}, 
+   3.6901555256480627`*^9, {3.690155623414083*^9, 3.690155630600943*^9}, {
+   3.69015591304165*^9, 3.69015592824928*^9}, {3.690155967740491*^9, 
+   3.690156074489888*^9}, {3.690156113439384*^9, 3.690156147522668*^9}, {
+   3.69015718704535*^9, 3.6901572220956383`*^9}, 3.690157290918913*^9, {
+   3.6901575643408422`*^9, 3.690157564960829*^9}, {3.690157601079784*^9, 
+   3.69015767383325*^9}, {3.690157732869046*^9, 3.6901577335506372`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], "+", 
+  RowBox[{
+   SuperscriptBox["\[Omega]0", "2"], " ", 
+   RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.6901560748765593`*^9, 3.69015611648188*^9, 3.690156153389064*^9, 
+   3.6901572239211693`*^9, 3.69015729207471*^9, 3.69015756602013*^9, {
+   3.6901576095719423`*^9, 3.690157674179734*^9}, 3.6901577339139853`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[CapitalOmega]", " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]0", "\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+  RowBox[{"12", " ", "\[Zeta]", " ", 
+   RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+   SuperscriptBox[
+    RowBox[{
+     SuperscriptBox["\[Phi]0", "\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], "2"]}], "-", 
+  RowBox[{"16", " ", "\[Zeta]", " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]0", "\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]1", "\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+  RowBox[{"24", " ", "\[Zeta]", " ", 
+   RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]0", "\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]1", "\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "-", 
+  RowBox[{"8", " ", "\[Zeta]", " ", 
+   RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]0", "\[Prime]\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+  RowBox[{"12", " ", "\[Zeta]", " ", 
+   RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], " ", 
+   RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]0", "\[Prime]\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+  FractionBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", "8"}], " ", "\[Zeta]", " ", 
+     SuperscriptBox[
+      RowBox[{
+       SuperscriptBox["\[Phi]0", "\[Prime]",
+        MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], "2"]}], "+", 
+    
+    RowBox[{"12", " ", "\[Zeta]", " ", 
+     RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], " ", 
+     SuperscriptBox[
+      RowBox[{
+       SuperscriptBox["\[Phi]0", "\[Prime]",
+        MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], "2"]}], "+", 
+    
+    RowBox[{"2", " ", 
+     RowBox[{
+      SuperscriptBox["\[Phi]0", "\[Prime]\[Prime]",
+       MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "-", 
+    RowBox[{"8", " ", "\[Zeta]", " ", 
+     RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], " ", 
+     RowBox[{
+      SuperscriptBox["\[Phi]0", "\[Prime]\[Prime]",
+       MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+    RowBox[{"6", " ", "\[Zeta]", " ", 
+     SuperscriptBox[
+      RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], "2"], " ", 
+     RowBox[{
+      SuperscriptBox["\[Phi]0", "\[Prime]\[Prime]",
+       MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}]}], 
+   SuperscriptBox["\[Omega]0", "2"]], "+", 
+  RowBox[{"2", " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]1", "\[Prime]\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "-", 
+  RowBox[{"8", " ", "\[Zeta]", " ", 
+   RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]1", "\[Prime]\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+  RowBox[{"6", " ", "\[Zeta]", " ", 
+   SuperscriptBox[
+    RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], "2"], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]1", "\[Prime]\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+  RowBox[{
+   SuperscriptBox["\[Omega]0", "2"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"\[CapitalOmega]", " ", 
+      RowBox[{
+       SuperscriptBox["\[Phi]1", "\[Prime]",
+        MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+     RowBox[{"24", " ", "\[Zeta]", " ", 
+      RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[Phi]0", "\[Prime]",
+        MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[Phi]1", "\[Prime]",
+        MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "-", 
+     RowBox[{"8", " ", "\[Zeta]", " ", 
+      SuperscriptBox[
+       RowBox[{
+        SuperscriptBox["\[Phi]1", "\[Prime]",
+         MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], "2"]}], "+", 
+     RowBox[{"12", " ", "\[Zeta]", " ", 
+      RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], " ", 
+      SuperscriptBox[
+       RowBox[{
+        SuperscriptBox["\[Phi]1", "\[Prime]",
+         MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], "2"]}], "+", 
+     RowBox[{"6", " ", "\[Zeta]", " ", 
+      SuperscriptBox[
+       RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], "2"], " ", 
+      RowBox[{
+       SuperscriptBox["\[Phi]0", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "-", 
+     RowBox[{"8", " ", "\[Zeta]", " ", 
+      RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[Phi]1", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+     RowBox[{"12", " ", "\[Zeta]", " ", 
+      RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], " ", 
+      RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[Phi]1", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}]}], ")"}]}], 
+  "+", 
+  RowBox[{
+   SuperscriptBox["\[Omega]0", "4"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"12", " ", "\[Zeta]", " ", 
+      RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+      SuperscriptBox[
+       RowBox[{
+        SuperscriptBox["\[Phi]1", "\[Prime]",
+         MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], "2"]}], "+", 
+     RowBox[{"6", " ", "\[Zeta]", " ", 
+      SuperscriptBox[
+       RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], "2"], " ", 
+      RowBox[{
+       SuperscriptBox["\[Phi]1", "\[Prime]\[Prime]",
+        MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}]}], 
+    ")"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.6901560748765593`*^9, 3.69015611648188*^9, 3.690156153389064*^9, 
+   3.6901572239211693`*^9, 3.69015729207471*^9, 3.69015756602013*^9, {
+   3.6901576095719423`*^9, 3.690157674179734*^9}, 3.690157733915874*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FullSimplify", "[", 
+  RowBox[{
+   RowBox[{"\[CapitalOmega]", " ", 
+    RowBox[{
+     SuperscriptBox["\[Phi]0", "\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+   RowBox[{"12", " ", "\[Zeta]", " ", 
+    RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+    SuperscriptBox[
+     RowBox[{
+      SuperscriptBox["\[Phi]0", "\[Prime]",
+       MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], "2"]}], "-", 
+   RowBox[{"16", " ", "\[Zeta]", " ", 
+    RowBox[{
+     SuperscriptBox["\[Phi]0", "\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], " ", 
+    RowBox[{
+     SuperscriptBox["\[Phi]1", "\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+   RowBox[{"24", " ", "\[Zeta]", " ", 
+    RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], " ", 
+    RowBox[{
+     SuperscriptBox["\[Phi]0", "\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], " ", 
+    RowBox[{
+     SuperscriptBox["\[Phi]1", "\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "-", 
+   RowBox[{"8", " ", "\[Zeta]", " ", 
+    RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+    RowBox[{
+     SuperscriptBox["\[Phi]0", "\[Prime]\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+   RowBox[{"12", " ", "\[Zeta]", " ", 
+    RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], " ", 
+    RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+    RowBox[{
+     SuperscriptBox["\[Phi]0", "\[Prime]\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+   RowBox[{"2", " ", 
+    RowBox[{
+     SuperscriptBox["\[Phi]1", "\[Prime]\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "-", 
+   RowBox[{"8", " ", "\[Zeta]", " ", 
+    RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], " ", 
+    RowBox[{
+     SuperscriptBox["\[Phi]1", "\[Prime]\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+   RowBox[{"6", " ", "\[Zeta]", " ", 
+    SuperscriptBox[
+     RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], "2"], " ", 
+    RowBox[{
+     SuperscriptBox["\[Phi]1", "\[Prime]\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.690157685661561*^9, 3.690157711809692*^9}, {
+  3.690157754123032*^9, 3.6901577897474957`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"12", " ", "\[Zeta]", " ", 
+   RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+   SuperscriptBox[
+    RowBox[{
+     SuperscriptBox["\[Phi]0", "\[Prime]",
+      MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], "2"]}], "+", 
+  RowBox[{
+   RowBox[{
+    SuperscriptBox["\[Phi]0", "\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}], " ", 
+   RowBox[{"(", 
+    RowBox[{"\[CapitalOmega]", "+", 
+     RowBox[{"8", " ", "\[Zeta]", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", "2"}], "+", 
+        RowBox[{"3", " ", 
+         RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}]}]}], ")"}], " ", 
+      RowBox[{
+       SuperscriptBox["\[Phi]1", "\[Prime]",
+        MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}]}], ")"}]}], 
+  "+", 
+  RowBox[{"4", " ", "\[Zeta]", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "2"}], "+", 
+     RowBox[{"3", " ", 
+      RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}]}]}], ")"}], " ", 
+   RowBox[{"\[Phi]1", "[", "\[CapitalOmega]", "]"}], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]0", "\[Prime]\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}], "+", 
+  RowBox[{"2", " ", 
+   RowBox[{"(", 
+    RowBox[{"1", "+", 
+     RowBox[{"\[Zeta]", " ", 
+      RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", "4"}], "+", 
+        RowBox[{"3", " ", 
+         RowBox[{"\[Phi]0", "[", "\[CapitalOmega]", "]"}]}]}], ")"}]}]}], 
+    ")"}], " ", 
+   RowBox[{
+    SuperscriptBox["\[Phi]1", "\[Prime]\[Prime]",
+     MultilineFunction->None], "[", "\[CapitalOmega]", "]"}]}]}]], "Output",
+ CellChangeTimes->{3.6901577121929007`*^9, 3.690157791154067*^9}]
+}, Open  ]]
+},
+WindowSize->{1855, 1056},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.4 for Linux x86 (64-bit) (April 11, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 1564, 43, 103, "Input"],
+Cell[2147, 67, 5536, 142, 164, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7720, 214, 1816, 46, 83, "Input"],
+Cell[9539, 262, 2422, 46, 480, "Output"]
+}, Open  ]],
+Cell[11976, 311, 87, 1, 55, "Input"],
+Cell[CellGroupData[{
+Cell[12088, 316, 2073, 54, 123, "Input"],
+Cell[14164, 372, 6456, 152, 87, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20657, 529, 2340, 57, 124, "Input"],
+Cell[23000, 588, 439, 9, 34, "Output"],
+Cell[23442, 599, 6241, 150, 105, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29720, 754, 2425, 56, 37, "Input"],
+Cell[32148, 812, 1752, 48, 37, "Output"]
+}, Open  ]]
+}
+]
+*)
+
