@@ -126,8 +126,8 @@ for i in directoryList:
             tempArray.append(tempTotal/overallTotal)
         typeFile.write("\n")
         densityTable.append(tempArray)
-    spaceLagWidth = 8
-    timeLagWidth = 8
+    spaceLagWidth = 24
+    timeLagWidth = 24
     targetSite = 30
     correlationTable = []
     targetAverage = 0.0
