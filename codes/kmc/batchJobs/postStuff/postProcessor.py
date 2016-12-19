@@ -251,7 +251,7 @@ for i in directoryList:
 
     if not(math.isnan(flowBotMean) or math.isnan(flowBotErr)):
         botFlowResults.append(str((botConc-topConc)/float(sysSize-4))+" "+str(flowBotMean)+" "+str(flowBotErr)+"\n")
-    
+    """
     typeHistory = []
     finalTime = 0.0
     initialTime = 0.0
@@ -308,7 +308,7 @@ for i in directoryList:
                 overallTotal += (timeChunkIndex+1)*timeChunkSize+initialTime - changes[chunkEnd][0]
             typeFile.write(str(tempTotal/overallTotal)+" ")
         typeFile.write("\n")
-    typeFile.close()
+    typeFile.close() """
 
 
     #print(str(diffConc)+" "+topInRate+" "+topInErr+" "+topOutRate+" "+topOutErr+" "+botInRate+" "+botInErr+" "+botOutRate+" "+botOutErr)
