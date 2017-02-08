@@ -127,7 +127,7 @@ for i in directoryList:
         typeFile.write("\n")
         densityTable.append(tempArray)
     spaceLagWidth = 24
-    timeLagWidth = 24
+    timeLagWidth = 8
     targetSite = 30
     correlationTable = []
     targetAverage = 0.0
@@ -153,6 +153,6 @@ for i in directoryList:
     normaliser = correlationTable[spaceLagWidth][timeLagWidth]
     with open(currentDir+"/corrData.dat", 'w') as corrFile:
         for spaceLag in range(-spaceLagWidth, spaceLagWidth):
-            for timeLag in range(-timeLagWidth, timeLagWidth):
-                corrFile.write(str(spaceLag)+" "+str(timeLag)+" "+str(correlationTable[spaceLag+spaceLagWidth][timeLag+timeLagWidth]/normaliser)+"\n")
+            timeLag = 0
+            corrFile.write(str(spaceLag)+" "+str(correlationTable[spaceLag+spaceLagWidth][timeLag+timeLagWidth]/normaliser)+"\n")
 print("Process appears to have successfully exited.\n")
