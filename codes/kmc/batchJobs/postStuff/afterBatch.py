@@ -36,6 +36,7 @@ for topLevel in topDirectoryList:
     concTable = []
     for midLevel in midDirectoryList:
         location = fileInfo+"/"+topLevel+"/"+midLevel
+        print("In directory "+location+"\n")
         with open(resultDir+"/"+location+"/0/settings") as f:
             lines = f.readlines()
             words = lines[0].split()
