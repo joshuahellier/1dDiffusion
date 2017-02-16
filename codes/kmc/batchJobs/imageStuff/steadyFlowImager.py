@@ -11,6 +11,7 @@ if resultDir == None :
 from KMCLib import *
 from KMCLib.Backend import Backend
 import numpy
+from ImageStats import *
 
 dirLoc = sys.argv[1]
 generalLoc = resultDir+"/"+dirLoc+"/"
