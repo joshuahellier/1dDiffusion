@@ -6,57 +6,41 @@ resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
 
-# Expecting path from $RESULTS to directory having been made by steadyStateFlow.py then number of steps to image for, then image time parameter, then location for the files to be written to
+# Expecting input botConc, topConc, rateConstFull, sysSize, analInterval, numStepsEquilib, numStepsSnapshot, numStepsAnal, numStepsReq, numPasses, timeInterval,  fileCode
 
 from KMCLib import *
 from KMCLib.Backend import Backend
 import numpy
+from RateCalc import *
 
-dirLoc = sys.argv[1]
-generalLoc = resultDir+"/"+dirLoc+"/"
-settingsLoc = generalLoc+"settings"
-trajLoc = generalLoc+"mainTraj.tr"
+botConc = float(sys.argv[1])
+topConc = float(sys.argv[2])
+rateConstFull = float(sys.argv[3])
+sysSize = int(sys.argv[4])
+analInterval = int(sys.argv[5])
+numStepsEquilib = int(sys.argv[6])
+numStepsSnapshot = int(sys.argv[7])
+numStepsAnal = int(sys.argv[8])
+numStepsReq = int(sys.argv[9])
+numPasses = int(sys.argv[10])
+timeInterval = float(sys.argv[11])
+fileInfo = sys.argv[12]
 
-with open(settingsLoc, 'r') as f:
-    lines = f.readlines()
-print lines
-words = (lines[0]).split()
-print words[-1]+"\n"
-botConc = float(words[-1])
-
-words = (lines[1]).split()
-topConc = float(words[-1])
-
-words = (lines[2]).split()
-rateConstFull = float(words[-1])
-
-words = (lines[3]).split()
-sysSize = int(words[-1])
-
-numImageSteps = int(sys.argv[2])
-
-timeInterval = float(sys.argv[3])
-
-resultsPlace = resultDir+"/"+sys.argv[4]+"/"
+resultsPlace = resultDir+"/"+fileInfo+"/"
 
 if not os.path.exists(resultsPlace):
     os.makedirs(resultsPlace)
 
-with open(resultsPlace+'settings2', 'w') as f:
+with open(resultsPlace+'settings', 'w') as f:
     f.write('BotConcentration = ' + str(botConc) +'\n')
     f.write('TopConcentration = ' + str(topConc) +'\n')
     f.write('FullRate = ' + str(rateConstFull) +'\n')
     f.write('SysSize = ' + str(sysSize) +'\n')
     f.write('TimeInterval = ' + str(timeInterval) +'\n')
-    f.write('NumImageSteps = ' +str(numImageSteps) + '\n')
-
-#!/usr/bin/python
-execfile(trajLoc)
-
-types = types[-1]
-times = None
-steps = None
-sites = None
+    f.write('AnalInterval = ' +str(analInterval) + '\n')
+    f.write('NumStepsEquilib = '+str(numStepsEquilib) +'\n')
+    f.write('NumStepsSnapshot = '+str(numStepsSnapshot)+'\n')
+    f.write('NumStepsAnal = '+str(numStepsAnal) +'\n')
 
 """I've put this in the file to make command line input easier"""
 # Load the configuration and interactions.
@@ -80,6 +64,27 @@ lattice = KMCLattice(unit_cell=unit_cell,
                      repetitions=(xRep,yRep,zRep+4),
                      periodic=(False, False, True))
 
+# Generate the initial types. There's double-layered section of "To" at the top and "Bo" at the bottom
+avConc = 0.5*(botConc+topConc)
+types = ["V"]*numPoints
+types[0] = "BoV"
+types[1] = "BoV"
+types[-2] = "ToV"
+types[-1] = "ToV"
+for i in range(int(zRep*avConc)):
+    # find a site which is not yet occupied by a "O" type.
+    pos = int(numpy.random.rand()*zRep+2.0)
+    while (types[pos] != "V"):
+        pos = int(numpy.random.rand()*zRep+2.0)
+    # Set the type.
+    types[pos] = "O"
+"""
+for i in range(2, numPoints-2):
+    if i < numPoints/2:
+        types[i] = "O"
+    else:
+        types[i] = "V"
+"""
 # Setup the configuration.
 configuration = KMCConfiguration(lattice=lattice,
                                  types=types,
@@ -224,7 +229,6 @@ processes.append( KMCProcess(coordinates=coordinates,
                              rate_constant=1.0))
 
 
-
 # Create the interactions object.
 interactions = KMCInteractions(processes, implicit_wildcards=True)
 
@@ -288,10 +292,6 @@ class lolModelRates(KMCRateCalculatorPlugin):
         return 1.0
 
 interactions.setRateCalculator(rate_calculator=lolModelRates)
-
-
-
-
 """End of processes"""
 ###
 ##
@@ -300,15 +300,53 @@ interactions.setRateCalculator(rate_calculator=lolModelRates)
 # Create the model.
 model = KMCLatticeModel(configuration, interactions)
 
-processStatsOxInBot = ProcessStatistics(processes=[5], time_interval=timeInterval, spatially_resolved=False, anal_Interval = 1, resultsPlace=resultsPlace, processesObject=processes)
+compositionTracker = Composition(time_interval=timeInterval)
 
 # Define the parameters; not entirely sure if these are sensible or not...
-control_parameters_snapshot = KMCControlParameters(number_of_steps=numImageSteps, analysis_interval=1,
-                                          dump_interval=numImageSteps/100)
+control_parameters_equilib = KMCControlParameters(number_of_steps=numStepsEquilib, analysis_interval=numStepsEquilib/100,
+                                          dump_interval=numStepsEquilib/100)
 
+control_parameters_req = KMCControlParameters(number_of_steps=numStepsReq, analysis_interval=numStepsReq/100,
+                                          dump_interval=numStepsReq/100)
+
+control_parameters_anal = KMCControlParameters(number_of_steps=numStepsAnal, analysis_interval=1,
+                                          dump_interval=numStepsAnal/100)
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 
-model.run(control_parameters_snapshot, trajectory_filename=(resultsPlace+"snapTraj.tr"), analysis=[processStatsOxInBot])
+model.run(control_parameters_equilib, trajectory_filename=(resultsPlace+"equilibTraj.tr"))
+
+
+with open(resultsPlace+"inBot.dat", 'w') as f:
+    pass
+with open(resultsPlace+"outBot.dat", 'w') as f:
+    pass
+with open(resultsPlace+"inTop.dat", 'w') as f:
+    pass
+with open(resultsPlace+"outTop.dat", 'w') as f:
+    pass
+
+for passNum in range(0, numPasses):
+    processStatsOxInBot = RateCalc(processes=[5])
+    processStatsOxOutBot = RateCalc(processes=[4])
+    processStatsOxInTop = RateCalc(processes=[3])
+    processStatsOxOutTop = RateCalc(processes=[2])
+    compositionTracker = Composition(time_interval=timeInterval)
+    model.run(control_parameters_req, trajectory_filename=(resultsPlace+"mainTraj.tr"))
+    model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, compositionTracker])
+
+    if not os.path.exists(resultsPlace+"composition"):
+        os.makedirs(resultsPlace+"composition")
+
+    with open(resultsPlace+"inBot.dat", 'a') as f:
+        processStatsOxInBot.printResults(f)
+    with open(resultsPlace+"outBot.dat", 'a') as f:
+        processStatsOxOutBot.printResults(f)
+    with open(resultsPlace+"inTop.dat", 'a') as f:
+        processStatsOxInTop.printResults(f)
+    with open(resultsPlace+"outTop.dat", 'a') as f:
+        processStatsOxOutTop.printResults(f)
+    with open(resultsPlace+"composition/composition"+str(passNum)+".dat", 'w') as f:
+        compositionTracker.printResults(f)
 
 print("Process would appear to have succesfully terminated! How very suspicious...")
