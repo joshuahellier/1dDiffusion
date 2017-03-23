@@ -1,0 +1,20 @@
+\section{Model Phenomenology}
+It turns out, having run some numerical simulations that we will discuss later, that the sticky hopping model described above exhibits some rather interesting dynamical behaviour; thus, let's try to examine the model using analytic means,
+then see how these compare with the numerics. About the easiest way to analyse such a model is using mean-field theory (MFT), so let's do that now.
+\subsection{Mean-Field Theory Derivation}
+Let the spacing between lattice sites be $a$, $\tau_0$ be the non-sticky hopping timescale and the time-averaged\footnote{Or ensemble-averaged, assuming ergodicity.} occupation probability of the $i^{\mathrm{th}}$ lattice site be $\rho_i$. 
+It is not difficult to show that, in the mean-field approximation regime,
+\begin{align*}
+ \tau_0 \partDeriv{\rho_i}{t} = &\left( 1-\rho_i \right) \left[ \left(1-\zeta\rho_{i-2} \right) \rho_{i-1} + \left(1-\zeta\rho_{i+2} \right) \rho_{i+1} \right] \\
+ &- \rho_i \left[ 2 \zeta \rho_{i-1} \rho_{i+1}  - (3-\zeta)\left(\rho_{i-1} + \rho_{i+1}\right) + 2 \right],\\
+\end{align*}
+where $\zeta = 1-\lambda$ is to be regarded as a ``stickiness parameter''. Switching to the continuum limit by taking $a\rightarrow 0$, and neglecting $\mathcal{O}(a^4)$ terms, we may reexpress this as a conserved flow $J$ as follows:
+\begin{align*}
+ \partDeriv{\rho}{t} &= - \partDeriv{J}{x}, \\
+ J &= - \frac{a^2}{\tau_0} A(\rho) \partDeriv{\rho}{x}, \\
+ A(\rho) &= 1 - \zeta \rho(4-3\rho). \\
+\end{align*}
+Thus, the MFT says that the particles should flow at a rate in proportion to their negative concentration gradient multiplied by a prefactor which is quadratic in the local density.
+\subsection{Continuum MFT Predictions}
+First, let us consider some limits. As $\zeta \rightarrow 0$ (in other words, as the model becomes a simple exclusion model), $A \rightarrow 1$, so that limit makes sense.
+\subsection{MFT Solutions}
