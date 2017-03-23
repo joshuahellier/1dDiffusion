@@ -131,19 +131,20 @@ for i in directoryList:
         totalDensity += oxConc
         totalSquareDensity += oxConc*oxConc
 
-    flowMean = totalRateSum/numPasses
-    flowErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/numPasses)/(numPasses-1))
+    if not (numPasses==0 or numPasses==1):
+        flowMean = totalRateSum/numPasses
+        flowErr = numpy.sqrt((totalSquareSum - totalRateSum*totalRateSum/numPasses)/(numPasses-1))
 
-    densityMean = totalDensity/numPasses
-    densityErr = numpy.sqrt((totalSquareDensity-totalDensity*totalDensity/numPasses)/(numPasses-1))
+        densityMean = totalDensity/numPasses
+        densityErr = numpy.sqrt((totalSquareDensity-totalDensity*totalDensity/numPasses)/(numPasses-1))
 
     
 
-    if not (math.isnan(flowMean) or math.isnan(flowErr)):
-        resultsTable.append([(botConc, topConc), (flowMean, flowErr), (densityMean, densityErr), fullRate])
+        if not (math.isnan(flowMean) or math.isnan(flowErr)):
+            resultsTable.append([(botConc, topConc), (flowMean, flowErr), (densityMean, densityErr), fullRate])
 
-    if not (math.isnan(flowMean) or math.isnan(flowMean)):
-        g.write(str(botConc)+" "+str(topConc)+" "+str(densityMean)+" "+str(densityErr)+" "+str(flowMean)+" "+str(flowErr)+"\n")
+        if not (math.isnan(flowMean) or math.isnan(flowMean)):
+            g.write(str(botConc)+" "+str(topConc)+" "+str(densityMean)+" "+str(densityErr)+" "+str(flowMean)+" "+str(flowErr)+"\n")
 
 g.write("\n")
 g.close()
