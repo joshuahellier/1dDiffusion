@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     16458,        391]
-NotebookOptionsPosition[     16029,        371]
-NotebookOutlinePosition[     16367,        386]
-CellTagsIndexPosition[     16324,        383]
+NotebookDataLength[     27024,        633]
+NotebookOptionsPosition[     26265,        604]
+NotebookOutlinePosition[     26603,        619]
+CellTagsIndexPosition[     26560,        616]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -184,22 +184,23 @@ Cell[BoxData[{
    3.68917657017874*^9}, {3.690591929561894*^9, 3.690592010496934*^9}, {
    3.690592139334941*^9, 3.690592139422236*^9}, {3.6905921743680067`*^9, 
    3.690592193053501*^9}, {3.690592224356042*^9, 3.69059223862348*^9}, {
-   3.690592384483461*^9, 3.6905924079688787`*^9}}],
+   3.690592384483461*^9, 3.6905924079688787`*^9}, 3.6991843742696533`*^9, {
+   3.699272296546274*^9, 3.699272308218514*^9}}],
 
 Cell[BoxData[
  TagBox[
   StyleBox[
-   DynamicModuleBox[{$CellContext`index$$ = 2, Typeset`show$$ = True, 
+   DynamicModuleBox[{$CellContext`index$$ = 8, Typeset`show$$ = True, 
     Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
     Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
     "\"untitled\"", Typeset`specs$$ = {{
       Hold[$CellContext`index$$], 1, 12, 1}}, Typeset`size$$ = {
     1147., {179., 184.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = True, $CellContext`index$32050$$ = 0}, 
+    Typeset`skipInitDone$$ = True, $CellContext`index$112290$$ = 0}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, "Variables" :> {$CellContext`index$$ = 1}, 
       "ControllerVariables" :> {
-        Hold[$CellContext`index$$, $CellContext`index$32050$$, 0]}, 
+        Hold[$CellContext`index$$, $CellContext`index$112290$$, 0]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -251,7 +252,8 @@ $CellContext`\[Rho] (-4 + 3 $CellContext`\[Rho]), {$CellContext`\[Rho], 0, 1},
    3.689175335057045*^9, {3.6891754296852417`*^9, 3.689175443355316*^9}, 
    3.68917573868708*^9, 3.6891765735071917`*^9, 3.689181883791391*^9, {
    3.6905921347010937`*^9, 3.690592140897376*^9}, 3.6905921997923822`*^9, 
-   3.690592240661409*^9, {3.690592375107987*^9, 3.690592408947638*^9}}]
+   3.690592240661409*^9, {3.690592375107987*^9, 3.690592408947638*^9}, 
+   3.69918438235159*^9, {3.6992722992405252`*^9, 3.6992723091006937`*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -320,17 +322,17 @@ Cell[BoxData[
 Cell[BoxData[
  TagBox[
   StyleBox[
-   DynamicModuleBox[{$CellContext`index$$ = 3, Typeset`show$$ = True, 
+   DynamicModuleBox[{$CellContext`index$$ = 6, Typeset`show$$ = True, 
     Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
     Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
     "\"untitled\"", Typeset`specs$$ = {{
       Hold[$CellContext`index$$], 1, 12, 1}}, Typeset`size$$ = {
     695., {179., 184.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = True, $CellContext`index$40072$$ = 0}, 
+    Typeset`skipInitDone$$ = True, $CellContext`index$115435$$ = 0}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, "Variables" :> {$CellContext`index$$ = 1}, 
       "ControllerVariables" :> {
-        Hold[$CellContext`index$$, $CellContext`index$40072$$, 0]}, 
+        Hold[$CellContext`index$$, $CellContext`index$115435$$, 0]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -366,7 +368,238 @@ $CellContext`\[Rho] (-4 + 3 $CellContext`\[Rho]), {$CellContext`\[Rho], 0, 1},
    3.6872588653701344`*^9, 3.6872589127997932`*^9}, 3.687258998721396*^9, 
    3.687259030788842*^9, 3.687259328851204*^9, 3.687259402797171*^9, 
    3.688523272251769*^9, 3.689175469145775*^9, 3.6891771799009323`*^9, 
-   3.689181886883573*^9, 3.690592489596119*^9}]
+   3.689181886883573*^9, 3.690592489596119*^9, 3.699184438217688*^9, 
+   3.699272349295767*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<ErrorBarPlots`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "location", " ", "=", " ", 
+   "\"\</home/jhell/research/results/batchJobs/mainRuns/attempt6b/\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"flowData", " ", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Import", "[", 
+      RowBox[{
+       RowBox[{"location", "<>", "\"\<overallData/overallData\>\"", "<>", 
+        RowBox[{"ToString", "[", "index", "]"}], "<>", "\"\<.dat\>\""}], ",", 
+       " ", "\"\<Data\>\""}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"index", ",", "0", ",", " ", "11"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"lambdaTable", "  ", "=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       FractionBox[
+        RowBox[{"1.2", "-", "0.05"}], "11"], "index"}], "+", "0.05"}], ",", 
+     " ", 
+     RowBox[{"{", 
+      RowBox[{"index", ",", " ", "0", ",", " ", "11"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Show", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"ErrorListPlot", "[", 
+       RowBox[{
+        RowBox[{"flowData", "[", 
+         RowBox[{"[", "index", "]"}], "]"}], ",", 
+        RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", " ", 
+        RowBox[{"PlotStyle", "\[Rule]", 
+         RowBox[{"AbsolutePointSize", "[", "1", "]"}]}], ",", " ", 
+        RowBox[{"PlotRange", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "1"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "1.4"}], "}"}]}], "}"}]}], ",", " ", 
+        RowBox[{"PlotLegends", "\[Rule]", 
+         RowBox[{"\"\<\[Lambda] = \>\"", "<>", 
+          RowBox[{"ToString", "[", 
+           RowBox[{"lambdaTable", "[", 
+            RowBox[{"[", "index", "]"}], "]"}], "]"}]}]}]}], "]"}], ",", " ", 
+      
+      RowBox[{"Plot", "[", 
+       RowBox[{
+        RowBox[{"1", "+", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "-", 
+            RowBox[{"lambdaTable", "[", 
+             RowBox[{"[", "index", "]"}], "]"}]}], ")"}], " ", "\[Rho]", " ", 
+          
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"-", "4"}], "+", 
+            RowBox[{"3", " ", "\[Rho]"}]}], ")"}]}]}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"\[Rho]", ",", " ", "0", ",", " ", "1"}], "}"}], ",", " ", 
+        RowBox[{"PlotRange", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "1"}], "}"}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", " ", "1.4"}], "}"}]}], "}"}]}], ",", " ", 
+        RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}], "}"}], "]"}], 
+   ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"index", ",", " ", "1", ",", " ", "12", ",", " ", "1"}], "}"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.69918503988843*^9, 3.6991850594917088`*^9}, {
+  3.699185103797214*^9, 3.699185104830881*^9}, {3.6991897503446083`*^9, 
+  3.699189760746722*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`index$$ = 8, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`index$$], 1, 12, 1}}, Typeset`size$$ = {
+    695., {179., 184.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`index$177985$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`index$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`index$$, $CellContext`index$177985$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Show[{
+         ErrorBarPlots`ErrorListPlot[
+          Part[$CellContext`flowData, $CellContext`index$$], ImageSize -> 
+          Large, PlotStyle -> AbsolutePointSize[1], 
+          PlotRange -> {{0, 1}, {0, 1.4}}, PlotLegends -> 
+          StringJoin["\[Lambda] = ", 
+            ToString[
+             Part[$CellContext`lambdaTable, $CellContext`index$$]]]], 
+         Plot[
+         1 + ((1 - 
+             Part[$CellContext`lambdaTable, $CellContext`index$$]) \
+$CellContext`\[Rho]) (-4 + 3 $CellContext`\[Rho]), {$CellContext`\[Rho], 0, 
+           1}, PlotRange -> {{0, 1}, {0, 1.4}}, ImageSize -> Large]}], 
+      "Specifications" :> {{$CellContext`index$$, 1, 12, 1}}, "Options" :> {},
+       "DefaultOptions" :> {}],
+     ImageSizeCache->{742., {223., 230.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.699185106651146*^9, 3.699189761530694*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"ListPlot", "::", "lpn"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(\\*RowBox[{\\\"$Failed\\\"}]\\)\[NoBreak] \
+is not a list of numbers or pairs of numbers. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/ListPlot\\\", ButtonNote -> \\\"ListPlot::lpn\\\"]\
+\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.699272299761654*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"ListPlot", "::", "lpn"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(\\*RowBox[{\\\"$Failed\\\"}]\\)\[NoBreak] \
+is not a list of numbers or pairs of numbers. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/ListPlot\\\", ButtonNote -> \\\"ListPlot::lpn\\\"]\
+\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.699272299836751*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"ListPlot", "::", "lpn"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(\\*RowBox[{\\\"$Failed\\\"}]\\)\[NoBreak] \
+is not a list of numbers or pairs of numbers. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/ListPlot\\\", ButtonNote -> \\\"ListPlot::lpn\\\"]\
+\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.6992722998931828`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \
+\[NoBreak]\\!\\(\\*StyleBox[RowBox[{\\\"ListPlot\\\", \\\"::\\\", \
+\\\"lpn\\\"}], \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during \
+this calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
+\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.6992722999117804`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Show", "::", "gcomb"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Could not combine the graphics objects in \[NoBreak]\\!\\(\
+\\*RowBox[{\\\"Show\\\", \\\"[\\\", RowBox[{\\\"{\\\", \
+RowBox[{RowBox[{\\\"ListPlot\\\", \\\"[\\\", RowBox[{\\\"$Failed\\\", \\\",\\\
+\", RowBox[{\\\"{\\\", RowBox[{RowBox[{\\\"ImageSize\\\", \\\"\[Rule]\\\", \\\
+\"Large\\\"}], \\\",\\\", RowBox[{\\\"PlotStyle\\\", \\\"\[Rule]\\\", \
+RowBox[{\\\"AbsolutePointSize\\\", \\\"[\\\", \\\"1\\\", \\\"]\\\"}]}], \\\",\
+\\\", RowBox[{\\\"PlotRange\\\", \\\"\[Rule]\\\", RowBox[{\\\"{\\\", \
+RowBox[{RowBox[{\\\"{\\\", RowBox[{\\\"0\\\", \\\",\\\", \\\"1\\\"}], \\\"}\\\
+\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\"0\\\", \\\",\\\", \
+\\\"1.4`\\\"}], \\\"}\\\"}]}], \\\"}\\\"}]}], \\\",\\\", \
+RowBox[{\\\"PlotLegends\\\", \\\"\[Rule]\\\", \\\"\\\\\\\"\[Lambda] = \
+0.781818\\\\\\\"\\\"}]}], \\\"}\\\"}], \\\",\\\", RowBox[{\\\"Method\\\", \
+\\\"\[Rule]\\\", RowBox[{\\\"{\\\", RowBox[{\\\"\\\\\\\"OptimizePlotMarkers\\\
+\\\\\"\\\", \\\"\[Rule]\\\", \\\"False\\\"}], \\\"}\\\"}]}]}], \\\"]\\\"}], \
+\\\",\\\", GraphicsBox[List[List[List[List[], List[], \
+List[Directive[Skeleton[3]], LineBox[Skeleton[1]]]]], List[]], \
+List[Rule[DisplayFunction, Identity], Rule[PlotRangePadding, List[List[0, 0], \
+List[0, 0]]], Rule[PlotRangeClipping, True], Rule[ImagePadding, All], \
+Rule[DisplayFunction, Identity], Rule[AspectRatio, NCache[Power[GoldenRatio, \
+-1], 0.6180339887498948`]], Rule[Axes, List[True, True]], Rule[AxesLabel, \
+List[None, None]], Rule[AxesOrigin, List[0, 0]], RuleDelayed[DisplayFunction, \
+Identity], Rule[Frame, List[List[False, False], List[False, False]]], \
+Rule[FrameLabel, List[List[None, None], List[None, None]]], Rule[FrameTicks, \
+List[List[Automatic, Automatic], List[Automatic, Automatic]]], \
+Rule[GridLines, List[None, None]], Rule[GridLinesStyle, \
+Directive[GrayLevel[0.5`, 0.4`]]], Rule[ImageSize, Large], Rule[Method, \
+List[Rule[\\\"DefaultBoundaryStyle\\\", Automatic], Rule[\\\"DefaultMeshStyle\
+\\\", AbsolutePointSize[Skeleton[1]]], Rule[\\\"ScalingFunctions\\\", \
+None]]], Rule[PlotRange, List[List[0, 1], List[0, 1.4`]]], \
+Rule[PlotRangeClipping, True], Rule[PlotRangePadding, List[List[Automatic, \
+Automatic], List[Automatic, Automatic]]], Rule[Ticks, List[Automatic, \
+Automatic]]]]}], \\\"}\\\"}], \\\"]\\\"}]\\)\[NoBreak]. \\!\\(\\*ButtonBox[\\\
+\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/Show/gcomb\\\", ButtonNote -> \
+\\\"Show::gcomb\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.699272299961734*^9}]
 }, Open  ]]
 },
 WindowSize->{1855, 985},
@@ -386,12 +619,21 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 6901, 164, 301, "Input"],
-Cell[7484, 188, 3596, 65, 470, "Output"]
+Cell[580, 22, 6975, 165, 301, "Input"],
+Cell[7558, 189, 3673, 66, 470, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[11117, 258, 2354, 59, 55, "Input"],
-Cell[13474, 319, 2539, 49, 470, "Output"]
+Cell[11268, 260, 2354, 59, 55, "Input"],
+Cell[13625, 321, 2589, 50, 470, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16251, 376, 3141, 87, 169, "Input"],
+Cell[19395, 465, 2200, 44, 470, "Output"],
+Cell[21598, 511, 473, 10, 23, "Message"],
+Cell[22074, 523, 473, 10, 23, "Message"],
+Cell[22550, 535, 475, 10, 23, "Message"],
+Cell[23028, 547, 564, 12, 23, "Message"],
+Cell[23595, 561, 2654, 40, 416, "Message"]
 }, Open  ]]
 }
 ]

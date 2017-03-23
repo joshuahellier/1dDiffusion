@@ -1,9 +1,10 @@
 \section{Model Phenomenology}
-It turns out, having run some numerical simulations that we will discuss later, that the sticky hopping model described above exhibits some rather interesting dynamical behaviour; thus, let's try to examine the model using analytic means,
-then see how these compare with the numerics. About the easiest way to analyse such a model is using mean-field theory (MFT), so let's do that now.
+The model described in Figure~\ref{fig:rates} is very simple, but numerical simulation shows that it is capable of a wide range of behaviours, such as those shown in Figures~\ref{fig:eyeCandy} and ~\ref{fig:flowTable}. We will discuss
+these numerical results in more detail in Section~\ref{sec:numRes}, but first let us try to predict the model behaviour using analytic means.
+
 \subsection{Mean-Field Theory Derivation}
 Let the spacing between lattice sites be $a$, $\tau_0$ be the non-sticky hopping timescale and the time-averaged\footnote{Or ensemble-averaged, assuming ergodicity.} occupation probability of the $i^{\mathrm{th}}$ lattice site be $\rho_i$. 
-It is not difficult to show that, in the mean-field approximation regime,
+One may show that, in the mean-field approximation regime,
 \begin{align*}
  \tau_0 \partDeriv{\rho_i}{t} = &\left( 1-\rho_i \right) \left[ \left(1-\zeta\rho_{i-2} \right) \rho_{i-1} + \left(1-\zeta\rho_{i+2} \right) \rho_{i+1} \right] \\
  &- \rho_i \left[ 2 \zeta \rho_{i-1} \rho_{i+1}  - (3-\zeta)\left(\rho_{i-1} + \rho_{i+1}\right) + 2 \right],\\
@@ -12,9 +13,14 @@ where $\zeta = 1-\lambda$ is to be regarded as a ``stickiness parameter''. Switc
 \begin{align*}
  \partDeriv{\rho}{t} &= - \partDeriv{J}{x}, \\
  J &= - \frac{a^2}{\tau_0} A(\rho) \partDeriv{\rho}{x}, \\
- A(\rho) &= 1 - \zeta \rho(4-3\rho). \\
+ A &= 1 - \zeta \rho(4-3\rho). \\
 \end{align*}
-Thus, the MFT says that the particles should flow at a rate in proportion to their negative concentration gradient multiplied by a prefactor which is quadratic in the local density.
+Thus, the MFT says that the particles should diffuse with a diffusion coefficient which depends upon the local density.
 \subsection{Continuum MFT Predictions}
-First, let us consider some limits. As $\zeta \rightarrow 0$ (in other words, as the model becomes a simple exclusion model), $A \rightarrow 1$, so that limit makes sense.
+First let us consider some limits. As $\zeta \rightarrow 0$ (in other words, as the model becomes a simple exclusion model), $A \rightarrow 1$, so the MFT smoothly changes to match the known result. Likewise, in the
+dilute limit $\rho \rightarrow 0$, $A \rightarrow 1$, reflecting the fact that it becomes a dilute lattice gas and therefore the interactions between particles become irrelevant as they never meet.
+Conversely, in the full limit $\rho \rightarrow 1$, $A \rightarrow \lambda$; this makes sense because we now have a dilute gas of vacancies, which hop with rate $\lambda$.
+Finally, we observe that the continuum limit MFT has a symmetry under $\rho \mapsto \frac{4}{3} - \rho$; thus, the dynamics should be symmetric under a density profile reflection around $\rho = \frac{2}{3}$. This is where $A$ always
+attains its extremal value, $ 1 - \frac{4}{3}\zeta$, hence for $\zeta>3/4$ the diffusion coefficient becomes negative in regions with
+$\frac{2}{3} - \frac{\sqrt{\zeta\left(4\zeta - 3\right)}}{3\zeta} \textless \rho \textless \frac{2}{3} + \frac{\sqrt{\zeta\left(4\zeta - 3\right)}}{3\zeta}$.
 \subsection{MFT Solutions}
