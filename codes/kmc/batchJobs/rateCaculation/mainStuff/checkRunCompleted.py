@@ -37,20 +37,25 @@ for rateIndex in range(0, numLambda):
         currentConc = concMin + concStepSize*concIndex
         for concDiffIndex in range(0, numConcDiff):
             failed = False
+            reallyFailed = False
             currentConcDiff = diffStepSize*concDiffIndex + concDiffMin
             botConc = currentConc - 0.5*currentConcDiff
             topConc = currentConc + 0.5*currentConcDiff
-            candidate = resultDir+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(concDiffIndex)+"/"
+            candidate = resultDir+"/"+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(concDiffIndex)+"/"
             if os.path.exists(candidate+"outTop.dat"):
                 with open(candidate+"outTop.dat", 'r') as f:
                     lines = f.readlines()
                     if len(lines) != numPasses:
                         failed = True
+                        reallyFailed = True
+                        print("Wrong number of lines!\n")
             else:
                 failed = True
-            if not os.path.exists(candidate+"/composition/composition9.dat"):
+                print("No outTop.dat!\n")
+            if not os.path.exists(candidate+"composition/composition9.dat"):
                 failed = True
-            if failed == True
+                print("composition file didn't exist!\n")
+            if reallyFailed == True:
                 jobInput = "newSteadyFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(concDiffIndex)+"\n"
                 with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
                     f.write(jobInput)
