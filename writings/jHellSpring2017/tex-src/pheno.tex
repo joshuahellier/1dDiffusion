@@ -20,7 +20,36 @@ Thus, the MFT says that the particles should diffuse with a diffusion coefficien
 First let us consider some limits. As $\zeta \rightarrow 0$ (in other words, as the model becomes a simple exclusion model), $A \rightarrow 1$, so the MFT smoothly changes to match the known result. Likewise, in the
 dilute limit $\rho \rightarrow 0$, $A \rightarrow 1$, reflecting the fact that it becomes a dilute lattice gas and therefore the interactions between particles become irrelevant as they never meet.
 Conversely, in the full limit $\rho \rightarrow 1$, $A \rightarrow \lambda$; this makes sense because we now have a dilute gas of vacancies, which hop with rate $\lambda$.
-Finally, we observe that the continuum limit MFT has a symmetry under $\rho \mapsto \frac{4}{3} - \rho$; thus, the dynamics should be symmetric under a density profile reflection around $\rho = \frac{2}{3}$. This is where $A$ always
+One may observe that the continuum limit MFT has a symmetry under $\rho \mapsto \frac{4}{3} - \rho$; thus, the dynamics should be symmetric under a density profile reflection around $\rho = \frac{2}{3}$. This is where $A$ always
 attains its extremal value, $ 1 - \frac{4}{3}\zeta$, hence for $\zeta>3/4$ the diffusion coefficient becomes negative in regions with
 $\frac{2}{3} - \frac{\sqrt{\zeta\left(4\zeta - 3\right)}}{3\zeta} \textless \rho \textless \frac{2}{3} + \frac{\sqrt{\zeta\left(4\zeta - 3\right)}}{3\zeta}$.
+Finally, it is possible to show that solutions to the continuum MFT containing domains with negative a negative diffusion coefficient are linearly unstable.
 \subsection{MFT Solutions}
+\subsubsection{Steady-State Flow Through a Block}
+It is possible to solve the continuum MFT in a steady state on a finite domain, say $x\in(0, L)$. The continuity equation implies that $J(x)=J_0$, and by integrating both sides of our current equation with respect to $x$ we find that
+\begin{equation}
+ J_0 (x-x_0) = -\frac{a^2}{\tau_0} \rho \left(1+\zeta \rho\left(\rho-2\right)\right),
+\end{equation}
+a cubic equation which can be solved to give $\rho(x)$. If we impose Dirichlet boundary conditions on this system, say $\rho(0)=\rho_0$ and $\rho(L)=\rho_L$, we find that
+\begin{equation}
+ J = \frac{a^2}{L \tau_0} \left[ \rho_0 - \rho_L + \zeta \left( \rho_0\left(\rho_0^2-2\right) - \rho_L\left(\rho_L^2-2\right) \right) \right].
+\end{equation}
+We may consider applying small concentration gradients across a block by setting $\rho_0 = \rho_M + \frac{1}{2}\delta$ and $\rho_L = \rho_M - \frac{1}{2}\delta$. Doing so, we find that
+\begin{equation}
+ \partDeriv{J}{\delta}\bigg|_{\delta=0} = 1 - \zeta\rho_M(4-3\rho_M),
+\end{equation}
+a result we will make use of when we come to analyse our numerics in Section~\ref{sec:numRes}.
+\subsubsection{Constant Speed Solution}
+According to Ivanova~\cite{ivanova2007}, we can have travelling solutions to our time-dependent MFT PDE. Introducing the variable $\omega = x - vt$, with $v\in \mathbb{R}$, our PDE solution $\phi(\omega)$ obeys
+\begin{equation}
+ v \phi ' = -\frac{a^2}{\tau_0} \left[ 1-\zeta \phi \left(4-3\phi\right) \right] '
+\end{equation}
+with general solution found by solving
+\begin{equation}
+ \frac{a^2}{\tau_0 v} \left[ \frac{1}{2} \zeta \phi \left(8-6\mu-3\phi\right) - \left(1-\zeta\left(4-3\mu\right)\mu\right) \log{\left(\phi-\mu\right)} \right].
+\end{equation}
+Requiring that $\phi \rightarrow  1$ as $\omega \rightarrow 0$ and $\phi \rightarrow 0$ as $\omega \rightarrow \infty$, this reduces to
+\begin{equation}
+ \frac{a^2}{\tau_0 v} \left[ \frac{1}{2} \zeta \phi \left(8-3\phi\right) - \log{\left(\phi-\right)} \right]
+\end{equation}
+
