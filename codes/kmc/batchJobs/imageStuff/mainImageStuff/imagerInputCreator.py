@@ -7,8 +7,8 @@ import os
 numConcs = 24
 numLambda = 12
 numImageSteps=1000000
-dataLocation = "batchJobs/mainRuns/attempt6"
-newWriteLocation = "batchJobs/imagingRuns/attempt6"
+dataLocation = "batchJobs/mainRuns/attempt6b"
+newWriteLocation = "batchJobs/imagingRuns/attempt6b"
 timeInterval = 1.0
 jobIndex = 1
 

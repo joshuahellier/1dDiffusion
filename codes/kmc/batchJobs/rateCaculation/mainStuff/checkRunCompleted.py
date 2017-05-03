@@ -50,10 +50,10 @@ for rateIndex in range(0, numLambda):
                         reallyFailed = True
                         print("Wrong number of lines!\n")
             else:
-                failed = True
+                reallyFailed = True
                 print("No outTop.dat!\n")
             if not os.path.exists(candidate+"composition/composition9.dat"):
-                failed = True
+                reallyFailed = True
                 print("composition file didn't exist!\n")
             if reallyFailed == True:
                 jobInput = "newSteadyFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(concDiffIndex)+"\n"
