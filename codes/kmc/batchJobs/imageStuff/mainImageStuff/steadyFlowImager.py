@@ -51,13 +51,8 @@ with open(resultsPlace+'settings2', 'w') as f:
     f.write('TimeInterval = ' + str(timeInterval) +'\n')
     f.write('NumImageSteps = ' +str(numImageSteps) + '\n')
 
-#!/usr/bin/python
-execfile(trajLoc)
+numStepsEquilib = 10*numImageSteps
 
-types = types[-1]
-times = None
-steps = None
-sites = None
 
 """I've put this in the file to make command line input easier"""
 # Load the configuration and interactions.
@@ -80,6 +75,20 @@ numPoints = xRep*(zRep+4)*yRep
 lattice = KMCLattice(unit_cell=unit_cell,
                      repetitions=(xRep,yRep,zRep+4),
                      periodic=(False, False, True))
+
+avConc = 0.5*(botConc+topConc)
+types = ["V"]*numPoints
+types[0] = "BoV"
+types[1] = "BoV"
+types[-2] = "ToV"
+types[-1] = "ToV"
+for i in range(int(zRep*avConc)):
+    # find a site which is not yet occupied by a "O" type.
+    pos = int(numpy.random.rand()*zRep+2.0)
+    while (types[pos] != "V"):
+        pos = int(numpy.random.rand()*zRep+2.0)
+    # Set the type.
+    types[pos] = "O"
 
 # Setup the configuration.
 configuration = KMCConfiguration(lattice=lattice,
@@ -307,9 +316,13 @@ processStatsOxInBot = ImageStats(processes=[5], time_interval=timeInterval, spat
 control_parameters_snapshot = KMCControlParameters(number_of_steps=numImageSteps, analysis_interval=1,
                                           dump_interval=numImageSteps/100)
 
+control_parameters_equilib = KMCControlParameters(number_of_steps=numStepsEquilib, analysis_interval=numStepsEquilib/100,
+                                          dump_interval=numStepsEquilib/100)
+
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 
+model.run(control_parameters_equilib, trajectory_filename=(resultsPlace+"equilibTraj.tr"))
 model.run(control_parameters_snapshot, trajectory_filename=(resultsPlace+"snapTraj.tr"), analysis=[processStatsOxInBot])
 
 print("Process would appear to have succesfully terminated! How very suspicious...")

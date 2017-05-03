@@ -1,0 +1,29 @@
+\section{Numerical Results}
+\label{sec:numRes}
+We now have some MFT predictions about the SHM, and a few ideas about when those predictions might be invalid. Thus, it is prudent for us to test them out numerically.
+There are a few different methods which could have been used, but I chose to calculate using the \texttt{KMCLib}\cite{leetmaa2014kmclib} package, which implements the Kinetic Monte Carlo algorithm (essentially the same as the Gillespie algorithm)
+on lattice systems. \texttt{KMCLib} has the advantage that it is python-wrapped \texttt{C++}, and thus quite easy to use whilst at the same time being quite computationally efficient; thus it was fairly easy for me to carry out large numbers
+of differently-parametrised serial \texttt{KMCLib} jobs on the \texttt{Eddie3} computing cluster here at Edinburgh.
+\subsection{Flow in a Block}
+As we have MFT predictions about flow in a block, we can try to simulate that situation using KMC. In the bulk, the transition rates are simply those described in Figure~\ref{fig:rates}. At the boundaries, referred to as the ``top'' and ``bottom''
+of the block, there are 2 layers of lattice sites what switch between being full and empty with rates such that the time-averaged occupation can be specified to match the desired boundary conditions; there are then chances for particles to spawn
+and despawn with rates depending upon the occupation of these boundary layers. In the end, the intention is that these boundaries should reproduce the effect of having particle reservoirs attached to the ends, which is something we can check for
+sanity in the output by inspecting the time-averaged occupations of sites near the boundary.
+
+In our calculations, we set the top and bottom densities to be $\rho_T = \rho_M - \frac{1}{2} \delta\rho$ and $\rho_B = \rho_M + \frac{1}{2} \delta\rho$ respectively, as well as specifying the value of $\lambda$ and the number of sites
+in the lattice. During the calculation, we perform a specified number
+of Gillespie steps, and count the number of particles entering at the top $e_T$, leaving at the top $l_T$, entering at the bottom $e_B$, leaving at the bottom $l_B$, as well as the Gillespie time interval $T$ that elapses during
+those steps; we then have an estimate of the overall flow rate $J$ via
+\begin{equation}
+ J = \frac{e_B-e_T+l_T-l_B}{2T}.
+\end{equation}
+We can also count the total number of particles in the system in order to measure the average particle density, although we need to make sure that it is correctly time-averaged.
+If we keep $\delta\rho$ relatively small, $J$ varies approximately linearly with $\delta\rho$; thus if we calculate $J$ for a series of small $\delta \rho$, we can perform linear regression to find $\partDeriv{J}{\delta\rho}\big|_{\delta\rho=0}$,
+the effective diffusion coefficient. Computing this for different $(\rho_M, \zeta)$ combinations gives us numerical data which can be compared with the MFT result in Equation~\ref{eq:MFTflow}.
+
+To produce the results below, for each $(\rho_T, \rho_B, \zeta)$ combination we created the initial state by randomly inserting particles into an empty 124-length lattice, so that the density was $\rho_M$. We then ran the simulation for
+$1.6\times10^8$ steps, to wash away any spurious initial-data effects and allow the system to reach a steady state flow. We then ran for $8\times10^7$ steps whilst measuring flow rate and density, then allowed the system to run for $1.6\times10^7$
+steps without taking measurements in an effort to suppress temporal autocorrelation effects. This alternating process was repeated 10 times, yielding 10 measurements of flow rate and density, from which estimates of these quantities and their
+standard errors could be obtained. The whole setup was repeated with a 60-length system, in order to check for edge effects; however, the results were not significantly different, so those would not seem to be a problem.
+
+\subsection{Correlation Functions}

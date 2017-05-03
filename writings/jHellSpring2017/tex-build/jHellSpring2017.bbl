@@ -6,7 +6,7 @@
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{7}%
+\begin{thebibliography}{9}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -96,4 +96,18 @@
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.~M.}\ \bibnamefont
   {Ivanova}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv
   preprint arXiv:0710.4000}\ } (\bibinfo {year} {2007})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Sherratt}(1998)}]{sherratt1998transition}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~A.}\ \bibnamefont
+  {Sherratt}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal}
+  {Dynamics and Stability of Systems}\ }\textbf {\bibinfo {volume} {13}},\
+  \bibinfo {pages} {167} (\bibinfo {year} {1998})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Leetmaa}\ and\ \citenamefont
+  {Skorodumova}(2014)}]{leetmaa2014kmclib}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Leetmaa}}\ and\ \bibinfo {author} {\bibfnamefont {N.~V.}\ \bibnamefont
+  {Skorodumova}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal}
+  {Computer Physics Communications}\ }\textbf {\bibinfo {volume} {185}},\
+  \bibinfo {pages} {2340} (\bibinfo {year} {2014})}\BibitemShut {NoStop}%
 \end{thebibliography}%

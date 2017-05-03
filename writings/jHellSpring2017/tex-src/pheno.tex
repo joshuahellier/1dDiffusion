@@ -34,22 +34,26 @@ a cubic equation which can be solved to give $\rho(x)$. If we impose Dirichlet b
 \begin{equation}
  J = \frac{a^2}{L \tau_0} \left[ \rho_0 - \rho_L + \zeta \left( \rho_0\left(\rho_0^2-2\right) - \rho_L\left(\rho_L^2-2\right) \right) \right].
 \end{equation}
-We may consider applying small concentration gradients across a block by setting $\rho_0 = \rho_M + \frac{1}{2}\delta$ and $\rho_L = \rho_M - \frac{1}{2}\delta$. Doing so, we find that
+We may consider applying small concentration gradients across a block by setting $\rho_0 = \rho_M + \frac{1}{2}\delta\rho$ and $\rho_L = \rho_M - \frac{1}{2}\delta\rho$. Doing so, we find that
 \begin{equation}
- \partDeriv{J}{\delta}\bigg|_{\delta=0} = 1 - \zeta\rho_M(4-3\rho_M),
+\label{eq:MFTflow}
+ \partDeriv{J}{\delta\rho}\bigg|_{\delta\rho=0} = \frac{a^2}{L \tau_0} \left[ 1 - \zeta\rho_M(4-3\rho_M) \right],
 \end{equation}
 a result we will make use of when we come to analyse our numerics in Section~\ref{sec:numRes}.
 \subsubsection{Constant Speed Solution}
-According to Ivanova~\cite{ivanova2007}, we can have travelling solutions to our time-dependent MFT PDE. Introducing the variable $\omega = x - vt$, with $v\in \mathbb{R}$, our PDE solution $\phi(\omega)$ obeys
+According to Ivanova~\cite{ivanova2007}, we can have travelling solutions to our time-dependent MFT PDE. Introducing the variable $\omega = x - vt$, with $v\in \mathbb{R}$, our PDE solution $\rho(x, t) = \phi(\omega)$ obeys
 \begin{equation}
  v \phi ' = -\frac{a^2}{\tau_0} \left[ 1-\zeta \phi \left(4-3\phi\right) \right] '
 \end{equation}
 with general solution found by solving
 \begin{equation}
- \frac{a^2}{\tau_0 v} \left[ \frac{1}{2} \zeta \phi \left(8-6\mu-3\phi\right) - \left(1-\zeta\left(4-3\mu\right)\mu\right) \log{\left(\phi-\mu\right)} \right].
+ \omega = \frac{a^2}{\tau_0 v} \left[ \frac{1}{2} \zeta \phi \left(8-6\mu-3\phi\right) - \left(1-\zeta\left(4-3\mu\right)\mu\right) \log{\left(\phi-\mu\right)} \right].
 \end{equation}
 Requiring that $\phi \rightarrow  1$ as $\omega \rightarrow 0$ and $\phi \rightarrow 0$ as $\omega \rightarrow \infty$, this reduces to
 \begin{equation}
- \frac{a^2}{\tau_0 v} \left[ \frac{1}{2} \zeta \phi \left(8-3\phi\right) - \log{\left(\phi-\right)} \right]
+ \omega = \frac{a^2}{\tau_0 v} \left[ \frac{1}{2} \zeta \phi \left(8-3\phi\right) - \log{\left(\phi\right)} - \frac{5 \zeta}{2} \right],
 \end{equation}
-
+so at the leading edge of the wave, $\omega \rightarrow \infty$, $\phi \sim e^{-\frac{v \omega}{a^2}} $. At $\omega \rightarrow 0$ with $\phi \rightarrow 1$, which would physically represent the interface between the particle-saturated
+region and the non-saturated region, $\phi \sim 1 - \frac{v \omega}{a^2 \lambda}$. Note that the value of $v$ is not restricted by these equations, and a linear stability analysis of the leading edge does not imply speed selection like in
+the case of the Fisher wave\cite{sherratt1998transition}, so it seems like the speed of travelling wavefronts would be determined by the initial conditions; of course, we should expect the MFT to misbehave close to the interface,
+so the actual system would probably have some interface-based mechanism for choosing its wave-speed.
