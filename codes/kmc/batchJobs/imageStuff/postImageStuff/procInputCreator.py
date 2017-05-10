@@ -7,9 +7,9 @@ import os
 
 numConcs = 24
 numLambda = 12
-dataLocation = "batchJobs/imagingRuns/attempt6"
+dataLocation = "batchJobs/imagingRuns/attempt6b"
 jobIndex = 1
-numSlice = 1024
+numSlice = 100000
 
 runningJobs = []
 

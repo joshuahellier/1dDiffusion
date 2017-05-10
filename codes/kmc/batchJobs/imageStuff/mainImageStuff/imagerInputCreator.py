@@ -6,10 +6,10 @@ import os
 # in the name of time efficiency
 numConcs = 24
 numLambda = 12
-numImageSteps=1000000
+numImageSteps=10000000
 dataLocation = "batchJobs/mainRuns/attempt6b"
 newWriteLocation = "batchJobs/imagingRuns/attempt6b"
-timeInterval = 1.0
+timeInterval = 0.01
 jobIndex = 1
 
 runningJobs = []
