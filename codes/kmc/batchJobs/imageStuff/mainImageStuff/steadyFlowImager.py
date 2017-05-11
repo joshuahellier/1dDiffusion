@@ -51,7 +51,7 @@ with open(resultsPlace+'settings2', 'w') as f:
     f.write('TimeInterval = ' + str(timeInterval) +'\n')
     f.write('NumImageSteps = ' +str(numImageSteps) + '\n')
 
-numStepsEquilib = 10*numImageSteps
+numStepsEquilib = 4*numImageSteps
 
 
 """I've put this in the file to make command line input easier"""

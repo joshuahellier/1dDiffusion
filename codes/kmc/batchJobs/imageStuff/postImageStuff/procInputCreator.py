@@ -15,7 +15,7 @@ runningJobs = []
 
 for rateIndex in range(0, numLambda):
     for concIndex in range(0, numConcs):
-        jobInput = "newPostProcIm.py "+dataLocation+"/"+str(rateIndex)+"/"+str(concIndex)+" "+str(numSlice)+"\n"
+        jobInput = "corrFnCalc.py "+dataLocation+"/"+str(rateIndex)+"/"+str(concIndex)+" "+str(numSlice)+"\n"
         with open("postProcInputs/postInput."+str(jobIndex), 'w') as f:
             f.write(jobInput)
         jobIndex += 1
