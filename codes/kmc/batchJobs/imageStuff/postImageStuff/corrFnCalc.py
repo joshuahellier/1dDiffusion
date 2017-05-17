@@ -14,6 +14,8 @@ resultsPlace = resultDir+"/"+fileInfo+"/"
 
 numChunks = int(sys.argv[2])
 
+dataLimit = int(sys.argv[3])
+
 if not os.path.exists(resultsPlace):
     print ("WARNING! The results directory requested does not exist! Perhaps there is some typo...\n")
     exit()
@@ -42,9 +44,9 @@ for i in directoryList:
     initialTime = 0.0
     siteRecord = []
     initFlag = False
+    counter = 0
     with open(currentDir+"/trajRecord.tr", "r") as  typeFile:
         for line in typeFile:
-            print(line)
             words = line.split()
             if initFlag==False:
                 initFlag = True
@@ -52,6 +54,9 @@ for i in directoryList:
             finalTime = float(words[1])
             if int(words[2])==centreSite:
                 siteRecord.append((0.5*(float(words[0]) + float(words[1])), words[3]))
+            counter+=1
+            if counter>dataLimit:
+                break
     numTimeChunks = numChunks
     timeChunkSize = (finalTime-initialTime)/numChunks
     centreRecord = []
@@ -60,7 +65,6 @@ for i in directoryList:
         chunkStart = 0
         chunkEnd = 0
         currentLength = len(changes)
-        print(str(currentLength)+"\n")
         for timeChunkIndex in range (1, numTimeChunks-1):
             while chunkStart+1<currentLength and changes[chunkStart+1][0] < timeChunkIndex*timeChunkSize+initialTime:
                 chunkStart += 1
@@ -95,17 +99,20 @@ for i in directoryList:
     for density in centreRecord:
         centreDensity += density
     centreDensity/=len(centreRecord)
-    
-    spaceLagWidth = sysSize/4
+    print("Done central thread.")
+    spaceLagWidth = int(sysSize/4)
     for spaceLag in range(-spaceLagWidth, spaceLagWidth+1):
         currentRecord = []
         siteRecord = []
+        counter = 0
         with open(currentDir+"/trajRecord.tr", "r") as  typeFile:
             for line in typeFile:
-                print(line)
                 words = line.split()
                 if int(words[2])==centreSite+spaceLag:
                     siteRecord.append((0.5*(float(words[0]) + float(words[1])), words[3]))
+                counter+=1
+                if counter>dataLimit:
+       	       	    break
         changes = siteRecord
         chunkStart = 0
         chunkEnd = 0
@@ -151,6 +158,7 @@ for i in directoryList:
         corrFn/=len(currentRecord)
         corrFn -= lagDensity*centreDensity
         correlations.append(str(spaceLag)+" "+str(corrFn)+"\n")
+        print("Done "+str(spaceLag)+".")
     with open(currentDir+"/corrData.dat", 'w') as corrFile:
         for entry in correlations:
             corrFile.write(entry)
