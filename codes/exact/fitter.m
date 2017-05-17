@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-myList = Import["corrFnResults.m"];
+myList = Import["/home/jhell/research/PhDStuff/codes/exact/corrFnResults.m"];
 
 
 

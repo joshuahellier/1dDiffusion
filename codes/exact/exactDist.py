@@ -63,7 +63,7 @@ def genCorrFn(L, N):
     partitionFn += "0)"
     print(partitionFn)
     finalOut = "{"
-    for shift in range(-L/2, L-L/2):
+    for shift in range(0, L-L/2):
         tempList = []
         for config in restStates:
             if config[0][shift] == 1:
@@ -80,7 +80,6 @@ def genCorrFn(L, N):
     return finalOut
 
 L = int(sys.argv[1])
-N = int(sys.argv[2])
 
 with open("corrFnResults.m", 'w') as f:
     f.write("{")
