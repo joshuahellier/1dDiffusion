@@ -16,7 +16,7 @@ runningJobs = []
 
 for rateIndex in range(0, numLambda):
     for concIndex in range(0, numConcs):
-        jobInput = "steadyFlowImager.py "+dataLocation+"/"+str(rateIndex)+"/"+str(concIndex)+"/"+str(0)+" "+str(numImageSteps)+" "+str(timeInterval)+" "+newWriteLocation+"/"+str(rateIndex)+"/"+str(concIndex)+"/"+str(0)+"\n"
+        jobInput = "blockStatCalc.py "+dataLocation+"/"+str(rateIndex)+"/"+str(concIndex)+"/"+str(0)+" "+str(numImageSteps)+" "+str(timeInterval)+" "+newWriteLocation+"/"+str(rateIndex)+"/"+str(concIndex)+"/"+str(0)+"\n"
         with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
             f.write(jobInput)
         jobIndex += 1
