@@ -6,52 +6,38 @@ resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
 
-# Expecting path from $RESULTS to directory having been made by steadyStateFlow.py then number of steps to image for, then image time parameter, then location for the files to be written to
+# Expecting input botConc, topConc, rateConstFull, sysSize, analInterval, numStepsEquilib, numStepsSnapshot, numStepsAnal, numStepsReq, numPasses, timeInterval,  fileCode
 
 from KMCLib import *
 from KMCLib.Backend import Backend
 import numpy
 from GdfStats import *
 
-dirLoc = sys.argv[1]
-generalLoc = resultDir+"/"+dirLoc+"/"
-settingsLoc = generalLoc+"settings"
-trajLoc = generalLoc+"mainTraj.tr"
+botConc = float(sys.argv[1])
+topConc = float(sys.argv[2])
+rateConstFull = float(sys.argv[3])
+sysSize = int(sys.argv[4])
+analInterval = int(sys.argv[5])
+numStepsEquilib = int(sys.argv[6])
+numStepsAnal = int(sys.argv[7])
+numStepsReq = int(sys.argv[8])
+numPasses = int(sys.argv[9])
+fileInfo = sys.argv[10]
 
-with open(settingsLoc, 'r') as f:
-    lines = f.readlines()
-print lines
-words = (lines[0]).split()
-print words[-1]+"\n"
-botConc = float(words[-1])
-
-words = (lines[1]).split()
-topConc = float(words[-1])
-
-words = (lines[2]).split()
-rateConstFull = float(words[-1])
-
-words = (lines[3]).split()
-sysSize = int(words[-1])
-
-numImageSteps = int(sys.argv[2])
-
-timeInterval = float(sys.argv[3])
-
-resultsPlace = resultDir+"/"+sys.argv[4]+"/"
+resultsPlace = resultDir+"/"+fileInfo+"/"
 
 if not os.path.exists(resultsPlace):
     os.makedirs(resultsPlace)
 
-with open(resultsPlace+'settings2', 'w') as f:
+with open(resultsPlace+'settings', 'w') as f:
     f.write('BotConcentration = ' + str(botConc) +'\n')
     f.write('TopConcentration = ' + str(topConc) +'\n')
     f.write('FullRate = ' + str(rateConstFull) +'\n')
     f.write('SysSize = ' + str(sysSize) +'\n')
-    f.write('TimeInterval = ' + str(timeInterval) +'\n')
-    f.write('NumImageSteps = ' +str(numImageSteps) + '\n')
-
-numStepsEquilib = 2*numImageSteps
+    f.write('AnalInterval = ' +str(analInterval) + '\n')
+    f.write('NumStepsEquilib = '+str(numStepsEquilib) +'\n')
+    f.write('NumStepsReq = '+str(numStepsReq)+'\n')
+    f.write('NumStepsAnal = '+str(numStepsAnal) +'\n')
 
 
 """I've put this in the file to make command line input easier"""
@@ -312,19 +298,27 @@ model = KMCLatticeModel(configuration, interactions)
 
 gdfStats = GdfStats(blockComp=["O"])
 
-# Define the parameters; not entirely sure if these are sensible or not...
-control_parameters_snapshot = KMCControlParameters(number_of_steps=numImageSteps, analysis_interval=300,
-                                          dump_interval=numImageSteps/100)
-
 control_parameters_equilib = KMCControlParameters(number_of_steps=numStepsEquilib, analysis_interval=numStepsEquilib/100,
                                           dump_interval=numStepsEquilib/100)
 
+control_parameters_req = KMCControlParameters(number_of_steps=numStepsReq, analysis_interval=numStepsReq/100,
+                                          dump_interval=numStepsReq/100)
+
+
+control_parameters_anal = KMCControlParameters(number_of_steps=numStepsAnal, analysis_interval=analInterval,
+                                          dump_interval=numStepsAnal/100)
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 
 model.run(control_parameters_equilib, trajectory_filename=(resultsPlace+"equilibTraj.tr"))
-model.run(control_parameters_snapshot, trajectory_filename=(resultsPlace+"snapTraj.tr"), analysis=[gdfStats])
-with open(resultsPlace+"giantStats.dat", 'w') as f:
-    gdfStats.printResults(f)
+
+for passNum in range(0, numPasses):
+    gdfStats = GdfStats(blockComp=["O"])
+    model.run(control_parameters_req, trajectory_filename=(resultsPlace+"mainTraj.tr"))
+    model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[gdfStats])
+    if not os.path.exists(resultsPlace+"giantStats"):
+        os.makedirs(resultsPlace+"giantStats")
+    with open(resultsPlace+"giantStats/giantStats"+str(passNum)+".dat", 'w') as f:
+        gdfStats.printResults(f)
 
 print("Process would appear to have succesfully terminated! How very suspicious...")
