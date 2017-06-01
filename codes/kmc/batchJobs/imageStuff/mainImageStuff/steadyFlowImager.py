@@ -13,37 +13,26 @@ from KMCLib.Backend import Backend
 import numpy
 from ImageStats import *
 
-dirLoc = sys.argv[1]
-generalLoc = resultDir+"/"+dirLoc+"/"
-settingsLoc = generalLoc+"settings"
-trajLoc = generalLoc+"mainTraj.tr"
+botConc = float(sys.argv[1])
 
-with open(settingsLoc, 'r') as f:
-    lines = f.readlines()
-print lines
-words = (lines[0]).split()
-print words[-1]+"\n"
-botConc = float(words[-1])
+topConc = float(sys.argv[2])
 
-words = (lines[1]).split()
-topConc = float(words[-1])
+rateConstFull = float(sys.argv[3])
 
-words = (lines[2]).split()
-rateConstFull = float(words[-1])
+sysSize = int(sys.argv[4])
 
-words = (lines[3]).split()
-sysSize = int(words[-1])
+numImageSteps = int(sys.argv[5])
 
-numImageSteps = int(sys.argv[2])
+numStepsEquilib = int(sys.argv[6])
 
-timeInterval = float(sys.argv[3])
+timeInterval = float(sys.argv[7])
 
-resultsPlace = resultDir+"/"+sys.argv[4]+"/"
+resultsPlace = resultDir+"/"+sys.argv[8]+"/"
 
 if not os.path.exists(resultsPlace):
     os.makedirs(resultsPlace)
 
-with open(resultsPlace+'settings2', 'w') as f:
+with open(resultsPlace+'settings', 'w') as f:
     f.write('BotConcentration = ' + str(botConc) +'\n')
     f.write('TopConcentration = ' + str(topConc) +'\n')
     f.write('FullRate = ' + str(rateConstFull) +'\n')
@@ -51,7 +40,7 @@ with open(resultsPlace+'settings2', 'w') as f:
     f.write('TimeInterval = ' + str(timeInterval) +'\n')
     f.write('NumImageSteps = ' +str(numImageSteps) + '\n')
 
-numStepsEquilib = 8*numImageSteps
+
 
 
 """I've put this in the file to make command line input easier"""
