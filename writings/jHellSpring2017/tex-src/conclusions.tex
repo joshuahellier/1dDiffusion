@@ -1,2 +1,12 @@
-\section{Conclusions} \label{sec:conc}
-Putting the MFT prediction and the actual numerical results together as we have done in
+\section{Discussion} \label{sec:conc}
+\subsection{Diffusion Coefficient}
+Putting the MFT prediction and the actual numerical results together as we have done in Figure~\ref{fig:diffCoef}, we can compare and contrast. The MFT seems to be a good predictor of the true behaviour of the diffusion coefficient,
+including the strange symmetry about $\rho_M=\frac{2}{3}$ I pointed out in Section~\ref{sec:contMFTPred}, so long as we avoid the region where the MFT predicts $D<0.4$. The incorrectness of the MFT prediction suggests that some kind of nontrivial
+correlations have built up in this region, which makes sense as the coupling between particles has become stronger, whilst the density is middling, allowing that coupling to mean something. It is also worth noting that the discrepancy between
+intended density and actual density starts to become non-negligible here, which we can infer from how the originally rectangular grid of grey dots
+(indicating $(\rho_M, \lambda)$ points where we obtained the data) has been deformed, to the extent that there is a big cluster of them in the observed minimum of the diffusion coefficient. Some of these anomalous densities are greater
+than the density of the denser reservoir to which the system is coupled; thus, the reservoirs involved are in some sense ``unphysical'' as the data suggests that they would immediately attempt to switch to a higher density, which given a
+constant volume constraint would imply a phase separation occurs; thus the numerical results aren't fitting so well into the paradigm we were using to analyse them (flow between reservoirs with slightly different densities),
+so it's little wonder the MFT is having trouble keeping up. Of course, we do not see the negative diffusion coefficient that naive application of MFT would suggest, because it would cause instability; instead, the diffusion coefficient just
+becomes very small, as the system becomes unresponsive to concentration gradients.
+\subsection{Flow Structure}

@@ -10,14 +10,16 @@
 \@writefile{toc}{\contentsline {abstract}{Abstract}{1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{}}
 \newlabel{sec:intro}{{I}{1}{}{}{}}
-\newlabel{fig:rates}{{I}{1}{}{}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Filled circles indicate particles, empty circles indicate empty sites (vacancies). Particles randomly move into adjacent vacancies with rate $1$ (having rescaled time for notational convenience), unless there is a particle behind the position they're moving from, in which case they move with rate $\lambda $; $\lambda <1$ represents attractive forces between particles, and $\lambda >1$ repulsive.}}{1}{}}
+\newlabel{fig:rates}{{1}{1}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {II}Model Phenomenology}{1}{}}
+\newlabel{sec:pheno}{{II}{1}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}Mean-Field Theory Derivation}{1}{}}
 \citation{ivanova2007}
 \citation{sherratt1998transition}
 \citation{leetmaa2014kmclib}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B}Continuum MFT Predictions}{2}{}}
+\newlabel{sec:contMFTPred}{{II\tmspace  +\thinmuskip {.1667em}B}{2}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {C}MFT Solutions}{2}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1}Steady-State Flow Through a Block}{2}{}}
 \newlabel{eq:MFTflow}{{3}{2}{}{}{}}
@@ -27,6 +29,12 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}Flow in a Block}{2}{}}
 \bibdata{jHellSpring2017Notes,jHellSpring2017}
 \bibcite{tegner2015high}{{1}{2015}{{Tegner\ \emph  {et~al.}}}{{Tegner, Zhu, Siemers, Saksl,\ and\ Ackland}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B}Flow Structure}{3}{}}
+\newlabel{sec:flowStruc}{{III\tmspace  +\thinmuskip {.1667em}B}{3}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Discussion}{3}{}}
+\newlabel{sec:conc}{{IV}{3}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A}Diffusion Coefficient}{3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B}Flow Structure}{3}{}}
 \bibcite{sugden2007dynamically}{{2}{2007}{{Sugden\ and\ Evans}}{{}}}
 \bibcite{liggett1985interacting}{{3}{1985}{{Liggett}}{{}}}
 \bibcite{Note1}{{4}{}{{Note1}}{{}}}
@@ -39,10 +47,10 @@
 \bibstyle{apsrev4-1}
 \citation{REVTEX41Control}
 \citation{apsrev41Control}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Introduction}{3}{}}
-\newlabel{sec:intro}{{IV}{3}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {}References}{3}{}}
-\newlabel{LastBibItem}{{10}{3}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  The contour plot on the left shows the MFT prediction of the diffusion coefficient $D=\frac  {\partial J}{\partial \delta \rho }{\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\nulldelimiterspace \z@ \left |\vcenter to\@ne \big@size {}\right .$}\box \z@ }_{\delta \rho =0}$ as a function of local density $\rho _M$ and $\lambda $; we are only plotting where $0 \le D \le 1.2$, other regions are shown in white, including the region in which $D<0$, which would cause instabilities preventing a flow from actually occurring. On the right is our numerical calculation of $D(\rho _M, \lambda )$, with exactly the same plotting ranges. The dots indicate which points in $(\rho _M, \lambda )$ we calculated $D$ around, to give an impression of how the interpolation in the contour plot was done.}}{4}{}}
-\newlabel{fig:diffCoef}{{2}{4}{}{}{}}
-\newlabel{LastPage}{{}{4}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {}References}{4}{}}
+\newlabel{LastBibItem}{{10}{4}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  The contour plot on the left shows the MFT prediction of the diffusion coefficient $D=\frac  {\partial J}{\partial \delta \rho }{\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\nulldelimiterspace \z@ \left |\vcenter to\@ne \big@size {}\right .$}\box \z@ }_{\delta \rho =0}$ as a function of local density $\rho _M$ and $\lambda $; we are only plotting where $0 \le D \le 1.2$, other regions are shown in white, including the region in which $D<0$, which would cause instabilities preventing a flow from actually occurring. On the right is our numerical calculation of $D(\rho _M, \lambda )$, with exactly the same plotting ranges. The dots indicate which points in $(\rho _M, \lambda )$ we calculated $D$ around, to give an impression of how the interpolation in the contour plot was done.}}{5}{}}
+\newlabel{fig:diffCoef}{{2}{5}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces  The spacetime flow patterns, for the $(\lambda , \rho _M)$ combinations indicated in the row and column headers. In each plot time runs along the $x$-axis, space along the $y$-axis. White represents full occupation, black empty, and grey shades partial occupation. The degree of occupation was calculated by taking the \texttt  {KMCLib} record of a particular site's occupation (i.e. the Gillespie times at which the site changed occupation), assigning $0$ and $1$ to particles and vacancies respectively, linearly interpolating this and then integrating over times longer than a single Gillespie step but much shorter than the total time in question. In each case the total time elapsed is that taken by $10^6$ Gillespie steps, and each short-time-average has been done over the total time divided by $508$ (to produce square diagrams, as there are $508$ active sites per simulation). I chose to rescale time this way because if we used equal times it would appear that nothing happens in the low-$\lambda $ simulations, which isn't true!}}{6}{}}
+\newlabel{fig:flowPatterns}{{3}{6}{}{}{}}
+\newlabel{LastPage}{{}{6}{}{}{}}

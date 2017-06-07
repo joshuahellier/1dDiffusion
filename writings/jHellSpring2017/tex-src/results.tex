@@ -30,7 +30,7 @@ with exactly the same plotting ranges. The dots indicate which points in $(\rho_
     \includegraphics[width=0.5\linewidth]{../tex-src/images/analFlow.png} & \includegraphics[width=0.5\linewidth]{../tex-src/images/dataFlow.png} \\
     \end{tabular}
 \end{center}
-    \vspace{-1em}
+    \vspace{-0em}
 \end{figure*}
 To produce the results in Figure~\ref{fig:diffCoef}, for each $(\rho_T, \rho_B, \lambda)$ combination we created the initial state by randomly inserting particles into an empty 124-length lattice, so that the density was $\rho_M$. We then ran the simulation for
 $1.6\times10^8$ steps, to wash away any spurious initial-data effects and allow the system to reach a steady state flow. We then ran for $8\times10^7$ steps whilst measuring flow rate and density, then allowed the system to run for $1.6\times10^7$
@@ -40,9 +40,33 @@ standard errors could be obtained. The whole setup was repeated with a 60-length
 We can of course obtain estimates of the confidence interval for our linear regression coefficient, and thus generate a standard error for $\partDeriv{J}{\delta\rho}\big|_{\delta\rho=0}$; likewise we can obtain goodness of fit estimates for the
 regression. I have neglected to plot them here due to space constraints, but they are in included in the additional materials.
 %REMEMBER TO ACTUALLY PUT IT THERE!!!
-\subsection{Attempts to Investigate the Structure of the Flow}
-Looking at the flow patterns shown in~\ref{fig:flowPatterns}, one can see that there is structure in there, which changes as we alter $\rho_M$ and $\lambda$; thus, one might reasonably wonder whether there is some correlation length which varies
-as a function of $(\rho_M, \lambda)$.
+
+\subsection{Flow Structure}
+\label{sec:flowStruc}
+It is possible to produce diagrams which show the changes in short-time-averaged local density as a function of space and time. I have made such diagrams for a selection of $(\rho_M, \lambda)$ pairs, so that the reader can
+get an impression of what these flows actually look like; they are shown in Figure~\ref{fig:flowPatterns}.
+\begin{figure*}[h!]
+\caption{\label{fig:flowPatterns} The spacetime flow patterns, for the $(\lambda, \rho_M)$ combinations indicated in the row and column headers. In each plot time runs along the $x$-axis, space along the $y$-axis. White represents full occupation, black empty, and grey shades partial
+occupation. The degree of occupation was calculated by taking the \texttt{KMCLib} record of a particular site's occupation (i.e. the Gillespie times at
+which the site changed occupation), assigning $0$ and $1$ to particles and vacancies respectively, linearly interpolating this and then integrating over times longer than a single Gillespie step but much shorter than the total time in question.
+In each case the total time elapsed is that taken by $10^6$ Gillespie steps, and each short-time-average has been done over the total time divided by $508$ (to produce square diagrams, as there are $508$ active sites
+per simulation). I chose to rescale time this way because if we used equal times it would appear that nothing happens in the low-$\lambda$ simulations, which isn't true!}
+\begin{tabular}{c p{0.175\linewidth}}
+\hspace{-2em}\begin{tabular}{c|c@{\hspace{0.25em}}c@{\hspace{0.25em}}c@{\hspace{0.25em}}c  }
+  &  $\lambda=0.05$ & $\lambda=0.25$ & $\lambda=0.50$ & $\lambda=0.70$ \\ 
+  \hline
+   \begin{tabular}{c} \vspace{-12em} \\ \hspace{-1em}$\rho_M=0.05$\hspace{0em} \\  \\ \end{tabular} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl0r0.png} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl1r0.png}  & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl2r0.png} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl3r0.png} \\
+   \begin{tabular}{c} \vspace{-12em} \\ \hspace{-1em}$\rho_M=0.35$\hspace{0em} \\  \\ \end{tabular} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl0r1.png} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl1r1.png}  & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl2r1.png} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl3r1.png} \\
+   \begin{tabular}{c} \vspace{-12em} \\ \hspace{-1em}$\rho_M=0.65$\hspace{0em} \\  \\ \end{tabular} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl0r2.png} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl1r2.png}  & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl2r2.png} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl3r2.png} \\
+   \begin{tabular}{c} \vspace{-12em} \\ \hspace{-1em}$\rho_M=0.95$\hspace{0em} \\  \\ \end{tabular} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl0r3.png} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl1r3.png}  & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl2r3.png} & \includegraphics[width=0.24\linewidth]{../tex-src/images/flowImps/flowl3r3.png} \\
+   \end{tabular}
+\hspace{-1em}
+&
+\end{tabular}
+\end{figure*}
+
+
+
 \iffalse
 \subsection{Correlation Functions}
 Whilst we're calculating flow rates, we can also use our \texttt{KMCLib} code to calculate the equal time 2-point correlation function

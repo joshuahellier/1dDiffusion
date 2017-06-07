@@ -1,5 +1,5 @@
-\section{Model Phenomenology}
-The model described in Figure~\ref{fig:rates} is very simple, but numerical simulation shows that it is capable of a wide range of behaviours, such as those shown in Figures~\ref{fig:eyeCandy} and ~\ref{fig:flowTable}. We will discuss
+\section{Model Phenomenology} \label{sec:pheno}
+The model described in Figure~\ref{fig:rates} is very simple, but numerical simulation shows that it is capable of a wide range of behaviours, such as those shown in Figure~\ref{fig:flowPatterns}. We will discuss
 these numerical results in more detail in Section~\ref{sec:numRes}, but first let us try to predict the model behaviour using analytic means.
 
 \subsection{Mean-Field Theory Derivation}
@@ -16,13 +16,13 @@ where $\zeta = 1-\lambda$ is to be regarded as a ``stickiness parameter''. Switc
  A &= 1 - \zeta \rho(4-3\rho). \\
 \end{align*}
 Thus, the MFT says that the particles should diffuse with a diffusion coefficient which depends upon the local density.
-\subsection{Continuum MFT Predictions}
+\subsection{Continuum MFT Predictions} \label{sec:contMFTPred}
 First let us consider some limits. As $\zeta \rightarrow 0$ (in other words, as the model becomes a simple exclusion model), $A \rightarrow 1$, so the MFT smoothly changes to match the known result. Likewise, in the
 dilute limit $\rho \rightarrow 0$, $A \rightarrow 1$, reflecting the fact that it becomes a dilute lattice gas and therefore the interactions between particles become irrelevant as they never meet.
 Conversely, in the full limit $\rho \rightarrow 1$, $A \rightarrow \lambda$; this makes sense because we now have a dilute gas of vacancies, which hop with rate $\lambda$.
 One may observe that the continuum limit MFT has a symmetry under $\rho \mapsto \frac{4}{3} - \rho$; thus, the dynamics should be symmetric under a density profile reflection around $\rho = \frac{2}{3}$. This is where $A$ always
 attains its extremal value, $ 1 - \frac{4}{3}\zeta$, hence for $\zeta>3/4$ the diffusion coefficient becomes negative in regions with
-$\frac{2}{3} - \frac{\sqrt{\zeta\left(4\zeta - 3\right)}}{3\zeta} \textless \rho \textless \frac{2}{3} + \frac{\sqrt{\zeta\left(4\zeta - 3\right)}}{3\zeta}$.
+$\frac{2}{3} - \frac{\sqrt{\zeta\left(4\zeta - 3\right)}}{3\zeta} < \rho < \frac{2}{3} + \frac{\sqrt{\zeta\left(4\zeta - 3\right)}}{3\zeta}$.
 Finally, it is possible to show that solutions to the continuum MFT containing domains with negative a negative diffusion coefficient are linearly unstable; thus, if we try to have a flow containing $\rho$ for which $A(\rho)<0$,
 the density of the medium should gravitate towards a density for which $A(\rho)\sim 0$, so instead of observing ``backwards diffusion'' we would see an extremely slow flow or no flow at all.
 \subsection{MFT Solutions}
