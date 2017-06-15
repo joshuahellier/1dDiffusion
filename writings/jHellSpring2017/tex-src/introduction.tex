@@ -1,4 +1,5 @@
 \section{Introduction} \label{sec:intro}
+\iffalse
 There are a great many natural phenomena which involve the diffusion of small particles through solids; interface problems, such as the growth of a titanium dioxide layer on the surface of titanium metal exposed to air, are good examples~\cite{tegner2015high}.
 If we wish to answer questions such as why these interfaces grow, or how quickly, we really need to understand how particles diffuse through crystal lattices, especially in the case when they interact with each other.
 In this paper we will introduce a very simple locally interacting exclusion model of this kind of diffusion, and we will explore the continuum-level implications of such a model.
@@ -9,23 +10,39 @@ The oxygen atoms do this primarily by hopping between the interstitial sites bet
 It is extremely energetically unfavourable for multiple oxygen atoms to occupy such a site,
 %citation needed
 therefore to a good approximation we may regard these oxygen atoms as excluding each other from these sites, just like in ASEP~\cite{sugden2007dynamically, liggett1985interacting}.
+\fi
 
-Next, let us assume that the lattice that the oxygen atoms move through is fairly rigid\footnote{I.e. that the titanium atoms are quite tightly bound and don't move that much, which is reasonable as they are metal atoms in a metal.},
-and that the interactions between the oxygen atoms are quite short-ranged\footnote{Any electrostatic forces should be rapidly screened by the metal, thus the main interaction should be via short-range electrostatics and electron sea distortion.}.
+Lattice gases are a ubiquitous tool for modelling complex systems from biology to traffic.  One example is the oxidation process, as occurs in the growth of an oxide layer on a metallic surface. Almost all uncoated metallic objects
+[Al, Ti, Ca, Zr, Sn] are protected by such a thin, self-assembling layer, driven by the oxidation potential but arrested by the slow kinetics of transporting material through the oxide layer.
+
+Analytically solvable cases involve non-interacting or excluding particles~\cite{liggett1985interacting}. But in any real system of interest the moving objects interact. Many models tackle the situation where the diffusing
+object interact with the substrate,
+% find example
+but despite the clear application-relevance there is surprisingly little work considering interactions between the moving particles.  One reason for this is that the interactions introduce nonlinearities in analytical models, which makes them
+challenging to solve. This is unfortunate, because it is precisely these nonlinearities which introduce interesting behaviours - discontinuities at the oxide-metal interface, diffusion instability, to name just a few. In this paper we will
+introduce a simple 1-dimensional model, specified in Figure~\ref{fig:rates}, which contains such an interaction, and we will explore the impact this has, particularly on behaviour in the large-scale limit.
+
+\iffalse
+Next, let us assume that the lattice that the oxygen atoms move through is fairly rigid (i.e. that the titanium atoms are quite tightly bound and don't move that much),
+and that the interactions between the oxygen atoms are quite short-ranged (as any electrostatic forces should be rapidly screened by the metal, thus the main interaction should be via short-range electrostatics and electron sea distortion).
 Finally, we should note that even though a problem like interface growth happens in three-dimensional space, the problem is rotationally and translationally invariant in a plane perpendicular to the direction of growth; therefore the
 interesting aspects of the problem are one-dimensional. Indeed, in anisotropic solids it is often the case that diffusion occurs much more rapidly along parallel chains than in other directions.
-
 Putting these assumptions together, we are motivated to investigate the model described by the rates detailed in Figure~\ref{fig:rates}. It is essentially the symmetric exclusion model, only now the presence of an adjacent particle
-causes the hopping rate to change; there also exists an isomorphism between this model and the Misanthrope Process~\cite{evansWaclaw2014}, although I have yet to find a use for it. We will henceforth refer to the model as the ``sticky hopping model'', or SHM.
-\begin{figure}[h!]
+causes the hopping rate to change; there also exists an isomorphism between this model and the Misanthrope Process~\cite{evansWaclaw2014}, although I have yet to find a use for it. We will henceforth refer to the model as the ``sticky particle model'', or SPM.
+\fi
+\subsection{Model Definition}
+\begin{figure}
 \vspace{1em}
-\caption{\label{fig:rates}Filled circles indicate particles, empty circles indicate empty sites (vacancies). Particles randomly move into adjacent vacancies with rate $1$ (having rescaled time for notational convenience), unless there is a particle behind the position they're moving from,
-in which case they move with rate $\lambda$; $\lambda<1$ represents attractive forces between particles, and $\lambda>1$ repulsive.}
+\caption{\label{fig:rates}Filled circles indicate particles, empty circles indicate empty sites (vacancies). Particles randomly move into adjacent vacancies with rate $1$ (having rescaled time for notational convenience), unless there is a
+particle behind the position they're moving from, in which case they move with rate $\lambda=1-\zeta$.}
  \begin{tabular}{c@{\hspace{1em}}c@{\hspace{1em}}c@{\hspace{1em}}c}
     \includegraphics[width=0.22\linewidth]{../tex-src/images/rates4} & \includegraphics[width=0.22\linewidth]{../tex-src/images/rates1} & \includegraphics[width=0.22\linewidth]{../tex-src/images/rates2} & \includegraphics[width=0.22\linewidth]{../tex-src/images/rates3} \\
     \end{tabular}
     \vspace{-1em}
-
 \end{figure}
-
+Our model, which we will refer to as the ``Sticky Particle Model'' or SPM, is essentially the same as the symmetric exclusion process~\cite{sugden2007dynamically}, the difference being that adjacent particles separate with rate $\lambda=1-\zeta$
+insteady of their normal hopping rate, $1$. We have chosen to specify things primarily in terms of $\zeta$ instead of $\lambda$ because it makes many of the analytic results much neater, whilst intuitively representing ``stickiness'', as
+particles tend to clump when $\zeta>0$ and separate when $\zeta<0$. It is worth noting that the rates specified in Figure~\ref{fig:rates} obey detailed balance, with an energy proportional to the number of particle-particle adjacencies
+in the system. One can show that there exists an isomorphism between this model and the Misanthrope Process~\cite{evansWaclaw2014}. This doesn't help us to solve the model in the kinds of steady flow cases we are mainly interested in due to
+difficulties with the boundary conditions, but it does allow us to show that this model does \textbf{not} exhibit explosive condensation~\cite{waclaw2012explosive}.
 
