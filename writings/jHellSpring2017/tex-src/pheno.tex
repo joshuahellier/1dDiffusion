@@ -3,7 +3,7 @@ The model described in Figure~\ref{fig:rates} is very simple, but numerical simu
 these numerical results in more detail in Section~\ref{sec:numRes}, but first let us try to predict the model behaviour using analytic means.
 
 \subsection{Mean-Field Theory Derivation}
-Let the spacing between lattice sites be $a$, $\tau_0$ be the non-sticky hopping timescale and the time-averaged\footnote{Or ensemble-averaged, assuming ergodicity.} occupation probability of the $i^{\mathrm{th}}$ lattice site be $\rho_i$. 
+Let the spacing between lattice sites be $a$, $\tau_0$ be the non-sticky hopping timescale and the time-averaged (or ensemble-averaged, assuming ergodicity) occupation probability of the $i^{\mathrm{th}}$ lattice site be $\rho_i$. 
 One may show that, in the mean-field approximation regime,
 \begin{align*}
  \tau_0 \partDeriv{\rho_i}{t} = &\left( 1-\rho_i \right) \left[ \left(1-\zeta\rho_{i-2} \right) \rho_{i-1} + \left(1-\zeta\rho_{i+2} \right) \rho_{i+1} \right] \\
@@ -17,7 +17,7 @@ Switching to the continuum limit by taking $a\rightarrow 0$, and neglecting $\ma
 \end{align*}
 Thus, the MFT says that the particles should diffuse with a diffusion coefficient which depends upon the local density.
 \subsection{Continuum MFT Predictions} \label{sec:contMFTPred}
-First let us consider some limits. As $\zeta \rightarrow 0$ (in other words, as the model becomes a simple exclusion model), $A \rightarrow 1$, so the MFT smoothly changes to match the known result. Likewise, in the
+First let us consider some limits. As $\zeta \rightarrow 0$ (in other words, as the model becomes a simple exclusion model), $A \rightarrow 1$, which makes sense. Likewise, in the
 dilute limit $\rho \rightarrow 0$, $A \rightarrow 1$, reflecting the fact that it becomes a dilute lattice gas and therefore the interactions between particles become irrelevant as they never meet.
 Conversely, in the full limit $\rho \rightarrow 1$, $A \rightarrow 1-\zeta$; this makes sense because we now have a dilute gas of vacancies, which hop with rate $\lambda=1-\zeta$.
 One may observe that the continuum limit MFT has a symmetry under $\rho \mapsto \frac{4}{3} - \rho$; thus, the dynamics should be symmetric under a density profile reflection around $\rho = \frac{2}{3}$. This is where $A$ always
@@ -29,11 +29,11 @@ the density of the medium should gravitate towards a density for which $A(\rho)\
 \subsubsection{Steady-State Flow Through a Block}
 It is possible to solve the continuum MFT in a steady state on a finite domain, say $x\in(0, L)$. The continuity equation implies that $J(x)=J_0$, and by integrating both sides of our current equation with respect to $x$ we find that
 \begin{equation}
- J_0 (x-x_0) = -\frac{a^2}{\tau_0} \rho \left(1+\zeta \rho\left(\rho-2\right)\right),
+ J_0 (x-x_0) = -\frac{a^2}{\tau_0} \rho \left[1+\zeta \rho\left(\rho-2\right)\right],
 \end{equation}
 a cubic equation which can be solved to give $\rho(x)$. If we impose Dirichlet boundary conditions on this system, say $\rho(0)=\rho_0$ and $\rho(L)=\rho_L$, we find that
 \begin{equation}
- J = \frac{a^2}{L \tau_0} \left[ \rho_0 - \rho_L + \zeta \left( \rho_0\left(\rho_0^2-2\right) - \rho_L\left(\rho_L^2-2\right) \right) \right].
+ J = \frac{a^2}{L \tau_0} \left[ \rho_0 - \rho_L + \zeta \left( \rho_0\left[\rho_0^2-2\right] - \rho_L\left[\rho_L^2-2\right] \right) \right].
 \end{equation}
 We may consider applying small concentration gradients across a block by setting $\rho_0 = \rho_M + \frac{1}{2}\delta\rho$ and $\rho_L = \rho_M - \frac{1}{2}\delta\rho$. Doing so, we find that the effective diffusion coefficient of the block
 $D=\partDeriv{J}{\delta\rho}\big|_{\delta\rho=0}$ obeys
@@ -49,7 +49,7 @@ According to Ivanova~\cite{ivanova2007}, we can have travelling solutions to our
 \end{equation}
 with general solution found by solving
 \begin{equation}
- \omega = \frac{a^2}{\tau_0 v} \left[ \frac{1}{2} \zeta \phi \left(8-6\mu-3\phi\right) - \left(1-\zeta\left(4-3\mu\right)\mu\right) \log{\left(\phi-\mu\right)} \right].
+ \omega = \frac{a^2}{\tau_0 v} \left[ \frac{1}{2} \zeta \phi \left(8-6\mu-3\phi\right) - \left(1-\zeta\left[4-3\mu\right]\mu\right) \log{\left(\phi-\mu\right)} \right].
 \end{equation}
 Requiring that $\phi \rightarrow  1$ as $\omega \rightarrow 0$ and $\phi \rightarrow 0$ as $\omega \rightarrow \infty$, this reduces to
 \begin{equation}

@@ -3,7 +3,7 @@
 We now have some MFT predictions about the SPM, and a few ideas about when those predictions might be invalid. Thus, it is prudent for us to test them out numerically.
 There are a few different methods which could have been used, but we chose to calculate using the excellent \texttt{KMCLib}\cite{leetmaa2014kmclib} package, which implements the Kinetic Monte Carlo algorithm (essentially the same as the Gillespie algorithm)
 on lattice systems. \texttt{KMCLib} has the advantage that it is python-wrapped \texttt{C++}, and thus quite easy to use whilst at the same time being quite computationally efficient; thus it was fairly easy for us to carry out large numbers
-of differently-parametrised serial \texttt{KMCLib} jobs on the \texttt{Eddie3} computing cluster here at Edinburgh. The codes used are kept here.
+of differently-parametrised serial \texttt{KMCLib} jobs on the \texttt{Eddie3} computing cluster here at Edinburgh. The codes used are kept here~\cite{jHellGitRepo}.
 \subsection{Flow in a Block}
 As we have MFT predictions about flow in a block, we can try to simulate that situation using KMC. In the bulk, the transition rates are simply those described in Figure~\ref{fig:rates}. At the boundaries, referred to as the ``top'' and ``bottom''
 of the block, there are 2 layers of lattice sites what switch between being full and empty with rates such that the time-averaged occupation can be specified to match the desired boundary conditions; there are then chances for particles to spawn
@@ -23,7 +23,7 @@ the effective diffusion coefficient. Computing this for different $(\rho_M, \lam
 \begin{figure*}[h!]
 \vspace{1em}
 \caption{\label{fig:diffCoef} The contour plot on the left shows the MFT prediction of the diffusion coefficient $D=\partDeriv{J}{\delta\rho}\big|_{\delta\rho=0}$ as a function of local density $\rho_M$ and $\lambda$;
-we are only plotting where $0 \le D \le 1.2$, other regions are shown in white, including the region in which $D<0$, which would cause instabilities preventing a flow from actually occurring. On the right is our numerical calculation of $D(\rho_M, \lambda)$,
+we are only plotting where $0 \le D \le 1.2$, other regions are shown in white, including the region in which $D<0$, which would cause instabilities and so prevent a flow from actually occurring. On the right is our numerical calculation of $D(\rho_M, \lambda)$,
 with exactly the same plotting ranges. The dots indicate which points in $(\rho_M, \lambda)$ we calculated $D$ around, to give an impression of how the interpolation in the contour plot was done.}
 \begin{center}
  \begin{tabular}{c@{\hspace{1em}}c}
@@ -38,7 +38,7 @@ steps without taking measurements in an effort to suppress temporal autocorrelat
 standard errors could be obtained. The whole setup was repeated with a 60-length system, in order to check for edge effects; however, the results were not significantly different, so those would not seem to be a problem.
 
 We can of course obtain estimates of the confidence interval for our linear regression coefficient, and thus generate a standard error for $D$; likewise we can obtain goodness of fit estimates for the
-regression. I have neglected to plot them here due to space constraints, but they are in included in the additional materials.
+regression. They are not included here due to space constraints, but they are in the additional materials.
 %REMEMBER TO ACTUALLY PUT IT THERE!!!
 
 \subsection{Flow Structure}
@@ -71,7 +71,7 @@ per simulation). I chose to rescale time this way because if we used equal times
 occupation. The degree of occupation was calculated by taking the \texttt{KMCLib} record of a particular site's occupation (i.e. the Gillespie times at
 which the site changed occupation), assigning $0$ and $1$ to particles and vacancies respectively, linearly interpolating this and then integrating over times longer than a single Gillespie step but much shorter than the total time in question.
 In each case the total time elapsed is that taken by $10^6$ Gillespie steps, and each short-time-average has been done over the total time divided by $508$ (to produce square diagrams, as there are $508$ active sites
-per simulation). I chose to rescale time this way because if we used equal times it would appear that nothing happens in the low-$\lambda$ simulations, which isn't true!}
+per simulation). Time has been rescaled this way in order to allow fair comparison of radically different $\lambda$-values.}
 \begin{tabular}{c p{0.175\linewidth}}
 \hspace{-2em}\begin{tabular}{c|c@{\hspace{0.25em}}c@{\hspace{0.25em}}c}
   &  $\lambda=0.05$ & $\lambda=0.38$ & $\lambda=1.00$ \\ 
