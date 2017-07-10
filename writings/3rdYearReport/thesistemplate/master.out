@@ -1,0 +1,33 @@
+\BOOKMARK [0][-]{chapter*.2}{Abstract}{}% 1
+\BOOKMARK [0][-]{chapter*.3}{Declaration}{}% 2
+\BOOKMARK [0][-]{chapter*.4}{Acknowledgements}{}% 3
+\BOOKMARK [0][-]{section*.5}{Contents}{}% 4
+\BOOKMARK [0][-]{section*.7}{List of Figures}{}% 5
+\BOOKMARK [0][-]{section*.9}{List of Tables}{}% 6
+\BOOKMARK [0][-]{chapter.1}{Perliminary Work and Motivation}{}% 7
+\BOOKMARK [1][-]{section.1.1}{The TiO2/Ti Interface System}{chapter.1}% 8
+\BOOKMARK [1][-]{section.1.2}{Molecular Dynamics}{chapter.1}% 9
+\BOOKMARK [2][-]{subsection.1.2.1}{Initial Work Done with MD}{section.1.2}% 10
+\BOOKMARK [2][-]{subsection.1.2.2}{The Problems with MD}{section.1.2}% 11
+\BOOKMARK [1][-]{section.1.3}{Simple Large-Scale Models of the Ti/O/Nb Interacting System}{chapter.1}% 12
+\BOOKMARK [2][-]{subsection.1.3.1}{Proposed Linear System}{section.1.3}% 13
+\BOOKMARK [2][-]{subsection.1.3.2}{Attempts to create a Suitable Nonlinear System}{section.1.3}% 14
+\BOOKMARK [2][-]{subsection.1.3.3}{Parametrisation from a Microscopic Model}{section.1.3}% 15
+\BOOKMARK [0][-]{chapter.2}{The Sticky Particle Model}{}% 16
+\BOOKMARK [1][-]{section.2.1}{Definition and Motivation}{chapter.2}% 17
+\BOOKMARK [2][-]{subsection.2.1.1}{Interacting Diffusion through Lattices}{section.2.1}% 18
+\BOOKMARK [2][-]{subsection.2.1.2}{Model Definition}{section.2.1}% 19
+\BOOKMARK [1][-]{section.2.2}{Analytic Derivations from the SPM}{chapter.2}% 20
+\BOOKMARK [2][-]{subsection.2.2.1}{Continuum Limit MFT Derivation}{section.2.2}% 21
+\BOOKMARK [2][-]{subsection.2.2.2}{Continuum Limit MFT Solutions}{section.2.2}% 22
+\BOOKMARK [2][-]{subsection.2.2.3}{Continuum MFT Self-Downfall predictions}{section.2.2}% 23
+\BOOKMARK [1][-]{section.2.3}{Numerical Calculations using the SPM}{chapter.2}% 24
+\BOOKMARK [2][-]{subsection.2.3.1}{Code Setup Used}{section.2.3}% 25
+\BOOKMARK [2][-]{subsection.2.3.2}{The Types of Calculation Performed}{section.2.3}% 26
+\BOOKMARK [2][-]{subsection.2.3.3}{The Quantities Measured}{section.2.3}% 27
+\BOOKMARK [1][-]{section.2.4}{Numerical Results}{chapter.2}% 28
+\BOOKMARK [1][-]{section.2.5}{Building a Full Continuum Model}{chapter.2}% 29
+\BOOKMARK [0][-]{chapter.3}{Multispecies Generalisation of the SPM}{}% 30
+\BOOKMARK [0][-]{chapter.4}{Conclusions}{}% 31
+\BOOKMARK [0][-]{appendix.A}{The First Appendix}{}% 32
+\BOOKMARK [0][-]{section*.11}{Bibliography}{}% 33

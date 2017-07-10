@@ -1,0 +1,207 @@
+% Set up caption formatting and subfigure support
+\usepackage{caption,subfig}
+\captionsetup[figure]{font=small, labelfont={bf}, textfont=it,
+  format=hang, margin=1em,listofformat=subparens, labelsep=quad}
+\captionsetup[subfigure]{font=footnotesize, labelsep=quad}
+\captionsetup[algorithm]{font=small, labelfont={bf}, textfont=it,
+  format=hang, margin=1em,listofformat=subparens, labelsep=quad}
+\captionsetup[table]{font=small, labelfont={bf}, textfont=it,
+  format=hang, margin=1em,listofformat=subparens, labelsep=quad}
+
+% Add spacing between paragraphs
+\setlength{\parskip}{10pt}
+% Alternatively you can indent the start of each paragraph
+% \setlength{\parindent}{3ex} 
+
+% Allow for inclusion of pictures.
+\usepackage{graphicx}
+
+%% more math fonts
+\usepackage{dsfont}
+
+% Allow PDF and URL hyperlinking
+\usepackage{url}
+\usepackage{hyperref}
+
+% Allow full stops in graphics filenames
+\usepackage{grffile}
+
+%% nice fractions
+\usepackage{nicefrac}
+
+%% Use natbib citing package, citing references as [number] and
+%% sorting and compressing runs of numbers: [4,2,1,3,10] => [1--4, 10]
+\usepackage[sort&compress,numbers]{natbib}
+
+%% Colour!
+\usepackage{color}
+
+%% More control of appendices
+\usepackage{appendix}
+\newcommand{\tocappendix}{}
+
+% Useful commands for
+%% Formatting of section titles.
+% ragged right means long titles won't look stupidly wrapped
+\usepackage[raggedright, sf, bf]{titlesec}
+
+%% Control the layout of the tables of contents by defining how each type of entry should be formatted.
+\usepackage{titletoc}
+% \contentsmargin{1em}
+\titlecontents{chapter}[1.5em]{\addvspace{0.7em}}{\bf\contentslabel{1.5em}}{\bf\hspace*{-1.5em}}{\titlerule*[1pc]{ }\contentspage}[\addvspace{0.3em}]
+\titlecontents{section}[3.8em]{}{\contentslabel{2.3em}}{\hspace*{-2.3em}}{\titlerule*[4pt]{.}\contentspage}[\addvspace{4pt}]
+\titlecontents{subsection}[7.0em]{}{\contentslabel{3.2em}}{\hspace*{-3.2em}}{\titlerule*[4pt]{.}\contentspage}[\addvspace{4pt}]
+% \dottedcontents{section}[3.8em]{\addvspace{3pt}}{2.3em}{1pc}
+% \dottedcontents{subsection}[6.1em]{\addvspace{3pt}}{3.2em}{1pc} 
+
+%% Rejig page footers.
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%
+\fancyhead{}                    % No page headers
+\fancyfoot{}                    % No page footers
+\if@twoside % page number set at outside bottom margin 
+  \fancyfoot[RO,LE]{\thepage}
+\else
+  \fancyfoot[RO]{\thepage}
+\fi
+
+\renewcommand{\headrulewidth}{0pt} % No horizontal lines
+\renewcommand{\footrulewidth}{0pt}}
+\fancypagestyle{empty}{%
+\fancyhead{}                    % No page headers
+\fancyfoot{}                    % No page footers
+\if@twoside % page number set at outside bottom margin 
+  \fancyfoot[RO,LE]{\thepage}
+\else
+  \fancyfoot[RO]{\thepage}
+\fi
+
+\renewcommand{\headrulewidth}{0pt} % No horizontal lines
+\renewcommand{\footrulewidth}{0pt}}
+
+\pagestyle{plain}               % Select this page style
+
+\usepackage{setspace}
+\newcommand{\eighteenptleading}{%
+  \setstretch{1.5}%  default
+  \ifcase \@ptsize \relax % 10pt
+    \setstretch {1.5}%
+  \or % 11pt
+    \setstretch {1.323}%
+  \or % 12pt
+    \setstretch {1.241}%
+  \fi
+}
+
+%% Thesis title page definition
+%% The submission regulations change occasionally.
+%% You should check that this is still up to date
+\newcommand{\maketitlepage}{
+  \begin{titlepage}
+   \thispagestyle{fancy}
+   \fancyhead{}
+   \fancyfoot{}
+    \begin{center}
+      \LARGE{\bf{\@title}}\\
+      \vspace{2cm}
+      \large{\@author}
+      
+      %\vspace{2cm}
+      \vfill
+      \begin{figure}[!h]
+        \begin{center}
+          \includegraphics[width=0.5\linewidth]{thesis-frontmatter/crest}
+        \end{center}
+      \end{figure}
+      
+      \vfill
+      % Degree name, institution name and year of submission
+      Doctor of Philosophy \\
+      The University of Edinburgh \\
+      \@date
+    \end{center}
+  \end{titlepage}
+  \ifpdf
+    \pdfinfo{
+      /Author (\@author)
+      /Title (\@title)
+    }
+  \else
+  \fi
+}
+
+% Change declaration with:
+% \renewcommand{\thedeclaration}{declaration text}
+% And/or add publications with:
+% \declarationpublications{\citet{me:2008},\citet{boss:2008} and \citet{me:2009}}
+\newenvironment{@declare}{\chapter{Declaration}}{
+  \par\vspace{1in}
+  \begin{flushright}
+    (\emph{\@author, \@date})
+  \end{flushright}
+}
+
+\newcommand{\@declaration}{%
+  I declare that this thesis was composed by myself, that the work %
+  contained herein is my own except where explicitly stated %
+  otherwise in the text, and that this work has not been submitted %
+  for any other degree or professional qualification except as %
+  specified.}
+\newcommand{\@declaration@publishedin}{%
+  Parts of this work have been published in}
+
+
+\newcommand{\thedeclaration}{\@declaration}
+
+\newcommand{\declarationpublications}[1]{%
+  \expandafter\def\expandafter\thedeclaration%
+  \expandafter{\thedeclaration\par\vspace{\baselineskip}\noindent\@declaration@publishedin{} #1.}%
+}%
+
+\newcommand{\makedeclaration}{
+  \begin{@declare}
+    \thedeclaration
+  \end{@declare}
+}
+
+% Use the geometry package to set up margins.
+% Read the phd guidelines to figure out what the correct numbers are.
+% \usepackage[a4paper,inner=40mm,outer=50mm,top=30mm,bottom=62.6mm]{geometry}
+\usepackage[a4paper,inner=40mm,outer=25mm,top=20mm,bottom=40mm]{geometry}
+
+% The listings package is useful for code listings
+\usepackage[final]{listings}
+\lstset{
+  basicstyle=\ttfamily\scriptsize,%\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{red},
+ stringstyle=\color{green}\ttfamily
+}
+\lstloadlanguages{C, python}
+\lstdefinestyle{numbers}{
+  numbers=left,
+  stepnumber=1,
+  numberstyle=\tiny,
+  numbersep=10pt,
+  firstnumber=auto
+}
+
+\ifpdf
+  \newcommand{\addcontentslineandlink}[3]{
+    \phantomsection
+    \addcontentsline{#1}{#2}{#3}
+  }
+\else
+  \newcommand{\addcontentslineandlink}[3]{
+    \addcontentsline{#1}{#2}{#3}
+  }
+\fi
+\newcommand{\subfigureautorefname}{\figureautorefname}
+
+% reduce hyphenation
+\hyphenpenalty=5000
+\tolerance=1000
+
+\setlength{\parindent}{0pt}
+
+\endinput

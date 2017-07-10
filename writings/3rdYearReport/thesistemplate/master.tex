@@ -1,0 +1,83 @@
+% Remove the oneside option below for double sided printing (e.g. for final (post-viva) submission)
+\documentclass[a4paper,12pt,oneside,openright]{book}
+
+% Preamble commands go here
+\usepackage{customisations}
+
+%% Some of the below packages may be useful to thesis writers in Physics
+%% Googling `latex <packagename>' will usually give you some documentation
+% \usepackage[load-configurations=abbreviations]{siunitx} % siunitx typesets physical units in a consistent manner
+\usepackage{booktabs} % booktabs provides professional formatting commands for tables
+\usepackage{amsmath} % amsmath provides extra maths symbols
+\usepackage{textcomp} % textcomp provides extra text symbols (like a degrees celsius symbol)
+% \usepackage{tikz} % tikz is a package for drawing diagrams and adding annotations to figures
+% \usepackage{threeparttable} % threeparttable allows for adding notes to tables
+% \usepackage{eps2pdf} % eps2pdf allows background transformation of eps files to pdfs so they 
+%						work seamlessly with pdflatex. If using this with the LaTeX editor Kile,
+%						you need to add --shell-escape before '%source', in
+%						Settings -> Configure Kile... -> Tools -> Build -> build_pdflatex
+
+% End preamble
+
+% REPLACE THESE with your thesis title, your name and the date of submission of the thesis
+\title{On Interacting Particles in 1D}
+\author{Joshua DM Hellier}
+\date{July 2018} % of submission
+
+\begin{document}
+
+% Thesis front matter - title page, abstract, acknowledgements, declaration and table of contents
+% See customisations.sty to modify the title page or declaration
+\singlespacing
+\maketitlepage
+\frontmatter
+\eighteenptleading
+\input{thesis-frontmatter/abstract}
+
+\singlespacing
+% Uncomment this line if you need to declare published work which forms part of the thesis
+\declarationpublications{\cite{Conway2000}}
+\makedeclaration
+
+\input{thesis-frontmatter/acknowledgements}
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\contentsname}
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+
+% Include main matter here
+\mainmatter
+\eighteenptleading
+\include{chapter1/chapter1}
+\include{chapter2/chapter2}
+\include{chapter3/chapter3}
+\include{chapter4/chapter4}
+
+\appendix
+\addtocontents{toc}{\protect\tocappendix}
+\include{appendix1/appendix1}
+
+\backmatter
+
+\singlespace
+
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+% Choose a bibliography style to suit your taste here
+% This one was downloaded from http://web.reed.edu/cis/help/latex/bibtexstyles.html (June 2012)
+\bibliographystyle{ChicagoReedweb}
+\bibliography{chapter1/chapter1bib,chapter2/chapter2bib}
+
+\end{document}
