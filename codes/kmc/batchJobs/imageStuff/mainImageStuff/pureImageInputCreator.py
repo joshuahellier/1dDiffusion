@@ -5,17 +5,17 @@ import os
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
 numConcDiff = 5
-numConcs = 4
-numLambda = 4
-numStepsEquilib = 16000000
-numImageSteps = 8000000
+numConcs = 5
+numLambda = 2
+numStepsEquilib = 10000000
+numImageSteps = 1000000
 sysSize = 508
 analInterval = 1
 numPasses = 10
 timeInterval = 0.1
-dataLocation = "batchJobs/imagingRuns/attempt6d/"
-lambdaMin = 0.05
-lambdaMax = 0.7
+dataLocation = "batchJobs/imagingRuns/attempt6f/"
+lambdaMin = 1.00
+lambdaMax = 2.0
 concDiff = 0.1
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
 concMax = 0.94
