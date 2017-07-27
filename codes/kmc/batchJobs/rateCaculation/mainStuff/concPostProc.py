@@ -26,7 +26,7 @@ jobIndex = 1
 
 runningJobs = []
 
-mainData = []
+failedRuns = []
 
 for rateIndex in range(0, numLambda):
     currentRate = lambdaMin + rateStepSize*rateIndex
@@ -41,46 +41,46 @@ for rateIndex in range(0, numLambda):
             inBotVals = []
             outBotVals = []
             failed = False
-                try:
-                    with open(currentLoc+"inTop.dat", 'r') as f:
-                        lines = f.readlines()
-                        if len(lines) != numPasses:
-                            failed = True
-                            break
-                        for line in lines:
-                            inTopVals.append(float(line))
-                except IOError:
-                    failed = True
-                try:
-                    with open(currentLoc+"outTop.dat", 'r') as f:
-                        lines = f.readlines()
-                        if len(lines) != numPasses:
-                            failed = True
-                            break
-                        for line in lines:
-                            outTopVals.append(float(line))
-                except IOError:
-                    failed = True
-                try:
-                    with open(currentLoc+"inBot.dat", 'r') as f:
-                        lines = f.readlines()
-                        if len(lines) != numPasses:
-                            failed = True
-                            break
-                        for line in lines:
-                            inBotVals.append(float(line))
-                except IOError:
-                    failed = True
-                try:
-                    with open(currentLoc+"outBot.dat", 'r') as f:
-                        lines = f.readlines()
-                        if len(lines) != numPasses:
-                            failed = True
-                            break
-                        for line in lines:
-                            outBotVals.append(float(line))
-                except IOError:
-                    failed = True
+            try:
+                with open(currentLoc+"inTop.dat", 'r') as f:
+                    lines = f.readlines()
+                    if len(lines) != numPasses:
+                        failed = True
+                        break
+                    for line in lines:
+                        inTopVals.append(float(line))
+            except IOError:
+                failed = True
+            try:
+                with open(currentLoc+"outTop.dat", 'r') as f:
+                    lines = f.readlines()
+                    if len(lines) != numPasses:
+                        failed = True
+                        break
+                    for line in lines:
+                        outTopVals.append(float(line))
+            except IOError:
+                failed = True
+            try:
+                with open(currentLoc+"inBot.dat", 'r') as f:
+                    lines = f.readlines()
+                    if len(lines) != numPasses:
+                        failed = True
+                        break
+                    for line in lines:
+                        inBotVals.append(float(line))
+            except IOError:
+                failed = True
+            try:
+                with open(currentLoc+"outBot.dat", 'r') as f:
+                    lines = f.readlines()
+                    if len(lines) != numPasses:
+                        failed = True
+                        break
+                    for line in lines:
+                        outBotVals.append(float(line))
+            except IOError:
+                failed = True
 
             if failed == False:
                 total = 0.0
@@ -94,9 +94,15 @@ for rateIndex in range(0, numLambda):
                     squaredDev += (flow[index]-flowMean)*(flow[index]-flowMean)
                 stdErr = math.sqrt(squaredDev)/float(numPasses)
                 rateData.append([botConc, topConc, flowMean, stdErr])
+            else:
+                failedRuns.append("$RESULTS/"+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"/"+str(topConcIndex)+"\n")
     with open("$RESULTS/"+dataLocation+str(rateIndex)+"/rateMeans.proc", 'w') as f:
         for index in rateData:
             f.write(str(rateData[index][0])+" "+str(rateData[index][1])+" "+str(rateData[index][2])+"\n")
     with open("$RESULTS/"+dataLocation+str(rateIndex)+"/rateErrs.proc", 'w') as f:
         for index in rateData:
             f.write(str(rateData[index][0])+" "+str(rateData[index][1])+" "+str(rateData[index][3])+"\n")
+
+with open("$RESULTS/"+dataLocation+"failedRuns.proc", 'w') as f:
+    for index in failedRuns:
+        f.write(index)
