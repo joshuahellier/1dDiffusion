@@ -97,7 +97,7 @@ for rateIndex in range(0, numLambda):
                 stdErr = math.sqrt(squaredDev)/float(numPasses)
                 rateData.append([botConc, topConc, flowMean, stdErr])
             else:
-                failedRuns.append(resultDir+"/"+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"/"+str(topConcIndex)+"\n")
+                failedRuns.append("concFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"/"+str(topConcIndex)+"\n")
     with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateMeans.proc", 'w') as f:
         for index in rateData:
             f.write(str(index[0])+" "+str(index[1])+" "+str(index[2])+"\n")
@@ -105,6 +105,10 @@ for rateIndex in range(0, numLambda):
         for index in rateData:
             f.write(str(index[0])+" "+str(index[1])+" "+str(index[3])+"\n")
 
+
 with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:
         f.write(index)
+        with open("jobInputs/testInput."+str(jobIndex), 'w') as g:
+            g.write(jobInput)
+            jobIndex += 1
