@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import os
+import math
 
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
@@ -17,7 +18,7 @@ sysSize = 124
 analInterval = 1
 numPasses = 10
 timeInterval = 100.0
-dataLocation = "batchJobs/concRuns/postTest/"
+dataLocation = "batchJobs/concRuns/attempt1/"
 lambdaMin = 0.1
 lambdaMax = 0.4
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
@@ -45,41 +46,39 @@ for rateIndex in range(0, numLambda):
             outBotVals = []
             failed = False
             try:
-                with open(currentLoc+"inTop.dat", 'r') as f:
+                with open(currentLoc+"/inTop.dat", 'r') as f:
                     lines = f.readlines()
                     if len(lines) != numPasses:
                         failed = True
-                        break
+                        print("wrongLength")
                     for line in lines:
                         inTopVals.append(float(line))
             except IOError:
                 failed = True
+                print("ioError")
             try:
-                with open(currentLoc+"outTop.dat", 'r') as f:
+                with open(currentLoc+"/outTop.dat", 'r') as f:
                     lines = f.readlines()
                     if len(lines) != numPasses:
                         failed = True
-                        break
                     for line in lines:
                         outTopVals.append(float(line))
             except IOError:
                 failed = True
             try:
-                with open(currentLoc+"inBot.dat", 'r') as f:
+                with open(currentLoc+"/inBot.dat", 'r') as f:
                     lines = f.readlines()
                     if len(lines) != numPasses:
                         failed = True
-                        break
                     for line in lines:
                         inBotVals.append(float(line))
             except IOError:
                 failed = True
             try:
-                with open(currentLoc+"outBot.dat", 'r') as f:
+                with open(currentLoc+"/outBot.dat", 'r') as f:
                     lines = f.readlines()
                     if len(lines) != numPasses:
                         failed = True
-                        break
                     for line in lines:
                         outBotVals.append(float(line))
             except IOError:
@@ -89,22 +88,22 @@ for rateIndex in range(0, numLambda):
                 total = 0.0
                 flows = []
                 for index in range(0, numPasses):
-                    flow.append(0.5*((inBot[index]-outBot[index]) + (outTop[index] - inTop[index])))
-                    total += flow[-1]
+                    flows.append(0.5*((inBotVals[index]-outBotVals[index]) + (outTopVals[index] - inTopVals[index])))
+                    total += flows[-1]
                 flowMean = total/float(numPasses)
                 squaredDev = 0.0
                 for index in range(0, numPasses):
-                    squaredDev += (flow[index]-flowMean)*(flow[index]-flowMean)
+                    squaredDev += (flows[index]-flowMean)*(flows[index]-flowMean)
                 stdErr = math.sqrt(squaredDev)/float(numPasses)
                 rateData.append([botConc, topConc, flowMean, stdErr])
             else:
                 failedRuns.append(resultDir+"/"+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"/"+str(topConcIndex)+"\n")
     with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateMeans.proc", 'w') as f:
         for index in rateData:
-            f.write(str(rateData[index][0])+" "+str(rateData[index][1])+" "+str(rateData[index][2])+"\n")
+            f.write(str(index[0])+" "+str(index[1])+" "+str(index[2])+"\n")
     with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateErrs.proc", 'w') as f:
         for index in rateData:
-            f.write(str(rateData[index][0])+" "+str(rateData[index][1])+" "+str(rateData[index][3])+"\n")
+            f.write(str(index[0])+" "+str(index[1])+" "+str(index[3])+"\n")
 
 with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:
