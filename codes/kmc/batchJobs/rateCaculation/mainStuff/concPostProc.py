@@ -110,5 +110,5 @@ with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:
         f.write(index)
         with open("jobInputs/testInput."+str(jobIndex), 'w') as g:
-            g.write(jobInput)
+            g.write(index)
             jobIndex += 1
