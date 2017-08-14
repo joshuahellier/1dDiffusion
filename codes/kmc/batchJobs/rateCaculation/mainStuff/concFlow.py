@@ -12,6 +12,9 @@ from KMCLib import *
 from KMCLib.Backend import Backend
 import numpy
 from RateCalc import *
+from DensHist import *
+from BlockStats import *
+from foldyFloatList import *
 
 botConc = float(sys.argv[1])
 topConc = float(sys.argv[2])
@@ -326,13 +329,23 @@ with open(resultsPlace+"inTop.dat", 'w') as f:
 with open(resultsPlace+"outTop.dat", 'w') as f:
     pass
 
+
+if not os.path.exists(resultsPlace+"numHists"):
+    os.makedirs(resultsPlace+"numHists")
+
+if not os.path.exists(resultsPlace+"blockStats"):
+    os.makedirs(resultsPlace+"blockStats")
+
+
 for passNum in range(0, numPasses):
     processStatsOxInBot = RateCalc(processes=[5])
     processStatsOxOutBot = RateCalc(processes=[4])
     processStatsOxInTop = RateCalc(processes=[3])
     processStatsOxOutTop = RateCalc(processes=[2])
+    numHist = DensHist(spec=["O"], inProc=[5, 3], outProc=[4, 2])
+    blockStat = BlockStats(blockComp = ["O"])
     model.run(control_parameters_req, trajectory_filename=(resultsPlace+"mainTraj.tr"))
-    model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop])
+    model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, numHist, blockStat])
 
     with open(resultsPlace+"inBot.dat", 'a') as f:
         processStatsOxInBot.printResults(f)
@@ -342,5 +355,14 @@ for passNum in range(0, numPasses):
         processStatsOxInTop.printResults(f)
     with open(resultsPlace+"outTop.dat", 'a') as f:
         processStatsOxOutTop.printResults(f)
+    with open(resultsPlace+"numHists/numHist"+str(passNum)+".dat", 'w') as f:
+        pass
+    with open(resultsPlace+"numHists/numHist"+str(passNum)+".dat", 'a') as f:
+        numHist.printResults(f)
+    with open(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat", 'w') as f:
+        pass
+    with open(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat", 'a') as f:
+        blockStat.printResults(f)
+
 
 print("Process would appear to have succesfully terminated! How very suspicious...")

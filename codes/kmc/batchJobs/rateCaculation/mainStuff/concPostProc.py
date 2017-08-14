@@ -84,6 +84,15 @@ for rateIndex in range(0, numLambda):
             except IOError:
                 failed = True
 
+
+            for passIndex in range(0, numPasses):
+                try:
+                    with open(currentLoc+"/numHists/numHist"+str(passIndex)+".dat", 'r') as f:
+                        lines = f.readlines()
+                        currAvList = foldyFloatList()
+                            for line in lines:
+                                words = lines.
+
             if failed == False:
                 total = 0.0
                 flows = []
@@ -103,8 +112,10 @@ for rateIndex in range(0, numLambda):
             f.write(str(index[0])+" "+str(index[1])+" "+str(index[2])+"\n")
     with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateErrs.proc", 'w') as f:
         for index in rateData:
-            f.write(str(index[0])+" "+str(index[1])+" "+str(index[3])+"\n")
-
+            if index[2] != 0.0:
+                f.write(str(index[0])+" "+str(index[1])+" "+str(100.0*index[3]/abs(index[2]))+"\n")
+            else:
+                f.write(str(index[0])+" "+str(index[1])+" "+str(-1.0)+"\n")
 
 with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:
