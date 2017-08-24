@@ -8,17 +8,17 @@ import math
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
-numConcs = 16
-numLambda = 4
+numConcs = 24
+numLambda = 6
 numStepsEquilib = 160000000
 numStepsAnal = 80000000
 numStepsSnapshot = 1000
 numStepsReq = 16000000
 sysSize = 124
 analInterval = 1
-numPasses = 10
+numPasses = 100
 timeInterval = 100.0
-dataLocation = "batchJobs/concRuns/attempt1/"
+dataLocation = "batchJobs/concRuns/tests/test1/"
 lambdaMin = 0.1
 lambdaMax = 0.4
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
@@ -88,10 +88,11 @@ for rateIndex in range(0, numLambda):
             for passIndex in range(0, numPasses):
                 try:
                     with open(currentLoc+"/numHists/numHist"+str(passIndex)+".dat", 'r') as f:
-                        lines = f.readlines()
-                        currAvList = foldyFloatList()
-                            for line in lines:
-                                words = lines.
+                        pass
+                except IOError:
+                    failed = True
+
+
 
             if failed == False:
                 total = 0.0
@@ -107,15 +108,15 @@ for rateIndex in range(0, numLambda):
                 rateData.append([botConc, topConc, flowMean, stdErr])
             else:
                 failedRuns.append("concFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"/"+str(topConcIndex)+"\n")
-    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateMeans.proc", 'w') as f:
-        for index in rateData:
-            f.write(str(index[0])+" "+str(index[1])+" "+str(index[2])+"\n")
-    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateErrs.proc", 'w') as f:
-        for index in rateData:
-            if index[2] != 0.0:
-                f.write(str(index[0])+" "+str(index[1])+" "+str(100.0*index[3]/abs(index[2]))+"\n")
-            else:
-                f.write(str(index[0])+" "+str(index[1])+" "+str(-1.0)+"\n")
+#    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateMeans.proc", 'w') as f:
+#        for index in rateData:
+#            f.write(str(index[0])+" "+str(index[1])+" "+str(index[2])+"\n")
+#    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateErrs.proc", 'w') as f:
+#        for index in rateData:
+#            if index[2] != 0.0:
+#                f.write(str(index[0])+" "+str(index[1])+" "+str(100.0*index[3]/abs(index[2]))+"\n")
+#            else:
+#                f.write(str(index[0])+" "+str(index[1])+" "+str(-1.0)+"\n")
 
 with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:

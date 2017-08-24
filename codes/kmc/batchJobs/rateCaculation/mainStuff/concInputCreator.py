@@ -6,15 +6,15 @@ import os
 # in the name of time efficiency
 numConcs = 24
 numLambda = 6
-numStepsEquilib = 16000
-numStepsAnal = 8000
+numStepsEquilib = 160000000
+numStepsAnal = 1600000
 numStepsSnapshot = 1000
-numStepsReq = 16000
+numStepsReq = 1600000
 sysSize = 124
 analInterval = 1
-numPasses = 50
+numPasses = 100
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/tests/test1"
+dataLocation = "batchJobs/concRuns/tests/test1/"
 lambdaMin = 0.05
 lambdaMax = 0.25
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
