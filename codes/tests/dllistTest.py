@@ -1,5 +1,5 @@
-import pyllist
-dllist = pyllist.dllist
+from pyllist import dllist
+
 
 a = dllist([2.0])
 a.appendleft(1.0)

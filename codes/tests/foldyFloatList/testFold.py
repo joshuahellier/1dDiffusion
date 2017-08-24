@@ -1,6 +1,8 @@
-import foldyFloatList
-ffl = foldyFloatList.foldyFloatList
-a = ffl()
+import sys
+for x in sys.path:
+    print x
+from foldyFloatList import foldyFloatList
+a = foldyFloatList()
 a.addValue(1.0)
 print(a.toString())
 a.addValue(2.0)
