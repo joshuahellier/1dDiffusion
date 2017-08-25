@@ -11,14 +11,14 @@ if resultDir == None :
 numConcs = 24
 numLambda = 6
 numStepsEquilib = 160000000
-numStepsAnal = 80000000
+numStepsAnal = 1600000
 numStepsSnapshot = 1000
-numStepsReq = 16000000
+numStepsReq = 1600000
 sysSize = 124
 analInterval = 1
 numPasses = 100
 timeInterval = 100.0
-dataLocation = "batchJobs/concRuns/tests/test1/"
+dataLocation = "batchJobs/concRuns/attempt2/"
 lambdaMin = 0.1
 lambdaMax = 0.4
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
@@ -84,15 +84,30 @@ for rateIndex in range(0, numLambda):
             except IOError:
                 failed = True
 
+            totWeight = 0.0
+            meanNum = 0.0
+            sqrDev = 0.0
 
-            for passIndex in range(0, numPasses):
-                try:
-                    with open(currentLoc+"/numHists/numHist"+str(passIndex)+".dat", 'r') as f:
-                        pass
-                except IOError:
-                    failed = True
-
-
+            try:
+                with open(currentLoc+"/ovNumHist.dat", 'r') as f:
+                    lines = f.readlines()
+                    if len(lines) != sysSize:
+                        failed = True
+                    weights = []
+                    for line in lines:
+                        words = line.split()
+                        val = float(words[1])
+                        weights.append(val)
+                        totWeight += val
+                    if totWeight != 0.0:
+                        for index in range(0, len(weights)):
+                            weights[index] = weights[index]/totWeight
+                            meanNum += index*weights[index]
+                        for index in range(0, len(weights)):
+                            sqrDev += weights[index]*(index - meanNum)*(index - meanNum)
+                        errNum = math.sqrt(sqrDev/float(numPasses))
+            except (IOError, LookupError):
+                failed = True
 
             if failed == False:
                 total = 0.0
@@ -105,18 +120,27 @@ for rateIndex in range(0, numLambda):
                 for index in range(0, numPasses):
                     squaredDev += (flows[index]-flowMean)*(flows[index]-flowMean)
                 stdErr = math.sqrt(squaredDev)/float(numPasses)
-                rateData.append([botConc, topConc, flowMean, stdErr])
+                rateData.append([botConc, topConc, flowMean, stdErr, meanNum, errNum])
             else:
                 failedRuns.append("concFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"/"+str(topConcIndex)+"\n")
-#    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateMeans.proc", 'w') as f:
-#        for index in rateData:
-#            f.write(str(index[0])+" "+str(index[1])+" "+str(index[2])+"\n")
-#    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateErrs.proc", 'w') as f:
-#        for index in rateData:
-#            if index[2] != 0.0:
-#                f.write(str(index[0])+" "+str(index[1])+" "+str(100.0*index[3]/abs(index[2]))+"\n")
-#            else:
-#                f.write(str(index[0])+" "+str(index[1])+" "+str(-1.0)+"\n")
+    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateMeans.dat", 'w') as f:
+        for index in rateData:
+            f.write(str(index[0])+" "+str(index[1])+" "+str(index[2])+"\n")
+    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateErrs.dat", 'w') as f:
+        for index in rateData:
+            if index[2] != 0.0:
+                f.write(str(index[0])+" "+str(index[1])+" "+str(100.0*index[3]/abs(index[2]))+"\n")
+            else:
+                f.write(str(index[0])+" "+str(index[1])+" "+str(-1.0)+"\n")
+    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/densMeans.dat", 'w') as f:
+        for index in rateData:
+            f.write(str(index[0])+" "+str(index[1])+" "+str(index[4]/float(sysSize))+"\n")
+    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/densErrs.dat", 'w') as f:
+        for index in rateData:
+            if index[2] != 0.0:
+                f.write(str(index[0])+" "+str(index[1])+" "+str(100.0*index[5]/abs(index[4]))+"\n")
+            else:
+                f.write(str(index[0])+" "+str(index[1])+" "+str(-1.0)+"\n")
 
 with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:
