@@ -1,6 +1,7 @@
 import sys
 import os
 import math
+import shutil
 
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
@@ -317,7 +318,7 @@ control_parameters_anal = KMCControlParameters(number_of_steps=numStepsAnal, ana
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 
-model.run(control_parameters_equilib, trajectory_filename=(resultsPlace+"equilibTraj.tr"))
+model.run(control_parameters_equilib, trajectory_filename=("/dev/null"))
 
 
 with open(resultsPlace+"inBot.dat", 'w') as f:
@@ -336,6 +337,14 @@ if not os.path.exists(resultsPlace+"numHists"):
 if not os.path.exists(resultsPlace+"blockStats"):
     os.makedirs(resultsPlace+"blockStats")
 
+ovNumHist = []
+for index in range(0, sysSize):
+    ovNumHist.append(0.0)
+
+ovBlockHist = []
+for index in range(0, sysSize):
+    ovBlockHist.append(0.0)
+
 
 for passNum in range(0, numPasses):
     processStatsOxInBot = RateCalc(processes=[5])
@@ -344,8 +353,8 @@ for passNum in range(0, numPasses):
     processStatsOxOutTop = RateCalc(processes=[2])
     numHist = DensHist(spec=["O"], inProc=[5, 3], outProc=[4, 2])
     blockStat = BlockStats(blockComp = ["O"])
-    model.run(control_parameters_req, trajectory_filename=(resultsPlace+"mainTraj.tr"))
-    model.run(control_parameters_anal, trajectory_filename=(resultsPlace+"mainTraj.tr"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, numHist, blockStat])
+    model.run(control_parameters_req, trajectory_filename=("/dev/null"))
+    model.run(control_parameters_anal, trajectory_filename=("/dev/null"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, numHist, blockStat])
 
     with open(resultsPlace+"inBot.dat", 'a') as f:
         processStatsOxInBot.printResults(f)
@@ -359,10 +368,31 @@ for passNum in range(0, numPasses):
         pass
     with open(resultsPlace+"numHists/numHist"+str(passNum)+".dat", 'a') as f:
         numHist.printResults(f)
+    with open(resultsPlace+"numHists/numHist"+str(passNum)+".dat", 'r') as f:
+        lines = f.readlines()
+        for index in range(0, sysSize):
+            words = lines[index].split()
+            ovNumHist[index] += float(words[1])
     with open(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat", 'w') as f:
         pass
     with open(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat", 'a') as f:
         blockStat.printResults(f)
+    with open(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat", 'r') as f:
+        lines = f.readlines()
+        for index in range(0, sysSize):
+            words = lines[index].split()
+            ovBlockHist[index] += float(words[1])
+
+with open(resultsPlace+"ovNumHist.dat", 'w') as f:
+    for index in range(0, sysSize):
+        f.write(str(index)+" "+str(ovNumHist[index])+"\n")
+
+with open(resultsPlace+"ovBlockHist.dat", 'w') as f:
+    for index in range(0, sysSize):
+        f.write(str(index)+" "+str(ovBlockHist[index])+"\n")
+
+shutil.rmtree(resultsPlace+"blockStats", ignore_errors=True)
+shutil.rmtree(resultsPlace+"numHists", ignore_errors=True)
 
 
 print("Process would appear to have succesfully terminated! How very suspicious...")
