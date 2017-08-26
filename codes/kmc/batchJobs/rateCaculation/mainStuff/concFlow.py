@@ -373,6 +373,7 @@ for passNum in range(0, numPasses):
         for index in range(0, sysSize):
             words = lines[index].split()
             ovNumHist[index] += float(words[1])
+    os.remove(resultsPlace+"numHists/numHist"+str(passNum)+".dat")
     with open(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat", 'w') as f:
         pass
     with open(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat", 'a') as f:
@@ -382,6 +383,7 @@ for passNum in range(0, numPasses):
         for index in range(0, sysSize):
             words = lines[index].split()
             ovBlockHist[index] += float(words[1])
+    os.remove(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat")
 
 with open(resultsPlace+"ovNumHist.dat", 'w') as f:
     for index in range(0, sysSize):
