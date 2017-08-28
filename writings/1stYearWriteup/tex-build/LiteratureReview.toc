@@ -1,5 +1,0 @@
-\contentsline {section}{\numberline {1}Background}{1}
-\contentsline {section}{\numberline {2}Review of Background Bibliography}{1}
-\contentsline {section}{\numberline {3}Progress to Date}{1}
-\contentsline {section}{\numberline {4}Proposal}{1}
-\contentsline {section}{\numberline {5}Summary}{2}
