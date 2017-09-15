@@ -1,6 +1,7 @@
 import sys
 import os
 import math
+import shutil
 
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
@@ -12,6 +13,7 @@ from KMCLib import *
 from KMCLib.Backend import Backend
 import numpy
 from RateCalc import *
+from LongDensHist import *
 
 botConc = float(sys.argv[1])
 topConc = float(sys.argv[2])
@@ -74,26 +76,28 @@ for yIndex in range(0, 2):
         random = numpy.random.rand()
         if random < botConc:
             types.append((xIndex, yIndex, 0, 0, "BoO"))
-        else types.append((xIndex, yIndex, 0, 0, "BoV"))
+        else:
+            types.append((xIndex, yIndex, 0, 0, "BoV"))
 
-for yIndex in range(2, yRep+2):
+for yIndex in range(2, yRep-2):
     for xIndex in range(0, xRep):
         random = numpy.random.rand()
         if random < avConc:
             types.append((xIndex, yIndex, 0, 0, "O"))
-        else types.append((xIndex, yIndex, 0, 0, "V"))
-
-for yIndex in range(yRep+2, yRep+4):
+        else:
+            types.append((xIndex, yIndex, 0, 0, "V"))
+for yIndex in range(yRep-2, yRep):
     for xIndex in range(0, xRep):
         random = numpy.random.rand()
         if random < topConc:
             types.append((xIndex, yIndex, 0, 0, "ToO"))
-        else types.append((xIndex, yIndex, 0, 0, "ToV"))        
-        
+        else:
+            types.append((xIndex, yIndex, 0, 0, "ToV"))        
+
 # Setup the configuration.
 configuration = KMCConfiguration(lattice=lattice,
                                  types=types,
-                                 possible_types=["O","V","ToV","BoV", "ToO", "BoO"])
+                                 possible_types=["O","V","ToV","BoV", "ToO", "BoO"], default_type="V")
 
 
 # Rates.
@@ -261,7 +265,7 @@ interactions = KMCInteractions(processes, implicit_wildcards=True)
 
 
 # Define the custom rates calculator, using the lol model as a template
-class lolModelRates(KMCRateCalculatorPlugin):
+class modelRates2d(KMCRateCalculatorPlugin):
     # Class for defining the custom rates function for the KMCLib paper. 
     def rate(self, geometry, elements_before, elements_after, rate_constant, process_number, global_coordinate):
         if process_number == 8:
@@ -286,7 +290,7 @@ class lolModelRates(KMCRateCalculatorPlugin):
         # Overloaded base class API function 
         return 1.0
 
-interactions.setRateCalculator(rate_calculator=lolModelRates)
+interactions.setRateCalculator(rate_calculator=modelRates2d)
 """End of processes"""
 ###
 ##
@@ -309,7 +313,7 @@ control_parameters_anal = KMCControlParameters(number_of_steps=numStepsAnal, ana
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 
-model.run(control_parameters_equilib, trajectory_filename=("/dev/null"))
+model.run(control_parameters_equilib, trajectory_filename=(resultsPlace+"equilib.traj"))
 
 
 with open(resultsPlace+"inBot.dat", 'w') as f:
@@ -325,27 +329,21 @@ with open(resultsPlace+"outTop.dat", 'w') as f:
 if not os.path.exists(resultsPlace+"numHists"):
     os.makedirs(resultsPlace+"numHists")
 
-if not os.path.exists(resultsPlace+"blockStats"):
-    os.makedirs(resultsPlace+"blockStats")
 
 ovNumHist = []
-for index in range(0, sysSize):
+for index in range(0, numPoints):
     ovNumHist.append(0.0)
 
-ovBlockHist = []
-for index in range(0, sysSize):
-    ovBlockHist.append(0.0)
 
 
 for passNum in range(0, numPasses):
-    processStatsOxInBot = RateCalc(processes=[5])
-    processStatsOxOutBot = RateCalc(processes=[4])
-    processStatsOxInTop = RateCalc(processes=[3])
-    processStatsOxOutTop = RateCalc(processes=[2])
-    numHist = DensHist(spec=["O"], inProc=[5, 3], outProc=[4, 2])
-    blockStat = BlockStats(blockComp = ["O"])
+    processStatsOxInBot = RateCalc(processes=[7])
+    processStatsOxOutBot = RateCalc(processes=[6])
+    processStatsOxInTop = RateCalc(processes=[5])
+    processStatsOxOutTop = RateCalc(processes=[4])
+    numHist = LongDensHist(spec=["O"], inProc=[7, 5], outProc=[6, 4])
     model.run(control_parameters_req, trajectory_filename=("/dev/null"))
-    model.run(control_parameters_anal, trajectory_filename=("/dev/null"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, numHist, blockStat])
+    model.run(control_parameters_anal, trajectory_filename=("/dev/null"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, numHist])
 
     with open(resultsPlace+"inBot.dat", 'a') as f:
         processStatsOxInBot.printResults(f)
@@ -361,31 +359,16 @@ for passNum in range(0, numPasses):
         numHist.printResults(f)
     with open(resultsPlace+"numHists/numHist"+str(passNum)+".dat", 'r') as f:
         lines = f.readlines()
-        for index in range(0, sysSize):
+        for index in range(0, numPoints):
             words = lines[index].split()
             ovNumHist[index] += float(words[1])
-    os.remove(resultsPlace+"numHists/numHist"+str(passNum)+".dat")
-    with open(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat", 'w') as f:
-        pass
-    with open(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat", 'a') as f:
-        blockStat.printResults(f)
-    with open(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat", 'r') as f:
-        lines = f.readlines()
-        for index in range(0, sysSize):
-            words = lines[index].split()
-            ovBlockHist[index] += float(words[1])
-    os.remove(resultsPlace+"blockStats/blockStat"+str(passNum)+".dat")
+#    os.remove(resultsPlace+"numHists/numHist"+str(passNum)+".dat")
 
 with open(resultsPlace+"ovNumHist.dat", 'w') as f:
-    for index in range(0, sysSize):
+    for index in range(0, numPoints):
         f.write(str(index)+" "+str(ovNumHist[index])+"\n")
 
-with open(resultsPlace+"ovBlockHist.dat", 'w') as f:
-    for index in range(0, sysSize):
-        f.write(str(index)+" "+str(ovBlockHist[index])+"\n")
-
-shutil.rmtree(resultsPlace+"blockStats", ignore_errors=True)
-shutil.rmtree(resultsPlace+"numHists", ignore_errors=True)
+#shutil.rmtree(resultsPlace+"numHists", ignore_errors=True)
 
 
 print("Process would appear to have succesfully terminated! How very suspicious...")
