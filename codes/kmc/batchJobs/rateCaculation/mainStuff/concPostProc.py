@@ -145,6 +145,6 @@ for rateIndex in range(0, numLambda):
 with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:
         f.write(index)
-        with open("jobInputs/testInput."+str(jobIndex), 'w') as g:
+        with open("failedRuns/testInput."+str(jobIndex), 'w') as g:
             g.write(index)
             jobIndex += 1
