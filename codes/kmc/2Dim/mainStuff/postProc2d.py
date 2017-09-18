@@ -142,13 +142,9 @@ for rateIndex in range(0, numLambda):
             else:
                 f.write(str(index[0])+" "+str(index[1])+" "+str(-1.0)+"\n")
 
-    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/altPlot.dat", 'w') as f:
-        for index in rateData:
-            f.write(str(index[0]-index[1])+" "+str(index[4]/float(sysSize))+" "+str(index[2])+"\n")
-
 with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:
         f.write(index)
-        with open("failedRuns/testInput."+str(jobIndex), 'w') as g:
+        with open("jobInputs/testInput."+str(jobIndex), 'w') as g:
             g.write(index)
             jobIndex += 1
