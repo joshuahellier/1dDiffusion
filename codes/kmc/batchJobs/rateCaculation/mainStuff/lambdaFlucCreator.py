@@ -5,11 +5,11 @@ import os
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
 numLambda = 256
-numStepsEquilib = 1600000
+numStepsEquilib = 400000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
-numStepsReq = 64000
-sysSize = 124
+numStepsReq = 16000
+sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
