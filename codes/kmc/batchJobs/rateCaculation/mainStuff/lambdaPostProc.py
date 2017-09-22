@@ -24,9 +24,6 @@ rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
 jobIndex = 1
 
 runningJobs = []
-
-for rateIndex in range(0, numLambda):
-
 failedRuns = []
 
 for rateIndex in range(0, numLambda):
@@ -40,13 +37,13 @@ for rateIndex in range(0, numLambda):
         with open(currentLoc+"/inTop.dat", 'r') as f:
             lines = f.readlines()
             if len(lines) != numPasses:
-        failed = True
-        print("wrongLength")
+                failed = True
+                print("wrongLength")
             for line in lines:
-        inTopVals.append(float(line))
-    except IOError:
-        failed = True
-        print("ioError")
+                inTopVals.append(float(line))
+        except IOError:
+            failed = True
+            print("ioError")
     try:
         with open(currentLoc+"/outTop.dat", 'r') as f:
             lines = f.readlines()
