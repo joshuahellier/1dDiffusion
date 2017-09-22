@@ -159,13 +159,17 @@ with open(resultDir+"/"+dataLocation+"/densErrs.dat", 'w') as f:
 
 with open(resultDir+"/"+dataLocation+"/histMeans.dat", 'w') as f:
     for index in rateData:
-        f.write(str(index[0])+" "+str(index[5]/float(sysSize))+"\n")
+        f.write(str(index[0])+" "+str(index[5])+"\n")
 with open(resultDir+"/"+dataLocation+"/histErrs.dat", 'w') as f:
     for index in rateData:
         if index[5] != 0.0:
             f.write(str(index[0])+" "+str(100.0*index[6]/abs(index[5]))+"\n")
         else:
             f.write(str(index[0])+" "+str(-1.0)+"\n")
+
+with open(resultDir+"/"+dataLocation+"/blockDev.dat", 'w') as f:
+    for index in rateData:
+        f.write(str(index[0])+" "+str(index[5] - float(sysSize)/index[3])+"\n")
 
 with open(resultDir+"/"+dataLocation+"/altPlot.dat", 'w') as f:
     for index in rateData:
