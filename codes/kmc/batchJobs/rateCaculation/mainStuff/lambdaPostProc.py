@@ -169,7 +169,7 @@ with open(resultDir+"/"+dataLocation+"/histErrs.dat", 'w') as f:
 
 with open(resultDir+"/"+dataLocation+"/blockDev.dat", 'w') as f:
     for index in rateData:
-        f.write(str(index[0])+" "+str(index[5] - float(sysSize)/index[3])+"\n")
+        f.write(str(index[0])+" "+str(index[5] - 1.0/(1.0-index[3]/float(sysSize)))+"\n")
 
 with open(resultDir+"/"+dataLocation+"/altPlot.dat", 'w') as f:
     for index in rateData:
