@@ -113,28 +113,28 @@ for rateIndex in range(0, numLambda):
         rateData.append([currentRate, flowMean, stdErr, meanNum, errNum])
     else:
         failedRuns.append("concFlow.py "+str(2.0/3.0)+" "+str(2.0/3.0)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"\n")
-    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateMeans.dat", 'w') as f:
-        for index in rateData:
-            f.write(str(index[0])+" "+str(index[1])+"\n")
-    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/rateErrs.dat", 'w') as f:
-        for index in rateData:
-            if index[2] != 0.0:
-                f.write(str(index[0])+" "+str(100.0*index[2]/abs(index[1]))+"\n")
-            else:
-                f.write(str(index[0])+" "+str(-1.0)+"\n")
-    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/densMeans.dat", 'w') as f:
-        for index in rateData:
-            f.write(str(index[0])+" "+str(index[3]/float(sysSize))+"\n")
-    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/densErrs.dat", 'w') as f:
-        for index in rateData:
-            if index[2] != 0.0:
-                f.write(str(index[0])+" "+str(100.0*index[4]/abs(index[3]))+"\n")
-            else:
-                f.write(str(index[0])+" "+str(-1.0)+"\n")
+with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
+    for index in rateData:
+        f.write(str(index[0])+" "+str(index[1])+"\n")
+with open(resultDir+"/"+dataLocation+"/rateErrs.dat", 'w') as f:
+    for index in rateData:
+        if index[2] != 0.0:
+            f.write(str(index[0])+" "+str(100.0*index[2]/abs(index[1]))+"\n")
+        else:
+            f.write(str(index[0])+" "+str(-1.0)+"\n")
+with open(resultDir+"/"+dataLocation+"/densMeans.dat", 'w') as f:
+    for index in rateData:
+        f.write(str(index[0])+" "+str(index[3]/float(sysSize))+"\n")
+with open(resultDir+"/"+dataLocation+"/densErrs.dat", 'w') as f:
+    for index in rateData:
+        if index[2] != 0.0:
+            f.write(str(index[0])+" "+str(100.0*index[4]/abs(index[3]))+"\n")
+        else:
+            f.write(str(index[0])+" "+str(-1.0)+"\n")
 
-    with open(resultDir+"/"+dataLocation+str(rateIndex)+"/altPlot.dat", 'w') as f:
-        for index in rateData:
-            f.write(str(index[0]-index[1])+" "+str(index[4]/float(sysSize))+" "+str(index[2])+"\n")
+with open(resultDir+"/"+dataLocation+"/altPlot.dat", 'w') as f:
+    for index in rateData:
+        f.write(str(index[0]-index[1])+" "+str(index[4]/float(sysSize))+" "+str(index[2])+"\n")
 
 with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:
