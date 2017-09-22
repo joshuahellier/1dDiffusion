@@ -99,6 +99,31 @@ for rateIndex in range(0, numLambda):
     except (IOError, LookupError):
         failed = True
 
+    totWeightBlk = 0.0
+    meanNumBlk = 0.0
+    sqrDevBlk = 0.0
+
+    try:
+        with open(currentLoc+"/ovBlockHist.dat", 'r') as f:
+            lines = f.readlines()
+            if len(lines) != sysSize:
+                failed = True
+            weights = []
+            for line in lines:
+                words = line.split()
+                val = float(words[1])
+                weights.append(val)
+                totWeightBlk += val
+            if totWeightBlk != 0.0:
+                for index in range(0, len(weights)):
+                    weights[index] = weights[index]/totWeightBlk
+                    meanNumBlk += index*weights[index]
+                for index in range(0, len(weights)):
+                    sqrDevBlk += weights[index]*(index - meanNumBlk)*(index - meanNumBlk)
+                    errNumBlk = math.sqrt(sqrDevBlk/float(numPasses))
+    except (IOError, LookupError):
+        failed = True
+
     if failed == False:
         total = 0.0
         flows = []
@@ -110,7 +135,7 @@ for rateIndex in range(0, numLambda):
         for index in range(0, numPasses):
             squaredDev += (flows[index]-flowMean)*(flows[index]-flowMean)
         stdErr = math.sqrt(squaredDev)/float(numPasses)
-        rateData.append([currentRate, flowMean, stdErr, meanNum, errNum])
+        rateData.append([currentRate, flowMean, stdErr, meanNum, errNum, meanNumBlk, errNumBlk])
     else:
         failedRuns.append("concFlow.py "+str(2.0/3.0)+" "+str(2.0/3.0)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"\n")
 with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
@@ -118,7 +143,7 @@ with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
         f.write(str(index[0])+" "+str(index[1])+"\n")
 with open(resultDir+"/"+dataLocation+"/rateErrs.dat", 'w') as f:
     for index in rateData:
-        if index[2] != 0.0:
+        if index[1] != 0.0:
             f.write(str(index[0])+" "+str(100.0*index[2]/abs(index[1]))+"\n")
         else:
             f.write(str(index[0])+" "+str(-1.0)+"\n")
@@ -127,8 +152,18 @@ with open(resultDir+"/"+dataLocation+"/densMeans.dat", 'w') as f:
         f.write(str(index[0])+" "+str(index[3]/float(sysSize))+"\n")
 with open(resultDir+"/"+dataLocation+"/densErrs.dat", 'w') as f:
     for index in rateData:
-        if index[2] != 0.0:
+        if index[3] != 0.0:
             f.write(str(index[0])+" "+str(100.0*index[4]/abs(index[3]))+"\n")
+        else:
+            f.write(str(index[0])+" "+str(-1.0)+"\n")
+
+with open(resultDir+"/"+dataLocation+"/histMeans.dat", 'w') as f:
+    for index in rateData:
+        f.write(str(index[0])+" "+str(index[5]/float(sysSize))+"\n")
+with open(resultDir+"/"+dataLocation+"/histErrs.dat", 'w') as f:
+    for index in rateData:
+        if index[5] != 0.0:
+            f.write(str(index[0])+" "+str(100.0*index[6]/abs(index[5]))+"\n")
         else:
             f.write(str(index[0])+" "+str(-1.0)+"\n")
 
