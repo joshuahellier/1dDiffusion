@@ -89,13 +89,13 @@ for rateIndex in range(0, numLambda):
                 val = float(words[1])
                 weights.append(val)
                 totWeight += val
-                if totWeight != 0.0:
-                    for index in range(0, len(weights)):
-                        weights[index] = weights[index]/totWeight
-                        meanNum += index*weights[index]
-                    for index in range(0, len(weights)):
-                        sqrDev += weights[index]*(index - meanNum)*(index - meanNum)
-                        errNum = math.sqrt(sqrDev/float(numPasses))
+            if totWeight != 0.0:
+                for index in range(0, len(weights)):
+                    weights[index] = weights[index]/totWeight
+                    meanNum += index*weights[index]
+                for index in range(0, len(weights)):
+                    sqrDev += weights[index]*(index - meanNum)*(index - meanNum)
+                    errNum = math.sqrt(sqrDev/float(numPasses))
     except (IOError, LookupError):
         failed = True
 
