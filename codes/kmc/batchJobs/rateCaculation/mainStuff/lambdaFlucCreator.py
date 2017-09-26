@@ -13,18 +13,18 @@ sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/lambdaScan3/"
+dataLocation = "batchJobs/concRuns/lambdaScan5/"
 lambdaMin = 0.01
-lambdaMax = 2.0
+lambdaMax = 0.7
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-jobIndex = 513
+jobIndex = 4609
 
 runningJobs = []
 
 for rateIndex in range(0, numLambda):
     currentRate = lambdaMin + rateStepSize*rateIndex
-    botConc = 0.75
-    topConc = 0.25
+    botConc = 0.99
+    topConc = 0.01
     jobInput = "concFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"\n"
     with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
         f.write(jobInput)
