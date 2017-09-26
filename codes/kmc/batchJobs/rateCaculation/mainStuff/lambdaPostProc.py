@@ -17,9 +17,9 @@ sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/lambdaScan1/"
-lambdaMin = 0.1
-lambdaMax = 0.4
+dataLocation = "batchJobs/concRuns/lambdaScan2/"
+lambdaMin = 0.01
+lambdaMax = 2.0
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
 jobIndex = 1
 
@@ -137,7 +137,7 @@ for rateIndex in range(0, numLambda):
         stdErr = math.sqrt(squaredDev)/float(numPasses)
         rateData.append([currentRate, flowMean, stdErr, meanNum, errNum, meanNumBlk, errNumBlk])
     else:
-        failedRuns.append("concFlow.py "+str(2.0/3.0)+" "+str(2.0/3.0)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"\n")
+        failedRuns.append("concFlow.py "+str(3.0/4.0)+" "+str(1.0/4.0)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"\n")
 with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
     for index in rateData:
         f.write(str(index[0])+" "+str(index[1])+"\n")
