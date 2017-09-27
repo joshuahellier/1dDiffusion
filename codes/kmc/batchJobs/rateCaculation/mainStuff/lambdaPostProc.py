@@ -2,6 +2,7 @@ import subprocess
 import sys
 import os
 import math
+from scipy import stats
 
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
@@ -26,6 +27,7 @@ jobIndex = 1
 runningJobs = []
 failedRuns = []
 rateData = []
+flowMoments = []
 
 for rateIndex in range(0, numLambda):
     currentLoc = resultDir+"/"+dataLocation+str(rateIndex)
@@ -136,6 +138,8 @@ for rateIndex in range(0, numLambda):
             squaredDev += (flows[index]-flowMean)*(flows[index]-flowMean)
         stdErr = math.sqrt(squaredDev)/float(numPasses)
         rateData.append([currentRate, flowMean, stdErr, meanNum, errNum, meanNumBlk, errNumBlk])
+        rateDesc = stats.describe(flows)
+        flowMoments.append(rateDesc)
     else:
         failedRuns.append("concFlow.py "+str(3.0/4.0)+" "+str(1.0/4.0)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"\n")
 with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
@@ -147,6 +151,23 @@ with open(resultDir+"/"+dataLocation+"/rateErrs.dat", 'w') as f:
             f.write(str(index[0])+" "+str(100.0*index[2]/abs(index[1]))+"\n")
         else:
             f.write(str(index[0])+" "+str(-1.0)+"\n")
+
+with open(resultDir+"/"+dataLocation+"/flowMeans.dat", 'w') as f:
+    for i in range(0, len(rateData)):
+        f.write(str(rateData[i][0])+" "+str(flowMoments[i].mean)+"\n")
+
+with open(resultDir+"/"+dataLocation+"/flowVars.dat", 'w') as f:
+    for i in range(0, len(rateData)):
+        f.write(str(rateData[i][0])+" "+str(flowMoments[i].variance)+"\n")
+
+with open(resultDir+"/"+dataLocation+"/flowSkew.dat", 'w') as f:
+    for i in range(0, len(rateData)):
+        f.write(str(rateData[i][0])+" "+str(flowMoments[i].skewness)+"\n")
+
+with open(resultDir+"/"+dataLocation+"/flowKurt.dat", 'w') as f:
+    for i in range(0, len(rateData)):
+        f.write(str(rateData[i][0])+" "+str(flowMoments[i].kurtosis)+"\n")
+
 with open(resultDir+"/"+dataLocation+"/densMeans.dat", 'w') as f:
     for index in rateData:
         f.write(str(index[0])+" "+str(index[3]/float(sysSize))+"\n")
