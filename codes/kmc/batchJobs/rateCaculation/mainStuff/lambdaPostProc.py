@@ -18,7 +18,7 @@ sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/lambdaScan2/"
+dataLocation = "batchJobs/concRuns/lambdaScan3/"
 lambdaMin = 0.01
 lambdaMax = 2.0
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
@@ -154,19 +154,19 @@ with open(resultDir+"/"+dataLocation+"/rateErrs.dat", 'w') as f:
 
 with open(resultDir+"/"+dataLocation+"/flowMeans.dat", 'w') as f:
     for i in range(0, len(rateData)):
-        f.write(str(rateData[i][0])+" "+str(flowMoments[i].mean)+"\n")
+        f.write(str(rateData[i][0])+" "+str(flowMoments[i][2])+"\n")
 
 with open(resultDir+"/"+dataLocation+"/flowVars.dat", 'w') as f:
     for i in range(0, len(rateData)):
-        f.write(str(rateData[i][0])+" "+str(flowMoments[i].variance)+"\n")
+        f.write(str(rateData[i][0])+" "+str(flowMoments[i][3])+"\n")
 
 with open(resultDir+"/"+dataLocation+"/flowSkew.dat", 'w') as f:
     for i in range(0, len(rateData)):
-        f.write(str(rateData[i][0])+" "+str(flowMoments[i].skewness)+"\n")
+        f.write(str(rateData[i][0])+" "+str(flowMoments[i][4])+"\n")
 
 with open(resultDir+"/"+dataLocation+"/flowKurt.dat", 'w') as f:
     for i in range(0, len(rateData)):
-        f.write(str(rateData[i][0])+" "+str(flowMoments[i].kurtosis)+"\n")
+        f.write(str(rateData[i][0])+" "+str(flowMoments[i][5])+"\n")
 
 with open(resultDir+"/"+dataLocation+"/densMeans.dat", 'w') as f:
     for index in rateData:
