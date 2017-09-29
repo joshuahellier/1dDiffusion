@@ -148,6 +148,8 @@ for rateIndex in range(0, numLambda):
             flowMoments.append(rateDesc)
         else:
             failedRuns.append("concFlow.py "+str(3.0/4.0)+" "+str(1.0/4.0)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"\n")
+            shutil.rmtree(resultDir+dataLocation+str(rateIndex)+"/"+str(botConcIndex), ignore_errors=True)
+
 with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
     for index in rateData:
         f.write(str(index[0])+" "+str(index[1])+"\n")
