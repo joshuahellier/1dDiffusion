@@ -153,13 +153,13 @@ for rateIndex in range(0, numLambda):
 
 with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
     for index in rateData:
-        f.write(str(index[0])+" "+str(index[1])+"\n")
+        f.write(str(index[0])+" "+str(index[7])+" "+str(index[7])+" "+str(index[1])+"\n")
 with open(resultDir+"/"+dataLocation+"/rateErrs.dat", 'w') as f:
     for index in rateData:
         if index[1] != 0.0:
-            f.write(str(index[0])+" "+str(100.0*index[2]/abs(index[1]))+"\n")
+            f.write(str(index[0])+" "+str(index[7])+" "+str(100.0*index[2]/abs(index[1]))+"\n")
         else:
-            f.write(str(index[0])+" "+str(-1.0)+"\n")
+            f.write(str(index[0])+" "+str(index[7])+" "+str(-1.0)+"\n")
 
 with open(resultDir+"/"+dataLocation+"/flowMeans.dat", 'w') as f:
     for i in range(0, len(rateData)):
@@ -179,7 +179,7 @@ with open(resultDir+"/"+dataLocation+"/flowKurt.dat", 'w') as f:
 
 with open(resultDir+"/"+dataLocation+"/densMeans.dat", 'w') as f:
     for index in rateData:
-        f.write(str(index[0])+" "+str(index[3]/float(sysSize))+"\n")
+        f.write(str(index[0])+" "+str(rateData[i][7])+" "+str(index[3]/float(sysSize))+"\n")
 with open(resultDir+"/"+dataLocation+"/densErrs.dat", 'w') as f:
     for index in rateData:
         if index[3] != 0.0:
