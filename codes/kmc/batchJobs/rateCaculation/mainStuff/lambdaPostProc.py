@@ -9,7 +9,7 @@ from scipy import stats
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
-numLambda = 256
+numLambda = 512
 numStepsEquilib = 400000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
@@ -18,7 +18,7 @@ sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/lambdaScan3/"
+dataLocation = "batchJobs/concRuns/lambdaScan2/"
 lambdaMin = 0.01
 lambdaMax = 2.0
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
