@@ -14,12 +14,12 @@ sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/constDensSlice1/"
+dataLocation = "batchJobs/concRuns/constDensSlice2/"
 lambdaMin = 0.01
-lambdaMax = 0.6
+lambdaMax = 0.75
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-concMax = 4.0/3.0 - 0.35
-concMin = 0.35
+concMax = 1.0-0.01
+concMin = 0.01
 concStepSize = (concMax-concMin)/float(numConcs-1)
 
 jobIndex = 1
@@ -30,7 +30,7 @@ for rateIndex in range(0, numLambda):
     currentRate = lambdaMin + rateStepSize*rateIndex
     for botConcIndex in range(0, numConcs):
         botConc = concMin + concStepSize*botConcIndex
-        topConc = 4.0/3.0 - botConc
+        topConc = 1.0 - botConc
         jobInput = "concFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"\n"
         with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
             f.write(jobInput)
