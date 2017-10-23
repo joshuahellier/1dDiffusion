@@ -55,17 +55,20 @@
 (* ::Input:: *)
 (*ListPlot[{means2, means3, means4, means5}, PlotRange->{{0, 2},{0.2, 1}}, ImageSize->Large]*)
 (*ListPlot[{errs2, errs3, errs4, errs5}, PlotRange->{{0, 2},All}, ImageSize->Large]*)
-(*Show[{ListPlot[{flow2, flow3, flow4, flow5}, PlotRange->{{0, 2},{0, 0.008}}, ImageSize->Large, DataRange->{{0, 0.7}, All}], Plot[J[1, 0, 1-l]/64, {l, 0, 2}]}]*)
+(*Show[{ListPlot[{flow2, flow3, flow4, flow5}, PlotRange->{{0, 2},{0, 0.008}}, ImageSize->Large, DataRange->{{0, 2}, All}], Plot[J[1, 0, 1-l]/64, {l, 0, 2}]}]*)
 (*ListPlot[{flowErr2, flowErr3, flowErr4, flowErr5}, PlotRange->{{0, 2},{0, 200}}, ImageSize->Large]*)
 (*ListPlot[{histMeans2, histMeans3, histMeans4, histMeans5}, PlotRange->{{0, 2},{0, 40}}, ImageSize->Large]*)
 (*ListPlot[{histErrs2, histErrs3, histErrs4, histErrs5}, PlotRange->{{0, 2},{0, 1}}, ImageSize->Large]*)
 (*ListPlot[{blockDev2, blockDev3, blockDev4, blockDev5}, PlotRange->{{0, 2},{-20, 5}}, ImageSize->Large]*)
 
 
-ListPlot[{flowMeans2, flowMeans3, flowMeans4, flowMeans5}, PlotRange->{{0, 0.2}, {0, 0.001}}, ImageSize->Large, PlotLegends->True]
-ListPlot[{flowVars2, flowVars3, flowVars4, flowVars5}, PlotRange->{{0, 0.12},  {0, 0.000002}}, ImageSize->Large]
+Show[{ListPlot[{flowMeans2, flowMeans3, flowMeans4, flowMeans5}, PlotRange->{{0, 0.3}, {0, 0.005}}, ImageSize->Large, PlotLegends->True], Plot[{J[2/3, 2/3, 1-l]/64, J[3/4, 1/4, 1-l]/64, J[0.75, 0.58, 1-l]/64, J[1, 0, 1-l]/64}, {l, 0, 2}]}]
+ListPlot[{flowVars2, flowVars3, flowVars4, flowVars5}, PlotRange->{{0, 0.7},  {0, 0.000005}}, ImageSize->Large]
 ListPlot[{flowSkew2, flowSkew3, flowSkew4, flowSkew5}, PlotRange->{{0, 0.7}, {-1, 1}}, ImageSize->Large]
 ListPlot[{flowKurt2, flowKurt3, flowKurt4, flowKurt5}, PlotRange->{{0, 0.7}, {0, 15}}, ImageSize->Large]
+
+
+
 
 
 
