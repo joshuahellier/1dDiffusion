@@ -4,19 +4,19 @@ import os
 
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
-numConcs = 24
-numLambda = 6
-numStepsEquilib = 160000000
-numStepsAnal = 1600000
+numConcs = 12
+numLambda = 12
+numStepsEquilib = 1600000
+numStepsAnal = 16000
 numStepsSnapshot = 1000
-numStepsReq = 1600000
-sysSize = 124
+numStepsReq = 16000
+sysSize = 8
 analInterval = 1
 numPasses = 100
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/attempt2/"
+dataLocation = "dim2Runs/attempt1/8x8/"
 lambdaMin = 0.05
-lambdaMax = 0.25
+lambdaMax = 1.25
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
 concMax = 0.99
 concMin = 0.01
@@ -32,7 +32,7 @@ for rateIndex in range(0, numLambda):
         botConc = concMin + concStepSize*botConcIndex
         for topConcIndex in range(0, numConcs):
             topConc = concMin + concStepSize*topConcIndex
-            jobInput = "concFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"/"+str(topConcIndex)+"\n"
+            jobInput = "2dSteadyFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"/"+str(topConcIndex)+"\n"
             with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
                 f.write(jobInput)
             jobIndex += 1

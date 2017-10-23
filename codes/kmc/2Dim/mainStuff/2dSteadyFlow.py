@@ -13,7 +13,7 @@ from KMCLib import *
 from KMCLib.Backend import Backend
 import numpy
 from RateCalc import *
-from LongDensHist import *
+from DensHist import *
 
 botConc = float(sys.argv[1])
 topConc = float(sys.argv[2])
@@ -341,7 +341,7 @@ for passNum in range(0, numPasses):
     processStatsOxOutBot = RateCalc(processes=[6])
     processStatsOxInTop = RateCalc(processes=[5])
     processStatsOxOutTop = RateCalc(processes=[4])
-    numHist = LongDensHist(spec=["O"], inProc=[7, 5], outProc=[6, 4])
+    numHist = DensHist(spec=["O"], inProc=[7, 5], outProc=[6, 4])
     model.run(control_parameters_req, trajectory_filename=("/dev/null"))
     model.run(control_parameters_anal, trajectory_filename=("/dev/null"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, numHist])
 
@@ -362,7 +362,7 @@ for passNum in range(0, numPasses):
         for index in range(0, numPoints):
             words = lines[index].split()
             ovNumHist[index] += float(words[1])
-#    os.remove(resultsPlace+"numHists/numHist"+str(passNum)+".dat")
+    os.remove(resultsPlace+"numHists/numHist"+str(passNum)+".dat")
 
 with open(resultsPlace+"ovNumHist.dat", 'w') as f:
     for index in range(0, numPoints):
