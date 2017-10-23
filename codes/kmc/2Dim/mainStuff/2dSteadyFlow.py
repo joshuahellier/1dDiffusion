@@ -18,15 +18,16 @@ from DensHist import *
 botConc = float(sys.argv[1])
 topConc = float(sys.argv[2])
 rateConstFull = float(sys.argv[3])
-sysSize = int(sys.argv[4])
-analInterval = int(sys.argv[5])
-numStepsEquilib = int(sys.argv[6])
-numStepsSnapshot = int(sys.argv[7])
-numStepsAnal = int(sys.argv[8])
-numStepsReq = int(sys.argv[9])
-numPasses = int(sys.argv[10])
-timeInterval = float(sys.argv[11])
-fileInfo = sys.argv[12]
+sysWidth = int(sys.argv[4])
+sysLength = int(sys.argv[5])
+analInterval = int(sys.argv[6])
+numStepsEquilib = int(sys.argv[7])
+numStepsSnapshot = int(sys.argv[8])
+numStepsAnal = int(sys.argv[9])
+numStepsReq = int(sys.argv[10])
+numPasses = int(sys.argv[11])
+timeInterval = float(sys.argv[12])
+fileInfo = sys.argv[13]
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
 
@@ -37,7 +38,8 @@ with open(resultsPlace+'settings', 'w') as f:
     f.write('BotConcentration = ' + str(botConc) +'\n')
     f.write('TopConcentration = ' + str(topConc) +'\n')
     f.write('FullRate = ' + str(rateConstFull) +'\n')
-    f.write('SysSize = ' + str(sysSize) +'\n')
+    f.write('SysWidth = ' + str(sysWidth) +'\n')
+    f.write('SysLength = ' + str(sysLength) +'\n')
     f.write('TimeInterval = ' + str(timeInterval) +'\n')
     f.write('AnalInterval = ' +str(analInterval) + '\n')
     f.write('NumStepsEquilib = '+str(numStepsEquilib) +'\n')
@@ -58,8 +60,8 @@ unit_cell = KMCUnitCell(cell_vectors=cell_vectors,
                         basis_points=basis_points)
 
 # Define the lattice.
-xRep = sysSize
-yRep = sysSize + 4
+xRep = sysWidth
+yRep = sysLength + 4
 zRep = 1
 numPoints = xRep*zRep*yRep
 lattice = KMCLattice(unit_cell=unit_cell,

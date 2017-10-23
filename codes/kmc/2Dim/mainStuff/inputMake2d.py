@@ -10,7 +10,8 @@ numStepsEquilib = 1600000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
 numStepsReq = 16000
-sysSize = 8
+sysWidth = 8
+sysLength = 8
 analInterval = 1
 numPasses = 100
 timeInterval = 1.0
@@ -32,7 +33,7 @@ for rateIndex in range(0, numLambda):
         botConc = concMin + concStepSize*botConcIndex
         for topConcIndex in range(0, numConcs):
             topConc = concMin + concStepSize*topConcIndex
-            jobInput = "2dSteadyFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"/"+str(topConcIndex)+"\n"
+            jobInput = "2dSteadyFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysWidth)+" "+str(sysLength)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"/"+str(topConcIndex)+"\n"
             with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
                 f.write(jobInput)
             jobIndex += 1
