@@ -10,12 +10,12 @@ numStepsEquilib = 1600000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
 numStepsReq = 16000
-sysWidth = 8
-sysLength = 8
+sysWidth = 16
+sysLength = 16
 analInterval = 1
 numPasses = 100
 timeInterval = 1.0
-dataLocation = "dim2Runs/attempt1/8x8/"
+dataLocation = "dim2Runs/attempt1/16x16/"
 lambdaMin = 0.05
 lambdaMax = 1.25
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
@@ -23,7 +23,7 @@ concMax = 0.99
 concMin = 0.01
 concStepSize = (concMax-concMin)/float(numConcs-1)
 
-jobIndex = 1
+jobIndex = 5185
 
 runningJobs = []
 

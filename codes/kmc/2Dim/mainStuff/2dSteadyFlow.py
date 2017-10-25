@@ -370,7 +370,7 @@ with open(resultsPlace+"ovNumHist.dat", 'w') as f:
     for index in range(0, numPoints):
         f.write(str(index)+" "+str(ovNumHist[index])+"\n")
 
-#shutil.rmtree(resultsPlace+"numHists", ignore_errors=True)
+shutil.rmtree(resultsPlace+"numHists", ignore_errors=True)
 
 
 print("Process would appear to have succesfully terminated! How very suspicious...")
