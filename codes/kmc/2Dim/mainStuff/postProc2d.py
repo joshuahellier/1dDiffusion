@@ -8,22 +8,24 @@ import math
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
-numConcs = 24
-numLambda = 6
-numStepsEquilib = 160000000
-numStepsAnal = 1600000
+
+numConcs = 12
+numLambda = 12
+numStepsEquilib = 1600000
+numStepsAnal = 16000
 numStepsSnapshot = 1000
-numStepsReq = 1600000
-sysSize = 124
+numStepsReq = 16000
+sysWidth = 16
+sysLength = 16
 analInterval = 1
 numPasses = 100
-timeInterval = 100.0
-dataLocation = "batchJobs/concRuns/attempt2/"
-lambdaMin = 0.1
-lambdaMax = 0.4
+timeInterval = 1.0
+dataLocation = "dim2Runs/attempt1/16x16/"
+lambdaMin = 0.05
+lambdaMax = 1.25
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-concMax = 0.97
-concMin = 0.03
+concMax = 0.99
+concMin = 0.01
 concStepSize = (concMax-concMin)/float(numConcs-1)
 
 jobIndex = 1
