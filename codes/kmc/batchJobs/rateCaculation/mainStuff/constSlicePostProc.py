@@ -20,12 +20,12 @@ sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/constDensSlice1/"
+dataLocation = "batchJobs/concRuns/constDensSlice2/"
 lambdaMin = 0.01
-lambdaMax = 0.6
+lambdaMax = 0.75
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-concMax = 4.0/3.0 - 0.35
-concMin = 0.35
+concMax = 1.0-0.01
+concMin = 0.01
 concStepSize = (concMax-concMin)/float(numConcs-1)
 jobIndex = 1
 
@@ -39,6 +39,7 @@ for rateIndex in range(0, numLambda):
     for botConcIndex in range(0, numConcs):
         currentLoc = resultDir+"/"+dataLocation+str(rateIndex)+"/"+str(botConcIndex)
         botConc = concMin + concStepSize*botConcIndex
+        topConc = 1.0 - botConc
         inTopVals = []
         outTopVals = []
         inBotVals = []
@@ -144,11 +145,11 @@ for rateIndex in range(0, numLambda):
             for index in range(0, numPasses):
                 squaredDev += (flows[index]-flowMean)*(flows[index]-flowMean)
             stdErr = math.sqrt(squaredDev)/float(numPasses)
-            rateData.append([currentRate, flowMean, stdErr, meanNum, errNum, meanNumBlk, errNumBlk, botConc-2.0/3.0])
+            rateData.append([currentRate, flowMean, stdErr, meanNum, errNum, meanNumBlk, errNumBlk, botConc-0.5])
             rateDesc = stats.describe(flows)
             flowMoments.append(rateDesc)
         else:
-            failedRuns.append("concFlow.py "+str(3.0/4.0)+" "+str(1.0/4.0)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"\n")
+            failedRuns.append("concFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(botConcIndex)+"\n")
             shutil.rmtree(currentLoc, ignore_errors=True)
 
 with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
@@ -188,7 +189,7 @@ with open(resultDir+"/"+dataLocation+"/densErrs.dat", 'w') as f:
             f.write(str(index[0])+" "+str(index[7])+" "+str(-1.0)+"\n")
 with open(resultDir+"/"+dataLocation+"/histMeans.dat", 'w') as f:
     for index in rateData:
-        f.write(str(index[0])+" "+str(index[5])+"\n")
+        f.write(str(index[0])+" "+str(index[7])+" "+str(index[5])+"\n")
 with open(resultDir+"/"+dataLocation+"/histErrs.dat", 'w') as f:
     for index in rateData:
         if index[5] != 0.0:
