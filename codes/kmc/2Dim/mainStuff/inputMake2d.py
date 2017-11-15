@@ -4,8 +4,8 @@ import os
 
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
-numConcs = 12
-numLambda = 12
+numConcs = 16
+numLambda = 16
 numStepsEquilib = 1600000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
@@ -15,7 +15,7 @@ sysLength = 16
 analInterval = 1
 numPasses = 100
 timeInterval = 1.0
-dataLocation = "dim2Runs/attempt1/16x16/"
+dataLocation = "dim2Runs/attempt1/32x32/"
 lambdaMin = 0.05
 lambdaMax = 1.25
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
@@ -23,7 +23,7 @@ concMax = 0.99
 concMin = 0.01
 concStepSize = (concMax-concMin)/float(numConcs-1)
 
-jobIndex = 5185
+jobIndex = 1
 
 runningJobs = []
 
