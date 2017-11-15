@@ -305,13 +305,13 @@ compositionTracker = Composition(time_interval=timeInterval)
 
 # Define the parameters; not entirely sure if these are sensible or not...
 control_parameters_equilib = KMCControlParameters(number_of_steps=numStepsEquilib, analysis_interval=numStepsEquilib/100,
-                                          dump_interval=numStepsEquilib/100)
+                                          dump_interval=numStepsEquilib/10)
 
 control_parameters_req = KMCControlParameters(number_of_steps=numStepsReq, analysis_interval=numStepsReq/100,
-                                          dump_interval=numStepsReq/100)
+                                          dump_interval=numStepsReq/10)
 
 control_parameters_anal = KMCControlParameters(number_of_steps=numStepsAnal, analysis_interval=1,
-                                          dump_interval=numStepsAnal/100)
+                                          dump_interval=numStepsAnal/10)
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 
