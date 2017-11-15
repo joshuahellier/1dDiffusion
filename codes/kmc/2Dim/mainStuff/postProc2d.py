@@ -20,7 +20,7 @@ sysLength = 16
 analInterval = 1
 numPasses = 100
 timeInterval = 1.0
-dataLocation = "dim2Runs/attempt1/16x16/"
+dataLocation = "dim2Runs/attempt1/32x32/"
 lambdaMin = 0.05
 lambdaMax = 1.25
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
@@ -33,6 +33,8 @@ jobIndex = 1
 runningJobs = []
 
 failedRuns = []
+
+sysSize = sysWidth*(sysLength+4)
 
 for rateIndex in range(0, numLambda):
     currentRate = lambdaMin + rateStepSize*rateIndex
@@ -94,6 +96,7 @@ for rateIndex in range(0, numLambda):
                 with open(currentLoc+"/ovNumHist.dat", 'r') as f:
                     lines = f.readlines()
                     if len(lines) != sysSize:
+                        print("Wrong number of things in histogram.")
                         failed = True
                     weights = []
                     for line in lines:
