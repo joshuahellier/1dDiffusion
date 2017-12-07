@@ -250,7 +250,7 @@ processes.append( KMCProcess(coordinates=coordinates,
                              basis_sites=basis_sites,
                              rate_constant=1.0))
 
-# Boundary Oxygen annihilation at the bottom boundary
+# Boundary Oxygen annihilation at the top boundary
 #11
 elements_before = ["ToO"]
 elements_after  = ["ToV"]
