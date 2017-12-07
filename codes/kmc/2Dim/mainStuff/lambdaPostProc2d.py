@@ -26,6 +26,8 @@ rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
 jobIndex = 1
 botConc = 0.75
 topConc = 0.25
+sysSize = sysWidth*(sysLength+4)
+
 
 runningJobs = []
 failedRuns = []
@@ -88,6 +90,7 @@ for rateIndex in range(0, numLambda):
             lines = f.readlines()
             if len(lines) != sysSize:
                 failed = True
+                print("Wrong number of items in histogram!\n")
             weights = []
             for line in lines:
                 words = line.split()
@@ -115,7 +118,7 @@ for rateIndex in range(0, numLambda):
         for index in range(0, numPasses):
             squaredDev += (flows[index]-flowMean)*(flows[index]-flowMean)
         stdErr = math.sqrt(squaredDev)/float(numPasses)
-        rateData.append([currentRate, flowMean, stdErr, meanNum, errNum, meanNumBlk, errNumBlk])
+        rateData.append([currentRate, flowMean, stdErr, meanNum, errNum])
         rateDesc = stats.describe(flows)
         flowMoments.append(rateDesc)
     else:
@@ -156,16 +159,7 @@ with open(resultDir+"/"+dataLocation+"/densErrs.dat", 'w') as f:
         else:
             f.write(str(index[0])+" "+str(-1.0)+"\n")
 
-with open(resultDir+"/"+dataLocation+"/histMeans.dat", 'w') as f:
-    for index in rateData:
-        f.write(str(index[0])+" "+str(index[5])+"\n")
-with open(resultDir+"/"+dataLocation+"/histErrs.dat", 'w') as f:
-    for index in rateData:
-        if index[5] != 0.0:
-            f.write(str(index[0])+" "+str(100.0*index[6]/abs(index[5]))+"\n")
-        else:
-            f.write(str(index[0])+" "+str(-1.0)+"\n")
-
+jobIndex = 1
 with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:
         f.write(index)
