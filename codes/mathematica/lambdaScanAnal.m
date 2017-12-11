@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Input:: *)
-(*loc="/home/s1373240/research/results/batchJobs/concRuns/lambdaScan2/";*)
+(*loc="/home/jhell/research/results/batchJobs/concRuns/lambdaScan2/";*)
 (*means2 = Import[loc<>"densMeans.dat", "Data"];*)
 (*errs2 = Import[loc<>"densErrs.dat", "Data"];*)
 (*flow2 = Import[loc<>"rateMeans.dat", "Data"];*)
@@ -13,7 +13,7 @@
 (*flowVars2 = Import[loc<>"flowVars.dat", "Data"];*)
 (*flowSkew2 = Import[loc<>"flowSkew.dat", "Data"];*)
 (*flowKurt2 = Import[loc<>"flowKurt.dat", "Data"];*)
-(*loc="/home/s1373240/research/results/batchJobs/concRuns/lambdaScan3/";*)
+(*loc="/home/jhell/research/results/batchJobs/concRuns/lambdaScan3/";*)
 (*means3 = Import[loc<>"densMeans.dat", "Data"];*)
 (*errs3 = Import[loc<>"densErrs.dat", "Data"];*)
 (*flow3 = Import[loc<>"rateMeans.dat", "Data"];*)
@@ -25,7 +25,7 @@
 (*flowVars3 = Import[loc<>"flowVars.dat", "Data"];*)
 (*flowSkew3 = Import[loc<>"flowSkew.dat", "Data"];*)
 (*flowKurt3 = Import[loc<>"flowKurt.dat", "Data"];*)
-(*loc="/home/s1373240/research/results/batchJobs/concRuns/lambdaScan4/";*)
+(*loc="/home/jhell/research/results/batchJobs/concRuns/lambdaScan4/";*)
 (*means4 = Import[loc<>"densMeans.dat", "Data"];*)
 (*errs4 = Import[loc<>"densErrs.dat", "Data"];*)
 (*flow4 = Import[loc<>"rateMeans.dat", "Data"];*)
@@ -37,7 +37,7 @@
 (*flowVars4 = Import[loc<>"flowVars.dat", "Data"];*)
 (*flowSkew4 = Import[loc<>"flowSkew.dat", "Data"];*)
 (*flowKurt4 = Import[loc<>"flowKurt.dat", "Data"];*)
-(*loc="/home/s1373240/research/results/batchJobs/concRuns/lambdaScan5/";*)
+(*loc="/home/jhell/research/results/batchJobs/concRuns/lambdaScan5/";*)
 (*means5 = Import[loc<>"densMeans.dat", "Data"];*)
 (*errs5 = Import[loc<>"densErrs.dat", "Data"];*)
 (*flow5 = Import[loc<>"rateMeans.dat", "Data"];*)
@@ -62,7 +62,7 @@
 (*ListPlot[{blockDev2, blockDev3, blockDev4, blockDev5}, PlotRange->{{0, 2},{-20, 5}}, ImageSize->Large]*)
 
 
-Show[{ListPlot[{flowMeans2, flowMeans3, flowMeans4, flowMeans5}, PlotRange->{{0, 0.3}, {0, 0.005}}, ImageSize->Large, PlotLegends->True], Plot[{J[2/3, 2/3, 1-l]/64, J[3/4, 1/4, 1-l]/64, J[0.75, 0.58, 1-l]/64, J[1, 0, 1-l]/64}, {l, 0, 2}]}]
+Show[{ListPlot[{flowMeans2, flowMeans3, flowMeans4, flowMeans5}, PlotRange->{{0, 0.7}, {0, 0.005}}, ImageSize->Large, PlotLegends->True], Plot[{J[2/3, 2/3, 1-l]/64, J[3/4, 1/4, 1-l]/64, J[0.75, 0.58, 1-l]/64, J[1, 0, 1-l]/64}, {l, 0, 2}]}]
 ListPlot[{flowVars2, flowVars3, flowVars4, flowVars5}, PlotRange->{{0, 0.7},  {0, 0.000005}}, ImageSize->Large]
 ListPlot[{flowSkew2, flowSkew3, flowSkew4, flowSkew5}, PlotRange->{{0, 0.7}, {-1, 1}}, ImageSize->Large]
 ListPlot[{flowKurt2, flowKurt3, flowKurt4, flowKurt5}, PlotRange->{{0, 0.7}, {0, 15}}, ImageSize->Large]
@@ -72,6 +72,18 @@ ListPlot[{flowKurt2, flowKurt3, flowKurt4, flowKurt5}, PlotRange->{{0, 0.7}, {0,
 
 
 
+
+
+
+
+
+
+
+
+Show[ListPlot[{means2, means4, means3, means5}, PlotRange->{{0, 0.7},{0.2, 1}}, ImageSize->Medium, PlotLegends->False], FrameLabel->{{"Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+Show[{ListPlot[{flowMeans2, flowMeans4, flowMeans3, flowMeans5}, PlotRange->{{0, 0.7}, {0, 0.005}}, ImageSize->Medium, PlotLegends->False, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True], Plot[{J[2/3, 2/3, 1-l]/64, J[3/4, 0.58, 1-l]/64, J[0.75, 1/4, 1-l]/64, J[1, 0, 1-l]/64}, {l, 0, 0.7}]}]
+ListPlot[{flowVars2, flowVars4, flowVars3, flowVars5}, PlotRange->{{0, 0.7},  {0, 0.00001}}, ImageSize->Medium, PlotLegends->False, FrameLabel->{{"Flow Rate Fluctuation/\!\(\*SuperscriptBox[\(s\), \(-2\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+ListPlot[{flowSkew2, flowSkew4, flowSkew3, flowSkew5}, PlotRange->{{0, 0.7}, {-0.6, 0.6}}, ImageSize->Medium, PlotLegends->False, FrameLabel->{{"Flow Rate Skewness", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 
 
 

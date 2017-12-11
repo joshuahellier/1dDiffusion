@@ -118,7 +118,7 @@ for rateIndex in range(0, numLambda):
         for index in range(0, numPasses):
             squaredDev += (flows[index]-flowMean)*(flows[index]-flowMean)
         stdErr = math.sqrt(squaredDev)/float(numPasses)
-        rateData.append([currentRate, flowMean, stdErr, meanNum, errNum])
+        rateData.append([currentRate, flowMean, stdErr, meanNum, sqrDev])
         rateDesc = stats.describe(flows)
         flowMoments.append(rateDesc)
     else:
@@ -129,7 +129,7 @@ with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
 with open(resultDir+"/"+dataLocation+"/rateErrs.dat", 'w') as f:
     for index in rateData:
         if index[1] != 0.0:
-            f.write(str(index[0])+" "+str(100.0*index[2]/abs(index[1]))+"\n")
+            f.write(str(index[0])+" "+str(index[2])+"\n")
         else:
             f.write(str(index[0])+" "+str(-1.0)+"\n")
 
