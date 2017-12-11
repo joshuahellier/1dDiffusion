@@ -129,7 +129,7 @@ with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
 with open(resultDir+"/"+dataLocation+"/rateErrs.dat", 'w') as f:
     for index in rateData:
         if index[1] != 0.0:
-            f.write(str(index[0])+" "+str(index[2])+"\n")
+            f.write(str(index[0])+" "+str(index[2]/abs(index[1]))+"\n")
         else:
             f.write(str(index[0])+" "+str(-1.0)+"\n")
 
@@ -155,7 +155,7 @@ with open(resultDir+"/"+dataLocation+"/densMeans.dat", 'w') as f:
 with open(resultDir+"/"+dataLocation+"/densErrs.dat", 'w') as f:
     for index in rateData:
         if index[3] != 0.0:
-            f.write(str(index[0])+" "+str(100.0*index[4]/abs(index[3]))+"\n")
+            f.write(str(index[0])+" "+str(index[4])+"\n")
         else:
             f.write(str(index[0])+" "+str(-1.0)+"\n")
 
