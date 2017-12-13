@@ -23,7 +23,7 @@
 (*ListDensityPlot[flowKurt1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotRange->Automatic, PlotLegends->True]*)
 
 
-ListDensityPlot[means1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic]
+Show[ListDensityPlot[means1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic, ImageSize->Medium], FrameLabel->{{"\[Delta]\[Rho]", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 ListDensityPlot[errs1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic]
 ListDensityPlot[histMeans1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic]
 ListDensityPlot[histErrs1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->{0, 10000}]
@@ -38,6 +38,15 @@ ListDensityPlot[flowVars1, InterpolationOrder->0, ColorFunction->"Rainbow", Plot
 ListDensityPlot[flowSkew1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotRange->Automatic, PlotLegends->True, FrameLabel->{{"\[Delta]\[Rho]", "Flow Rate Skewness"}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 ListDensityPlot[means1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic, FrameLabel->{{"\[Delta]\[Rho]", "Observed Density"}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 ContourPlot[J[0.5+d, 0.5-d, 1-l],  {l, 0, 0.75}, {d, -0.5, 0.5}, ColorFunction->"Rainbow", PlotLegends->True, FrameLabel->{{"\[Delta]\[Rho]", "Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)"}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, Contours->20]
+
+
+
+
+
+Show[{ListDensityPlot[flowMeans1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic, ImageSize->Medium]}, FrameLabel->{{"\[Delta]\[Rho]", "Mean Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)"}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+Show[ListDensityPlot[flowVars1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotRange->Automatic, PlotLegends->True], FrameLabel->{{"\[Delta]\[Rho]", "Flow Variance/\!\(\*SuperscriptBox[\(s\), \(-2\)]\)"}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+Show[ListDensityPlot[flowSkew1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotRange->Automatic, PlotLegends->True], FrameLabel->{{"\[Delta]\[Rho]", "Flow Skewness"}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+Show[ListDensityPlot[means1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic, ImageSize->Medium], FrameLabel->{{"\[Delta]\[Rho]", None}, {"\[Lambda]", "Density"}}, RotateLabel->True, Frame->True]
 
 
 
