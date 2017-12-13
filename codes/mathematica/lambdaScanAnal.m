@@ -50,6 +50,7 @@
 (*flowSkew5 = Import[loc<>"flowSkew.dat", "Data"];*)
 (*flowKurt5 = Import[loc<>"flowKurt.dat", "Data"];*)
 (*J[b_, t_, z_]:= ((b-t) + z(b^3-t^3+2t^2-2b^2));*)
+(*A[rB_, rT_, z_]:=(6 (rB+rT)+(9 rB^3+rB^2 (-16+9 rT)+rB rT (-16+9 rT)+rT^2 (-16+9 rT)) z)/(12+12 (rB^2+rB (-2+rT)+(-2+rT) rT) z)*)
 
 
 (* ::Input:: *)
