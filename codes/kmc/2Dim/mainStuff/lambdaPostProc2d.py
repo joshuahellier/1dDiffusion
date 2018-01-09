@@ -14,16 +14,16 @@ numStepsEquilib = 1600000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
 numStepsReq = 160000
-sysWidth = 32
-sysLength = 32
+sysWidth = 8
+sysLength = 8
 analInterval = 1
-numPasses = 100
+numPasses = 256
 timeInterval = 1.0
-dataLocation = "dim2Runs/lambdaScan1/"
-lambdaMin = 0.05
-lambdaMax = 1.25
+dataLocation = "dim2Runs/closeLook/8x8/"
+lambdaMin = 0.01
+lambdaMax = 0.75
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-jobIndex = 1
+jobIndex = 9
 botConc = 0.75
 topConc = 0.25
 sysSize = sysWidth*(sysLength+4)
@@ -159,7 +159,6 @@ with open(resultDir+"/"+dataLocation+"/densErrs.dat", 'w') as f:
         else:
             f.write(str(index[0])+" "+str(-1.0)+"\n")
 
-jobIndex = 1
 with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:
         f.write(index)
