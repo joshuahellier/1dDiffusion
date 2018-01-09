@@ -10,7 +10,7 @@
 
 
 (* ::Input:: *)
-(**)
+(*Manipulate[Plot[x[r, 3/4, 1/4, z], {r, 3/4, 1/4}], {z, 0, 1, 0.01}]*)
 
 
 (* ::Input:: *)
@@ -45,4 +45,4 @@
 (*Manipulate[ContourPlot[A[rB, rT, z], {rB, 0, 1}, {rT, 0, 1}, PlotRange->{0, 1}, PlotLegends->True], {z, 0, 1, 0.02}]*)
 
 
-
+Manipulate[Plot[x[r, rB, rT, z], {r, rB, rT}], {rB, 0.5, 1, 0.01}, {rT, 0, 0.5, 0.01}, {z, 0, 0.75}]

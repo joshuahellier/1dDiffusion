@@ -2,23 +2,27 @@
 
 (* ::Input:: *)
 (*J[b_, t_, z_]:= 1/6 (-6 b+24 b^2 z-6 b^5 z^3+3 b^4 z^2 (5+3 z)-2 b^3 z (5+13 z)+t (6+t z (-24+t (10+z (26+3 t (-5+(-3+2 t) z))))));*)
-(*loc="/home/s1373240/research/results/dim2Runs/lambdaScan2/";*)
-(*means1 = Import[loc<>"densMeans.dat", "Data"];*)
-(*errs1 = Import[loc<>"densErrs.dat", "Data"];*)
-(*flow1 = Import[loc<>"rateMeans.dat", "Data"];*)
-(*flowErr1 = Import[loc<>"rateErrs.dat", "Data"];*)
-(*flowMeans1 = Import[loc<>"flowMeans.dat", "Data"];*)
-(*flowVars1 = Import[loc<>"flowVars.dat", "Data"];*)
-(*flowSkew1 = Import[loc<>"flowSkew.dat", "Data"];*)
-(*flowKurt1 = Import[loc<>"flowKurt.dat", "Data"];*)
+(*loc="/home/jhell/research/results/dim2Runs/closeLook/";*)
+(*temps = {"8x8/", "16x16/", "32x32/", "32x64/", "64x32/", "64x64/"};*)
+(*means = Table[Import[loc<>temps[[index]]<>"densMeans.dat", "Data"], {index, 1, 6}];*)
+(*errs = Table[Import[loc<>temps[[index]]<>"densErrs.dat", "Data"], {index, 1, 6}];*)
+(*flow = Table[Import[loc<>temps[[index]]<>"rateMeans.dat", "Data"], {index, 1, 6}];*)
+(*flowErr = Table[Import[loc<>temps[[index]]<>"rateErrs.dat", "Data"], {index, 1, 6}];*)
+(*flowMeans = Table[Import[loc<>temps[[index]]<>"flowMeans.dat", "Data"], {index, 1, 6}];*)
+(*flowVars = Table[Import[loc<>temps[[index]]<>"flowVars.dat", "Data"], {index, 1, 6}];*)
+(*flowSkew = Table[Import[loc<>temps[[index]]<>"flowSkew.dat", "Data"], {index, 1, 6}];*)
+(*flowKurt = Table[Import[loc<>temps[[index]]<>"flowKurt.dat", "Data"], {index, 1, 6}];*)
 
 
-Show[{ListPlot[flowMeans1], Plot[J[0.25, 0.9, 1-l], {l, 0, 1.2}]}]
-ListPlot[flowVars1, PlotRange->All]
-ListPlot[flowSkew1, PlotRange->{-5, 5}]
-ListPlot[flowKurt1, PlotRange->{0, 10}]
-ListPlot[means1, PlotRange->All]
-ListPlot[errs1, PlotRange->All]
+ListPlot[flowMeans, PlotLegends->True]
+ListPlot[flowVars, PlotRange->All, PlotLegends->True]
+ListPlot[flowSkew, PlotRange->{-5, 5}, PlotLegends->True]
+ListPlot[flowKurt, PlotRange->{0, 10}, PlotLegends->True]
+ListPlot[means, PlotRange->All, PlotLegends->True]
+ListLogPlot[errs, PlotRange->All, PlotLegends->True]
+
+
+
 
 
 

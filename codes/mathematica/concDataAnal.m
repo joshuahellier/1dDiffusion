@@ -58,3 +58,7 @@
 
 (* ::Input:: *)
 (*Manipulate[ListDensityPlot[altPlot[[index+1]], ColorFunction->"Rainbow",ColorFunctionScaling->True,InterpolationOrder->1, ImageSize->Medium, PlotLegends->True, PlotRange->All, PlotRange->{-0.002, 0.002}], {index, 0, 5, 1}]*)
+
+
+A[rB_, rT_, z_]:=(6 (rB+rT)+(9 rB^3+rB^2 (-16+9 rT)+rB rT (-16+9 rT)+rT^2 (-16+9 rT)) z)/(12+12 (rB^2+rB (-2+rT)+(-2+rT) rT) z);
+Manipulate[GraphicsRow[{ListDensityPlot[densMeans[[index+1]], ColorFunction->"Rainbow", PlotRange->{0, 1}, InterpolationOrder->0, ImageSize->Large, PlotLegends->True], ContourPlot[A[rB, rT, 1-lList[[index+1]]], {rB, 0, 1}, {rT, 0, 1}, PlotRange->{0, 1}, PlotLegends->True, ImageSize->Large, ColorFunction->"Rainbow"]}, ImageSize->Large], {index, 0, 5, 1}]

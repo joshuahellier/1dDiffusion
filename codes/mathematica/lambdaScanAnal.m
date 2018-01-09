@@ -81,10 +81,16 @@ ListPlot[{flowKurt2, flowKurt3, flowKurt4, flowKurt5}, PlotRange->{{0, 0.7}, {0,
 
 
 
-Show[ListPlot[{means2, means4, means3, means5}, PlotRange->{{0, 0.7},{0.2, 1}}, ImageSize->Medium, PlotLegends->False], FrameLabel->{{"Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+Show[{ListPlot[{means2, means4, means3, means5}, PlotRange->{{0, 0.7},{0.2, 1}}, ImageSize->Medium, PlotLegends->False], Plot[{2/3, A[3/4, 0.58, 1-l], A[0.75, 0.25, 1-l], A[1, 0, 1-l]}, {l, 0.25, 0.75}]}, FrameLabel->{{"Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 Show[{ListPlot[{flowMeans2, flowMeans4, flowMeans3, flowMeans5}, PlotRange->{{0, 0.7}, {0, 0.005}}, ImageSize->Medium, PlotLegends->False, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True], Plot[{J[2/3, 2/3, 1-l]/64, J[3/4, 0.58, 1-l]/64, J[0.75, 1/4, 1-l]/64, J[1, 0, 1-l]/64}, {l, 0, 0.7}]}]
-ListPlot[{flowVars2, flowVars4, flowVars3, flowVars5}, PlotRange->{{0, 0.7},  {0, 0.00001}}, ImageSize->Medium, PlotLegends->False, FrameLabel->{{"Flow Rate Fluctuation/\!\(\*SuperscriptBox[\(s\), \(-2\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+ListPlot[{flowVars2, flowVars4, flowVars3, flowVars5}, PlotRange->{{0, 0.7},  {0, 0.00001}}, ImageSize->Medium, PlotLegends->False, FrameLabel->{{"Flow Rate Variance/\!\(\*SuperscriptBox[\(s\), \(-2\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 ListPlot[{flowSkew2, flowSkew4, flowSkew3, flowSkew5}, PlotRange->{{0, 0.7}, {-0.6, 0.6}}, ImageSize->Medium, PlotLegends->False, FrameLabel->{{"Flow Rate Skewness", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+
+
+
+
+
+
 
 
 
