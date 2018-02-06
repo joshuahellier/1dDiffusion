@@ -151,7 +151,7 @@ with open(resultDir+"/"+dataLocation+"/flowKurt.dat", 'w') as f:
 
 with open(resultDir+"/"+dataLocation+"/densMeans.dat", 'w') as f:
     for index in rateData:
-        f.write(str(index[0])+" "+str(index[3]/float(sysSize))+"\n")
+        f.write(str(index[0])+" "+str(index[3]/float(sysWidth*sysLength))+"\n")
 with open(resultDir+"/"+dataLocation+"/densErrs.dat", 'w') as f:
     for index in rateData:
         if index[3] != 0.0:
