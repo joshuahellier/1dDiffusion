@@ -10,20 +10,20 @@ resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
 numLambda = 512
-numStepsEquilib = 1600000
+numStepsEquilib = 16000000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
-numStepsReq = 160000
-sysWidth = 8
-sysLength = 8
+numStepsReq = 640000
+sysWidth =64
+sysLength = 16
 analInterval = 1
 numPasses = 256
 timeInterval = 1.0
-dataLocation = "dim2Runs/closeLook/8x8/"
+dataLocation = "dim2Runs/longEqCloseLook/64x16/"
 lambdaMin = 0.01
 lambdaMax = 0.75
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-jobIndex = 9
+jobIndex = 1
 botConc = 0.75
 topConc = 0.25
 sysSize = sysWidth*(sysLength+4)
