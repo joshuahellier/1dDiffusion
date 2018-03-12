@@ -18,11 +18,14 @@ sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/lambdaScan2/"
-lambdaMin = 0.01
-lambdaMax = 2.0
+dataLocation = "batchJobs/concRuns/highLambdaScan4/"
+lambdaMin = 30.0
+lambdaMax = 1000.0
+aParam = 1.0
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
 jobIndex = 1
+botConc = 0.5
+topConc = 0.3
 
 runningJobs = []
 failedRuns = []
@@ -31,7 +34,8 @@ flowMoments = []
 
 for rateIndex in range(0, numLambda):
     currentLoc = resultDir+"/"+dataLocation+str(rateIndex)
-    currentRate = lambdaMin + rateStepSize*rateIndex
+    tempRate = lambdaMin + rateStepSize*rateIndex
+    currentRate = (lambdaMax - lambdaMin)*(math.exp(aParam*(tempRate-lambdaMin)/(lambdaMax-lambdaMin))-1.0)/(math.exp(aParam)-1) + lambdaMin
     inTopVals = []
     outTopVals = []
     inBotVals = []
@@ -141,7 +145,7 @@ for rateIndex in range(0, numLambda):
         rateDesc = stats.describe(flows)
         flowMoments.append(rateDesc)
     else:
-        failedRuns.append("concFlow.py "+str(3.0/4.0)+" "+str(1.0/4.0)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"\n")
+        failedRuns.append("concFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"\n")
 with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
     for index in rateData:
         f.write(str(index[0])+" "+str(index[1])+"\n")
