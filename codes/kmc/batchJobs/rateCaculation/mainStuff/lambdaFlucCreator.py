@@ -14,12 +14,12 @@ sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/highLambdaScan1/"
-lambdaMin = 0.7
-lambdaMax = 30.0
+dataLocation = "batchJobs/concRuns/highLambdaScan6/"
+lambdaMin = 30.0
+lambdaMax = 1000.0
 aParam = 1.0
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-jobIndex = 1
+jobIndex = 1025
 
 runningJobs = []
 
