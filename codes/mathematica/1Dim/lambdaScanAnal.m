@@ -105,3 +105,66 @@ Epilog -> {Text[Style["(99/100, 1/100)", 8], Scaled[{0.8, 0.85}]], Text[Style["(
 
 
 
+
+
+loc="/home/jhell/research/results/batchJobs/concRuns/highLambdaScan1/";
+means6 = Import[loc<>"densMeans.dat", "Data"];
+errs6 = Import[loc<>"densErrs.dat", "Data"];
+flow6 = Import[loc<>"rateMeans.dat", "Data"];
+flowErr6 = Import[loc<>"rateErrs.dat", "Data"];
+histMeans6 = Import[loc<>"histMeans.dat", "Data"];
+histErrs6 = Import[loc<>"histErrs.dat", "Data"];
+blockDev6 = Import[loc<>"blockDev.dat", "Data"];
+flowMeans6 = Import[loc<>"flowMeans.dat", "Data"];
+flowVars6 = Import[loc<>"flowVars.dat", "Data"];
+flowSkew6 = Import[loc<>"flowSkew.dat", "Data"];
+flowKurt6 = Import[loc<>"flowKurt.dat", "Data"];
+loc="/home/jhell/research/results/batchJobs/concRuns/highLambdaScan2/";
+means7 = Import[loc<>"densMeans.dat", "Data"];
+errs7 = Import[loc<>"densErrs.dat", "Data"];
+flow7 = Import[loc<>"rateMeans.dat", "Data"];
+flowErr7 = Import[loc<>"rateErrs.dat", "Data"];
+histMeans7 = Import[loc<>"histMeans.dat", "Data"];
+histErrs7 = Import[loc<>"histErrs.dat", "Data"];
+blockDev7 = Import[loc<>"blockDev.dat", "Data"];
+flowMeans7 = Import[loc<>"flowMeans.dat", "Data"];
+flowVars7 = Import[loc<>"flowVars.dat", "Data"];
+flowSkew7 = Import[loc<>"flowSkew.dat", "Data"];
+flowKurt7 = Import[loc<>"flowKurt.dat", "Data"];
+loc="/home/jhell/research/results/batchJobs/concRuns/highLambdaScan3/";
+means8 = Import[loc<>"densMeans.dat", "Data"];
+errs8 = Import[loc<>"densErrs.dat", "Data"];
+flow8 = Import[loc<>"rateMeans.dat", "Data"];
+flowErr8 = Import[loc<>"rateErrs.dat", "Data"];
+histMeans8 = Import[loc<>"histMeans.dat", "Data"];
+histErrs8 = Import[loc<>"histErrs.dat", "Data"];
+blockDev8 = Import[loc<>"blockDev.dat", "Data"];
+flowMeans8 = Import[loc<>"flowMeans.dat", "Data"];
+flowVars8 = Import[loc<>"flowVars.dat", "Data"];
+flowSkew8 = Import[loc<>"flowSkew.dat", "Data"];
+flowKurt8 = Import[loc<>"flowKurt.dat", "Data"];
+loc="/home/jhell/research/results/batchJobs/concRuns/highLambdaScan4/";
+means9 = Import[loc<>"densMeans.dat", "Data"];
+errs9 = Import[loc<>"densErrs.dat", "Data"];
+flow9 = Import[loc<>"rateMeans.dat", "Data"];
+flowErr9 = Import[loc<>"rateErrs.dat", "Data"];
+histMeans9 = Import[loc<>"histMeans.dat", "Data"];
+histErrs9 = Import[loc<>"histErrs.dat", "Data"];
+blockDev9 = Import[loc<>"blockDev.dat", "Data"];
+flowMeans9 = Import[loc<>"flowMeans.dat", "Data"];
+flowVars9 = Import[loc<>"flowVars.dat", "Data"];
+flowSkew9 = Import[loc<>"flowSkew.dat", "Data"];
+flowKurt9 = Import[loc<>"flowKurt.dat", "Data"];
+
+
+Show[{ListLogLogPlot[{flowMeans6, flowMeans7, flowMeans8, flowMeans3, flowMeans9}, PlotRange->{{1, 30}, {0.001, 0.1}}, ImageSize->Large, PlotLegends->True], LogLogPlot[{J[3/4, 1/4, 1-l]/64, J[0.9, 0.7, 1-l]/64, J[0.5, 0.3, 1-l]/64}, {l, 1, 30}]}]
+ListLogLogPlot[{flowVars6, flowVars7, flowVars8, flowVars9}]
+ListLogLogPlot[{means6, means3, means7, means8, means9}]
+ListLogLogPlot[{histMeans6, histMeans7, histMeans8, histMeans9}]
+ListPlot[{means6, means3, means7, means8, means9}]
+
+
+
+
+
+

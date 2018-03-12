@@ -303,7 +303,7 @@ processStatsOxInBot = ImageStats(processes=[5], time_interval=timeInterval, spat
 
 # Define the parameters; not entirely sure if these are sensible or not...
 control_parameters_snapshot = KMCControlParameters(number_of_steps=numImageSteps, analysis_interval=1,
-                                          dump_interval=numImageSteps/100)
+                                          dump_interval=numImageSteps/sysSize)
 
 control_parameters_equilib = KMCControlParameters(number_of_steps=numStepsEquilib, analysis_interval=numStepsEquilib/100,
                                           dump_interval=numStepsEquilib/100)

@@ -9,7 +9,7 @@
 (*\[Rho]l1 = \[Rho] - a d\[Rho] + 1/2 a^2 d2\[Rho];*)
 (*\[Rho]l2 = \[Rho] - 2a d\[Rho] +2 a^2 d2\[Rho];*)
 (*\[Rho]m = \[Rho];*)
-(*d\[Rho]dt = (1-\[Rho]m)(\[Rho]l1(1-\[Zeta] \[Rho]l2) + \[Rho]r1(1-\[Zeta] \[Rho]r2)) - \[Rho]m((1-\[Rho]l1)(1-\[Zeta] \[Rho]r1) + (1-\[Rho]r1)(1-\[Zeta] \[Rho]l1));*)
+(*d\[Rho]dt = (1-\[Rho]m)(\[Rho]l1(1-\[Zeta] \[Rho]l2) + \[Rho]r1(1-\[Zeta] \[Rho]r2)) - \[Rho]m((1-\[Rho]l1)(1-\[Zeta] \[Rho]r1) + (1-\[Rho]r1)(1-\[Zeta] \[Rho]l1))+O[a]^4;*)
 (*FullSimplify[d\[Rho]dt]*)
 (**)
 
@@ -21,6 +21,3 @@
 (*d\[Rho]dt = 1/2 a^2 (4 \[Zeta] (-2+3 \[Rho]) d\[Rho]^2+d2\[Rho] (2+2\[Zeta] \[Rho] (-4+3 \[Rho]) ))*)
 (*Coefficient[Collect[d\[Rho]dt, \[Epsilon], FullSimplify], \[Epsilon], 1]*)
 (**)
-
-
-

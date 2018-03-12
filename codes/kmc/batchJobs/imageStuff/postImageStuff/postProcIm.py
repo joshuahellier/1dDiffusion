@@ -283,7 +283,21 @@ for i in directoryList:
             typeFile.write(str(tempTotal/overallTotal)+" ")
         typeFile.write("\n")
     typeFile.close()
-
+    sites = []
+    times = []
+    steps = []
+    types = []
+    execfile(currentDir+"/snapTraj.tr")
+    print("Execution successful!\n")
+    numTimes = len(types)
+    with open(currentDir+"/straightTypes.dat", 'w') as f:
+        for siteIndex in range(2, sysSize-2):
+            for timeIndex in range(0, numTimes):
+                if types[timeIndex][siteIndex] == "O":
+                    f.write("1 ")
+                else:
+                    f.write("0 ")
+            f.write("\n")
 
 
 

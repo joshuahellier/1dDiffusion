@@ -154,3 +154,47 @@ ArrayPlot[Abs[#]^2&/@ftPi3, PlotRange->{0, 1}, ImageSize->{512, 512}]
 
 
 
+
+
+loc12 = "/home/jhell/research/results/feb2018ImageRecast/imageCheck/0/";
+theta1 = Import[loc12<>"0/typeStats.dat", "Data"];
+theta2 = Import[loc12<>"0/straightTypes.dat", "Data"];
+theta3 = Import[loc12<>"1/typeStats.dat", "Data"];
+theta4 = Import[loc12<>"1/straightTypes.dat", "Data"];
+refinedTheta1 = Partition[Transpose[(1-#)&/@theta1], 1];
+refinedTheta2 = Partition[Transpose[(1-#)&/@theta2], 1];
+refinedTheta3 = Partition[Transpose[(1-#)&/@theta3], 1];
+refinedTheta4 = Partition[Transpose[(1-#)&/@theta4], 1];
+
+
+ArrayPlot[(1-#)&/@theta1, ImageSize->{512, 512}]
+ArrayPlot[(1-#)&/@theta2, ImageSize->{512, 512}]
+ArrayPlot[(1-#)&/@theta3, ImageSize->{512, 512}]
+ArrayPlot[(1-#)&/@theta4, ImageSize->{512, 512}]
+
+
+Manipulate[ArrayPlot[refinedTheta4[[timeIndex]], PlotRange->{0, 1}], {timeIndex, 1, 512, 1}]
+
+
+loc13 = "/home/jhell/research/results/feb2018ImageRecast/fastFlow/0/";
+peta1 = Import[loc13<>"1/typeStats.dat", "Data"];
+peta2 = Import[loc13<>"1/straightTypes.dat", "Data"];
+
+
+ArrayPlot[peta1, ImageSize->{512, 512}]
+ArrayPlot[peta2, ImageSize->{512, 512}]
+refinedPeta1 = Partition[(1-#)&/@peta1, 1];
+refinedPeta2 = Partition[Transpose[(1-#)&/@peta2], 1];
+Manipulate[ArrayPlot[refinedPeta2[[timeIndex]], PlotRange->{0, 1}], {timeIndex, 1, 512, 1}]
+
+
+
+
+
+ ArrayPlot[(1-#)&/@alpha1, PlotRange->{0, 1}, ImageSize->{1028, 1024}, Frame->None]
+ ArrayPlot[(1-#)&/@alpha2, PlotRange->{0, 1}, ImageSize->{1028, 1024}, Frame->None]
+ ArrayPlot[(1-#)&/@alpha3, PlotRange->{0, 1}, ImageSize->{1028, 1024}, Frame->None]
+ ArrayPlot[(1-#)&/@alpha4, PlotRange->{0, 1}, ImageSize->{1028, 1024}, Frame->None]
+
+
+

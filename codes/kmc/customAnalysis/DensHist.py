@@ -40,6 +40,8 @@ class DensHist(KMCAnalysisPlugin):
             if i in self.__spec:
                 total += 1
         self.__currTot = total
+        self.__lastTime = time
+        self.__currentTime = time
 
     def registerStep(self, step, time, configuration):
         self.__currentTime = time

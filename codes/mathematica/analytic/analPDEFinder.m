@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Input:: *)
-(*n = 4;*)
+(*n = 1;*)
 (*zero = 0*UnitVector[n, 1];*)
 (*e[i_] := UnitVector[n, i];*)
 (*Hess = Table[Piecewise[{{d2p[j, i], j>i}}, d2p[i, j]], {i, 1, n}, {j, 1, n}];*)
@@ -17,3 +17,13 @@
 
 -6 (p0^2 z (-2+p0 z) (-1+p0+p0 z) (2+p0 z (-2+p0 z)))
 -4 (p0^2 z (-2+p0 z) (-1+p0+p0 z))
+
+
+FullSimplify[D[(1-z r[x](4-3r[x])) D[r[x], x], x]]
+
+
+Integrate[1-z r(4-3r), r]
+
+
+(* ::InheritFromParent:: *)
+(*FullSimplify[r-2 r^2 z+r^3 z]*)
