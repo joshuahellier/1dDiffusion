@@ -2,6 +2,7 @@ import sys
 import os
 import math
 import shutil
+from random import randint
 
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
@@ -67,18 +68,22 @@ lattice = KMCLattice(unit_cell=unit_cell,
 
 types = []
 
-for yIndex in range(0, yRep):
-    for xIndex in range(0, xRep):
-        random = numpy.random.rand()
-        if random < ovConc:
-            types.append((xIndex, yIndex, 0, 0, "O"))
-        else:
-            types.append((xIndex, yIndex, 0, 0, "V"))     
+types = ["V"]*numPoints   
+
+numParticles = int(numPoints*ovConc)
+i=0
+firstPass = True
+while firstPass or ( i <= numParticles and i < numPoints-1 ):
+    firstPass = False
+    typePos = randint(0, numPoints-1)
+    if types[typePos] == "V":
+        types[typePos] = "O"
+        i += 1
 
 # Setup the configuration.
 configuration = KMCConfiguration(lattice=lattice,
                                  types=types,
-                                 possible_types=["O","V"], default_type="V")
+                                 possible_types=["O","V"])
 
 
 # Rates.

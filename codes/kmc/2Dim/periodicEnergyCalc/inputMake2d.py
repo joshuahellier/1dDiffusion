@@ -16,7 +16,7 @@ analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
 aParam = 1.0
-dataLocation = "/dim2Runs/periodic/periodicSmall/"
+dataLocation = "dim2Runs/periodic/periodicSmall"
 lambdaMin = 0.01
 lambdaMax = 100.0
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
@@ -33,7 +33,7 @@ for rateIndex in range(0, numLambda):
     currentRate = (lambdaMax - lambdaMin)*(math.exp(aParam*(tempRate-lambdaMin)/(lambdaMax-lambdaMin))-1.0)/(math.exp(aParam)-1) + lambdaMin
     for concIndex in range(0, numConcs):
         conc = concMin + concStepSize*concIndex
-        jobInput = "2dPeriodic.py "+str(conc)+" "+str(currentRate)+" "+str(sysWidth)+" "+str(sysLength)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+dataLocation+str(rateIndex)+"/"+str(concIndex)+"\n"
+        jobInput = "2dPeriodic.py "+str(conc)+" "+str(currentRate)+" "+str(sysWidth)+" "+str(sysLength)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+dataLocation+"/"+str(rateIndex)+"/"+str(concIndex)+"\n"
         with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
             f.write(jobInput)
         jobIndex += 1
