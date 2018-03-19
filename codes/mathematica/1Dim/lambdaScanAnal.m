@@ -155,13 +155,28 @@ flowMeans9 = Import[loc<>"flowMeans.dat", "Data"];
 flowVars9 = Import[loc<>"flowVars.dat", "Data"];
 flowSkew9 = Import[loc<>"flowSkew.dat", "Data"];
 flowKurt9 = Import[loc<>"flowKurt.dat", "Data"];
+loc="/home/jhell/research/results/batchJobs/concRuns/highLambdaScan5/";
+means10 = Import[loc<>"densMeans.dat", "Data"];
+errs10 = Import[loc<>"densErrs.dat", "Data"];
+flow10 = Import[loc<>"rateMeans.dat", "Data"];
+flowErr10 = Import[loc<>"rateErrs.dat", "Data"];
+histMeans10 = Import[loc<>"histMeans.dat", "Data"];
+histErrs10 = Import[loc<>"histErrs.dat", "Data"];
+blockDev10 = Import[loc<>"blockDev.dat", "Data"];
+flowMeans10 = Import[loc<>"flowMeans.dat", "Data"];
+flowVars10 = Import[loc<>"flowVars.dat", "Data"];
+flowSkew10 = Import[loc<>"flowSkew.dat", "Data"];
+flowKurt10 = Import[loc<>"flowKurt.dat", "Data"];
 
 
-Show[{ListLogLogPlot[{flowMeans6, flowMeans7, flowMeans8, flowMeans3, flowMeans9}, PlotRange->{{1, 30}, {0.001, 0.1}}, ImageSize->Large, PlotLegends->True], LogLogPlot[{J[3/4, 1/4, 1-l]/64, J[0.9, 0.7, 1-l]/64, J[0.5, 0.3, 1-l]/64}, {l, 1, 30}]}]
-ListLogLogPlot[{flowVars6, flowVars7, flowVars8, flowVars9}]
-ListLogLogPlot[{means6, means3, means7, means8, means9}]
-ListLogLogPlot[{histMeans6, histMeans7, histMeans8, histMeans9}]
-ListPlot[{means6, means3, means7, means8, means9}]
+Show[{ListLogLogPlot[{flowMeans6, flowMeans7, flowMeans8, flowMeans3, flowMeans9, flowMeans10}, PlotRange->{{1, 30}, {0.001, 0.1}}, ImageSize->Large, PlotLegends->True], LogLogPlot[{J[3/4, 1/4, 1-l]/64, J[0.9, 0.7, 1-l]/64, J[0.5, 0.3, 1-l]/64}, {l, 1, 30}]}]
+ListLogLogPlot[{flowVars6, flowVars7, flowVars8, flowVars9, flowVars10}]
+ListLogLogPlot[{means6, means3, means7, means8, means9, means10}]
+ListLogLogPlot[{histMeans6, histMeans7, histMeans8, histMeans9, histMeans10}]
+ListPlot[{means6, means3, means7, means8, means9, means10}]
+
+
+
 
 
 
