@@ -5,7 +5,7 @@ import math
 
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
-numLambda = 512
+numLambda = 128
 numStepsEquilib = 400000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
@@ -14,12 +14,12 @@ sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/highLambdaScan6/"
+dataLocation = "batchJobs/concRuns/highLambdaScan7/"
 lambdaMin = 30.0
-lambdaMax = 1000.0
+lambdaMax = 1000000000.0
 aParam = 1.0
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-jobIndex = 1025
+jobIndex = 1
 
 runningJobs = []
 
