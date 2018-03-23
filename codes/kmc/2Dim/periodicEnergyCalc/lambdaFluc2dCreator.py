@@ -25,7 +25,7 @@ jobIndex = 1
 
 for rateIndex in range(0, numLambda):
     tempRate = lambdaMin + rateStepSize*rateIndex
-    currentRate = (lambdaMax - lambdaMin)*(math.exp(aParam*(tempRate-lambdaMin)/(lambdaMax-lambdaMin))-1.0)/(math.exp(aParam)-1) + lambdaMin
+    currentRate = math.exp(((tempRate-lambdaMin)*math.log(lambdaMax)+(lambdaMax-tempRate)*math.log(lambdaMin))/(lambdaMax-lambdaMin))
     jobInput = "2dPeriodic.py "+str(avConc)+" "+str(currentRate)+" "+str(sysWidth)+" "+str(sysLength)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+dataLocation+str(rateIndex)+"\n"
     with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
         f.write(jobInput)
