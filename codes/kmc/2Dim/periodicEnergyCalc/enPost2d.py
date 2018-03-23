@@ -77,7 +77,7 @@ for rateIndex in range(0, numLambda):
         else:
             failedRuns.append(jobInput)
     
-with open(resultDir+"/"+dataLocation+"enMeans.dat", 'w') as f:
+with open(resultDir+"/"+dataLocation+"/enMeans.dat", 'w') as f:
     for index in enData:
         f.write(str(index[0])+" "+str(index[1])+" "+str(index[2])+"\n")
 
@@ -85,7 +85,7 @@ with open(resultDir+"/"+dataLocation+"/enPerParticle.dat", 'w') as f:
     for index in enData:
         f.write(str(index[0])+" "+str(index[1])+" "+str(index[2]/(index[1]*sysSize))+"\n")
 
-with open(resultDir+"/"+dataLocation+"enErr.dat", 'w') as f:
+with open(resultDir+"/"+dataLocation+"/enErr.dat", 'w') as f:
     for index in enData:
         f.write(str(index[0])+" "+str(index[1])+" "+str(index[3])+"\n")
 
