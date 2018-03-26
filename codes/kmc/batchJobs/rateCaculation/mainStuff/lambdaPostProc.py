@@ -18,7 +18,7 @@ sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/extremeLanbdaScan1/"
+dataLocation = "batchJobs/concRuns/extremeLambdaScan1/"
 lambdaMin = 1000.0
 lambdaMax = 1000000000.0
 aParam = 1.0
@@ -35,7 +35,7 @@ flowMoments = []
 for rateIndex in range(0, numLambda):
     currentLoc = resultDir+"/"+dataLocation+str(rateIndex)
     tempRate = lambdaMin + rateStepSize*rateIndex
-    currentRate = (lambdaMax - lambdaMin)*(math.exp(aParam*(tempRate-lambdaMin)/(lambdaMax-lambdaMin))-1.0)/(math.exp(aParam)-1) + lambdaMin
+    currentRate = math.exp(((tempRate-lambdaMin)*math.log(lambdaMax)+(lambdaMax-tempRate)*math.log(lambdaMin))/(lambdaMax-lambdaMin))
     inTopVals = []
     outTopVals = []
     inBotVals = []
