@@ -9,24 +9,19 @@ from scipy import stats
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
-numLambda = 512
-numStepsEquilib = 16000000
-numStepsAnal = 16000
-numStepsSnapshot = 1000
-numStepsReq = 640000
-sysWidth =64
+numLambda = 1024
+numStepsEquilib = 16**6
+numStepsAnal = 16**4
+numStepsReq = 16**5
+sysWidth = 16
 sysLength = 16
 analInterval = 1
 numPasses = 256
-timeInterval = 1.0
-dataLocation = "dim2Runs/longEqCloseLook/64x16/"
-lambdaMin = 0.01
-lambdaMax = 0.75
+dataLocation = "dim2Runs/lambdaFluc/lambdaFluc1/"
+lambdaMin = 0.001
+lambdaMax = 1000.0
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-jobIndex = 1
-botConc = 0.75
-topConc = 0.25
-sysSize = sysWidth*(sysLength+4)
+avConc = 0.5
 
 
 runningJobs = []
@@ -36,57 +31,15 @@ flowMoments = []
 
 for rateIndex in range(0, numLambda):
     currentLoc = resultDir+"/"+dataLocation+str(rateIndex)
-    currentRate = lambdaMin + rateStepSize*rateIndex
-    inTopVals = []
-    outTopVals = []
-    inBotVals = []
-    outBotVals = []
-    failed = False
-    try:
-        with open(currentLoc+"/inTop.dat", 'r') as f:
-            lines = f.readlines()
-            if len(lines) != numPasses:
-                failed = True
-                print("wrongLength")
-            for line in lines:
-                inTopVals.append(float(line))
-    except IOError:
-        failed = True
-        print("ioError")
-    try:
-        with open(currentLoc+"/outTop.dat", 'r') as f:
-            lines = f.readlines()
-            if len(lines) != numPasses:
-                failed = True
-            for line in lines:
-                outTopVals.append(float(line))
-    except IOError:
-        failed = True
-    try:
-        with open(currentLoc+"/inBot.dat", 'r') as f:
-            lines = f.readlines()
-            if len(lines) != numPasses:
-                failed = True
-            for line in lines:
-                inBotVals.append(float(line))
-    except IOError:
-        failed = True
-    try:
-        with open(currentLoc+"/outBot.dat", 'r') as f:
-            lines = f.readlines()
-            if len(lines) != numPasses:
-                failed = True
-            for line in lines:
-                outBotVals.append(float(line))
-    except IOError:
-        failed = True
+    tempRate = lambdaMin + rateStepSize*rateIndex
+    currentRate = math.exp(((tempRate-lambdaMin)*math.log(lambdaMax)+(lambdaMax-tempRate)*math.log(lambdaMin))/(lambdaMax-lambdaMin))
 
     totWeight = 0.0
     meanNum = 0.0
     sqrDev = 0.0
 
     try:
-        with open(currentLoc+"/ovNumHist.dat", 'r') as f:
+        with open(currentLoc+"/ovEnHist.dat", 'r') as f:
             lines = f.readlines()
             if len(lines) != sysSize:
                 failed = True
@@ -103,61 +56,28 @@ for rateIndex in range(0, numLambda):
                     meanNum += index*weights[index]
                 for index in range(0, len(weights)):
                     sqrDev += weights[index]*(index - meanNum)*(index - meanNum)
-                    errNum = math.sqrt(sqrDev/float(numPasses))
+                errNum = math.sqrt(sqrDev/float(numPasses))
     except (IOError, LookupError):
         failed = True
 
     if failed == False:
-        total = 0.0
-        flows = []
-        for index in range(0, numPasses):
-            flows.append(0.5*((inBotVals[index]-outBotVals[index]) + (outTopVals[index] - inTopVals[index])))
-            total += flows[-1]
-        flowMean = total/float(numPasses)
-        squaredDev = 0.0
-        for index in range(0, numPasses):
-            squaredDev += (flows[index]-flowMean)*(flows[index]-flowMean)
-        stdErr = math.sqrt(squaredDev)/float(numPasses)
-        rateData.append([currentRate, flowMean, stdErr, meanNum, sqrDev])
+        rateData.append([currentRate, meanNum, sqrDev])
         rateDesc = stats.describe(flows)
         flowMoments.append(rateDesc)
     else:
-        failedRuns.append("2dSteadyFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysWidth)+" "+str(sysLength)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"\n")
-with open(resultDir+"/"+dataLocation+"/rateMeans.dat", 'w') as f:
-    for index in rateData:
+        failedRuns.append("2dPeriodic.py "+str(avConc)+" "+str(currentRate)+" "+str(sysWidth)+" "+str(sysLength)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+dataLocation+str(rateIndex)+"\n")
+
+with open(resultDir+"/"+dataLocation+"/enMeans.dat", 'w') as f:
+    for index in enData:
         f.write(str(index[0])+" "+str(index[1])+"\n")
-with open(resultDir+"/"+dataLocation+"/rateErrs.dat", 'w') as f:
-    for index in rateData:
-        if index[1] != 0.0:
-            f.write(str(index[0])+" "+str(index[2]/abs(index[1]))+"\n")
-        else:
-            f.write(str(index[0])+" "+str(-1.0)+"\n")
 
-with open(resultDir+"/"+dataLocation+"/flowMeans.dat", 'w') as f:
-    for i in range(0, len(rateData)):
-        f.write(str(rateData[i][0])+" "+str(flowMoments[i][2])+"\n")
+with open(resultDir+"/"+dataLocation+"/enPerParticle.dat", 'w') as f:
+    for index in enData:
+        f.write(str(index[0])+" "+str(index[1]/(avConc*sysSize))+"\n")
 
-with open(resultDir+"/"+dataLocation+"/flowVars.dat", 'w') as f:
-    for i in range(0, len(rateData)):
-        f.write(str(rateData[i][0])+" "+str(flowMoments[i][3])+"\n")
-
-with open(resultDir+"/"+dataLocation+"/flowSkew.dat", 'w') as f:
-    for i in range(0, len(rateData)):
-        f.write(str(rateData[i][0])+" "+str(flowMoments[i][4])+"\n")
-
-with open(resultDir+"/"+dataLocation+"/flowKurt.dat", 'w') as f:
-    for i in range(0, len(rateData)):
-        f.write(str(rateData[i][0])+" "+str(flowMoments[i][5])+"\n")
-
-with open(resultDir+"/"+dataLocation+"/densMeans.dat", 'w') as f:
-    for index in rateData:
-        f.write(str(index[0])+" "+str(index[3]/float(sysWidth*sysLength))+"\n")
-with open(resultDir+"/"+dataLocation+"/densErrs.dat", 'w') as f:
-    for index in rateData:
-        if index[3] != 0.0:
-            f.write(str(index[0])+" "+str(index[4])+"\n")
-        else:
-            f.write(str(index[0])+" "+str(-1.0)+"\n")
+with open(resultDir+"/"+dataLocation+"/enErr.dat", 'w') as f:
+    for index in enData:
+        f.write(str(index[0])+" "+str(index[2])+"\n")
 
 with open(resultDir+"/"+dataLocation+"failedRuns.proc", 'w') as f:
     for index in failedRuns:

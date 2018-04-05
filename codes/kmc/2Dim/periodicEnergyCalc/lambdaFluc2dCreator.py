@@ -18,7 +18,6 @@ lambdaMin = 0.001
 lambdaMax = 1000.0
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
 avConc = 0.5
-aParam = 4.0
 
 runningJobs = []
 jobIndex = 1
