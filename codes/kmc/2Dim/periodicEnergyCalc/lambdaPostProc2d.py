@@ -15,6 +15,7 @@ numStepsAnal = 16**4
 numStepsReq = 16**5
 sysWidth = 16
 sysLength = 16
+sysSize = sysLength*sysWidth
 analInterval = 1
 numPasses = 256
 dataLocation = "dim2Runs/lambdaFluc/lambdaFluc1/"
@@ -26,22 +27,21 @@ avConc = 0.5
 
 runningJobs = []
 failedRuns = []
-rateData = []
-flowMoments = []
+enData = []
+jobIndex = 1
 
 for rateIndex in range(0, numLambda):
     currentLoc = resultDir+"/"+dataLocation+str(rateIndex)
     tempRate = lambdaMin + rateStepSize*rateIndex
     currentRate = math.exp(((tempRate-lambdaMin)*math.log(lambdaMax)+(lambdaMax-tempRate)*math.log(lambdaMin))/(lambdaMax-lambdaMin))
-
+    failed = False
     totWeight = 0.0
     meanNum = 0.0
     sqrDev = 0.0
-
     try:
         with open(currentLoc+"/ovEnHist.dat", 'r') as f:
             lines = f.readlines()
-            if len(lines) != sysSize:
+            if len(lines) != 2*sysSize:
                 failed = True
                 print("Wrong number of items in histogram!\n")
             weights = []
@@ -61,9 +61,7 @@ for rateIndex in range(0, numLambda):
         failed = True
 
     if failed == False:
-        rateData.append([currentRate, meanNum, sqrDev])
-        rateDesc = stats.describe(flows)
-        flowMoments.append(rateDesc)
+        enData.append([currentRate, meanNum, sqrDev])
     else:
         failedRuns.append("2dPeriodic.py "+str(avConc)+" "+str(currentRate)+" "+str(sysWidth)+" "+str(sysLength)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+dataLocation+str(rateIndex)+"\n")
 
