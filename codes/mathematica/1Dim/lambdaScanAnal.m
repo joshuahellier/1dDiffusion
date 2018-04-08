@@ -83,7 +83,7 @@ ListPlot[{flowKurt2, flowKurt3, flowKurt4, flowKurt5}, PlotRange->{{0, 0.7}, {0,
 
 Show[ListPlot[{means2, means4, means3, means5}, PlotRange->{{0, 0.7},{0.2, 1}}, ImageSize->350, PlotLegends->False], FrameLabel->{{"Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, LabelStyle->Directive[Black],
 Epilog -> {Text[Style["(99/100, 1/100)", 8], Scaled[{0.6, 0.15}]], Text[Style["(2/3, 2/3)", 8], Scaled[{0.5, 0.7}]], Text[Style["(3/4, 7/12)", 8], Scaled[{0.7, 0.7}]], Text[Style["(3/4, 1/4)", 8], Scaled[{0.15, 0.52}]]}]
-Show[{ListPlot[{flowMeans2, flowMeans4, flowMeans3, flowMeans5}, PlotRange->{{0, 0.7}, {0, 0.005}}, ImageSize->350, PlotLegends->False, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True], Plot[{J[2/3, 2/3, 1-l]/64, J[3/4, 0.58, 1-l]/64, J[0.75, 1/4, 1-l]/64, J[1, 0, 1-l]/64}, {l, 0, 0.7}
+Show[{ListPlot[{flowMeans2, flowMeans4, flowMeans3, flowMeans5}, PlotRange->{{0, 0.7}, {-0.0005, 0.005}}, ImageSize->350, PlotLegends->False, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True], Plot[{J[2/3, 2/3, 1-l]/64, J[3/4, 0.58, 1-l]/64, J[0.75, 1/4, 1-l]/64, J[1, 0, 1-l]/64}, {l, 0, 0.7}
 ]}, LabelStyle->Directive[Black],
 Epilog -> {Text[Style["(2/3, 2/3)", 8], Scaled[{0.9, 0.1}]], Text[Style["(3/4, 1/4)", 8], Scaled[{0.5, 0.55}]], Text[Style["(3/4, 7/12)", 8], Scaled[{0.7, 0.325}]], Text[Style["(99/100, 1/100)", 8], Scaled[{0.125, 0.52}]]}]
 ListPlot[{flowVars2, flowVars4, flowVars3, flowVars5}, PlotRange->{{0, 0.7},  {0, 0.00001}}, ImageSize->350, PlotLegends->False, FrameLabel->{{"Flow Rate Variance/\!\(\*SuperscriptBox[\(s\), \(-2\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, LabelStyle->Directive[Black],
@@ -234,6 +234,27 @@ ListLogLogPlot[{means14}]
 
 
 
+
+
+
+
+
+
+flowErrs2 = (Sqrt[#[[2]]/10000]) & /@ flowVars2;
+flowMeans2Err = Table[{flowMeans2[[i]][[1]], flowMeans2[[i]][[2]], flowErrs2[[i]]}, {i, 1, Length[flowMeans2]}];
+flowErrs3 = (Sqrt[#[[2]]/10000]) & /@ flowVars3;
+flowMeans3Err = Table[{flowMeans3[[i]][[1]], flowMeans3[[i]][[2]], flowErrs3[[i]]}, {i, 1, Length[flowMeans3]}];
+flowErrs4 = (Sqrt[#[[2]]/10000]) & /@ flowVars4;
+flowMeans4Err = Table[{flowMeans4[[i]][[1]], flowMeans4[[i]][[2]], flowErrs4[[i]]}, {i, 1, Length[flowMeans4]}];
+flowErrs5 = (Sqrt[#[[2]]/10000]) & /@ flowVars5;
+flowMeans5Err = Table[{flowMeans5[[i]][[1]], flowMeans5[[i]][[2]], flowErrs5[[i]]}, {i, 1, Length[flowMeans5]}];
+
+
+
+Needs["ErrorBarPlots`"]
+Show[{ErrorListPlot[{flowMeans4Err, flowMeans3Err, flowMeans5Err, flowMeans2Err}, PlotRange->{{0, 0.7}, {-0.00005, 0.0015}}, ImageSize->350, PlotLegends->False, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True], Plot[{J[2/3, 2/3, 1-l]/64, J[3/4, 0.58, 1-l]/64, J[0.75, 1/4, 1-l]/64, J[1, 0, 1-l]/64}, {l, 0, 0.7}
+]}, LabelStyle->Directive[Black],
+Epilog -> {Text[Style["(2/3, 2/3)", 8], Scaled[{0.9, 0.1}]], Text[Style["(3/4, 1/4)", 8], Scaled[{0.5, 0.55}]], Text[Style["(3/4, 7/12)", 8], Scaled[{0.7, 0.325}]], Text[Style["(99/100, 1/100)", 8], Scaled[{0.125, 0.52}]]}]
 
 
 

@@ -22,14 +22,15 @@
 
 (* ::Input:: *)
 (*contourData = Flatten[Table[{newConcData[[index]]\[Transpose][[1]], Table[lambdaTable[[index]], {j, 1, Length[newConcData[[index]]\[Transpose][[2]]]}], flowData[[index]]\[Transpose][[2]]}\[Transpose],{index, 1, 12}], 1];*)
+(*contourData = Join[Table[{0, lambdaTable[[i]], 1},{i, 1, 12}], Table[{1, lambdaTable[[i]],lambdaTable[[i]]},{i, 1, 12}], contourData];*)
 (*contourErr = Flatten[Table[{newConcData[[index]]\[Transpose][[1]], Table[lambdaTable[[index]], {j, 1, Length[newConcData[[index]]\[Transpose][[2]]]}], flowData[[index]]\[Transpose][[3]]}\[Transpose],{index, 1, 12}], 1];*)
 (*densData = Flatten[Table[{newConcData[[index]]\[Transpose][[1]], Table[lambdaTable[[index]], {j, 1, Length[newConcData[[index]]\[Transpose][[2]]]}], newConcData[[index]]\[Transpose][[2]]}\[Transpose],{index, 1, 12}], 1];*)
 (*densErr = Flatten[Table[{newConcData[[index]]\[Transpose][[1]], Table[lambdaTable[[index]], {j, 1, Length[newConcData[[index]]\[Transpose][[2]]]}], newConcData[[index]]\[Transpose][[3]]}\[Transpose],{index, 1, 12}], 1];*)
 
 
 (* ::Input:: *)
-(*ContourPlot[1+(1-\[Lambda]) \[Rho] (-4+3 \[Rho]), {\[Rho], 0, 1}, {\[Lambda], 0, 1.2}, PlotRange->{0, 1.25}, Contours->20, ColorFunction->"Rainbow", PlotLegends->Automatic, ImageSize->320, PlotLegends->False, FrameLabel->{{"\[Lambda]", "D"}, {"\!\(\*SubscriptBox[\(\[Rho]\), \(M\)]\)", "MFT Prediction of Diffusion Coefficient"}}, RotateLabel->True, Frame->True, LabelStyle->Directive[Black]]*)
-(*ListContourPlot[contourData, PlotRange->{{ 0, 1}, { 0, 1.2},{0, 1.25}}, Contours->20, ColorFunction->"Rainbow", PlotLegends->Automatic, ImageSize->320, PlotLegends->False, FrameLabel->{{"\[Lambda]", "D"}, {"\!\(\*SubscriptBox[\(\[Rho]\), \(M\)]\)", "Numerical Simulation of Diffusion Coefficient"}}, RotateLabel->True, Frame->True, LabelStyle->Directive[Black], InterpolationOrder->1]*)
+(*ContourPlot[Piecewise[{{0,1+(1-\[Lambda]) \[Rho] (-4+3 \[Rho])<=0}, {1.25, 1+(1-\[Lambda]) \[Rho] (-4+3 \[Rho])>=1.25}} ,1+(1-\[Lambda]) \[Rho] (-4+3 \[Rho])], {\[Rho], 0, 1}, {\[Lambda], 0, 1.2}, PlotRange->{0, 1.25}, Contours->20, ColorFunction->"Rainbow", PlotLegends->Automatic, ImageSize->320, PlotLegends->False, FrameLabel->{{"\[Lambda]", "D"}, {"\!\(\*SubscriptBox[\(\[Rho]\), \(M\)]\)", "MFT Prediction of Diffusion Coefficient"}}, RotateLabel->True, Frame->True, LabelStyle->Directive[Black], Exclusions->None]*)
+(*ListContourPlot[contourData, PlotRange->{{ 0, 1.001}, { 0, 1.2},{0, 1.25}}, Contours->20, ColorFunction->"Rainbow", PlotLegends->Automatic, ImageSize->320, PlotLegends->False, FrameLabel->{{"\[Lambda]", "D"}, {"\!\(\*SubscriptBox[\(\[Rho]\), \(M\)]\)", "Numerical Simulation of Diffusion Coefficient"}}, RotateLabel->True, Frame->True, LabelStyle->Directive[Black], InterpolationOrder->1]*)
 (*ListContourPlot[contourErr, PlotRange->{{ 0, 1}, { 0, 1.2},Automatic}, Contours->20, ColorFunction->"Rainbow", PlotLegends->Automatic, ImageSize->320, PlotLegends->False, FrameLabel->{{"\[Lambda]", "Std. Error in D"}, {"\!\(\*SubscriptBox[\(\[Rho]\), \(M\)]\)", "Error in Diffusion Coefficient"}}, RotateLabel->True, Frame->True, LabelStyle->Directive[Black], InterpolationOrder->1]*)
 (*ListContourPlot[densData, PlotRange->{{ 0, 1}, { 0, 1.2},Automatic}, Contours->20, ColorFunction->"Rainbow", PlotLegends->Automatic, ImageSize->320, PlotLegends->False, FrameLabel->{{"\[Lambda]", "\[LeftAngleBracket]\[Rho]\[RightAngleBracket]"}, {"\!\(\*SubscriptBox[\(\[Rho]\), \(M\)]\)", "Observed System-Averaged Density"}}, RotateLabel->True, Frame->True, LabelStyle->Directive[Black], InterpolationOrder->1]*)
 (*ListContourPlot[densErr, PlotRange->{{ 0, 1}, { 0, 1.2},Automatic}, Contours->20, ColorFunction->"Rainbow", PlotLegends->Automatic, ImageSize->320, PlotLegends->False, FrameLabel->{{"\[Lambda]", "\[LeftAngleBracket]\[Rho]\[RightAngleBracket]"}, {"\!\(\*SubscriptBox[\(\[Rho]\), \(M\)]\)", "Observed System-Averaged Density"}}, RotateLabel->True, Frame->True, LabelStyle->Directive[Black], InterpolationOrder->1]*)
@@ -37,3 +38,10 @@
 
 ListDensityPlot[densErr, PlotRange->{{ 0, 1}, { 0, 1.2},Automatic}, ColorFunction->"Rainbow", PlotLegends->Automatic, ImageSize->320, PlotLegends->False, 
 FrameLabel->{{"\[Lambda]", "\[LeftAngleBracket]\[Rho]\[RightAngleBracket]"}, {"\!\(\*SubscriptBox[\(\[Rho]\), \(M\)]\)", "Observed System-Averaged Density"}}, RotateLabel->True, Frame->True, LabelStyle->Directive[Black], InterpolationOrder->0]
+
+
+Length[contourData]
+contourData
+
+
+
