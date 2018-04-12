@@ -179,7 +179,7 @@ flowMeans11 = Import[loc<>"flowMeans.dat", "Data"];
 flowVars11 = Import[loc<>"flowVars.dat", "Data"];
 flowSkew11 = Import[loc<>"flowSkew.dat", "Data"];
 flowKurt11 = Import[loc<>"flowKurt.dat", "Data"];
-loc="/home/jhell/research/results/batchJobs/concRuns/extremeLanbdaScan1/";
+loc="/home/jhell/research/results/batchJobs/concRuns/extremeLambdaScan1/";
 means12 = Import[loc<>"densMeans.dat", "Data"];
 errs12 = Import[loc<>"densErrs.dat", "Data"];
 flow12 = Import[loc<>"rateMeans.dat", "Data"];
@@ -191,7 +191,7 @@ flowMeans12 = Import[loc<>"flowMeans.dat", "Data"];
 flowVars12 = Import[loc<>"flowVars.dat", "Data"];
 flowSkew12 = Import[loc<>"flowSkew.dat", "Data"];
 flowKurt12 = Import[loc<>"flowKurt.dat", "Data"];
-loc="/home/jhell/research/results/batchJobs/concRuns/extremeLanbdaScan2/";
+loc="/home/jhell/research/results/batchJobs/concRuns/extremeLambdaScan2/";
 means13 = Import[loc<>"densMeans.dat", "Data"];
 errs13 = Import[loc<>"densErrs.dat", "Data"];
 flow13 = Import[loc<>"rateMeans.dat", "Data"];
@@ -203,7 +203,7 @@ flowMeans13 = Import[loc<>"flowMeans.dat", "Data"];
 flowVars13 = Import[loc<>"flowVars.dat", "Data"];
 flowSkew13 = Import[loc<>"flowSkew.dat", "Data"];
 flowKurt13 = Import[loc<>"flowKurt.dat", "Data"];
-loc="/home/jhell/research/results/batchJobs/concRuns/extremeLanbdaScan3/";
+loc="/home/jhell/research/results/batchJobs/concRuns/extremeLambdaScan3/";
 means14 = Import[loc<>"densMeans.dat", "Data"];
 errs14 = Import[loc<>"densErrs.dat", "Data"];
 flow14 = Import[loc<>"rateMeans.dat", "Data"];
@@ -217,7 +217,7 @@ flowSkew14 = Import[loc<>"flowSkew.dat", "Data"];
 flowKurt14 = Import[loc<>"flowKurt.dat", "Data"];
 
 
-Show[{ListLogLogPlot[{flowMeans6, flowMeans7, flowMeans8, flowMeans3, flowMeans9, flowMeans10, flowMeans11, flowMeans12, flowMeans13, flowMeans14}, ImageSize->Large, PlotLegends->True], LogLogPlot[{J[3/4, 1/4, 1-l]/64, J[0.9, 0.7, 1-l]/64, J[0.5, 0.3, 1-l]/64}, {l, 1, 30}]}]
+Show[{ListLogLogPlot[{flowMeans6, flowMeans7, flowMeans8, flowMeans3, flowMeans9, flowMeans10, flowMeans11, flowMeans12, flowMeans13, flowMeans14}, ImageSize->Large, PlotLegends->True], LogLogPlot[{J[3/4, 1/4, 1-l]/64, J[0.9, 0.7, 1-l]/64, J[0.5, 0.3, 1-l]/64}, {l, 1, 10^9}]}]
 ListLogLogPlot[{flowVars6, flowVars7, flowVars8, flowVars9, flowVars10, flowVars11, flowVars12, flowVars13, flowVars14}]
 ListLogLogPlot[{means6, means3, means7, means8, means9, means10, means11, means12, means13, means14}]
 ListLogLogPlot[{histMeans6, histMeans7, histMeans8, histMeans9, histMeans10, histMeans11, histMeans12, histMeans13, histMeans14}]
