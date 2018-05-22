@@ -14,3 +14,11 @@ Table[fourAv[Fourier[newList]], {b, 0, 10, 0.1}]
 
 
 
+
+
+i = 2;
+myList[[i]][[1]]
+ListPlot[myList[[i]][[2]]/.b->Log[10], PlotRange->{-0.2, 1.2}]
+
+
+

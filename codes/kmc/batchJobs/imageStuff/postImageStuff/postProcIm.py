@@ -280,7 +280,10 @@ for i in directoryList:
                 if changes[chunkEnd][1] == "O":
                     tempTotal += (timeChunkIndex+1)*timeChunkSize+initialTime - changes[chunkEnd][0]
                 overallTotal += (timeChunkIndex+1)*timeChunkSize+initialTime - changes[chunkEnd][0]
-            typeFile.write(str(tempTotal/overallTotal)+" ")
+            if siteIndex%2==0:
+                typeFile.write(str(tempTotal/overallTotal)+" ")
+            else:
+                typeFile.write(str(1.0-tempTotal/overallTotal)+" ")
         typeFile.write("\n")
     typeFile.close()
     sites = []
