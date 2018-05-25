@@ -259,3 +259,8 @@ Epilog -> {Text[Style["(2/3, 2/3)", 8], Scaled[{0.9, 0.1}]], Text[Style["(3/4, 1
 
 
 
+
+
+Show[{ListPlot[{flowMeans3, flowMeans4, flowMeans2, flowMeans5}, PlotRange->{{0, 0.7}, {-0.0005, 0.005}}, ImageSize->350, PlotLegends->False, RotateLabel->True, Frame->True], Plot[{J[3/4, 1/4, 1-l]/64, J[3/4, 0.58, 1-l]/64, J[3/2, 3/2, 1-l]/64, J[1, 0, 1-l]/64}, {l, 0, 0.7}
+]}, LabelStyle->Directive[Black],
+Epilog -> {Text[Style["(2/3, 2/3)", 8], Scaled[{0.9, 0.15}]], Text[Style["(3/4, 1/4)", 8], Scaled[{0.4, 0.55}]], Text[Style["(3/4, 7/12)", 8], Scaled[{0.6, 0.325}]], Text[Style["(99/100, 1/100)", 8], Scaled[{0.15, 0.75}]]}]
