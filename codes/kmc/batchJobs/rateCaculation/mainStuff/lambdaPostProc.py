@@ -9,22 +9,22 @@ from scipy import stats
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
-numLambda = 32
+numLambda = 1024
 numStepsEquilib = 4000000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
 numStepsReq = 16000
-sysSize = 32
+sysSize = 64
 analInterval = 1
 numPasses = 10000
 timeInterval = 1.0
-dataLocation = "batchJobs/concRuns/newLambdaScans/lambdaScan3Repeats/size32/"
-lambdaMin = 0.01
-lambdaMax = 0.25
+dataLocation = "batchJobs/concRuns/wideSweep/wideHigh/"
+lambdaMin = 10.0**(-6)
+lambdaMax = 10.0**6
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-jobIndex = 1
-botConc = 0.75
-topConc = 0.25
+jobIndex = 75
+botConc = 0.9
+topConc = 0.7
 
 runningJobs = []
 failedRuns = []
@@ -34,8 +34,8 @@ flowMoments = []
 for rateIndex in range(0, numLambda):
     currentLoc = resultDir+"/"+dataLocation+str(rateIndex)
     tempRate = lambdaMin + rateStepSize*rateIndex
-    currentRate = tempRate
-#    currentRate = math.exp(((tempRate-lambdaMin)*math.log(lambdaMax)+(lambdaMax-tempRate)*math.log(lambdaMin))/(lambdaMax-lambdaMin))
+#    currentRate = tempRate
+    currentRate = math.exp(((tempRate-lambdaMin)*math.log(lambdaMax)+(lambdaMax-tempRate)*math.log(lambdaMin))/(lambdaMax-lambdaMin))
     inTopVals = []
     outTopVals = []
     inBotVals = []

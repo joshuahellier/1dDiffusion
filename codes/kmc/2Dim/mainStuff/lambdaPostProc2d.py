@@ -9,23 +9,23 @@ from scipy import stats
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
-numLambda = 512
+numLambda = 1024
 numStepsEquilib = 16000000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
 numStepsReq = 640000
-sysWidth =64
+sysWidth =16
 sysLength = 16
 analInterval = 1
 numPasses = 256
 timeInterval = 1.0
-dataLocation = "dim2Runs/longEqCloseLook/64x16/"
-lambdaMin = 0.01
-lambdaMax = 0.75
+dataLocation = "dim2Runs/wideScan/highDens/"
+lambdaMin = 10.0**(-4)
+lambdaMax = 10.0**4
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-jobIndex = 1
-botConc = 0.75
-topConc = 0.25
+jobIndex = 132
+botConc = 0.9
+topConc = 0.7
 sysSize = sysWidth*(sysLength+4)
 
 
@@ -36,7 +36,8 @@ flowMoments = []
 
 for rateIndex in range(0, numLambda):
     currentLoc = resultDir+"/"+dataLocation+str(rateIndex)
-    currentRate = lambdaMin + rateStepSize*rateIndex
+    tempRate = lambdaMin + rateStepSize*rateIndex
+    currentRate = math.exp(((tempRate-lambdaMin)*math.log(lambdaMax)+(lambdaMax-tempRate)*math.log(lambdaMin))/(lambdaMax-lambdaMin))
     inTopVals = []
     outTopVals = []
     inBotVals = []
