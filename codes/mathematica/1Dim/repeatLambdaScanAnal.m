@@ -52,6 +52,13 @@
 
 
 (* ::Input:: *)
+(*Needs["ErrorBarPlots`"]*)
+(*Needs["ErrorBarLogPlots`"]*)
+(*fullFlows332 =Table[{flowMeans332[[i]][[1]], 1/2flowMeans332[[i]][[2]], 1/2Sqrt[flowVars332[[i]][[2]]/10000]}, {i, 1, Length[flowMeans332]}];*)
+(*fullFlows364 =Table[{flowMeans3[[i]][[1]], flowMeans3[[i]][[2]], Sqrt[flowVars3[[i]][[2]]/10000]}, {i, 1, Length[flowMeans3]}];*)
+(*fullFlows3128 =Table[{flowMeans3128[[i]][[1]], 2flowMeans3128[[i]][[2]], 2Sqrt[flowVars3128[[i]][[2]]/10000]}, {i, 1, Length[flowMeans3128]}];*)
+(*fullFlows3256 =Table[{flowMeans3256[[i]][[1]], 4flowMeans3256[[i]][[2]], 4Sqrt[flowVars3256[[i]][[2]]/10000]}, {i, 1, Length[flowMeans3256]}];*)
+(*ErrorListLogLogPlot[{fullFlows332, fullFlows364, fullFlows3128, fullFlows3256}, PlotRange->{{0.01, 1.5}, {10^-6, 0.1}}]*)
 (*ListLogLogPlot[{{#[[1]], 1/2 #[[2]]}&/@flowMeans332, flowMeans3, {#[[1]], 2#[[2]]}&/@flowMeans3128, {#[[1]], 4#[[2]]}&/@flowMeans3256}, PlotLegends->True, PlotRange->{{0, 0.25}, {0, 0.0015}}]*)
 (*ListPlot[{{#[[1]], 1  #[[2]]}&/@flowVars332, flowVars3, {#[[1]],1 #[[2]]}&/@flowVars3128, {#[[1]], 1 #[[2]]}&/@flowVars3256}, PlotLegends->True, PlotRange->{{0, 0.25}, {0, 0.00002}}]*)
 (*ListPlot[{{#[[1]], 1 #[[2]]}&/@means332, means3, {#[[1]],1#[[2]]}&/@means3128, {#[[1]], 1#[[2]]}&/@means3256}, PlotLegends->True, PlotRange->{{0, 0.25}, {0, 1}}]*)
