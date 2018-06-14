@@ -58,10 +58,11 @@
 (*fullFlows364 =Table[{flowMeans3[[i]][[1]], flowMeans3[[i]][[2]], Sqrt[flowVars3[[i]][[2]]/10000]}, {i, 1, Length[flowMeans3]}];*)
 (*fullFlows3128 =Table[{flowMeans3128[[i]][[1]], 2flowMeans3128[[i]][[2]], 2Sqrt[flowVars3128[[i]][[2]]/10000]}, {i, 1, Length[flowMeans3128]}];*)
 (*fullFlows3256 =Table[{flowMeans3256[[i]][[1]], 4flowMeans3256[[i]][[2]], 4Sqrt[flowVars3256[[i]][[2]]/10000]}, {i, 1, Length[flowMeans3256]}];*)
-(*ErrorListLogLogPlot[{fullFlows332, fullFlows364, fullFlows3128, fullFlows3256}, PlotRange->{{0.01, 1.5}, {10^-6, 0.1}}]*)
+(*Show[ErrorListLogLogPlot[{fullFlows332, fullFlows364, fullFlows3128, fullFlows3256}, PlotRange->{{0.04, 0.25}, {10^-6, 0.01}}, PlotLegends-> SwatchLegend[{"32", "64", "128", "256"}]], FrameLabel->{{"Normalized Flow Rate/s", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]*)
+(*Show[ErrorListPlot[{fullFlows332, fullFlows364, fullFlows3128, fullFlows3256}, PlotRange->{{0.04, 0.25}, {10^-6, 0.00125}}, PlotLegends-> SwatchLegend[{"32", "64", "128", "256"}]], FrameLabel->{{"Normalized Flow Rate/s", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]*)
 (*ListLogLogPlot[{{#[[1]], 1/2 #[[2]]}&/@flowMeans332, flowMeans3, {#[[1]], 2#[[2]]}&/@flowMeans3128, {#[[1]], 4#[[2]]}&/@flowMeans3256}, PlotLegends->True, PlotRange->{{0, 0.25}, {0, 0.0015}}]*)
 (*ListPlot[{{#[[1]], 1  #[[2]]}&/@flowVars332, flowVars3, {#[[1]],1 #[[2]]}&/@flowVars3128, {#[[1]], 1 #[[2]]}&/@flowVars3256}, PlotLegends->True, PlotRange->{{0, 0.25}, {0, 0.00002}}]*)
-(*ListPlot[{{#[[1]], 1 #[[2]]}&/@means332, means3, {#[[1]],1#[[2]]}&/@means3128, {#[[1]], 1#[[2]]}&/@means3256}, PlotLegends->True, PlotRange->{{0, 0.25}, {0, 1}}]*)
+(*Show[ListPlot[{{#[[1]], 1 #[[2]]}&/@means332, means3, {#[[1]],1#[[2]]}&/@means3128, {#[[1]], 1#[[2]]}&/@means3256}, PlotLegends->SwatchLegend[{"32", "64", "128", "256"}], PlotRange->{{0, 0.25}, {0.5, 1}}], FrameLabel->{{"Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]*)
 
 
 (* ::Input:: *)
@@ -170,10 +171,8 @@ ListPlot[{{Log10[#[[1]]], #[[2]]}&/@flowSkewl, {Log10[#[[1]]], #[[2]]}&/@flowSke
 ListLogLogPlot[{flowKurtl, flowKurtm, flowKurth}, PlotRange->{{0.001, 10^6}, All}]
 ListPlot[{{Log10[#[[1]]], #[[2]]}&/@flowKurtl, {Log10[#[[1]]], #[[2]]}&/@flowKurtm, {Log10[#[[1]]], #[[2]]}&/@flowKurth}, PlotRange->{{-3, 6}, {-2, 10}}]
 ListLogLogPlot[{meansl, meansm, meansh}, PlotRange->{{0.001, 10^6}, {0.15, 1}}]
-ListLogLogPlot[{errsl, errsm, errsh}, PlotRange->{{0.001, 10^6}, All}]
-
-
-
+Show[ListLogLogPlot[{errsl, errsm, errsh}, PlotRange->{{0.001, 10^6}, {0.001, 1}}], FrameLabel->{{"Standard Error in Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+Show[ListPlot[{{1/#[[1]], #[[2]]}&/@errsl, {1/#[[1]], #[[2]]}&/@errsm, {1/#[[1]], #[[2]]}&/@errsh}, PlotRange->{{0, 40}, {0, 0.3}}], FrameLabel->{{"Standard Error in Density", None}, {"1/\[Lambda]", None}}, RotateLabel->True, Frame->True]
 
 
 Manipulate[{Show[{ListLogLogPlot[{flowMeansl, flowMeansm, flowMeansh}, PlotRange->{{0.01, 10^3}, {10^-8, 10^2}},  PlotLegends->True], LogLogPlot[{Exp[a (Log[x] - b)], Exp[c (Log[x] - d)]}, {x, 0.01, 10^3}]}],  N[Exp[(a b -c d)/(a-c)]]}, {{a, 1}, 0, 5}, {{b, 4.72}, -2, 12}, {{c, 4.63}, 0.1, 5}, {{d, -0.87}, -2, 6}]
