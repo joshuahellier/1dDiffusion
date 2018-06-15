@@ -4,22 +4,31 @@ import numpy as np
 import bitstring as bs
 import math as m
 import time
+import sys
+import os
 
-L = np.uint32(8)
+resultDir = os.environ.get('RESULTS')
+if resultDir == None :
+    print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
+
+botConc = float(sys.argv[1])
+topConc = float(sys.argv[2])
+l = float(sys.argv[3])
+L = np.uint32(int(sys.argv[4]))
+numVecs = int(sys.argv[5])
+boundMult = float(sys.argv[6])
+fileInfo = sys.argv[7]
+
+resultsPlace = resultDir+"/"+fileInfo+"/"
+
+if not os.path.exists(resultsPlace):
+    os.makedirs(resultsPlace)
 
 N = np.uint32(2**(L+4))
 
 rateMatrix = sp.lil_matrix((N, N), dtype = np.float64)
 densityMatrix = sp.lil_matrix((L+4, N), dtype = np.float64)
 currentMatrix = sp.lil_matrix((L+3, N), dtype = np.float64)
-
-l = 0.01
-
-topConc = 0.4
-
-botConc = 0.6
-
-boundMult = 100.0
 
 topIncRate = boundMult*m.sqrt(l*topConc/(1.0-topConc))
 topOutRate = boundMult*m.sqrt(l*(1.0-topConc)/topConc)
@@ -99,52 +108,69 @@ for i in range(0, N):
             totLeakage += topIncRate
     rateMatrix[i, i] -= totLeakage
 
-print("RateMatrix created.")
+#print("RateMatrix created.")
 
 cscRateMatrix = rateMatrix.tocsc()
 cscDensityMatrix = densityMatrix.tocsc()
 cscCurrentMatrix = currentMatrix.tocsc()
-#print cscRateMatrix
-#print cscDensityMatrix
-#csrRateMatrix = rateMatrix.tocsr()
 
-print("RateMatrix reformatted.")
+#print("RateMatrix reformatted.")
 
-t0 = time.clock()
-vals, vecs = la.eigs(cscRateMatrix, k=1, which='SM')
-vecs = -vecs/np.linalg.norm(vecs, 1)
-t1 = time.clock()
-#la.eigs(csrRateMatrix)
-#t2 = time.clock()
-print(str(t1-t0)+"s for csc eigenvector find\n")
+#t0 = time.clock()
+vals, vecs = la.eigs(cscRateMatrix, k=numVecs, sigma=10.0**(-3), tol=10.0**(-16))
+for index in range(0, numVecs):
+    vecs[:, index] = np.sign(vecs[N/2, index])*vecs[:, index]/(np.linalg.norm(vecs[:, index], 1))
+#t1 = time.clock()
 
-#print("Eigenvalues:")
-#for val in vals:
-#    print val
-#print("\n")
+#print(str(t1-t0)+"s for csc eigenvector find\n")
 
-#print("Eigenvectors:")
-#for vec in vecs:
-#    print vec
+#print("So final result for the eigenvalues is "+str(vals)+"\n")
+#print("|Ax-lambda x| = ")
+#for index in range(0, numVecs):
+#    print str(np.linalg.norm(cscRateMatrix.dot(vecs[:, index])-vals[index]*vecs[:, index], 1))+" with |x| = "+str(np.linalg.norm(vecs[:, index], 1))
 
-print("So final result for eigenvalue is "+str(vals[0])+"\n")
-print("|Ax-lambda x| = "+str(np.linalg.norm(cscRateMatrix.dot(vecs)-vals[0]*vecs, 1))+" with |x| = "+str(np.linalg.norm(vecs, 1)))
-#for el in vecs:
-#    print(el[0])
-#v = cscRateMatrix.dot(vecs)
-#print(v)
-print("\nThe mean occupation should be:\n")
+#print("\nThe mean occupation should be:\n")
 avDens = cscDensityMatrix.dot(vecs)
-print avDens
-print("\nThe mean current should be:\n")
+#print avDens
+#print("\nThe mean current should be:\n")
 avCurr = cscCurrentMatrix.dot(vecs)
-print avCurr
+#print avCurr
 
-state = "abcdefgh"
-position = 3
-print state[position]
-newState = state[:position]+'0'+state[(position+1):]
-print newState
+with open(resultsPlace+'settings', 'w') as f:
+    f.write('BotConcentration = ' + str(botConc) +'\n')
+    f.write('TopConcentration = ' + str(topConc) +'\n')
+    f.write('Lambda = ' + str(l) +'\n')
+    f.write('SysSize = ' + str(L) +'\n')
+    f.write('NumVecs = ' + str(numVecs)+'\n')
+    f.write('BoundMult = ' + str(boundMult)+'\n')
+
+with open(resultsPlace+'eigenvalues.dat', 'w') as f:
+    for eig in vals:
+        f.write(str(np.real(eig))+' ')
+
+with open(resultsPlace+'fullEigenvalues.dat', 'w') as f:
+    for eig in vals:
+        f.write(str(eig)+' ')
+
+for index in range(0, numVecs):
+    with open(resultsPlace+'densVec'+str(index)+'.dat', 'w') as f:
+        for position in range(0, L+4):
+            f.write(str(np.real(avDens[position, index]))+' ')
+
+for index in range(0, numVecs):
+    with open(resultsPlace+'fullDensVec'+str(index)+'.dat', 'w') as f:
+        for position in range(0, L+4):
+            f.write(str(avDens[position, index])+' ')
+
+for index in range(0, numVecs):
+    with open(resultsPlace+'currVec'+str(index)+'.dat', 'w') as f:
+        for position in range(0, L+3):
+            f.write(str(np.real(avCurr[position, index]))+' ')
+
+for index in range(0, numVecs):
+    with open(resultsPlace+'fullCurrVec'+str(index)+'.dat', 'w') as f:
+        for position in range(0, L+3):
+            f.write(str(avCurr[position, index])+' ')
 
 #solvedSoln = la.lsmr(cscRateMatrix, b)
 #print solvedSoln
