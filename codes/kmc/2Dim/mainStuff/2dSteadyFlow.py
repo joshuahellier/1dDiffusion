@@ -104,10 +104,10 @@ configuration = KMCConfiguration(lattice=lattice,
 
 # Rates.
 rateConstEmpty        	= 1.0
-topSpawn = math.sqrt(rateConstFull*topConc/(1.0-topConc))
-botSpawn = math.sqrt(rateConstFull*botConc/(1.0-botConc))
-topDespawn = rateConstFull/topSpawn
-botDespawn = rateConstFull/botSpawn
+topSpawn = rateConstFull*rateConstFull*math.sqrt(topConc/(1.0-topConc))
+botSpawn = rateConstFull*rateConstFull*math.sqrt(botConc/(1.0-botConc))
+topDespawn = (rateConstFull**4)/topSpawn
+botDespawn = (rateConstFull**4)/botSpawn
 
 #
 ##
