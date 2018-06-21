@@ -8,7 +8,7 @@ import math
 numLambda = 1024
 sysSize = 10
 numVecs = 8
-dataLocation = "exactSolns/initialTest/"
+dataLocation = "exactSolns/initialTestTake2/"
 lambdaMin = 10.0**(-3)
 lambdaMax = 10.0**(3)
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
