@@ -37,10 +37,10 @@ rateMatrix = sp.lil_matrix((N, N), dtype = np.float64)
 densityMatrix = sp.lil_matrix((L+4, N), dtype = np.float64)
 currentMatrix = sp.lil_matrix((L+3, N), dtype = np.float64)
 
-topIncRate = boundMult*m.sqrt(l*topConc/(1.0-topConc))
-topOutRate = boundMult*m.sqrt(l*(1.0-topConc)/topConc)
-botIncRate = boundMult*m.sqrt(l*botConc/(1.0-botConc))
-botOutRate = boundMult*m.sqrt(l*(1.0-botConc)/botConc)
+topIncRate = (1.0+l)*boundMult*m.sqrt(l*topConc/(1.0-topConc))
+topOutRate = (1.0+l)*boundMult*m.sqrt(l*(1.0-topConc)/topConc)
+botIncRate = (1.0+l)*boundMult*m.sqrt(l*botConc/(1.0-botConc))
+botOutRate = (1.0+l)*boundMult*m.sqrt(l*(1.0-botConc)/botConc)
 
 
 for i in range(0, N):
@@ -124,7 +124,7 @@ cscCurrentMatrix = currentMatrix.tocsc()
 print("RateMatrix reformatted.")
 
 t0 = time.clock()
-vals, vecs = la.eigs(cscRateMatrix, k=numVecs, sigma=10.0**(-3), tol=10.0**(-12))
+vals, vecs = la.eigs(cscRateMatrix, k=numVecs, sigma=0.0, tol=10.0**(-16))
 for index in range(0, numVecs):
     vecs[:, index] = np.sign(vecs[N/2, index])*vecs[:, index]/(np.linalg.norm(vecs[:, index], 1))
 t1 = time.clock()
