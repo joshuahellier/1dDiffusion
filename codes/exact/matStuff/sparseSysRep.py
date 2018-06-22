@@ -1,7 +1,6 @@
 import scipy.sparse as sp
 import scipy.sparse.linalg as la
 import numpy as np
-import bitstring as bs
 import math as m
 import time
 import sys
@@ -24,16 +23,24 @@ resultsPlace = resultDir+"/"+fileInfo+"/"
 if not os.path.exists(resultsPlace):
     os.makedirs(resultsPlace)
 
+with open(resultsPlace+'settings', 'w') as f:
+    f.write('BotConcentration = ' + str(botConc) +'\n')
+    f.write('TopConcentration = ' + str(topConc) +'\n')
+    f.write('Lambda = ' + str(l) +'\n')
+    f.write('SysSize = ' + str(L) +'\n')
+    f.write('NumVecs = ' + str(numVecs)+'\n')
+    f.write('BoundMult = ' + str(boundMult)+'\n')
+
 N = np.uint32(2**(L+4))
 
 rateMatrix = sp.lil_matrix((N, N), dtype = np.float64)
 densityMatrix = sp.lil_matrix((L+4, N), dtype = np.float64)
 currentMatrix = sp.lil_matrix((L+3, N), dtype = np.float64)
 
-topIncRate = boundMult*m.sqrt(l*topConc/(1.0-topConc))
-topOutRate = boundMult*m.sqrt(l*(1.0-topConc)/topConc)
-botIncRate = boundMult*m.sqrt(l*botConc/(1.0-botConc))
-botOutRate = boundMult*m.sqrt(l*(1.0-botConc)/botConc)
+topIncRate = (1.0+l)*boundMult*m.sqrt(l*topConc/(1.0-topConc))
+topOutRate = (1.0+l)*boundMult*m.sqrt(l*(1.0-topConc)/topConc)
+botIncRate = (1.0+l)*boundMult*m.sqrt(l*botConc/(1.0-botConc))
+botOutRate = (1.0+l)*boundMult*m.sqrt(l*(1.0-botConc)/botConc)
 
 
 for i in range(0, N):
@@ -108,21 +115,21 @@ for i in range(0, N):
             totLeakage += topIncRate
     rateMatrix[i, i] -= totLeakage
 
-#print("RateMatrix created.")
+print("RateMatrix created.")
 
 cscRateMatrix = rateMatrix.tocsc()
 cscDensityMatrix = densityMatrix.tocsc()
 cscCurrentMatrix = currentMatrix.tocsc()
 
-#print("RateMatrix reformatted.")
+print("RateMatrix reformatted.")
 
-#t0 = time.clock()
-vals, vecs = la.eigs(cscRateMatrix, k=numVecs, sigma=10.0**(-3), tol=10.0**(-16))
+t0 = time.clock()
+vals, vecs = la.eigs(cscRateMatrix, k=numVecs, sigma=0.0, tol=10.0**(-16))
 for index in range(0, numVecs):
     vecs[:, index] = np.sign(vecs[N/2, index])*vecs[:, index]/(np.linalg.norm(vecs[:, index], 1))
-#t1 = time.clock()
+t1 = time.clock()
 
-#print(str(t1-t0)+"s for csc eigenvector find\n")
+print(str(t1-t0)+"s for csc eigenvector find\n")
 
 #print("So final result for the eigenvalues is "+str(vals)+"\n")
 #print("|Ax-lambda x| = ")
@@ -136,13 +143,6 @@ avDens = cscDensityMatrix.dot(vecs)
 avCurr = cscCurrentMatrix.dot(vecs)
 #print avCurr
 
-with open(resultsPlace+'settings', 'w') as f:
-    f.write('BotConcentration = ' + str(botConc) +'\n')
-    f.write('TopConcentration = ' + str(topConc) +'\n')
-    f.write('Lambda = ' + str(l) +'\n')
-    f.write('SysSize = ' + str(L) +'\n')
-    f.write('NumVecs = ' + str(numVecs)+'\n')
-    f.write('BoundMult = ' + str(boundMult)+'\n')
 
 with open(resultsPlace+'eigenvalues.dat', 'w') as f:
     for eig in vals:

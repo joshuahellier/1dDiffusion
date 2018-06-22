@@ -9,7 +9,7 @@ from scipy import stats
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
-numLambda = 1024
+numLambda = 128
 numStepsEquilib = 16000000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
@@ -19,13 +19,13 @@ sysLength = 16
 analInterval = 1
 numPasses = 256
 timeInterval = 1.0
-dataLocation = "dim2Runs/wideScan/highDens/"
-lambdaMin = 10.0**(-4)
-lambdaMax = 10.0**4
+dataLocation = "dim2Runs/narrowScan/lowDens/"
+lambdaMin = 10.0**(-2)
+lambdaMax = 0.5
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-jobIndex = 132
-botConc = 0.9
-topConc = 0.7
+jobIndex = 8
+botConc = 0.1
+topConc = 0.3
 sysSize = sysWidth*(sysLength+4)
 
 
