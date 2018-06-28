@@ -248,3 +248,10 @@ Show[{ListLogLogPlot[{flowMeansl, flowMeansm, flowMeansh}, PlotRange->{{10^-3, 1
 
 
 
+
+
+graemeFlow = Import["/home/jhell/Downloads/StickyParticles/100/fort.11", "Table"];
+graemeFlowData = {#[[1]], #[[2]]}&/@graemeFlow;
+
+
+ListLogLogPlot[{graemeFlowData, flowMeansm}]

@@ -17,6 +17,7 @@ L = np.uint32(int(sys.argv[4]))
 numVecs = int(sys.argv[5])
 boundMult = float(sys.argv[6])
 fileInfo = sys.argv[7]
+tolerance = float(sys.argv[8])
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
 
@@ -30,6 +31,7 @@ with open(resultsPlace+'settings', 'w') as f:
     f.write('SysSize = ' + str(L) +'\n')
     f.write('NumVecs = ' + str(numVecs)+'\n')
     f.write('BoundMult = ' + str(boundMult)+'\n')
+    f.write('Tolerance = ' +str(tolerance)+'\n')
 
 N = np.uint32(2**(L+4))
 
@@ -124,9 +126,11 @@ cscCurrentMatrix = currentMatrix.tocsc()
 print("RateMatrix reformatted.")
 
 t0 = time.clock()
-vals, vecs = la.eigs(cscRateMatrix, k=numVecs, sigma=0.0, tol=10.0**(-16))
+vals, vecs = la.eigs(cscRateMatrix, k=numVecs, sigma=0, tol=tolerance)
+errs = []
 for index in range(0, numVecs):
     vecs[:, index] = np.sign(vecs[N/2, index])*vecs[:, index]/(np.linalg.norm(vecs[:, index], 1))
+    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecs[:, index])-vals[index]*vecs[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecs[:, index]), 1)+np.abs(vals[index])*np.linalg.norm(vecs[:, index], 1)))
 t1 = time.clock()
 
 print(str(t1-t0)+"s for csc eigenvector find\n")
@@ -171,6 +175,10 @@ for index in range(0, numVecs):
     with open(resultsPlace+'fullCurrVec'+str(index)+'.dat', 'w') as f:
         for position in range(0, L+3):
             f.write(str(avCurr[position, index])+' ')
+
+with open(resultsPlace+'eigenErrs.dat', 'w') as f:
+    for err in errs:
+        f.write(str(err)+'\n')
 
 #solvedSoln = la.lsmr(cscRateMatrix, b)
 #print solvedSoln
