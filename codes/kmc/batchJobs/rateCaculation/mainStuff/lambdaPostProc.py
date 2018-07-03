@@ -22,7 +22,7 @@ dataLocation = "batchJobs/concRuns/wideSweep/wideHigh/"
 lambdaMin = 10.0**(-6)
 lambdaMax = 10.0**6
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-jobIndex = 75
+jobIndex = 1
 botConc = 0.9
 topConc = 0.7
 
