@@ -88,7 +88,7 @@ cscCurrentMatrix = currentMatrix.tocsc()
 print("RateMatrix reformatted.")
 
 t0 = time.clock()
-vals, vecs = la.eigs(cscRateMatrix, k=numVecs, sigma=0.0, tol=tolerance, maxiter=10000*N)
+vals, vecs = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='LR', maxiter=100000*N)
 errs = []
 for index in range(0, numVecs):
     vecs[:, index] = np.sign(vecs[N/2, index])*vecs[:, index]/(np.linalg.norm(vecs[:, index], 1))
