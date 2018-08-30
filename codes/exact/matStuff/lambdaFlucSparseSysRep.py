@@ -5,12 +5,12 @@ import math
 
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
-numLambda = 256
+numLambda = 2048
 sysSize = 10
-numVecs = 12
-dataLocation = "exactSolns/initialTestTake3/"
-lambdaMin = 10.0**(-6)
-lambdaMax = 10.0**(6)
+numVecs = 2048
+dataLocation = "exactSolns/bigEigSpecScan/2048/"
+lambdaMin = 10.0**(-3)
+lambdaMax = 10.0**(3)
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
 jobIndex = 1
 botConc = 0.6

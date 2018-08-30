@@ -180,6 +180,15 @@ with open(resultsPlace+'eigenErrs.dat', 'w') as f:
     for err in errs:
         f.write(str(err)+'\n')
 
+entropy = 0.0
+for i in range(0, N):
+    temp = vecs[i, 0]
+    if temp > 0.0:
+        entropy += - temp*m.log(2, temp)
+
+with open(resultsPlace+'groundEntropy.dat', 'w') as f:
+    f.write(str(entropy)+'\n')
+
 #solvedSoln = la.lsmr(cscRateMatrix, b)
 #print solvedSoln
 #print("\nThe mean occupation should be:\n")

@@ -5,6 +5,7 @@ import math as m
 import time
 import sys
 import os
+import scipy.stats as st
 
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
@@ -18,7 +19,7 @@ numVecs = int(sys.argv[5])
 boundMult = float(sys.argv[6])
 fileInfo = sys.argv[7]
 tolerance = float(sys.argv[8])
-numSingVals = int(sys.argv[9])
+numTimeSlices = int(sys.argv[9])
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
 
@@ -181,28 +182,35 @@ with open(resultsPlace+'eigenErrs.dat', 'w') as f:
     for err in errs:
         f.write(str(err)+'\n')
 
-us, singVals, vTs = la.svds(cscRateMatrix, numSingVals, tol=tolerance, which='SM')
 
-with open(resultsPlace+'singVals.dat', 'w') as f:
-    for singVal in singVals:
-        f.write(str(singVal)+'\n')
+print("Done messing around, now for time-dependence:\n")
 
-#refactoredRateMatrix = np.zeros(N, N, dtype=np.float64)
 
-Sigma = np.diag(singVals)
+#groundState = vecs[:, 0]
+#position = 32-4-(L/2-1)
+#groundState = groundState[:position]+'1'+state[(position+1):]
+#for i in range(0, N):
+#    state = format(i, '032b')
+#    if state[32-4-(L/2-1)]=='0':
+#        groundState[i] = 0
+groundState = np.full((N), 1.0)
+groundState = groundState/(np.linalg.norm(groundState, 1))
+stateTimeSeries = la.expm_multiply(cscRateMatrix, groundState, start=0.0, num=numTimeSlices, stop=5.0, endpoint=True)
+densTimeSeries = cscDensityMatrix.dot(np.transpose(stateTimeSeries))
+entropySeries = []
+with open(resultsPlace+'timeSeries.dat', 'w') as f:
+    for i in range(0, numTimeSlices):
+#        entropy = 0.0
+#        entropySeries.append(entropy)
+        for j in range(0, L+4):
+            f.write(str(np.real(densTimeSeries[j][i]))+" ")
+        f.write("\n")
+        entropySeries.append(st.entropy(pk=stateTimeSeries[:, i], base=2.0))
+        print("Done step "+str(i+1))
 
-refactoredRateMatrix = vTs.dot((us.dot(Sigma)))
-
-print(refactoredRateMatrix)
-
-densEigVals, densEigVecs = np.linalg.eig(refactoredRateMatrix)
-
-sortedEigs = np.sort(densEigVals)
-
-with open(resultsPlace+'fullDenseEigenvalues.dat', 'w') as f:
-    for eig in sortedEigs:
-        f.write(str(eig)+' ')
-
+with open(resultsPlace+'entropySeries.dat', 'w') as f:
+    for i in entropySeries:
+        f.write(str(i)+'\n')
 
 #solvedSoln = la.lsmr(cscRateMatrix, b)
 #print solvedSoln

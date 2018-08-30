@@ -240,7 +240,7 @@ Show[{ErrorListLogLogPlot[fullFlowsm, PlotRange->{{10^-2, 10^3}, {10^-7, 10^(2)}
 
 a=-1.05; b = 4.7; c = -4.4; d = -0.3;
 (*Show[{ErrorListLogLogPlot[fullFlowsm, PlotRange->{{10^-2, 10^3}, {10^-7, 10^(2)}}, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True], LogLogPlot[J[0.75, 0.25, 1-l]/64, {l, 10^-2, 10^3}, PlotRange->{10^-7, 10^2}, PlotStyle->{Black, Dashed}], LogLogPlot[1/(Exp[a (Log[x] - b)]+Exp[c (Log[x] - d)]),{x, 10^-2, 10^3}, PlotRange->{10^-7, 10^2}, PlotStyle->{{Red, Dotted}}]}]*)
-Show[ListLogLogPlot[{meansl, meansm, meansh}, PlotRange->{{10^-1, 10^0}, {0.19, 1}}], FrameLabel->{{"Particle Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+Show[ListLogLogPlot[{meansl, meansm, meansh}, PlotRange->{{0.5*10^-2, 5*10^4}, {0.19, 1}},  PlotLegends->SwatchLegend[{"(0.3, 0.1)", "(0.75, 0.25)", "(0.9, 0.7)"}]], FrameLabel->{{"Particle Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 Show[{ListLogLogPlot[{flowMeansl, flowMeansm, flowMeansh}, PlotRange->{{10^-3, 10^6}, {10^-7, 10^4}}], LogLogPlot[{J[0.5, 0.3, 1-l]/64, J[0.75, 0.25, 1-l]/64, J[0.9, 0.7, 1-l]/64}, {l, 10^-3, 10^6}]}, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 
 

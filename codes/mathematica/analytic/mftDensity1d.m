@@ -34,7 +34,8 @@
 
 
 (* ::Input:: *)
-(*Plot[A[0.9, 0.1, 1-l], {l, 0.25, 0.75}]*)
+(*Plot[{A[0.3, 0.1, 1-l], A[0.6, 0.4, 1-l], A[0.9, 0.7, 1-l]}, {l, 0.25, 2}, PlotRange->{0.1, 0.9},   PlotLegends->SwatchLegend[Automatic, {"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], FrameLabel->{{"\!\(\*OverscriptBox[\(\[Rho]\), \(_\)]\)", None}, {"\[Lambda]", None}}, Frame->True]*)
+(*LogLogPlot[{A[0.3, 0.1, 1-l], A[0.6, 0.4, 1-l], A[0.9, 0.7, 1-l]}, {l, 0.25, 10^6}, PlotRange->{0.1, 0.9},   PlotLegends->SwatchLegend[Automatic, {"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], FrameLabel->{{"\!\(\*OverscriptBox[\(\[Rho]\), \(_\)]\)", None}, {"\[Lambda]", None}}, Frame->True]*)
 
 
 (* ::Input:: *)
@@ -49,3 +50,9 @@ Manipulate[Plot[x[r, rB, rT, z], {r, rB, rT}], {rB, 0.5, 1, 0.01}, {rT, 0, 0.5, 
 
 
 LogLogPlot[A[0.9, 0.7, 1-l], {l, 1/4, 10^3}]
+
+
+FullSimplify[Expand[(9 rB^3+rB^2 (-16+9 rT)+rB rT (-16+9 rT)+rT^2 (-16+9 rT))]]
+
+
+Expand[(9 rB^3+rB^2 (-16+9 rT)+rB rT (-16+9 rT)+rT^2 (-16+9 rT))]

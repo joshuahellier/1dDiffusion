@@ -96,3 +96,64 @@ Show[{Plot[{current[0.3, 0.1, 1-l], current[0.6, 0.4, 1-l], current[0.9, 0.7, 1-
 
 
 
+
+
+loc="/home/jhell/research/results/dim2Runs/longerScans/low/";
+meansLongl = Import[loc<>"densMeans.dat", "Data"];
+errsLongl = Import[loc<>"densErrs.dat", "Data"];
+flowLongl = Import[loc<>"rateMeans.dat", "Data"];
+flowErrLongl = Import[loc<>"rateErrs.dat", "Data"];
+flowMeansLongl = Import[loc<>"flowMeans.dat", "Data"];
+flowVarsLongl = Import[loc<>"flowVars.dat", "Data"];
+flowSkewLongl = Import[loc<>"flowSkew.dat", "Data"];
+flowKurtLongl = Import[loc<>"flowKurt.dat", "Data"];
+loc="/home/jhell/research/results/dim2Runs/longerScans/mid/";
+meansLongm = Import[loc<>"densMeans.dat", "Data"];
+errsLongm = Import[loc<>"densErrs.dat", "Data"];
+flowLongm = Import[loc<>"rateMeans.dat", "Data"];
+flowErrLongm = Import[loc<>"rateErrs.dat", "Data"];
+flowMeansLongm = Import[loc<>"flowMeans.dat", "Data"];
+flowVarsLongm = Import[loc<>"flowVars.dat", "Data"];
+flowSkewLongm = Import[loc<>"flowSkew.dat", "Data"];
+flowKurtLongm = Import[loc<>"flowKurt.dat", "Data"];
+loc="/home/jhell/research/results/dim2Runs/longerScans/high/";
+meansLongh = Import[loc<>"densMeans.dat", "Data"];
+errsLongh = Import[loc<>"densErrs.dat", "Data"];
+flowLongh = Import[loc<>"rateMeans.dat", "Data"];
+flowErrLongh = Import[loc<>"rateErrs.dat", "Data"];
+flowMeansLongh = Import[loc<>"flowMeans.dat", "Data"];
+flowVarsLongh = Import[loc<>"flowVars.dat", "Data"];
+flowSkewLongh = Import[loc<>"flowSkew.dat", "Data"];
+flowKurtLongh = Import[loc<>"flowKurt.dat", "Data"];
+
+
+ListLogLogPlot[{{#[[1]], Abs[#[[2]]]}&/@flowMeansLongl, {#[[1]], Abs[#[[2]]]}&/@flowMeansLongm, {#[[1]], Abs[#[[2]]]}&/@flowMeansLongh}, PlotRange->{{10^-2, 10^0}, All}]
+ListLogLogPlot[{flowMeansLongl, flowMeansLongm, flowMeansLongh}, PlotRange->{{10^-2, 10^0}, All}]
+ListPlot[{flowMeansLongl, flowMeansLongm, flowMeansLongh}, PlotRange->{{10^-2, 10^0}, All}]
+ListLogLogPlot[{flowVarsLongl, flowVarsLongm, flowVarsLongh}, PlotRange->{{0.01, 1}, Automatic}]
+ListLogLogPlot[{flowSkewLongl, flowSkewLongm, flowSkewLongh}, PlotRange->{{0.01, 1}, Automatic}]
+ListPlot[{flowSkewLongl, flowSkewLongm, flowSkewLongh}, PlotRange->{{0.01, 1}, Automatic}]
+ListLogLogPlot[{flowKurtLongl, flowKurtLongm, flowKurtLongh}, PlotRange->{{0.01, 1}, Automatic}]
+ListLogLogPlot[{meansLongl, meansLongm, meansLongh}, PlotRange->{{0.01, 10^0}, Automatic}]
+ListLogLogPlot[{errsLongl, errsLongm, errsLongh}, PlotRange->{{0.01, 1}, Automatic}]
+ListPlot[{errsLongl, errsLongm, errsLongh}, PlotRange->{{0.01, 0.6}, All}]
+
+
+
+
+
+flowMeansShiftl[l_] := {#[[1]]-l, Abs[#[[2]]]}&/@flowMeansl;
+flowMeansShiftm[l_] := {#[[1]]-l, Abs[#[[2]]]}&/@flowMeansm;
+flowMeansShifth[l_] := {#[[1]]-l, Abs[#[[2]]]}&/@flowMeansh;
+
+
+Manipulate[With[{l = la}, flowMeansShiftl[l]], {{la, 0}, 0, 1, 0.01}]
+
+
+Manipulate[Show[{ListLogLogPlot[With[{l=l}, flowMeansShiftm[l]], PlotRange->{{10^-3, 10^4}, {10^-7, 10^8}}], LogLogPlot[Exp[b] x^a,{x, 10^-3, 10^6}]}], {l, 0, 0.3, 0.01}, {{a, 1}, 0, 3}, {{b, 0}, -2, 2}]
+
+
+ListLogLogPlot[{flowMeansl, flowMeansm, flowMeansh, flowMeanslRep}, PlotRange->{{10^-6, 10^6}, Automatic}]
+
+
+N[2/Log[1+Sqrt[2]]]
