@@ -126,7 +126,7 @@ cscCurrentMatrix = currentMatrix.tocsc()
 print("RateMatrix reformatted.")
 
 t0 = time.clock()
-vals, vecs = la.eigs(cscRateMatrix, k=numVecs, sigma=0, tol=tolerance)
+vals, vecs = la.eigs(cscRateMatrix, k=numVecs, sigma=0, tol=tolerance, maxiter=100*N)
 errs = []
 for index in range(0, numVecs):
     vecs[:, index] = np.sign(vecs[N/2, index])*vecs[:, index]/(np.linalg.norm(vecs[:, index], 1))
@@ -152,29 +152,29 @@ with open(resultsPlace+'eigenvalues.dat', 'w') as f:
     for eig in vals:
         f.write(str(np.real(eig))+' ')
 
-with open(resultsPlace+'fullEigenvalues.dat', 'w') as f:
-    for eig in vals:
-        f.write(str(eig)+' ')
+#with open(resultsPlace+'fullEigenvalues.dat', 'w') as f:
+#    for eig in vals:
+#        f.write(str(eig)+' ')
 
-for index in range(0, numVecs):
-    with open(resultsPlace+'densVec'+str(index)+'.dat', 'w') as f:
-        for position in range(0, L+4):
-            f.write(str(np.real(avDens[position, index]))+' ')
+#for index in range(0, numVecs):
+#    with open(resultsPlace+'densVec'+str(index)+'.dat', 'w') as f:
+#        for position in range(0, L+4):
+#            f.write(str(np.real(avDens[position, index]))+' ')
 
-for index in range(0, numVecs):
-    with open(resultsPlace+'fullDensVec'+str(index)+'.dat', 'w') as f:
-        for position in range(0, L+4):
-            f.write(str(avDens[position, index])+' ')
+#for index in range(0, numVecs):
+#    with open(resultsPlace+'fullDensVec'+str(index)+'.dat', 'w') as f:
+#        for position in range(0, L+4):
+#            f.write(str(avDens[position, index])+' ')
 
-for index in range(0, numVecs):
-    with open(resultsPlace+'currVec'+str(index)+'.dat', 'w') as f:
-        for position in range(0, L+3):
-            f.write(str(np.real(avCurr[position, index]))+' ')
+#for index in range(0, numVecs):
+#    with open(resultsPlace+'currVec'+str(index)+'.dat', 'w') as f:
+#        for position in range(0, L+3):
+#            f.write(str(np.real(avCurr[position, index]))+' ')
 
-for index in range(0, numVecs):
-    with open(resultsPlace+'fullCurrVec'+str(index)+'.dat', 'w') as f:
-        for position in range(0, L+3):
-            f.write(str(avCurr[position, index])+' ')
+#for index in range(0, numVecs):
+#    with open(resultsPlace+'fullCurrVec'+str(index)+'.dat', 'w') as f:
+#        for position in range(0, L+3):
+#            f.write(str(avCurr[position, index])+' ')
 
 with open(resultsPlace+'eigenErrs.dat', 'w') as f:
     for err in errs:
