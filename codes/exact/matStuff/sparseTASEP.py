@@ -88,11 +88,20 @@ cscCurrentMatrix = currentMatrix.tocsc()
 print("RateMatrix reformatted.")
 
 t0 = time.clock()
-vals, vecs = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='LR', maxiter=100000*N)
+valsLR, vecsLR = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='LR', maxiter=10000*N)
+valsSR, vecsSR = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='SR', maxiter=10000*N)
+valsLI, vecsLI = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='LI', maxiter=10000*N)
+valsSI, vecsSI = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='SI', maxiter=10000*N)
 errs = []
 for index in range(0, numVecs):
-    vecs[:, index] = np.sign(vecs[N/2, index])*vecs[:, index]/(np.linalg.norm(vecs[:, index], 1))
-    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecs[:, index])-vals[index]*vecs[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecs[:, index]), 1)+np.abs(vals[index])*np.linalg.norm(vecs[:, index], 1)))
+    vecsLR[:, index] = np.sign(vecsLR[N/2, index])*vecsLR[:, index]/(np.linalg.norm(vecsLR[:, index], 1))
+    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsLR[:, index])-valsLR[index]*vecsLR[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsLR[:, index]), 1)+np.abs(valsLR[index])*np.linalg.norm(vecsLR[:, index], 1)))
+    vecsSR[:, index] = np.sign(vecsSR[N/2, index])*vecsSR[:, index]/(np.linalg.norm(vecsSR[:, index], 1))
+    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsSR[:, index])-valsSR[index]*vecsSR[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsSR[:, index]), 1)+np.abs(valsSR[index])*np.linalg.norm(vecsSR[:, index], 1)))
+    vecsLI[:, index] = np.sign(vecsLI[N/2, index])*vecsLI[:, index]/(np.linalg.norm(vecsLI[:, index], 1))
+    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsLI[:, index])-valsLI[index]*vecsLI[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsLI[:, index]), 1)+np.abs(valsLI[index])*np.linalg.norm(vecsLI[:, index], 1)))
+    vecsSI[:, index] = np.sign(vecsSI[N/2, index])*vecsSI[:, index]/(np.linalg.norm(vecsSI[:, index], 1))
+    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsSI[:, index])-valsSI[index]*vecsSI[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsSI[:, index]), 1)+np.abs(valsSI[index])*np.linalg.norm(vecsSI[:, index], 1)))
 t1 = time.clock()
 
 print(str(t1-t0)+"s for csc eigenvector find\n")
@@ -103,19 +112,25 @@ print(str(t1-t0)+"s for csc eigenvector find\n")
 #    print str(np.linalg.norm(cscRateMatrix.dot(vecs[:, index])-vals[index]*vecs[:, index], 1))+" with |x| = "+str(np.linalg.norm(vecs[:, index], 1))
 
 #print("\nThe mean occupation should be:\n")
-avDens = cscDensityMatrix.dot(vecs)
+avDens = cscDensityMatrix.dot(vecsLR)
 #print avDens
 #print("\nThe mean current should be:\n")
-avCurr = cscCurrentMatrix.dot(vecs)
+avCurr = cscCurrentMatrix.dot(vecsLR)
 #print avCurr
 
 
 with open(resultsPlace+'eigenvalues.dat', 'w') as f:
-    for eig in vals:
+    for eig in valsLR:
         f.write(str(np.real(eig))+'\n')
 
 with open(resultsPlace+'fullEigenvalues.dat', 'w') as f:
-    for eig in vals:
+    for eig in valsLR:
+        f.write(str(eig)+'\n')
+    for eig in valsSR:
+        f.write(str(eig)+'\n')
+    for eig in valsLI:
+        f.write(str(eig)+'\n')
+    for eig in valsSI:
         f.write(str(eig)+'\n')
 
 for index in range(0, numVecs):
