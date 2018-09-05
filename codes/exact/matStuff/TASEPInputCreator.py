@@ -8,7 +8,7 @@ import math
 numConfigs = 2048
 sysSize = 14
 numVecs = 8
-dataLocation = "exactSolns/TASEP/initialCut/"
+dataLocation = "exactSolns/TASEP/largeReInitialCut/"
 minDiff = 10.0**(-3)
 maxVal = 2.0
 diffStepSize = (maxVal-2.0*minDiff)/float(numConfigs-1)
