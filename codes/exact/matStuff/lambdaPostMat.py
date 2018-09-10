@@ -6,8 +6,8 @@ import math
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
 numLambda = 2048
-sysSize = 10
-numVecs = 2048
+sysSize = 8
+numVecs = 1024
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
@@ -22,6 +22,8 @@ boundMult = 100.0
 runningJobs = []
 bigList = []
 failedJobs = []
+lambdaHigh = 25.0
+lambdaLow = 0.04
 
 for rateIndex in range(0, numLambda):
     tempRate = lambdaMin + rateStepSize*rateIndex
@@ -35,7 +37,10 @@ for rateIndex in range(0, numLambda):
                 for word in words:
                     bigList.append(str(currentRate)+", "+str(abs(float(word))/currentRate)+"\n")
     except IOError:
-        jobInput = "sparseSysRep.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(numVecs)+" "+str(boundMult)+" "+str(tolerance)+" "+str(lambdaMin)+" "+str(lambdaMax)+" "+dataLocation+str(rateIndex)+"\n"
+        jobInput = "sparseSysRep.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(numVecs)+" "+str(boundMult)+" "+str(tolerance)+" "+str(lambdaLow)+" "+str(lambdaHigh)+" "+dataLocation+str(rateIndex)+"\n"
+        with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
+            f.write(jobInput)
+            jobIndex += 1
 
 with open(dataLocation+"condensedMatData.dat", 'w') as f:
     for item in bigList:
