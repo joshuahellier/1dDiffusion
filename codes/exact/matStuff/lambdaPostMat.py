@@ -11,7 +11,7 @@ numVecs = 2048
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
-dataLocation = resultDir+"/exactSolns/bigEigSpecScan/2048/"
+dataLocation = resultDir+"/exactSolns/highDefSpectrumRepeat/"
 lambdaMin = 10.0**(-3)
 lambdaMax = 10.0**(3)
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
@@ -21,6 +21,8 @@ topConc = 0.4
 boundMult = 100.0
 runningJobs = []
 bigList = []
+failedJobs = []
+
 for rateIndex in range(0, numLambda):
     tempRate = lambdaMin + rateStepSize*rateIndex
 #    currentRate = tempRate
@@ -33,7 +35,7 @@ for rateIndex in range(0, numLambda):
                 for word in words:
                     bigList.append(str(currentRate)+", "+str(abs(float(word))/currentRate)+"\n")
     except IOError:
-        pass
+        jobInput = "sparseSysRep.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(numVecs)+" "+str(boundMult)+" "+str(tolerance)+" "+str(lambdaMin)+" "+str(lambdaMax)+" "+dataLocation+str(rateIndex)+"\n"
 
 with open(dataLocation+"condensedMatData.dat", 'w') as f:
     for item in bigList:
