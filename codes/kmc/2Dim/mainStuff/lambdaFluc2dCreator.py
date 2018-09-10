@@ -15,15 +15,15 @@ sysLength = 16
 analInterval = 1
 numPasses = 4096
 timeInterval = 10.0**(-7)
-dataLocation = "dim2Runs/longerScans/high/"
+dataLocation = "dim2Runs/longerScans/mid/"
 lambdaMin = 10.0**(-2)
 lambdaMax = 10.0
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-botConc = 0.9
-topConc = 0.7
+botConc = 0.6
+topConc = 0.4
 
 runningJobs = []
-jobIndex = 513
+jobIndex = 1
 
 for rateIndex in range(0, numLambda):
     tempRate = lambdaMin + rateStepSize*rateIndex

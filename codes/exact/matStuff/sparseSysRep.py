@@ -134,19 +134,19 @@ cscCurrentMatrix = currentMatrix.tocsc()
 #print("RateMatrix reformatted.")
 
 valsLR, vecsLR = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='LR', maxiter=100*N)
-valsSR, vecsSR = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='SR', maxiter=100*N)
-valsLI, vecsLI = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='LI', maxiter=100*N)
-valsSI, vecsSI = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='SI', maxiter=100*N)
+#valsSR, vecsSR = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='SR', maxiter=100*N)
+#valsLI, vecsLI = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='LI', maxiter=100*N)
+#valsSI, vecsSI = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='SI', maxiter=100*N)
 errs = []
 for index in range(0, numVecs):
     vecsLR[:, index] = np.sign(vecsLR[N/2, index])*vecsLR[:, index]/(np.linalg.norm(vecsLR[:, index], 1))
     errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsLR[:, index])-valsLR[index]*vecsLR[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsLR[:, index]), 1)+np.abs(valsLR[index])*np.linalg.norm(vecsLR[:, index], 1)))
-    vecsSR[:, index] = np.sign(vecsSR[N/2, index])*vecsSR[:, index]/(np.linalg.norm(vecsSR[:, index], 1))
-    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsSR[:, index])-valsSR[index]*vecsSR[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsSR[:, index]), 1)+np.abs(valsSR[index])*np.linalg.norm(vecsSR[:, index], 1)))
-    vecsLI[:, index] = np.sign(vecsLI[N/2, index])*vecsLI[:, index]/(np.linalg.norm(vecsLI[:, index], 1))
-    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsLI[:, index])-valsLI[index]*vecsLI[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsLI[:, index]), 1)+np.abs(valsLI[index])*np.linalg.norm(vecsLI[:, index], 1)))
-    vecsSI[:, index] = np.sign(vecsSI[N/2, index])*vecsSI[:, index]/(np.linalg.norm(vecsSI[:, index], 1))
-    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsSI[:, index])-valsSI[index]*vecsSI[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsSI[:, index]), 1)+np.abs(valsSI[index])*np.linalg.norm(vecsSI[:, index], 1)))
+#    vecsSR[:, index] = np.sign(vecsSR[N/2, index])*vecsSR[:, index]/(np.linalg.norm(vecsSR[:, index], 1))
+#    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsSR[:, index])-valsSR[index]*vecsSR[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsSR[:, index]), 1)+np.abs(valsSR[index])*np.linalg.norm(vecsSR[:, index], 1)))
+#    vecsLI[:, index] = np.sign(vecsLI[N/2, index])*vecsLI[:, index]/(np.linalg.norm(vecsLI[:, index], 1))
+#    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsLI[:, index])-valsLI[index]*vecsLI[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsLI[:, index]), 1)+np.abs(valsLI[index])*np.linalg.norm(vecsLI[:, index], 1)))
+#    vecsSI[:, index] = np.sign(vecsSI[N/2, index])*vecsSI[:, index]/(np.linalg.norm(vecsSI[:, index], 1))
+#    errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsSI[:, index])-valsSI[index]*vecsSI[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsSI[:, index]), 1)+np.abs(valsSI[index])*np.linalg.norm(vecsSI[:, index], 1)))
 
 t1 = time.clock()
 
@@ -409,21 +409,21 @@ avCurr = cscCurrentMatrix.dot(vecsLR)
 
 with open(resultsPlace+'eigenvalues.dat', 'w') as f:
     for eig in valsLR:
-        f.write(str(np.real(eig))+' ')
+        f.write(str(np.real(eig))+'\n')
 
 #with open(resultsPlace+'fullEigenvalues.dat', 'w') as f:
 #    for eig in vals:
-#        f.write(str(eig)+' ')
+#        f.write(str(eig)+'\n')
 
 with open(resultsPlace+'fullEigenvalues.dat', 'w') as f:
     for eig in valsLR:
         f.write(str(eig)+'\n')
-    for eig in valsSR:
-        f.write(str(eig)+'\n')
-    for eig in valsLI:
-        f.write(str(eig)+'\n')
-    for eig in valsSI:
-        f.write(str(eig)+'\n')
+#    for eig in valsSR:
+#        f.write(str(eig)+'\n')
+#    for eig in valsLI:
+#        f.write(str(eig)+'\n')
+#    for eig in valsSI:
+#        f.write(str(eig)+'\n')
 
 
 
@@ -431,7 +431,7 @@ with open(resultsPlace+'fullEigenvalues.dat', 'w') as f:
 for index in range(0, 1):
     with open(resultsPlace+'densVec'+str(index)+'.dat', 'w') as f:
         for position in range(0, L+4):
-            f.write(str(np.real(avDens[position, index]))+' ')
+            f.write(str(np.real(avDens[position, index]))+'\n')
 
 #for index in range(0, numVecs):
 #    with open(resultsPlace+'fullDensVec'+str(index)+'.dat', 'w') as f:
@@ -441,7 +441,7 @@ for index in range(0, 1):
 for index in range(0, 1):
     with open(resultsPlace+'currVec'+str(index)+'.dat', 'w') as f:
         for position in range(0, L+3):
-            f.write(str(np.real(avCurr[position, index]))+' ')
+            f.write(str(np.real(avCurr[position, index]))+'\n')
 
 #for index in range(0, numVecs):
 #    with open(resultsPlace+'fullCurrVec'+str(index)+'.dat', 'w') as f:
@@ -473,11 +473,11 @@ with open(resultsPlace+'oneProd.dat', 'w') as f:
     for i in range(0, numVecs):
         f.write(str(abs(np.sign(vecOneLambda[N/2, 0])*np.vdot(vecOneLambda[:, 0], vecsLR[:, i])/(np.linalg.norm(vecOneLambda[:, 0], 2)*np.linalg.norm(vecsLR[:, i], 2))))+'\n')
 
-with open(resultsPlace+'multiProds.dat', 'w') as f:
-    for i in range(0, numVecs):
-        for j in range(0, numVecs):
-            f.write(str(abs(np.vdot(vecsLR[:, j], vecsLR[:, i]))/(np.linalg.norm(vecsLR[:, j], 2)*np.linalg.norm(vecsLR[:, i], 2)))+' ')
-        f.write('\n')
+#with open(resultsPlace+'multiProds.dat', 'w') as f:
+#    for i in range(0, numVecs):
+#        for j in range(0, numVecs):
+#            f.write(str(abs(np.vdot(vecsLR[:, j], vecsLR[:, i]))/(np.linalg.norm(vecsLR[:, j], 2)*np.linalg.norm(vecsLR[:, i], 2)))+' ')
+#        f.write('\n')
     
 
 #solvedSoln = la.lsmr(cscRateMatrix, b)
