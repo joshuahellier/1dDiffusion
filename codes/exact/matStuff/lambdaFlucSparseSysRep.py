@@ -6,6 +6,7 @@ import math
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
 numLambda = 2048
+
 sysSize = 8
 numVecs = 1024
 dataLocation = "exactSolns/highDefSpectrumRepeat/"
