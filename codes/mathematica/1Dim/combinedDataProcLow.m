@@ -86,7 +86,7 @@ cursLow = Table[{i, Flatten[Table[{Flatten[Import[pwd<>ToString[i]<>"/currVec"<>
 cursFilteredLow = Select[cursLow, ((Length[#[[2]][[1]]]>2) && (#[[2]][[2]]<threshold*Exp[(#[[1]]/numLambda)Log[lMax]+(1 - #[[1]]/numLambda)Log[lMin]]))&];
 midCursLow = Table[{Exp[(cursFilteredLow[[i]][[1]]/numLambda)Log[lMax]+(1 - cursFilteredLow[[i]][[1]]/numLambda)Log[lMin]], cursFilteredLow[[i]][[2]][[1]][[Floor[(bigL+3)/2]]]}, {i, 1, Length[cursFilteredLow]}];
 absMidCursLow = Table[{Exp[(cursFilteredLow[[i]][[1]]/numLambda)Log[lMax]+(1 - cursFilteredLow[[i]][[1]]/numLambda)Log[lMin]], Abs[cursFilteredLow[[i]][[2]][[1]][[Floor[(bigL+3)/2]]]]}, {i, 1, Length[cursFilteredLow]}];
-pwd = topLevel<>"origMid/";
+pwd = topLevel<>"newMid/";
 cursMid = Table[{i, Flatten[Table[{Flatten[Import[pwd<>ToString[i]<>"/currVec"<>ToString[j]<>".dat", "Data"]], Abs[Flatten[Import[pwd<>ToString[i]<>"/eigenvalues.dat", "Data"]][[j+1]]]}, {j, 0, numEigs-1}], 1]}, {i, 0, numLambda-1}]
 cursFilteredMid = Select[cursMid, ((Length[#[[2]][[1]]]>2) && (#[[2]][[2]]<threshold*Exp[(#[[1]]/numLambda)Log[lMax]+(1 - #[[1]]/numLambda)Log[lMin]]))&];
 midCursMid = Table[{Exp[(cursFilteredMid[[i]][[1]]/numLambda)Log[lMax]+(1 - cursFilteredMid[[i]][[1]]/numLambda)Log[lMin]], cursFilteredMid[[i]][[2]][[1]][[Floor[(bigL+3)/2]]]}, {i, 1, Length[cursFilteredMid]}];
@@ -132,10 +132,18 @@ em[name_, size_: 2] :=
     EdgeForm@Directive[CurrentValue["Color"], JoinForm["Round"], AbsoluteThickness[1], 
       Opacity[1]], FaceForm[White], PolygonMarker[name, Offset[size]]}, 
   AlignmentPoint -> {0, 0}]
-Show[{ListPlot[{{#[[1]], (bigL+1)*#[[2]]}&/@midCursLow, {#[[1]], (bigL+1)*#[[2]]}&/@midCursMid, {#[[1]], (bigL+1)*#[[2]]}&/@midCursHigh}, PlotRange->{{0.01*10^-2, 6*10^-1}, {10^-6, 3*10^-1}}, PlotMarkers->em["Circle", 1], Joined->True, PlotStyle->{Darker[Blue], Darker[Green],
+Show[{ListPlot[{{#[[1]], (bigL+1)*#[[2]]}&/@midCursLow, {#[[1]], (bigL+1)*#[[2]]}&/@midCursMid, {#[[1]], (bigL+1)*#[[2]]}&/@midCursHigh}, PlotRange->{{0.01*10^-2, 6*10^-1}, {-0.02, 3*10^-1}}, PlotMarkers->em["Circle", 1], Joined->True, PlotStyle->{Darker[Blue], Darker[Green],
 Darker[Red]}, ImageSize->400], ListPlot[{{#[[1]], 100*#[[2]]*0.2}&/@flowDataFineLow, {#[[1]], 100*#[[2]]*0.5}&/@flowDataFineMid, {#[[1]], 100*#[[2]]*0.2}&/@flowDataFineHigh}, PlotMarkers->fm["Triangle", 2],
 PlotStyle->{Darker[Blue], Darker[Green], Darker[Red]}], ListPlot[{{#[[1]], 64*#[[2]]}&/@flowMeansl, {#[[1]], 64*#[[2]]}&/@flowMeansm, {#[[1]], 64*#[[2]]}&/@flowMeansh}, PlotMarkers->fm/@{"DiagonalCross"}, PlotStyle->{Darker[Blue], Darker[Green],
 Darker[Red]}],  Plot[{J[0.3, 0.1, 1-l], J[0.75, 0.25, 1-l], J[0.9, 0.7, 1-l]}, {l, 10^-4, 10^4}, PlotStyle->{{Darker[Blue], Dashed}, {Darker[Green], Dashed}, {Darker[Red], Dashed}},
+PlotLegends->SwatchLegend[Automatic, {"(0.3, 0.1)", "(0.75, 0.25)", "(0.9, 0.7)"}]]}, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+
+
+
+Show[{ListLogLogPlot[{{#[[1]], (bigL+1)*#[[2]]}&/@midCursLow, {#[[1]], (bigL+1)*#[[2]]}&/@midCursMid, {#[[1]], (bigL+1)*#[[2]]}&/@midCursHigh}, PlotRange->{{1*10^-2, 1*10^2}, {1*10^-6, 5*10^1}}, PlotMarkers->em["Circle", 0.1], Joined->True, PlotStyle->{Darker[Blue], Darker[Green],
+Darker[Red]}, ImageSize->400], ListLogLogPlot[{{#[[1]], 100*#[[2]]*0.2}&/@flowDataFineLow, {#[[1]], 100*#[[2]]*0.5}&/@flowDataFineMid, {#[[1]], 100*#[[2]]*0.2}&/@flowDataFineHigh}, PlotMarkers->fm["Triangle", 2],
+PlotStyle->{Darker[Blue], Darker[Green], Darker[Red]}], ListLogLogPlot[{{#[[1]], 64*#[[2]]}&/@flowMeansl, {#[[1]], 64*#[[2]]}&/@flowMeansm, {#[[1]], 64*#[[2]]}&/@flowMeansh}, PlotMarkers->fm/@{"DiagonalCross"}, PlotStyle->{Darker[Blue], Darker[Green],
+Darker[Red]}],  LogLogPlot[{J[0.3, 0.1, 1-l], J[0.75, 0.25, 1-l], J[0.9, 0.7, 1-l]}, {l, 10^-4, 10^4}, PlotStyle->{{Darker[Blue], Dashed}, {Darker[Green], Dashed}, {Darker[Red], Dashed}},
 PlotLegends->SwatchLegend[Automatic, {"(0.3, 0.1)", "(0.75, 0.25)", "(0.9, 0.7)"}]]}, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 
 
