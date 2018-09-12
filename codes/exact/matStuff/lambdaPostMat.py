@@ -24,6 +24,7 @@ bigList = []
 failedJobs = []
 lambdaHigh = 25.0
 lambdaLow = 0.04
+tolerance = 10.0**(-18)
 
 for rateIndex in range(0, numLambda):
     tempRate = lambdaMin + rateStepSize*rateIndex
@@ -38,7 +39,7 @@ for rateIndex in range(0, numLambda):
                     bigList.append(str(currentRate)+", "+str(abs(float(word))/currentRate)+"\n")
     except IOError:
         jobInput = "sparseSysRep.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(numVecs)+" "+str(boundMult)+" "+str(tolerance)+" "+str(lambdaLow)+" "+str(lambdaHigh)+" "+dataLocation+str(rateIndex)+"\n"
-        with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
+        with open("failedRuns/testInput."+str(jobIndex), 'w') as f:
             f.write(jobInput)
             jobIndex += 1
 
