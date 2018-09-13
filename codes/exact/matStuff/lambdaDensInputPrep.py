@@ -31,6 +31,7 @@ for rateIndex in range(0, numLambda):
         botConc = avDens + 0.5*densDiff
         topConc = avDens - 0.5*densDiff
         jobInput = "simpleGroundStateFinder.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(numVecs)+" "+str(boundMult)+" "+str(tolerance)+" "+dataLocation+str(rateIndex)+"/"+str(densIndex)+"\n"
-        with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
+        try:
+            with open(dataLocation+str(rateIndex)+"/"+str(densIndex)+"/currVec0.dat", 'r') as f:
             f.write(jobInput)
             jobIndex += 1
