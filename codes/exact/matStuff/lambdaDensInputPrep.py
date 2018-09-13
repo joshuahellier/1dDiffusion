@@ -5,9 +5,9 @@ import math
 
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
-numLambda = 128
-numDensDiff = 128
-sysSize = 12
+numLambda = 32
+numDensDiff = 32
+sysSize = 10
 numVecs = 1
 dataLocation = "exactSolns/concDiffRuns/firstAttempt/"
 lambdaMin = 10.0**(-2)
@@ -18,7 +18,7 @@ avDens = 0.5
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
 densStepSize = (densDiffMax-densDiffMin)/float(numDensDiff-1)
 jobIndex = 1
-boundMult = 1000.0
+boundMult = 100.0
 tolerance = 10.0**(-18)
 runningJobs = []
 
