@@ -5,6 +5,9 @@ import math as m
 import time
 import sys
 import os
+import pandas as pd
+import statsmodels.formula.api as sm
+
 
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
@@ -17,7 +20,8 @@ L = np.uint32(int(sys.argv[4]))
 numVecs = int(sys.argv[5])
 boundMult = float(sys.argv[6])
 tolerance = float(sys.argv[7])
-fileInfo = sys.argv[8]
+numTimeSlices = int(sys.argv[8])
+fileInfo = sys.argv[9]
 
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
@@ -133,15 +137,55 @@ valsLR, vecsLR = la.eigs(cscRateMatrix, k=numVecs, tol=tolerance, which='LR', ma
 
 errs = []
 for index in range(0, numVecs):
-    vecsLR[:, index] = np.sign(vecsLR[N/2, index])*vecsLR[:, index]/(np.linalg.norm(vecsLR[:, index], 1))
+    overallMass = np.sum(vecsLR[:, index])
+    vecsLR[:, index] = np.sign(overallMass)*vecsLR[:, index]/(np.linalg.norm(vecsLR[:, index], 1))
     errs.append(2.0*np.linalg.norm(cscRateMatrix.dot(vecsLR[:, index])-valsLR[index]*vecsLR[:, index], 1)/(np.linalg.norm(cscRateMatrix.dot(vecsLR[:, index]), 1)+np.abs(valsLR[index])*np.linalg.norm(vecsLR[:, index], 1)))
 
 t1 = time.clock()
 
 print(str(t1-t0)+"s for computation of this session's eigenpairs.\n")
 
+print("Done messing around, now for time-dependence:\n")
 
 avDens = cscDensityMatrix.dot(vecsLR)
+
+groundState = vecsLR[:, 0]
+position = 32 - 4 - L + (L/2 + 2)
+#groundState = groundState[:position]+'1'+state[(position+1):]
+for i in range(0, N):
+    state = format(i, '032b')
+    if state[position]=='0':
+        groundState[i] = 0
+groundState = groundState/(np.linalg.norm(groundState, 1))
+stateTimeSeries = la.expm_multiply(cscRateMatrix, groundState, start=0.0, num=numTimeSlices, stop=10.0, endpoint=True)
+densTimeSeries = cscDensityMatrix.dot(np.transpose(stateTimeSeries))
+entropySeries = []
+timeSeries = []
+autoCorr = []
+trivWeights = []
+with open(resultsPlace+'autoCorr.dat', 'w') as f:
+    for i in range(numTimeSlices/2, numTimeSlices):
+        time = i*10.0/float(numTimeSlices-1)
+        f.write(str(time)+" "+str(m.log(abs(np.real(densTimeSeries[(L/2 + 2)][i] - avDens[(L/2 + 2)][0]))))+"\n")
+        timeSeries.append(i*10.0/float(numTimeSlices-1))
+        autoCorr.append(m.log(abs(np.real(densTimeSeries[(L/2 + 2)][i] - avDens[(L/2 + 2)][0]))))
+        trivWeights.append(1.0)
+
+
+y_list = timeSeries
+x_list = autoCorr
+y_err = trivWeights
+
+# put x and y into a pandas DataFrame, and the weights into a Series
+ws = pd.DataFrame({
+    'x': x_list,
+    'y': y_list
+})
+weights = pd.Series(trivWeights)
+
+wls_fit = sm.wls('x ~ y', data=ws, weights=1.0 / ((weights)**2)).fit()
+ols_fit = sm.ols('x ~ y', data=ws).fit()
+
 #print avDens
 #print("\nThe mean current should be:\n")
 avCurr = cscCurrentMatrix.dot(vecsLR)
@@ -202,4 +246,8 @@ for i in range(0, N):
 with open(resultsPlace+'groundEntropy.dat', 'w') as f:
     f.write(str(np.real(entropy))+'\n')
 
+#with open(resultsPlace+"autoCorrRegression.dat", 'w') as f:
+#    f.writelines([str(wls_fit.summary())+"\n", str(wls_fit.params[0])+" "+str(wls_fit.bse[0])+"\n", str(wls_fit.params[1])+" "+str(wls_fit.bse[1])+"\n"])
 
+with open(resultsPlace+"autoCorrTime.dat", 'w') as f:
+    f.write(str(-1.0/wls_fit.params[1])+"\n"+str(abs(wls_fit.bse[1]/wls_fit.params[1])))

@@ -12,15 +12,17 @@ numLambda = 32
 numDensDiff = 32
 sysSize = 10
 numVecs = 1
-dataLocation = "exactSolns/concDiffRuns/firstAttempt/"
+dataLocation = "exactSolns/densityLambdaRuns/firstAttempt/"
 longDatLoc = resultDir+"/"+dataLocation
 lambdaMin = 10.0**(-2)
 lambdaMax = 10.0**(2)
-densDiffMin = 0.0
-densDiffMax = 0.999
-avDens = 0.5
+densMin = 0.001
+densMax = 0.999
+densDiff = 0.1
+botDensMax = densMax
+botDensMin = densMin+densDiff
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-densStepSize = (densDiffMax-densDiffMin)/float(numDensDiff-1)
+densStepSize = (botDensMax-botDensMin)/float(numDensDiff-1)
 jobIndex = 1
 boundMult = 1000.0
 tolerance = 10.0**(-18)
@@ -29,35 +31,42 @@ currentList = []
 entropyList = []
 densityList = []
 eigenvalueList = []
+autoCorrTimeList = []
+autoCorrTimeErr = []
 
 for rateIndex in range(0, numLambda):
     tempRate = lambdaMin + rateStepSize*rateIndex
 #    currentRate = tempRate
     currentRate = math.exp(((tempRate-lambdaMin)*math.log(lambdaMax)+(lambdaMax-tempRate)*math.log(lambdaMin))/(lambdaMax-lambdaMin))
     for densIndex in range(0, numDensDiff):
-        densDiff = densDiffMin + densIndex*densStepSize
-        botConc = avDens + 0.5*densDiff
-        topConc = avDens - 0.5*densDiff
+        botConc = densStepSize*densIndex+botDensMin
+        topConc = botConc - densDiff
         jobInput = "simpleGroundStateFinder.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(numVecs)+" "+str(boundMult)+" "+str(tolerance)+" "+dataLocation+str(rateIndex)+"/"+str(densIndex)+"\n"
         try:
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/currVec0.dat", 'r') as f:
                 lines = f.readlines()
                 tempCurrent = lines[int(len(lines)/2)]
-                currentList.append(str(tempRate)+", "+str(densDiff)+", "+tempCurrent)
+                currentList.append(str(currentRate)+" "+str(densDiff)+" "+tempCurrent)
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/densVec0.dat", 'r') as f:
                 lines = f.readlines()
                 tempDens = 0.0
                 for lineIndex in range(0, sysSize):
                     tempDens += float(lines[lineIndex])
-                densityList.append(str(tempRate)+", "+str(densDiff)+", "+str(tempDens/sysSize)+"\n")
+                densityList.append(str(currentRate)+" "+str(densDiff)+" "+str(tempDens/sysSize)+"\n")
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/eigenvalues.dat", 'r') as f:
                 lines = f.readlines()
                 eigenvalue = lines[0]
-                eigenvalueList.append(str(tempRate)+", "+str(densDiff)+", "+eigenvalue)
+                eigenvalueList.append(str(currentRate)+" "+str(densDiff)+" "+eigenvalue)
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/groundEntropy.dat", 'r') as f:
                 lines = f.readlines()
                 entropy = lines[0]
-                entropyList.append(str(tempRate)+", "+str(densDiff)+", "+entropy)
+                entropyList.append(str(currentRate)+" "+str(densDiff)+" "+entropy)
+            with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/autoCorrTime.dat", 'r') as f:
+                lines = f.readlines()
+                autoCorrTime = lines[0]
+                autoCorrRelErr = lines[1]
+                autoCorrTimeList.append(str(currentRate)+" "+str(densDiff)+" "+autoCorrTimeList)
+                autoCorrTimeErr.append(str(currentRate)+" "+str(densDiff)+" "+autoCorrRelErr)
         except IOError:
             with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
                 f.write(jobInput)
@@ -78,3 +87,11 @@ with open(longDatLoc+"entSet.dat", 'w') as f:
 with open(longDatLoc+"densSet.dat", 'w') as f:
     for dens in densityList:
         f.write(dens)
+
+with open(longDatLoc+"autoCorrTimeSet.dat", 'w') as f:
+    for corr in autoCorrTimeList:
+        f.write(corr)
+
+with open(longDatLoc+"autoCorrTimeErr.dat", 'w') as f:
+    for err in autoCorrTimeErr:
+        f.write(err)
