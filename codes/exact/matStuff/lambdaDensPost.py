@@ -41,18 +41,19 @@ for rateIndex in range(0, numLambda):
     for densIndex in range(0, numDensDiff):
         botConc = densStepSize*densIndex+botDensMin
         topConc = botConc - densDiff
+        avDens = botConc - 0.5*densDiff
         jobInput = "simpleGroundStateFinder.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(numVecs)+" "+str(boundMult)+" "+str(tolerance)+" "+dataLocation+str(rateIndex)+"/"+str(densIndex)+"\n"
         try:
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/currVec0.dat", 'r') as f:
                 lines = f.readlines()
                 tempCurrent = lines[int(len(lines)/2)]
-                currentList.append(str(currentRate)+" "+str(densDiff)+" "+tempCurrent)
+                currentList.append(str(currentRate)+" "+str(avDens)+" "+tempCurrent)
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/densVec0.dat", 'r') as f:
                 lines = f.readlines()
                 tempDens = 0.0
                 for lineIndex in range(0, sysSize):
                     tempDens += float(lines[lineIndex])
-                densityList.append(str(currentRate)+" "+str(densDiff)+" "+str(tempDens/sysSize)+"\n")
+                densityList.append(str(currentRate)+" "+str(avDens)+" "+str(tempDens/sysSize)+"\n")
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/eigenvalues.dat", 'r') as f:
                 lines = f.readlines()
                 eigenvalue = lines[0]
@@ -60,13 +61,13 @@ for rateIndex in range(0, numLambda):
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/groundEntropy.dat", 'r') as f:
                 lines = f.readlines()
                 entropy = lines[0]
-                entropyList.append(str(currentRate)+" "+str(densDiff)+" "+entropy)
+                entropyList.append(str(currentRate)+" "+str(avDens)+" "+entropy)
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/autoCorrTime.dat", 'r') as f:
                 lines = f.readlines()
                 autoCorrTime = lines[0]
                 autoCorrRelErr = lines[1]
                 autoCorrTimeList.append(str(currentRate)+" "+str(densDiff)+" "+autoCorrTimeList)
-                autoCorrTimeErr.append(str(currentRate)+" "+str(densDiff)+" "+autoCorrRelErr)
+                autoCorrTimeErr.append(str(currentRate)+" "+str(avDens)+" "+autoCorrRelErr)
         except IOError:
             with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
                 f.write(jobInput)
