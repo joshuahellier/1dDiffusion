@@ -5,8 +5,8 @@ import math as m
 import time
 import sys
 import os
-#import pandas as pd
-#import statsmodels.formula.api as sm
+import pandas as pd
+import statsmodels.formula.api as sm
 
 
 resultDir = os.environ.get('RESULTS')
@@ -173,18 +173,18 @@ with open(resultsPlace+'autoCorr.dat', 'w') as f:
         trivWeights.append(1.0)
         corrInfo.append(str(i*10.0/float(numTimeSlices-1))+" "+str(m.log(abs(np.real(densTimeSeries[(L/2 + 2)][i] - avDens[(L/2 + 2)][0]))))+"\n")
 
-#y_list = timeSeries
-#x_list = autoCorr
-#y_err = trivWeights
+y_list = timeSeries
+x_list = autoCorr
+y_err = trivWeights
 
 # put x and y into a pandas DataFrame, and the weights into a Series
-#ws = pd.DataFrame({
-#    'x': x_list,
-#    'y': y_list
-#})
-#weights = pd.Series(trivWeights)
+ws = pd.DataFrame({
+    'x': x_list,
+    'y': y_list
+})
+weights = pd.Series(trivWeights)
 
-#wls_fit = sm.wls('x ~ y', data=ws, weights=1.0 / ((weights)**2)).fit()
+wls_fit = sm.wls('x ~ y', data=ws, weights=1.0 / ((weights)**2)).fit()
 #ols_fit = sm.ols('x ~ y', data=ws).fit()
 
 #print avDens
@@ -250,5 +250,5 @@ with open(resultsPlace+'groundEntropy.dat', 'w') as f:
 #with open(resultsPlace+"autoCorrRegression.dat", 'w') as f:
 #    f.writelines([str(wls_fit.summary())+"\n", str(wls_fit.params[0])+" "+str(wls_fit.bse[0])+"\n", str(wls_fit.params[1])+" "+str(wls_fit.bse[1])+"\n"])
 
-#with open(resultsPlace+"autoCorrTime.dat", 'w') as f:
-#    f.write(str(-1.0/wls_fit.params[1])+"\n"+str(abs(wls_fit.bse[1]/wls_fit.params[1])))
+with open(resultsPlace+"autoCorrTime.dat", 'w') as f:
+    f.write(str(-1.0/wls_fit.params[1])+" "+str(abs(wls_fit.bse[1]/wls_fit.params[1])))
