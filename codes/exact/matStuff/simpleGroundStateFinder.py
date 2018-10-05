@@ -150,7 +150,7 @@ print("Done messing around, now for time-dependence:\n")
 avDens = cscDensityMatrix.dot(vecsLR)
 
 groundState = vecsLR[:, 0]
-position = 32 - 4 - L + (L/2 + 2)
+position = 32 - 4 - L + (int(L/2) + 2)
 #groundState = groundState[:position]+'1'+state[(position+1):]
 for i in range(0, N):
     state = format(i, '032b')
@@ -165,13 +165,13 @@ autoCorr = []
 trivWeights = []
 corrInfo = []
 with open(resultsPlace+'autoCorr.dat', 'w') as f:
-    for i in range(numTimeSlices/2, numTimeSlices):
+    for i in range(int(numTimeSlices/2), numTimeSlices):
         time = i*10.0/float(numTimeSlices-1)
-        f.write(str(time)+" "+str(m.log(abs(np.real(densTimeSeries[(L/2 + 2)][i] - avDens[(L/2 + 2)][0]))))+"\n")
+        f.write(str(time)+" "+str(m.log(abs(np.real(densTimeSeries[(int(L/2) + 2)][i] - avDens[(int(L/2) + 2)][0]))))+"\n")
         timeSeries.append(i*10.0/float(numTimeSlices-1))
-        autoCorr.append(m.log(abs(np.real(densTimeSeries[(L/2 + 2)][i] - avDens[(L/2 + 2)][0]))))
+        autoCorr.append(m.log(abs(np.real(densTimeSeries[(int(L/2) + 2)][i] - avDens[(int(L/2) + 2)][0]))))
         trivWeights.append(1.0)
-        corrInfo.append(str(i*10.0/float(numTimeSlices-1))+" "+str(m.log(abs(np.real(densTimeSeries[(L/2 + 2)][i] - avDens[(L/2 + 2)][0]))))+"\n")
+        corrInfo.append(str(i*10.0/float(numTimeSlices-1))+" "+str(m.log(abs(np.real(densTimeSeries[(int(L/2) + 2)][i] - avDens[(int(L/2) + 2)][0]))))+"\n")
 
 y_list = timeSeries
 x_list = autoCorr

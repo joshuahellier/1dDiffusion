@@ -7,7 +7,7 @@ import math
 # in the name of time efficiency
 numLambda = 64
 numDensDiff = 64
-sysSize = 4
+sysSize = 10
 numTimeSlices = 20
 numVecs = 1
 dataLocation = "exactSolns/densityLambdaRuns/firstAttempt/"
