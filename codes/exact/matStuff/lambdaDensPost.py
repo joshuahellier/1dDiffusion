@@ -8,8 +8,8 @@ import math
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
-numLambda = 32
-numDensDiff = 32
+numLambda = 64
+numDensDiff = 64
 sysSize = 10
 numVecs = 1
 dataLocation = "exactSolns/densityLambdaRuns/firstAttempt/"
@@ -47,7 +47,7 @@ for rateIndex in range(0, numLambda):
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/currVec0.dat", 'r') as f:
                 lines = f.readlines()
                 tempCurrent = lines[int(len(lines)/2)]
-                currentList.append(str(currentRate)+" "+str(avDens)+" "+tempCurrent)
+                currentList.append(str(currentRate)+" "+str(avDens)+" "+tempCurrent+"\n")
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/densVec0.dat", 'r') as f:
                 lines = f.readlines()
                 tempDens = 0.0
@@ -57,17 +57,17 @@ for rateIndex in range(0, numLambda):
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/eigenvalues.dat", 'r') as f:
                 lines = f.readlines()
                 eigenvalue = lines[0]
-                eigenvalueList.append(str(currentRate)+" "+str(densDiff)+" "+eigenvalue)
+                eigenvalueList.append(str(currentRate)+" "+str(avDens)+" "+eigenvalue+"\n")
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/groundEntropy.dat", 'r') as f:
                 lines = f.readlines()
                 entropy = lines[0]
-                entropyList.append(str(currentRate)+" "+str(avDens)+" "+entropy)
+                entropyList.append(str(currentRate)+" "+str(avDens)+" "+entropy+"\n")
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/autoCorrTime.dat", 'r') as f:
                 lines = f.readlines()
                 autoCorrTime = lines[0]
                 autoCorrRelErr = lines[1]
-                autoCorrTimeList.append(str(currentRate)+" "+str(densDiff)+" "+autoCorrTimeList)
-                autoCorrTimeErr.append(str(currentRate)+" "+str(avDens)+" "+autoCorrRelErr)
+                autoCorrTimeList.append(str(currentRate)+" "+str(avDens)+" "+autoCorrTimeList+"\n")
+                autoCorrTimeErr.append(str(currentRate)+" "+str(avDens)+" "+autoCorrRelErr+"\n")
         except IOError:
             with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
                 f.write(jobInput)
