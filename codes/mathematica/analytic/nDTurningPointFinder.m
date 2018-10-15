@@ -2,16 +2,16 @@
 
 A[r_, z_, n_] := (1-z r)^(2(n-1)) (1+z r((2n+1)r-(2n+2)));
 deriv[r, z, n] = FullSimplify[D[A[r, z, n], r]];
-Manipulate[Plot[A[r, z, n], {r, -1, 3}, PlotRange->{-1, 10}], {z, -1, 1}, {n, 1, 4, 1}]
+Manipulate[Plot[A[r, 1-z, n], {r, -1, 3}, PlotRange->{-1, 10}], {z, 0, 2}, {n, 1, 4, 1}]
 ContourPlot[A[r, 1-l, 2], {r, 0, 1}, {l, 0, 1}, PlotRange->{0, 1}]
 A[r, z, 1]
 
 
-Collect[FullSimplify[D[A[r, z, n], r]], r]
+TeXForm[Collect[FullSimplify[D[A[r, z, n], r]], r]]
 secBrack[r, z, n] = Collect[-2 n (-1+r)-r+(1+n (1+2 n) (-1+r)) r z, r];
 
 
-secBrack[r, z, n]
+TeXForm[secBrack[r, z, n]]
 
 
 z = 1-l;
@@ -39,7 +39,7 @@ Manipulate[LogLogPlot[(-(-1-2 n+(1-z)-n (1+2 n) (1-z))-Sqrt[(-1-2 n+(1-z)-n (1+2
 deriv[r, z, n]
 
 
-FullSimplify[(-(-1-2 n+z-n (1+2 n) z)-Sqrt[(-1-2 n+z-n (1+2 n) z)^2-4 n (1+2 n)z 2])/(2n (1+2 n)z)]
+TeXForm[FullSimplify[(-(-1-2 n+z-n (1+2 n) z)-Sqrt[(-1-2 n+z-n (1+2 n) z)^2-4 n (1+2 n)z 2])/(2n (1+2 n)z)]]
 
 
 Collect[-8 n (1+2 n) z+(1-z+n (2+z+2 n z))^2, z]

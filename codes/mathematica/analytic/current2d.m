@@ -29,4 +29,25 @@
 
 
 (* ::Input:: *)
-(*Manipulate[ContourPlot[current[r0, rL, 1-l], {r0, 0, 1}, {rL, 0,1}, ColorFunction->"Rainbow", PlotRange->{-4, 4}, Contours->200], {l, 0, 2, 0.001}]*)
+(*Manipulate[ContourPlot[current[r0, rL, 1-l], {r0, 0, 1}, {rL, 0,1}, ColorFunction->"Rainbow", PlotRange->{-1, 1}, Contours->200], {l, 0, 2, 0.001}]*)
+
+
+Show[ContourPlot[current[r0, rL, 1-0.2], {r0, 0, 1}, {rL, 0,1}, ColorFunction->"Rainbow", PlotRange->All, Contours->30, PlotPoints->100, PlotLegends->Automatic, ImageSize->300], FrameLabel->{{"\!\(\*SubscriptBox[\(\[Rho]\), \(L\)]\)", "\!\(\*SubscriptBox[\(J\), \(0\)]\)"}, {"\!\(\*SubscriptBox[\(\[Rho]\), \(0\)]\)", None}}, RotateLabel->True, Frame->True]
+
+
+TeXForm[FullSimplify[current[Subscript[\[Rho], 0], Subscript[\[Rho], L], \[Zeta]]]]
+
+
+latex
+
+
+TraditionalForm[current[r0, rL, z]]
+
+
+Show[LogLogPlot[{current[0.3, 0.1, 1-l], current[0.6, 0.4, 1-l], current[0.9, 0.7, 1-l]}, {l, 10^-2, 10^2}, PlotRange->{10^-3, 10^5}, PlotPoints->100, PlotLegends->{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}, ImageSize->512], FrameLabel->{{"\!\(\*SubscriptBox[\(J\), \(0\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+
+
+diffCoeff[r_, z_]:=D[current[r+1/2 dr, r-1/2 dr, z], dr]
+
+
+diffCoeff[r, z]
