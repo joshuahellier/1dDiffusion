@@ -58,11 +58,21 @@ finEigs1000l10 = Flatten[eigTableMid, 1];
 (*  AlignmentPoint -> {0, 0}]*)
 
 
+SetOptions[ListLogLogPlot, BaseStyle -> FontSize -> 24];
+SetOptions[SwatchLegend, BaseStyle -> FontSize -> 24];
+
+
 (* ::Input:: *)
-(*Show[ListLogLogPlot[{finEigs100l5, finEigs100l10, finEigs1000l5, finEigs1000l10}, PlotRange->{{1*10^-4, 1*10^4}, {5*10^-2, 1*10^2}}, PlotMarkers->fm["Circle", 0.3], Joined->False, PlotStyle->{Blue, Green, Red, Black}, ImageSize->400, PlotLegends->SwatchLegend[Automatic, {"L=5, b=100", "L=10, b=100", "L=5, b=1000", "L=10, b=1000"}]], FrameLabel->{{"Eigenvalue/ \[Lambda]", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]*)
+(*Show[ListLogLogPlot[{finEigs100l5, finEigs100l10, finEigs1000l5, finEigs1000l10}, PlotRange->{{1*10^-4, 1*10^4}, {5*10^-2, 1*10^2}}, PlotMarkers->fm["Circle", 1.0], Joined->False, PlotStyle->{Blue, Green, Red, Black}, ImageSize-> 2048, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"L=5, b=100", "L=10, b=100", "L=5, b=1000", "L=10, b=1000"}]], FrameLabel->{{"Eigenvalue/ \[Lambda]", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]*)
+
+
+Show[ListLogLogPlot[finEigs1000l5, PlotRange->{{1*10^-4, 1*10^4}, {5*10^-2, 1*10^2}}, PlotMarkers->fm["Circle", 1.0], Joined->False, PlotStyle->Black, ImageSize-> 2048], FrameLabel->{{"Eigenvalue/ \[Lambda]", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 
 
 Show[ListPlot[linPlotEigTable, PlotRange->{{-3.5, 3}, {0, 5}}, PlotMarkers->fm["Circle", 0.3], Joined->False, PlotStyle->{Black}, ImageSize->400], FrameLabel->{{"Eigenvalue/ \[Lambda]", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 
 
 Show[ListLogLogPlot[{finEigs100l10, finEigs1000l10}, PlotRange->{{1*10^-4, 1*10^4}, {5*10^-2, 1*10^2}}, PlotMarkers->fm["Circle", 0.3], Joined->False, PlotStyle->{Red, Green}, ImageSize->1200, PlotLegends->SwatchLegend[Automatic, {"L=5, b=100", "L=5, b=1000"}]], FrameLabel->{{"Eigenvalue/ \[Lambda]", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+
+
+Show[ListLogLogPlot[{finEigs100l5, finEigs100l10}, PlotRange->{{1*10^-4, 1*10^4}, {5*10^-2, 1*10^2}}, PlotMarkers->fm["Circle", 0.3], Joined->False, PlotStyle->{Darker[Red], Lighter[Blue]}, ImageSize->600, PlotLegends->SwatchLegend[Automatic, {"L=5, b=100", "L=10, b=100"}]], FrameLabel->{{"Eigenvalue/ \[Lambda]", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]

@@ -76,6 +76,15 @@ b^2 - 4 a c
 Limit[(-(-1-2 n+(1-z)-n (1+2 n) (1-z))-Sqrt[(-1-2 n+(1-z)-n (1+2 n) (1-z))^2-4 n (1+2 n)(1-z) 2])/(2n (1+2 n)(1-z)), z-> Infinity]
 
 
+FullSimplify[(-1+n+2 n^2+Sqrt[(-1+n+2 n^2)^2])/(2 n (1+2 n))]
+
+
+FullSimplify[(4n^2+2n-2)/(2n(1+2n))]
+
+
+Factor[4n^2+2n-2]
+
+
 1-28/64
 
 
@@ -118,3 +127,54 @@ FullSimplify[(1+2 n-(4 (1+2 n))/(4+8 n+4 n^2)+(4 n (1+2 n))/(4+8 n+4 n^2)+(8 n^2
 
 (* ::InheritFromParent:: *)
 (*Plot[4/(6-3/(1+n)+Sqrt[(n^2 (1+2 n)^2)/(1+n)^2]/n), {n, 1, 4}]*)
+
+
+extrema[l]= Table[(-(-1-2 n+(1-l)-n (1+2 n) (1-l))-Sqrt[(-1-2 n+(1-l)-n (1+2 n) (1-l))^2-4 n (1+2 n)(1-l) 2])/(2n (1+2 n)(1-l)), {n, 1, 3}]
+
+
+Show[Plot[{(2-Sqrt[-24 (1-l)+(-2-3 (1-l)-l)^2]+3 (1-l)+l)/(6 (1-l)), (4-Sqrt[-80 (1-l)+(-4-10 (1-l)-l)^2]+10 (1-l)+l)/(20 (1-l)), (6-Sqrt[-168 (1-l)+(-6-21 (1-l)-l)^2]+21 (1-l)+l)/(42 (1-l))}, {l, 0, 4}, PlotStyle->{Black, Blue, Red}, PlotLegends->SwatchLegend[{"n=1", "n=2", "n=3"}]], FrameLabel->{{"\!\(\*SubscriptBox[\(\[Rho]\), \(c\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->350]
+
+
+Plot[(4n^2+2n-2)/(2n(1+2n)), {n, 1, 10}, PlotRange->All]
+
+
+n = 2;
+(4n^2+2n-2)/(2n(1+2n))
+
+
+n = p;
+z = 1-(2n+1)/(n+1)^2
+
+
+FullSimplify[(-(-1-2 n+(1-z)-n (1+2 n) (1-z))-Sqrt[(-1-2 n+(1-z)-n (1+2 n) (1-z))^2-4 n (1+2 n)(1-z) 2])/(2n (1+2 n)(1-z))]
+
+
+Plot[
+
+
+4/(-3+6 p+3/(1+p)+(1+2 p)/(1+p) Sqrt[(p 1 (-8+9 p))/1])
+
+
+Plot[4/(-3+6 p+3/(1+p)+((1+2 p) Sqrt[p (-8+9 p)])/(1+p)), {p, 1, 4}]
+
+
+p = n
+
+
+Plot[4/(-3+6 p+3/(1+p)+((1+2 p) Sqrt[p (-8+9 p)])/(1+p)), {p, 1, 4}]
+
+
+FullSimplify[4/(-3+6 p+3/(1+p)+((1+2 p) Sqrt[p (-8+9 p)])/(1+p))]
+
+
+p=s
+
+
+Form[4/(-3+6 p+3/(1+p)+((1+2 p) Sqrt[p (-8+9 p)])/(1+p))]
+
+
+p=3
+N[4/(-3+6 p+3/(1+p)+((1+2 p) Sqrt[p (-8+9 p)])/(1+p))]
+
+
+

@@ -19,3 +19,15 @@ Manipulate[Plot[{A[r, m, z], (r-z^-1)^2}, {r, 0, 1}, PlotRange->{0, 6}], {m, 1, 
 
 
 
+
+
+A[r, m, z] + O[z]
+
+
+Collect[Expand[(1-z r)^(2(m-1)) (1+z r((2m+1)r-(2m+2)))], z]
+
+
+FullSimplify[Limit[(1-z r)^(2(m-1)) (1+z r((2m+1)r-(2m+2))), z->1]]
+
+
+Collect[-(1-r)^(-1+2 m) (-1+r+2 m r), r]
