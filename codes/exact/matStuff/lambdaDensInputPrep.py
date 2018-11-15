@@ -5,17 +5,17 @@ import math
 
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
-numLambda = 64
-numDensDiff = 64
+numLambda = 128
+numDensDiff = 128
 sysSize = 10
 numTimeSlices = 20
-numVecs = 1
-dataLocation = "exactSolns/densityLambdaRuns/firstAttempt/"
-lambdaMin = 10.0**(-2)
+numVecs = 2
+dataLocation = "exactSolns/densityLambdaRuns/secondAttempt/"
+lambdaMin = 10.0**(-3)
 lambdaMax = 10.0**(2)
 densMin = 0.001
 densMax = 0.999
-densDiff = 0.02
+densDiff = 0.001
 botDensMax = densMax
 botDensMin = densMin+densDiff
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)

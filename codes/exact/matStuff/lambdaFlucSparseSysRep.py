@@ -7,20 +7,20 @@ import math
 # in the name of time efficiency
 numLambda = 2048
 
-sysSize = 8
-numVecs = 1024
-dataLocation = "exactSolns/highDefSpectrumRepeat/"
+sysSize = 5
+numVecs = 32
+dataLocation = "exactSolns/spectrumTop/b100/L5/"
 lambdaMin = 10.0**(-3)
 lambdaMax = 10.0**(3)
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
-jobIndex = 1
+jobIndex = 6145
 botConc = 0.6
 topConc = 0.4
-boundMult = 1000.0
+boundMult = 100.0
 tolerance = 10.0**(-18)
 runningJobs = []
-lambdaHigh = 25.0
-lambdaLow = 0.04
+lambdaHigh = 1000.0
+lambdaLow = 0.001
 
 for rateIndex in range(0, numLambda):
     tempRate = lambdaMin + rateStepSize*rateIndex

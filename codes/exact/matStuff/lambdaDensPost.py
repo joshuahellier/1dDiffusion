@@ -8,13 +8,13 @@ import math
 resultDir = os.environ.get('RESULTS')
 if resultDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
-numLambda = 64
-numDensDiff = 64
+numLambda = 128
+numDensDiff = 128
 sysSize = 10
 numVecs = 1
-dataLocation = "exactSolns/densityLambdaRuns/firstAttempt/"
+dataLocation = "exactSolns/densityLambdaRuns/secondAttempt/"
 longDatLoc = resultDir+"/"+dataLocation
-lambdaMin = 10.0**(-2)
+lambdaMin = 10.0**(-3)
 lambdaMax = 10.0**(2)
 densMin = 0.001
 densMax = 0.999
@@ -64,9 +64,10 @@ for rateIndex in range(0, numLambda):
                 entropyList.append(str(currentRate)+" "+str(avDens)+" "+entropy+"\n")
             with open(longDatLoc+str(rateIndex)+"/"+str(densIndex)+"/autoCorrTime.dat", 'r') as f:
                 lines = f.readlines()
-                autoCorrTime = lines[0]
-                autoCorrRelErr = lines[1]
-                autoCorrTimeList.append(str(currentRate)+" "+str(avDens)+" "+autoCorrTimeList+"\n")
+                words = lines[0].split()
+                autoCorrTime = words[0]
+                autoCorrRelErr = words[1]
+                autoCorrTimeList.append(str(currentRate)+" "+str(avDens)+" "+autoCorrTime+"\n")
                 autoCorrTimeErr.append(str(currentRate)+" "+str(avDens)+" "+autoCorrRelErr+"\n")
         except IOError:
             with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
