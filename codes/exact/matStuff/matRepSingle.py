@@ -20,6 +20,7 @@ boundMult = float(sys.argv[6])
 fileInfo = sys.argv[7]
 tolerance = float(sys.argv[8])
 numTimeSlices = int(sys.argv[9])
+totTime = float(sys.argv[10])
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
 
@@ -34,6 +35,8 @@ with open(resultsPlace+'settings', 'w') as f:
     f.write('NumVecs = ' + str(numVecs)+'\n')
     f.write('BoundMult = ' + str(boundMult)+'\n')
     f.write('Tolerance = ' +str(tolerance)+'\n')
+    f.write('NumTimeSlices = ' +str(numTimeSlices)+'\n')
+    f.write('TotTime = ' +str(totTime)+'\n')
 
 N = np.uint32(2**(L+4))
 
@@ -195,7 +198,7 @@ print("Done messing around, now for time-dependence:\n")
 #        groundState[i] = 0
 groundState = np.full((N), 1.0)
 groundState = groundState/(np.linalg.norm(groundState, 1))
-stateTimeSeries = la.expm_multiply(cscRateMatrix, groundState, start=0.0, num=numTimeSlices, stop=5.0, endpoint=True)
+stateTimeSeries = la.expm_multiply(cscRateMatrix, groundState, start=0.0, num=numTimeSlices, stop=totTime, endpoint=True)
 densTimeSeries = cscDensityMatrix.dot(np.transpose(stateTimeSeries))
 entropySeries = []
 with open(resultsPlace+'timeSeries.dat', 'w') as f:
@@ -203,8 +206,7 @@ with open(resultsPlace+'timeSeries.dat', 'w') as f:
 #        entropy = 0.0
 #        entropySeries.append(entropy)
         for j in range(0, L+4):
-            f.write(str(np.real(densTimeSeries[j][i]))+" ")
-        f.write("\n")
+            f.write(str(totTime*float(i)/(numTimeSlices-1.0))+" "+str(j)+" "+str(np.real(densTimeSeries[j][i]))+"\n")
         entropySeries.append(st.entropy(pk=stateTimeSeries[:, i], base=2.0))
         print("Done step "+str(i+1))
 
