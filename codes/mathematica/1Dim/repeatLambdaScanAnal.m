@@ -271,3 +271,9 @@ graemeFlowData = {#[[1]], #[[2]]}&/@graemeFlow;
 
 
 ListLogLogPlot[{graemeFlowData, flowMeansm}]
+
+
+ListLogLogPlot[{histMeansl, histMeansm, histMeansh}, PlotRange->{{10^-5, 10^5}, Automatic}, PlotMarkers->fm["Circle", 2], PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], ImageSize->1200, FrameLabel->{{"Mean Block Size", None}, {"\[Lambda]", None}}, Frame->True]
+
+
+ListLogLogPlot[{histErrsl, histErrsm, histErrsh}, PlotRange->{{10^-5, 10^5}, {0.3, Automatic}}, PlotMarkers->fm["Circle", 2], PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], ImageSize->1200, FrameLabel->{{"Block Size Std. Error", None}, {"\[Lambda]", None}}, Frame->True]

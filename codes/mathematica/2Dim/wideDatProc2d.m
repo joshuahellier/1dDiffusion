@@ -157,3 +157,26 @@ ListLogLogPlot[{flowMeansl, flowMeansm, flowMeansh, flowMeanslRep}, PlotRange->{
 
 
 N[2/Log[1+Sqrt[2]]]
+
+
+Needs["PolygonPlotMarkers`"]
+fm[name_, size_: 2] := 
+ Graphics[{EdgeForm[], PolygonMarker[name, Offset[size]]}, AlignmentPoint -> {0, 0}];
+em[name_, size_: 2] := 
+ Graphics[{Dynamic@
+    EdgeForm@Directive[CurrentValue["Color"], JoinForm["Round"], AbsoluteThickness[1], 
+      Opacity[1]], FaceForm[White], PolygonMarker[name, Offset[size]]}, 
+  AlignmentPoint -> {0, 0}]
+J[b_, t_, z_]:= 1/6 (-6 b+24 b^2 z-6 b^5 z^3+3 b^4 z^2 (5+3 z)-2 b^3 z (5+13 z)+t (6+t z (-24+t (10+z (26+3 t (-5+(-3+2 t) z))))));
+
+
+Show[{ListLogLogPlot[{flowLongl, flowLongm, flowLongh}, PlotMarkers->fm["Circle", 4], ImageSize->1600, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], PlotRange->{{0.01, 10}, {10^-9, 500}}, FrameLabel->{{"J/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024, PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}],
+LogLogPlot[{J[0.1, 0.3, 1-l], J[0.4, 0.6, 1-l], J[0.7, 0.9, 1-l]}, {l, 0.05, 10}, PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}]}]
+ListLogLogPlot[{flowVarsLongl, flowVarsLongm, flowVarsLongh}, PlotMarkers->fm["Circle", 4], ImageSize->1600, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], PlotRange->{{0.01, 10}, Automatic}, FrameLabel->{{"Var[J]/\!\(\*SuperscriptBox[\(s\), \(-2\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024, PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}]
+ListLogLogPlot[{meansLongl, meansLongm, meansLongh}, PlotMarkers->fm["Circle", 4], ImageSize->1600, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], PlotRange->{{0.01, 100}, {10^-6, 1000}}, FrameLabel->{{"Particle Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024, PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}]
+
+
+
+
+
+

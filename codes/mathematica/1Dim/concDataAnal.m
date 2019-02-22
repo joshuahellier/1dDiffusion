@@ -10,8 +10,18 @@
 (*sysSize = 124;*)
 (*J[b_, t_, z_]:= ((b-t) + z(b^3-t^3+2t^2-2b^2))/sysSize;*)
 (*k = 0.0001;*)
-(*lList = {0.05, 0.09, 0.13, 0.17, 0.21, 0.25};*)
+(*lList = {"0p05", "0p09", "0p13", "0p17", "0p21", "0p25"};*)
+(*lambda = {"0.05", "0.09", "0.13", "0.17", "0.21", "0.25"};*)
 (**)
+
+
+Table[Export["/home/jhell/research/writingsPhD/actualThesis/numerics/images/concFrames/concDataCurr"<>ToString[lList[[i]]]<>".png", ListDensityPlot[{#[[1]], #[[2]], Log10[Abs[#[[3]]]]}&/@rateMeans[[i]], InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->{{0, 1}, {0, 1}, {-6, -2}}, FrameLabel->{{"\!\(\*SubscriptBox[\(\[Rho]\), \(0\)]\)", "\!\(\*SubscriptBox[\(Log\), \(10\)]\)[|E[J]|/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)]"}, {"\!\(\*SubscriptBox[\(\[Rho]\), \(L\)]\)", "\[Lambda]="<>lambda[[i]]}}, RotateLabel->True, Frame->True, ImageSize->1024]], {i, 1, 6}]
+
+
+Table["\includegraphics[width=0.49\linewidth]{numerics/images/concFrames/concDataCurr"<>lList[[i]]<>".png}", {i, 1, 6}]
+
+
+Table[Export["/home/jhell/research/writingsPhD/actualThesis/numerics/images/concFrames/concDataDens"<>lList[[i]]<>".png", ListDensityPlot[{#[[1]], #[[2]], #[[3]]}&/@densMeans[[i]], InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->{{0, 1}, {0, 1}, {0, 1}}, FrameLabel->{{"\!\(\*SubscriptBox[\(\[Rho]\), \(0\)]\)", "E[\[Rho]]"}, {"\!\(\*SubscriptBox[\(\[Rho]\), \(L\)]\)", "\[Lambda]="<>lambda[[i]]}}, RotateLabel->True, Frame->True, ImageSize->1024]], {i, 1, 6}]
 
 
 (* ::Input:: *)

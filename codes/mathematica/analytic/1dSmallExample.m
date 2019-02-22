@@ -137,4 +137,4 @@ numEigs = Table[{N[10^((4i)/1000-2)], Eigenvalues[TRM[N[10^((4i)/1000-2)]]]}, {i
 numEigsReal = Flatten[Table[{numEigs[[i]][[1]], -Re[numEigs[[i]][[2]][[j]]]}, {i, 1, 1000}, {j, 2, 8}], 1]
 
 
-ListLogLogPlot[numEigsReal, PlotRange->{5*10^-3, 100}, PlotMarkers->em["Circle", 0.1], PlotStyle->Black, ImageSize->800, FrameLabel->{{"Eigenvalue/\!\(\*SubscriptBox[\(\[Tau]\), \(0\)]\) (Negative Real Part)", None}, {"\[Lambda]", None}}, Frame->True]
+ListLogLogPlot[numEigsReal, PlotRange->{5*10^-3, 100}, PlotMarkers->em["Circle", 0.1], PlotStyle->Black, ImageSize->800, FrameLabel->{{"Eigenvalue/\!\(\*SuperscriptBox[SubscriptBox[\(\[Tau]\), \(0\)], \(-1\)]\) (Negative Real Part)", None}, {"\[Lambda]", None}}, Frame->True]

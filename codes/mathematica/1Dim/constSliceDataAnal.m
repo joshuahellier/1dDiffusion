@@ -17,13 +17,13 @@
 
 
 (* ::Input:: *)
-(*ListDensityPlot[flowMeans1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic]*)
-(*ListDensityPlot[flowVars1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotRange->Automatic, PlotLegends->True]*)
-(*ListDensityPlot[flowSkew1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotRange->Automatic, PlotLegends->True]*)
-(*ListDensityPlot[flowKurt1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotRange->Automatic, PlotLegends->True]*)
+(*ListDensityPlot[{Log10[#[[1]]], #[[2]], Log10[#[[3]]]}&/@flowMeans1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->{{-2, 0}, {0, 0.5}, {-7, -1}}, FrameLabel->{{"\[Delta]\[Rho]", "\!\(\*SubscriptBox[\(Log\), \(10\)]\)[E[J]/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)]"}, {"\!\(\*SubscriptBox[\(Log\), \(10\)]\)\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024]*)
+(*ListDensityPlot[{Log10[#[[1]]], #[[2]], Log10[#[[3]]]}&/@flowVars1, InterpolationOrder->0, ColorFunction->"Rainbow",  PlotLegends->True, PlotRange->{{-2, 0}, {0, 0.5}, {-9, 6}}, FrameLabel->{{"\[Delta]\[Rho]", "\!\(\*SubscriptBox[\(Log\), \(10\)]\)[Var[J]/\!\(\*SuperscriptBox[\(s\), \(-2\)]\)]"}, {"\!\(\*SubscriptBox[\(Log\), \(10\)]\)\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024]*)
+(*ListDensityPlot[{Log10[#[[1]]], #[[2]], #[[3]]}&/@means1, InterpolationOrder->0, ColorFunction->"Rainbow",  PlotLegends->True, PlotRange->{{-2, 0}, {0, 0.5}, Automatic}, FrameLabel->{{"\[Delta]\[Rho]", "Mean Particle Density"}, {"\!\(\*SubscriptBox[\(Log\), \(10\)]\)\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024]*)
+(*ListDensityPlot[{Log10[#[[1]]], #[[2]], Log10[#[[3]]]}&/@histMeans1, InterpolationOrder->0, ColorFunction->"Rainbow",  PlotLegends->True, PlotRange->{{-2, 0}, {0, 0.5}, Automatic}, FrameLabel->{{"\[Delta]\[Rho]", "\!\(\*SubscriptBox[\(Log\), \(10\)]\)[E[Block Size]-1]"}, {"\!\(\*SubscriptBox[\(Log\), \(10\)]\)\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024]*)
 
 
-Show[ListDensityPlot[means1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic, ImageSize->Medium], FrameLabel->{{"\[Delta]\[Rho]", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+Show[ListDensityPlot[{Log10[#[[1]]], #[[2]], #[[3]]}&/@means1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic, ImageSize->Medium], FrameLabel->{{"\[Delta]\[Rho]", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 ListDensityPlot[errs1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic]
 ListDensityPlot[histMeans1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->Automatic]
 ListDensityPlot[histErrs1, InterpolationOrder->0, ColorFunction->"Rainbow", PlotLegends->True, PlotRange->{0, 10000}]
