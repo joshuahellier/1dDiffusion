@@ -1,23 +1,24 @@
 import subprocess
 import sys
 import os
+import math
 
 # This code is meant to manage running multiple instances of my KMCLib codes at the same time,
 # in the name of time efficiency
-numConcDiff = 16
+numConcDiff = 8
 numConcs = 24
-numLambda = 4
-numStepsEquilib = 160000000
-numStepsAnal = 80000000
+numLambda = 12
+numStepsEquilib = 160000
+numStepsAnal = 16000
 numStepsSnapshot = 1000
-numStepsReq = 16000000
-sysSize = 124
+numStepsReq = 16000
+sysSize = 128
 analInterval = 1
-numPasses = 10
+numPasses = 10000
 timeInterval = 100.0
-dataLocation = "batchJobs/mainRuns/attempt6b/"
-lambdaMin = 0.1
-lambdaMax = 0.4
+dataLocation = "batchJobs/mainRuns/thesisCorrectionData/diffCoeff/L128/"
+lambdaMin = 0.01
+lambdaMax = 10.0
 concDiffMin = -0.05
 concDiffMax = 0.05
 rateStepSize = (lambdaMax-lambdaMin)/float(numLambda-1)
@@ -26,12 +27,13 @@ concMax = 0.97
 concMin = 0.03
 concStepSize = (concMax-concMin)/float(numConcs-1)
 
-jobIndex = 1
+jobIndex = 5761
 
 runningJobs = []
 
 for rateIndex in range(0, numLambda):
-    currentRate = lambdaMin + rateStepSize*rateIndex
+    tempRate = lambdaMin + rateStepSize*rateIndex
+    currentRate = math.exp(((tempRate-lambdaMin)*math.log(lambdaMax)+(lambdaMax-tempRate)*math.log(lambdaMin))/(lambdaMax-lambdaMin))
     for concIndex in range(0, numConcs):
         currentConc = concMin + concStepSize*concIndex
         for concDiffIndex in range(0, numConcDiff):
