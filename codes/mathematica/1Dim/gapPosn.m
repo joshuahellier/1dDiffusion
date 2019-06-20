@@ -61,4 +61,4 @@ em[name_, size_: 3] :=
 
 a=0.838;
 b=-3.85;
-Show[{ListLogPlot[gapTable, PlotRange->{{4, 14}, {1, 400}}, PlotMarkers->fm["Cross", 4.0], PlotStyle->Black], LogPlot[2^( a(x+b)), {x, 4, 14}, PlotStyle->Black]}, FrameLabel->{{"Bandwidth", None}, {"L", None}}, FrameLabel->True, Frame->True, ImageSize->1024]
+Show[{ListLogPlot[gapTable, PlotRange->{{4, 14}, {1, 400}}, PlotMarkers->fm["Cross", 4.0], PlotStyle->Black], LogPlot[2^( a(x+b)), {x, 4, 14}, PlotStyle->Black]}, FrameLabel->{{"Number of Slow Modes", None}, {"L", None}}, FrameLabel->True, Frame->True, ImageSize->1024]
