@@ -4,10 +4,10 @@
 (*lMin = 10^-6;*)
 (*lMax = 10^6;*)
 (*numLambda = 1024;*)
-(*numEigs = 5;*)
+(*numEigs = 2;*)
 (*lDiff = (lMax - lMin)/numLambda;*)
 (*bigL = 10;*)
-(*pwd = "/home/jhell/research/results/exactSolns/compatScans/origMid/";*)
+(*pwd = "/home/jhell/research/results/exactSolns/compatScans/newMid/";*)
 (*eigsMid = Table[{Exp[(i/numLambda)Log[lMax]+(1 - i/numLambda)Log[lMin]], Flatten[Import[pwd<>ToString[i]<>"/eigenvalues.dat", "Data"]]}, {i, 0, numLambda-1}];*)
 (*eigsFilteredMid = Select[eigsMid,(Length[#[[2]]]>2)&];*)
 (*eigTableMid = Table[Table[{eigsFilteredMid[[i]][[1]], Abs[eigsFilteredMid[[i]][[2]][[n]]]} ,{i, 1, Length[eigsFilteredMid]}], {n, 1, numEigs}];*)
@@ -24,6 +24,21 @@
 (*upperEigsHigh = Flatten[Table[eigTableHigh[[i+1]], {i, 1, numEigs-1}], 1];*)
 
 
+eigsFilteredMid
+
+
+eigsFilteredMid[[2]][[2]][[1]]
+
+
+cutoff = 10^-6;
+veryFilteredMid = {#[[1]], #[[1]]/Piecewise[{{-#[[2]][[1]], Abs[#[[2]][[1]]]>cutoff*#[[1]]}}, -#[[2]][[2]]]}&/@eigsFilteredMid;
+veryFilteredLow = {#[[1]], #[[1]]/Piecewise[{{-#[[2]][[1]], Abs[#[[2]][[1]]]>cutoff*#[[1]]}}, -#[[2]][[2]]]}&/@eigsFilteredLow;
+veryFilteredHigh = {#[[1]], #[[1]]/Piecewise[{{-#[[2]][[1]], Abs[#[[2]][[1]]]>cutoff*#[[1]]}}, -#[[2]][[2]]]}&/@eigsFilteredHigh;
+
+
+Flatten[eigTableMid, 1]
+
+
 Needs["PolygonPlotMarkers`"]
 fm[name_, size_: 3] := 
  Graphics[{EdgeForm[], PolygonMarker[name, Offset[size]]}, AlignmentPoint -> {0, 0}];
@@ -34,8 +49,8 @@ em[name_, size_: 3] :=
   AlignmentPoint -> {0, 0}]
 
 
-Show[ListLogLogPlot[{Flatten[eigTableLow, 1], Flatten[eigTableMid, 1], Flatten[eigTableHigh, 1]}, PlotRange->{{2*10^-3, 1*10^3}, {2*10^-4, 0.5*10^3}}, PlotMarkers->fm["Circle", 1], Joined->False, PlotStyle->{{Darker[Blue], Opacity[0.7]}, {Darker[Green], Opacity[0.7]},
-{Darker[Red], Opacity[0.7]}}, ImageSize->400, PlotLegends->SwatchLegend[Automatic, {"(0.3, 0.1)", "(0.75, 0.25)", "(0.9, 0.7)"}]], FrameLabel->{{"Eigenvalue/ \!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+Show[ListLogLogPlot[{veryFilteredLow, veryFilteredMid, veryFilteredHigh}, PlotRange->{{2*10^-3, 1*10^3}, {4*10^0, 4*10^1}}, PlotMarkers->fm["Circle", 3], Joined->False, PlotStyle->{{Darker[Blue], Opacity[0.7]}, {Darker[Green], Opacity[0.7]},
+{Darker[Red], Opacity[0.7]}}, ImageSize->1200, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}]], FrameLabel->{{"\[Lambda]\[Times]Relaxation Time/s", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 
 
 eigsRatio = Table[{eigTable[[1]][[i]][[1]], eigTable[[2]][[i]][[2]]/eigTable[[1]][[i]][[2]]}, {i, 1, Length[eigsFiltered]}];

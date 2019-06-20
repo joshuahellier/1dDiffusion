@@ -14,22 +14,15 @@
 (*flowKurt = Table[Import[loc<>temps[[index]]<>"flowKurt.dat", "Data"], {index, 1, 6}];*)
 
 
-Needs["PlotLegends`"]
-ListPlot[flowMeans, PlotLegend->temps, LegendPosition->{1, -0.5}, ImageSize->{1024, 768}]
-ListPlot[flowVars, PlotLegend->temps, LegendPosition->{1, -0.5}, ImageSize->{1024, 768}]
-ListPlot[flowSkew, PlotRange->{-5, 5} , PlotLegend->temps, LegendPosition->{1, -0.5}, ImageSize->{1024, 768}]
-ListPlot[flowKurt, PlotRange->{0, 10}, PlotLegend->temps, LegendPosition->{1, -0.5}, ImageSize->{1024, 768}]
-ListPlot[means , PlotLegend->temps, LegendPosition->{1, -0.5}, ImageSize->{1024, 768}]
-ListLogPlot[errs , PlotLegend->temps, LegendPosition->{1, -0.5}, ImageSize->{1024, 768}]
+Needs["PolygonPlotMarkers`"]
+fm[name_, size_: 2] := 
+ Graphics[{EdgeForm[], PolygonMarker[name, Offset[size]]}, AlignmentPoint -> {0, 0}];
+em[name_, size_: 2] := 
+ Graphics[{Dynamic@
+    EdgeForm@Directive[CurrentValue["Color"], JoinForm["Round"], AbsoluteThickness[1], 
+      Opacity[1]], FaceForm[White], PolygonMarker[name, Offset[size]]}, 
+  AlignmentPoint -> {0, 0}]
 
 
-
-
-
-
-
-
-
-
-
-
+Show[{ListPlot[flow, PlotMarkers->fm["Circle", 4], ImageSize->1600, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@temps], PlotRange->{{0.1, 0.7}, {0, 0.2}}, FrameLabel->{{"J/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024], 
+Plot[J[0.25, 0.75, 1-l], {l, 0, 0.7}, PlotStyle->{Black, Dashed}]}]

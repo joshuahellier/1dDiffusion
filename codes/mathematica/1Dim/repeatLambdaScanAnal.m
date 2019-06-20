@@ -175,6 +175,22 @@ Show[ListLogLogPlot[{errsl, errsm, errsh}, PlotRange->{{0.001, 10^6}, {0.001, 1}
 Show[ListPlot[{{1/#[[1]], #[[2]]}&/@errsl, {1/#[[1]], #[[2]]}&/@errsm, {1/#[[1]], #[[2]]}&/@errsh}, PlotRange->{{0, 40}, {0, 0.3}}], FrameLabel->{{"Standard Error in Density", None}, {"1/\[Lambda]", None}}, RotateLabel->True, Frame->True]
 
 
+Needs["PolygonPlotMarkers`"]
+
+
+fm[name_, size_: 2] := 
+ Graphics[{EdgeForm[], PolygonMarker[name, Offset[size]]}, AlignmentPoint -> {0, 0}];
+em[name_, size_: 2] := 
+ Graphics[{Dynamic@
+    EdgeForm@Directive[CurrentValue["Color"], JoinForm["Round"], AbsoluteThickness[1], 
+      Opacity[1]], FaceForm[White], PolygonMarker[name, Offset[size]]}, 
+  AlignmentPoint -> {0, 0}]
+
+
+ListLogLogPlot[{flowKurtl, flowKurtm, flowKurth}, PlotRange->Automatic, PlotMarkers->em["Circle", 1], PlotStyle->{Darker[Blue], Darker[Green],
+Darker[Red]}, ImageSize->1024, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.75, 0.25)", "(0.9, 0.7)"}], Frame->True, FrameLabel->{{"Current Kurtosis", None}, {"\[Lambda]", None}}]
+
+
 Manipulate[{Show[{ListLogLogPlot[{flowMeansl, flowMeansm, flowMeansh}, PlotRange->{{0.01, 10^3}, {10^-8, 10^2}},  PlotLegends->True], LogLogPlot[{Exp[a (Log[x] - b)], Exp[c (Log[x] - d)]}, {x, 0.01, 10^3}]}],  N[Exp[(a b -c d)/(a-c)]]}, {{a, 1}, 0, 5}, {{b, 4.72}, -2, 12}, {{c, 4.63}, 0.1, 5}, {{d, -0.87}, -2, 6}]
 
 
@@ -255,3 +271,9 @@ graemeFlowData = {#[[1]], #[[2]]}&/@graemeFlow;
 
 
 ListLogLogPlot[{graemeFlowData, flowMeansm}]
+
+
+ListLogLogPlot[{histMeansl, histMeansm, histMeansh}, PlotRange->{{10^-5, 10^5}, Automatic}, PlotMarkers->fm["Circle", 2], PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], ImageSize->1200, FrameLabel->{{"Mean Block Size", None}, {"\[Lambda]", None}}, Frame->True]
+
+
+ListLogLogPlot[{histErrsl, histErrsm, histErrsh}, PlotRange->{{10^-5, 10^5}, {0.3, Automatic}}, PlotMarkers->fm["Circle", 2], PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], ImageSize->1200, FrameLabel->{{"Block Size Std. Error", None}, {"\[Lambda]", None}}, Frame->True]

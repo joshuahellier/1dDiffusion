@@ -69,8 +69,8 @@
 (* ::Input:: *)
 (*aprilAttempt9Reg = Import["/home/jhell/research/results/aprilImager/highLambda/attempt9/typeStats.dat", "Data"];*)
 (*aprilAttempt9Straight = Import["/home/jhell/research/results/aprilImager/highLambda/attempt9/straightTypes.dat", "Data"];*)
-(*ArrayPlot[(1-#)&/@aprilAttempt9Reg, PlotRange->{0, 1}, ImageSize->{1024, 1024}]*)
-(*ArrayPlot[(1-#)&/@aprilAttempt9Straight, PlotRange->{0, 1}, ImageSize->{512, 512}]*)
+(*ArrayPlot[(1-#)&/@aprilAttempt9Reg, PlotRange->{0, 1}, ImageSize->{1024, 1024}, Frame->False]*)
+(*ArrayPlot[(1-#)&/@aprilAttempt9Straight, PlotRange->{0, 1}, ImageSize->{1024, 1024}, Frame->False]*)
 
 
 N[Mean[Mean[aprilAttempt9Straight]]]
