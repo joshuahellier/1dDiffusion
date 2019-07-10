@@ -12,11 +12,11 @@ numStepsEquilib = 160000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
 numStepsReq = 16000
-sysSize = 128
+sysSize = 32
 analInterval = 1
 numPasses = 10000
 timeInterval = 100.0
-dataLocation = "batchJobs/mainRuns/thesisCorrectionData/diffCoeff/L128/"
+dataLocation = "batchJobs/mainRuns/thesisCorrectionData/diffCoeff/L32/"
 lambdaMin = 0.01
 lambdaMax = 10.0
 concDiffMin = -0.05
@@ -27,7 +27,7 @@ concMax = 0.97
 concMin = 0.03
 concStepSize = (concMax-concMin)/float(numConcs-1)
 
-jobIndex = 5761
+jobIndex = 1
 
 runningJobs = []
 
@@ -40,7 +40,7 @@ for rateIndex in range(0, numLambda):
             currentConcDiff = diffStepSize*concDiffIndex + concDiffMin
             botConc = currentConc - 0.5*currentConcDiff
             topConc = currentConc + 0.5*currentConcDiff
-            jobInput = "newSteadyFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(concDiffIndex)+"\n"
+            jobInput = "tempSteadyFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(concDiffIndex)+" "+str(rateIndex)+"m"+str(concIndex)+"m"+str(concDiffIndex)+"\n"
             with open("jobInputs/testInput."+str(jobIndex), 'w') as f:
                 f.write(jobInput)
             jobIndex += 1
