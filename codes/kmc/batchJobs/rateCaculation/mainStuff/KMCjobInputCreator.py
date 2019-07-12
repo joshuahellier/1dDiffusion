@@ -12,11 +12,11 @@ numStepsEquilib = 160000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
 numStepsReq = 16000
-sysSize = 32
+sysSize = 128
 analInterval = 1
 numPasses = 10000
 timeInterval = 100.0
-dataLocation = "batchJobs/mainRuns/thesisCorrectionData/diffCoeff/L32/"
+dataLocation = "batchJobs/mainRuns/thesisCorrectionData/diffCoeff/L128/"
 lambdaMin = 0.01
 lambdaMax = 10.0
 concDiffMin = -0.05
@@ -27,7 +27,7 @@ concMax = 0.97
 concMin = 0.03
 concStepSize = (concMax-concMin)/float(numConcs-1)
 
-jobIndex = 1
+jobIndex = 4609
 
 runningJobs = []
 
