@@ -4,7 +4,9 @@ import math
 import shutil as sh
 
 resultDir = os.environ.get('RESULTS')
-if resultDir == None :
+tempDir = os.environ.get('TMPDIR')
+
+if resultDir == None or tempDir == None :
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
 
 # Expecting input botConc, topConc, rateConstFull, sysSize, analInterval, numStepsEquilib, numStepsSnapshot, numStepsAnal, numStepsReq, numPasses, timeInterval,  fileCode
@@ -29,10 +31,13 @@ fileInfo = sys.argv[12]
 tempFolderName = sys.argv[13]
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
-tempPlace = "/tmp/"+tempFolderName+"/"
+tempPlace = tempDir+"/"+tempFolderName+"/"
 
 if not os.path.exists(resultsPlace):
     os.makedirs(resultsPlace)
+
+if not os.path.exists(tempPlace):
+    os.makedirs(tempPlace)
 
 with open(resultsPlace+'settings', 'w') as f:
     f.write('BotConcentration = ' + str(botConc) +'\n')
@@ -361,6 +366,6 @@ sh.copy(tempPlace+"outTop.dat", resultsPlace+"outTop.dat")
 sh.copy(tempPlace+"mainTraj.tr", resultsPlace+"mainTraj.tr")
 for passNum in range(0, numPasses):
     sh.copy(tempPlace+"composition/composition"+str(passNum)+".dat", resultsPlace+"composition/composition"+str(passNum)+".dat")
-
+sh.rmtree(tempPlace)
 
 print("Process would appear to have succesfully terminated! How very suspicious...")
