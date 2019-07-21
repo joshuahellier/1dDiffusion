@@ -4,7 +4,8 @@ import math
 import shutil
 
 resultDir = os.environ.get('RESULTS')
-if resultDir == None :
+tempDir = os.environ.get('TMPDIR')
+if resultDir == None or tempDir == None:
     print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
 
 # Expecting input botConc, topConc, rateConstFull, sysSize, analInterval, numStepsEquilib, numStepsSnapshot, numStepsAnal, numStepsReq, numPasses, timeInterval,  fileCode
@@ -30,6 +31,7 @@ timeInterval = float(sys.argv[12])
 fileInfo = sys.argv[13]
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
+tempPlace = tempDir+"/"+tempFolderName+"/"
 
 if not os.path.exists(resultsPlace):
     os.makedirs(resultsPlace)
@@ -315,21 +317,21 @@ control_parameters_anal = KMCControlParameters(number_of_steps=numStepsAnal, ana
 
 # Run the simulation - save trajectory to resultsPlace, which should by now exist
 
-model.run(control_parameters_equilib, trajectory_filename=(resultsPlace+"equilib.traj"))
+model.run(control_parameters_equilib, trajectory_filename=(tempPlace+"equilib.traj"))
 
 
-with open(resultsPlace+"inBot.dat", 'w') as f:
+with open(tempPlace+"inBot.dat", 'w') as f:
     pass
-with open(resultsPlace+"outBot.dat", 'w') as f:
+with open(tempPlace+"outBot.dat", 'w') as f:
     pass
-with open(resultsPlace+"inTop.dat", 'w') as f:
+with open(tempPlace+"inTop.dat", 'w') as f:
     pass
-with open(resultsPlace+"outTop.dat", 'w') as f:
+with open(tempPlace+"outTop.dat", 'w') as f:
     pass
 
 
-if not os.path.exists(resultsPlace+"numHists"):
-    os.makedirs(resultsPlace+"numHists")
+if not os.path.exists(tempPlace+"numHists"):
+    os.makedirs(tempPlace+"numHists")
 
 
 ovNumHist = []
@@ -347,30 +349,34 @@ for passNum in range(0, numPasses):
     model.run(control_parameters_req, trajectory_filename=("/dev/null"))
     model.run(control_parameters_anal, trajectory_filename=("/dev/null"), analysis=[processStatsOxInBot, processStatsOxOutBot, processStatsOxInTop, processStatsOxOutTop, numHist])
 
-    with open(resultsPlace+"inBot.dat", 'a') as f:
+    with open(tempPlace+"inBot.dat", 'a') as f:
         processStatsOxInBot.printResults(f)
-    with open(resultsPlace+"outBot.dat", 'a') as f:
+    with open(tempPlace+"outBot.dat", 'a') as f:
         processStatsOxOutBot.printResults(f)
-    with open(resultsPlace+"inTop.dat", 'a') as f:
+    with open(tempPlace+"inTop.dat", 'a') as f:
         processStatsOxInTop.printResults(f)
-    with open(resultsPlace+"outTop.dat", 'a') as f:
+    with open(tempPlace+"outTop.dat", 'a') as f:
         processStatsOxOutTop.printResults(f)
-    with open(resultsPlace+"numHists/numHist"+str(passNum)+".dat", 'w') as f:
+    with open(tempPlace+"numHists/numHist"+str(passNum)+".dat", 'w') as f:
         pass
-    with open(resultsPlace+"numHists/numHist"+str(passNum)+".dat", 'a') as f:
+    with open(tempPlace+"numHists/numHist"+str(passNum)+".dat", 'a') as f:
         numHist.printResults(f)
-    with open(resultsPlace+"numHists/numHist"+str(passNum)+".dat", 'r') as f:
+    with open(tempPlace+"numHists/numHist"+str(passNum)+".dat", 'r') as f:
         lines = f.readlines()
         for index in range(0, numPoints):
             words = lines[index].split()
             ovNumHist[index] += float(words[1])
-    os.remove(resultsPlace+"numHists/numHist"+str(passNum)+".dat")
+    os.remove(tempPlace+"numHists/numHist"+str(passNum)+".dat")
 
 with open(resultsPlace+"ovNumHist.dat", 'w') as f:
     for index in range(0, numPoints):
         f.write(str(index)+" "+str(ovNumHist[index])+"\n")
-
-shutil.rmtree(resultsPlace+"numHists", ignore_errors=True)
+sh.copy(tempPlace+"inBot.dat", resultsPlace+"inBot.dat")
+sh.copy(tempPlace+"outBot.dat", resultsPlace+"outBot.dat")
+sh.copy(tempPlace+"inTop.dat", resultsPlace+"inTop.dat")
+sh.copy(tempPlace+"outTop.dat", resultsPlace+"outTop.dat")
+sh.copy(tempPlace+"mainTraj.tr", resultsPlace+"mainTraj.tr")
+shutil.rmtree(tempPlace, ignore_errors=True)
 
 
 print("Process would appear to have succesfully terminated! How very suspicious...")
