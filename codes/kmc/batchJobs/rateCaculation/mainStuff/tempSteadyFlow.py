@@ -32,6 +32,7 @@ tempFolderName = sys.argv[13]
 
 resultsPlace = resultDir+"/"+fileInfo+"/"
 tempPlace = tempDir+"/"+tempFolderName+"/"
+#tempPlace = "/tmp/"+tempFolderName+"/"
 
 if not os.path.exists(resultsPlace):
     os.makedirs(resultsPlace)

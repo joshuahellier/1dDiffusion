@@ -12,11 +12,14 @@ numStepsEquilib = 160000
 numStepsAnal = 16000
 numStepsSnapshot = 1000
 numStepsReq = 16000
-sysSize = 32
+sysSize = 128
 analInterval = 1
-numPasses = 10000
+numPasses = 1000
 timeInterval = 100.0
-dataLocation = "batchJobs/mainRuns/thesisCorrectionData/diffCoeff/L32/"
+resultDir = os.environ.get('RESULTS')
+if resultDir == None :
+    print ("WARNING! $RESULTS not set! Attempt to write results will fail!\n")
+dataLocation = "batchJobs/mainRuns/thesisCorrectionData2/diffCoeff/L128/"
 lambdaMin = 0.01
 lambdaMax = 10.0
 concDiffMin = -0.05
@@ -41,7 +44,7 @@ for rateIndex in range(0, numLambda):
             botConc = currentConc - 0.5*currentConcDiff
             topConc = currentConc + 0.5*currentConcDiff
             jobInput = "tempSteadyFlow.py "+str(botConc)+" "+str(topConc)+" "+str(currentRate)+" "+str(sysSize)+" "+str(analInterval)+" "+str(numStepsEquilib)+" "+str(numStepsSnapshot)+" "+str(numStepsAnal)+" "+str(numStepsReq)+" "+str(numPasses)+" "+str(timeInterval)+" "+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(concDiffIndex)+" "+str(rateIndex)+"m"+str(concIndex)+"m"+str(concDiffIndex)+"\n"
-            if not os.path.exists(dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(concDiffIndex)+"/composition")
+            if not os.path.isfile(resultDir+"/"+dataLocation+str(rateIndex)+"/"+str(concIndex)+"/"+str(concDiffIndex)+"/composition/composition0.dat"):
                 with open("failedRuns/testInput."+str(jobIndex), 'w') as f:
                     f.write(jobInput)
                 jobIndex += 1
