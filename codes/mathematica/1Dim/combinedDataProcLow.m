@@ -123,6 +123,15 @@ Show[{ListLogLogPlot[{{#[[1]], 100*#[[2]]*0.2}&/@flowDataFineLow, {#[[1]], 11*#[
 
 
 Needs["PolygonPlotMarkers`"]
+Needs["ErrorBarPlots`"]
+
+
+decParam = 5;
+
+
+errorMeansl = Table[{flowMeansl[[decParam*i]][[1]], flowMeansl[[decParam*i]][[2]], Sqrt[flowVarsl[[decParam*i]][[2]]/1000]}, {i, 1, Floor[Length[flowMeansl]/decParam]}];
+errorMeansm = Table[{flowMeansm[[decParam*i]][[1]], flowMeansm[[decParam*i]][[2]], Sqrt[flowVarsm[[decParam*i]][[2]]/1000]}, {i, 1, Floor[Length[flowMeansm]/decParam]}];
+errorMeansh = Table[{flowMeansh[[decParam*i]][[1]], flowMeansh[[decParam*i]][[2]], Sqrt[flowVarsh[[decParam*i]][[2]]/1000]}, {i, 1, Floor[Length[flowMeansh]/decParam]}];
 
 
 fm[name_, size_: 2] := 
@@ -132,19 +141,23 @@ em[name_, size_: 2] :=
     EdgeForm@Directive[CurrentValue["Color"], JoinForm["Round"], AbsoluteThickness[1], 
       Opacity[1]], FaceForm[White], PolygonMarker[name, Offset[size]]}, 
   AlignmentPoint -> {0, 0}]
-Show[{ListPlot[{{#[[1]], (bigL+1)*#[[2]]}&/@midCursLow, {#[[1]], (bigL+1)*#[[2]]}&/@midCursMid, {#[[1]], (bigL+1)*#[[2]]}&/@midCursHigh}, PlotRange->{{0.01*10^-2, 6*10^-1}, {-0.02, 3*10^-1}}, PlotMarkers->em["Circle", 1], Joined->True, PlotStyle->{Darker[Blue], Darker[Green],
-Darker[Red]}, ImageSize->400], ListPlot[{{#[[1]], 100*#[[2]]*0.2}&/@flowDataFineLow, {#[[1]], 100*#[[2]]*0.5}&/@flowDataFineMid, {#[[1]], 100*#[[2]]*0.2}&/@flowDataFineHigh}, PlotMarkers->fm["Triangle", 2],
-PlotStyle->{Darker[Blue], Darker[Green], Darker[Red]}], ListPlot[{{#[[1]], 64*#[[2]]}&/@flowMeansl, {#[[1]], 64*#[[2]]}&/@flowMeansm, {#[[1]], 64*#[[2]]}&/@flowMeansh}, PlotMarkers->fm/@{"DiagonalCross"}, PlotStyle->{Darker[Blue], Darker[Green],
+Show[{ListPlot[{{#[[1]], (bigL+1)*#[[2]]}&/@midCursLow, {#[[1]], 2.5*(bigL+1)*#[[2]]}&/@midCursMid, {#[[1]], (bigL+1)*#[[2]]}&/@midCursHigh}, PlotRange->{{0.01*10^-2, 6*10^-1}, {-0.02, 3*10^-1}}, PlotMarkers->em["Circle", 1], Joined->True, PlotStyle->{Darker[Blue], Darker[Green],
+Darker[Red]}, ImageSize->600], ListPlot[{{#[[1]], 100*#[[2]]*0.2}&/@flowDataFineLow, {#[[1]], 100*#[[2]]*0.5}&/@flowDataFineMid, {#[[1]], 100*#[[2]]*0.2}&/@flowDataFineHigh}, PlotMarkers->fm["Triangle", 2],
+PlotStyle->{Darker[Blue], Darker[Green], Darker[Red]}], 
+ErrorListPlot[{{#[[1]], 64*#[[2]], 64*#[[3]]}&/@errorMeansl, {#[[1]], 64*#[[2]], 64*#[[3]]}&/@errorMeansm, {#[[1]], 64*#[[2]], 64*#[[3]]}&/@errorMeansh}, PlotMarkers->fm/@{"DiagonalCross"}, PlotStyle->{Darker[Blue], Darker[Green],
 Darker[Red]}],  Plot[{J[0.3, 0.1, 1-l], J[0.75, 0.25, 1-l], J[0.9, 0.7, 1-l]}, {l, 10^-4, 10^4}, PlotStyle->{{Darker[Blue], Dashed}, {Darker[Green], Dashed}, {Darker[Red], Dashed}},
 PlotLegends->SwatchLegend[Automatic, {"(0.3, 0.1)", "(0.75, 0.25)", "(0.9, 0.7)"}]]}, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 
 
 
-Show[{ListLogLogPlot[{{#[[1]], (bigL+1)*#[[2]]}&/@midCursLow, {#[[1]], (bigL+1)*#[[2]]}&/@midCursMid, {#[[1]], (bigL+1)*#[[2]]}&/@midCursHigh}, PlotRange->{{1*10^-2, 1*10^2}, {1*10^-6, 5*10^1}}, PlotMarkers->em["Circle", 0.1], Joined->True, PlotStyle->{Darker[Blue], Darker[Green],
-Darker[Red]}, ImageSize->400], ListLogLogPlot[{{#[[1]], 100*#[[2]]*0.2}&/@flowDataFineLow, {#[[1]], 100*#[[2]]*0.5}&/@flowDataFineMid, {#[[1]], 100*#[[2]]*0.2}&/@flowDataFineHigh}, PlotMarkers->fm["Triangle", 2],
-PlotStyle->{Darker[Blue], Darker[Green], Darker[Red]}], ListLogLogPlot[{{#[[1]], 64*#[[2]]}&/@flowMeansl, {#[[1]], 64*#[[2]]}&/@flowMeansm, {#[[1]], 64*#[[2]]}&/@flowMeansh}, PlotMarkers->fm/@{"DiagonalCross"}, PlotStyle->{Darker[Blue], Darker[Green],
-Darker[Red]}],  LogLogPlot[{J[0.3, 0.1, 1-l], J[0.75, 0.25, 1-l], J[0.9, 0.7, 1-l]}, {l, 10^-4, 10^4}, PlotStyle->{{Darker[Blue], Dashed}, {Darker[Green], Dashed}, {Darker[Red], Dashed}},
-PlotLegends->SwatchLegend[Automatic, {"(0.3, 0.1)", "(0.75, 0.25)", "(0.9, 0.7)"}]]}, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+Show[{ListPlot[{{Log10[#[[1]]], Log10[100*#[[2]]*0.2]}&/@flowDataFineLow, {Log10[#[[1]]], Log10[100*#[[2]]*0.2]}&/@flowDataFineMid, {Log10[#[[1]]], Log10[100*#[[2]]*0.2]}&/@flowDataFineHigh}, PlotMarkers->fm["Triangle", 2],
+PlotStyle->{Darker[Blue], Darker[Green], Darker[Red]}, ImageSize->600, PlotRange->{{-2, 1}, {-7, 3}}],
+ErrorListPlot[{{Log10[#[[1]]], Log10[64*#[[2]]], Log10[1+Abs[#[[3]]/#[[2]]]]}&/@Select[errorMeansl, #[[2]]>0&], {Log10[#[[1]]], Log10[64*#[[2]]], Log10[1+Abs[#[[3]]/#[[2]]]]}&/@Select[errorMeansm, #[[2]]>0&], {Log10[#[[1]]], Log10[64*#[[2]]], Log10[1+Abs[#[[3]]/#[[2]]]]}&/@Select[errorMeansh, #[[2]]>0&]}, PlotMarkers->fm/@{"DiagonalCross"}, PlotStyle->{Darker[Blue], Darker[Green],
+Darker[Red]}, PlotRange->{{-2, 2}, {-6, Log10[50]}}],
+ListPlot[{{Log10[#[[1]]], Log10[(bigL+1)*#[[2]]]}&/@midCursLow, {Log10[#[[1]]], Log10[0.5/0.2*(bigL+1)*#[[2]]]}&/@midCursMid, {Log10[#[[1]]], Log10[(bigL+1)*#[[2]]]}&/@midCursHigh}, PlotMarkers->em["Circle", 0.1], Joined->True, PlotStyle->{Darker[Blue], Darker[Green],
+Darker[Red]}],  
+Plot[{Log10[J[0.3, 0.1, 1-10^l]], Log10[J[0.75, 0.25, 1-10^l]], Log10[J[0.9, 0.7, 1-10^l]]}, {l, -4, 4}, PlotStyle->{{Darker[Blue], Dashed}, {Darker[Green], Dashed}, {Darker[Red], Dashed}},
+PlotLegends->SwatchLegend[Automatic, {"(0.3, 0.1)", "(0.75, 0.25)", "(0.9, 0.7)"}]]}, FrameLabel->{{"\!\(\*SubscriptBox[\(Log\), \(10\)]\)[Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)]", None}, {"\!\(\*SubscriptBox[\(Log\), \(10\)]\)\[Lambda]", None}}, RotateLabel->True, Frame->True]
 
 
  LogLogPlot[{J[0.3, 0.1, 1-l], J[0.75, 0.25, 1-l], J[0.9, 0.7, 1-l]}, {l, 0.01, 10}]
@@ -240,3 +253,10 @@ workHighNew = {#[[1]], #[[2]]/(\[Mu][#[[1]], 0.7]- \[Mu][#[[1]], 0.9])}&/@absMid
 
 
 ListLogLogPlot[{{#[[1]], Abs[#[[2]]]}&/@workLowNew, {#[[1]], Abs[#[[2]]]}&/@workMidNew, {#[[1]], Abs[#[[2]]]}&/@workHighNew}, PlotRange->{{10^-4, 10^4}, {10^-10, 10^2}}, PlotMarkers->fm["Circle", 2], PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], ImageSize->1200, FrameLabel->{{"J", None}, {"\[Lambda]", None}}, Frame->True]
+
+
+ErrorListPlot[{{Log10[#[[1]]], Log10[64*#[[2]]], Log10[1+Abs[#[[3]]/#[[2]]]]}&/@Select[errorMeansl, #[[2]]>0&], {Log10[#[[1]]], Log10[64*#[[2]]], Log10[1+Abs[#[[3]]/#[[2]]]]}&/@Select[errorMeansm, #[[2]]>0&], {Log10[#[[1]]], Log10[64*#[[2]]], Log10[1+Abs[#[[3]]/#[[2]]]]}&/@Select[errorMeansh, #[[2]]>0&]}, PlotMarkers->fm/@{"DiagonalCross"}, PlotStyle->{Darker[Blue], Darker[Green],
+Darker[Red]}, PlotRange->{{-2, 2}, {-6, Log10[50]}}]
+
+
+{Log10[#[[1]]], Log10[64*#[[2]]], Log10[1+Abs[#[[3]]/#[[2]]]]}&/@Select[errorMeansl, #[[2]]>0&]

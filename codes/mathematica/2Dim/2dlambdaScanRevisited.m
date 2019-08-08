@@ -18,6 +18,17 @@
 (*flowKurt1 = Table[Import[loc<>sizes1[[index]]<>"flowKurt.dat", "Data"], {index, 1, max}];*)
 
 
+decNum = 8;
+
+
+Needs["ErrorBarPlots`"];
+flowWithErr = Table[{flowMeans1[[i]][[decNum*j+i]][[1]], flowMeans1[[i]][[decNum*j+i]][[2]], Sqrt[flowErr1[[i]][[decNum*j+i]][[1]]/(aspRat1[[i]]*10000)]}, {i, 1, max}, {j, 1, Floor[Length[flowMeans1[[i]]]/decNum-max]}];
+
+
+Show[{ErrorListPlot[flowWithErr, PlotLegends->SwatchLegend[Style[#, FontSize->24, Black]&/@sizes1],  ImageSize->{1024, 768}, PlotStyle->PointSize[Medium]], Plot[J[0.75, 0.25, 1-l], {l, 0, 0.75}, PlotStyle->Black]},
+FrameLabel->{{Style["J/(Aspect Ratio \!\(\*SuperscriptBox[\(s\), \(-1\)]\))", Black], None}, {Style["\[Lambda]", Black], None}}, RotateLabel->True, Frame->True]
+
+
 Show[{ListPlot[flowMeans1, PlotLegends->SwatchLegend[sizes1],  ImageSize->{1024, 768}, PlotStyle->PointSize[Medium]], Plot[J[0.75, 0.25, 1-l], {l, 0, 0.75}]}]
 ListLogPlot[flowErr1, PlotLegends->SwatchLegend[sizes1],  ImageSize->{1024, 768}, PlotStyle->PointSize[Medium]]
 ListLogPlot[{flowErr1[[1]], flowErr1[[4]], flowErr1[[7]]}, PlotLegends->SwatchLegend[sizes1],  ImageSize->{1024, 768}, PlotStyle->PointSize[Medium]]

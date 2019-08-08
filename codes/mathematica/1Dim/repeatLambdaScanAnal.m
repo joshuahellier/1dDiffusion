@@ -254,9 +254,17 @@ Show[{ErrorListLogLogPlot[fullFlowsm, PlotRange->{{10^-2, 10^3}, {10^-7, 10^(2)}
 
 
 
+decParam  = 5;
+
+
+errMeansl = Table[{meansl[[decParam*i]][[1]], meansl[[decParam*i]][[2]], Sqrt[errsl[[decParam*i]][[2]]/1000]}, {i, 1, Floor[Length[meansl]/decParam]}];
+errMeansm = Table[{meansm[[decParam*i]][[1]], meansm[[decParam*i]][[2]], Sqrt[errsm[[decParam*i]][[2]]/1000]}, {i, 1, Floor[Length[meansm]/decParam]}];
+errMeansh = Table[{meansh[[decParam*i]][[1]], meansh[[decParam*i]][[2]], Sqrt[errsh[[decParam*i]][[2]]/1000]}, {i, 1, Floor[Length[meansh]/decParam]}];
+
+
 a=-1.05; b = 4.7; c = -4.4; d = -0.3;
 (*Show[{ErrorListLogLogPlot[fullFlowsm, PlotRange->{{10^-2, 10^3}, {10^-7, 10^(2)}}, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True], LogLogPlot[J[0.75, 0.25, 1-l]/64, {l, 10^-2, 10^3}, PlotRange->{10^-7, 10^2}, PlotStyle->{Black, Dashed}], LogLogPlot[1/(Exp[a (Log[x] - b)]+Exp[c (Log[x] - d)]),{x, 10^-2, 10^3}, PlotRange->{10^-7, 10^2}, PlotStyle->{{Red, Dotted}}]}]*)
-Show[ListLogLogPlot[{meansl, meansm, meansh}, PlotRange->{{0.5*10^-2, 5*10^4}, {0.19, 1}},  PlotLegends->SwatchLegend[{"(0.3, 0.1)", "(0.75, 0.25)", "(0.9, 0.7)"}]], FrameLabel->{{"Particle Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
+Show[ErrorListLogLogPlot[{errMeansl, errMeansm, errMeansh}, PlotRange->{{0.5*10^-2, 5*10^4}, {0.175, 1}},  PlotLegends->SwatchLegend[{"(0.3, 0.1)", "(0.75, 0.25)", "(0.9, 0.7)"}], PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}, ImageSize->600], FrameLabel->{{"Particle Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 Show[{ListLogLogPlot[{flowMeansl, flowMeansm, flowMeansh}, PlotRange->{{10^-3, 10^6}, {10^-7, 10^4}}], LogLogPlot[{J[0.5, 0.3, 1-l]/64, J[0.75, 0.25, 1-l]/64, J[0.9, 0.7, 1-l]/64}, {l, 10^-3, 10^6}]}, FrameLabel->{{"Flow Rate/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True]
 
 
@@ -273,7 +281,12 @@ graemeFlowData = {#[[1]], #[[2]]}&/@graemeFlow;
 ListLogLogPlot[{graemeFlowData, flowMeansm}]
 
 
-ListLogLogPlot[{histMeansl, histMeansm, histMeansh}, PlotRange->{{10^-5, 10^5}, Automatic}, PlotMarkers->fm["Circle", 2], PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], ImageSize->1200, FrameLabel->{{"Mean Block Size", None}, {"\[Lambda]", None}}, Frame->True]
+errHistl = Table[{histMeansl[[i]][[1]], histMeansl[[i]][[2]], histErrsl[[i]][[2]]*histMeansl[[i]][[2]]/100}, {i, 1, Length[histMeansl]}];
+errHistm = Table[{histMeansm[[i]][[1]], histMeansm[[i]][[2]], histErrsm[[i]][[2]]*histMeansm[[i]][[2]]/100}, {i, 1, Length[histMeansm]}];
+errHisth = Table[{histMeansh[[i]][[1]], histMeansh[[i]][[2]], histErrsh[[i]][[2]]*histMeansh[[i]][[2]]/100}, {i, 1, Length[histMeansh]}];
+
+
+ErrorListLogLogPlot[{errHistl, errHistm, errHisth}, PlotRange->{{10^-5, 10^5}, Automatic}, PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], ImageSize->1200, FrameLabel->{{"Mean Block Size", None}, {"\[Lambda]", None}}, Frame->True]
 
 
 ListLogLogPlot[{histErrsl, histErrsm, histErrsh}, PlotRange->{{10^-5, 10^5}, {0.3, Automatic}}, PlotMarkers->fm["Circle", 2], PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], ImageSize->1200, FrameLabel->{{"Block Size Std. Error", None}, {"\[Lambda]", None}}, Frame->True]

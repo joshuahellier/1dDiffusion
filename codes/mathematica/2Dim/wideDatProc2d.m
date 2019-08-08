@@ -173,10 +173,30 @@ J[b_, t_, z_]:= 1/6 (-6 b+24 b^2 z-6 b^5 z^3+3 b^4 z^2 (5+3 z)-2 b^3 z (5+13 z)+
 Show[{ListLogLogPlot[{flowLongl, flowLongm, flowLongh}, PlotMarkers->fm["Circle", 4], ImageSize->1600, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], PlotRange->{{0.01, 10}, {10^-9, 500}}, FrameLabel->{{"J/\!\(\*SuperscriptBox[\(s\), \(-1\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024, PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}],
 LogLogPlot[{J[0.1, 0.3, 1-l], J[0.4, 0.6, 1-l], J[0.7, 0.9, 1-l]}, {l, 0.05, 10}, PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}]}]
 ListLogLogPlot[{flowVarsLongl, flowVarsLongm, flowVarsLongh}, PlotMarkers->fm["Circle", 4], ImageSize->1600, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], PlotRange->{{0.01, 10}, Automatic}, FrameLabel->{{"Var[J]/\!\(\*SuperscriptBox[\(s\), \(-2\)]\)", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024, PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}]
-ListLogLogPlot[{meansLongl, meansLongm, meansLongh}, PlotMarkers->fm["Circle", 4], ImageSize->1600, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}], PlotRange->{{0.01, 100}, {10^-6, 1000}}, FrameLabel->{{"Particle Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024, PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}]
 
 
 
 
 
 
+
+
+
+errMeansLongl = Table[{Log10[meansLongl[[i]][[1]]], meansLongl[[i]][[2]], Sqrt[1errsLongl[[i]][[2]]]/4096}, {i, 1, Length[meansLongl]}];
+errMeansLongm = Table[{Log10[meansLongm[[i]][[1]]], meansLongm[[i]][[2]], Sqrt[1errsLongm[[i]][[2]]]/4096}, {i, 1, Length[meansLongm]}];
+errMeansLongh = Table[{Log10[meansLongh[[i]][[1]]], meansLongh[[i]][[2]], Sqrt[1errsLongh[[i]][[2]]]/4096}, {i, 1, Length[meansLongh]}];
+
+
+repeatLoc = "/home/jhell/research/results/thesisCorrectionData/2Dim/";
+repeatLab = {"low", "mid", "high"};
+repeatDensMeans = Table[Import[repeatLoc<>repeatLab[[i]]<>"/densMeans.dat", "Data"], {i, 1, 3}];
+repeatDensVars = Table[Import[repeatLoc<>repeatLab[[i]]<>"/densErrs.dat", "Data"], {i, 1, 3}];
+
+
+
+ErrorListPlot[{errMeansLongl, errMeansLongm, errMeansLongh}, PlotMarkers->fm["Circle", 4], ImageSize->1600, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}],
+PlotRange->{{-1.75, 1}, {0.1, 1}}, FrameLabel->{{"Particle Density", None}, {"\!\(\*SubscriptBox[\(Log\), \(10\)]\)\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024, PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}]
+
+
+ListLogLogPlot[{meansLongl, meansLongm, meansLongh}, PlotMarkers->fm["Circle", 4], ImageSize->1600, PlotLegends->SwatchLegend[Automatic, Style[#, FontSize->24]&/@{"(0.3, 0.1)", "(0.6, 0.4)", "(0.9, 0.7)"}],
+PlotRange->{{0.01, 100}, {10^-6, 1000}}, FrameLabel->{{"Particle Density", None}, {"\[Lambda]", None}}, RotateLabel->True, Frame->True, ImageSize->1024, PlotStyle->{Darker[Red], Darker[Blue], Darker[Green]}]
